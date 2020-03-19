@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AnnounceCell" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="579" height="208"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzo-Nn-ssT">
+                    <rect key="frame" x="0.0" y="0.0" width="579" height="208"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019-12-12" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ess-6x-zjN" userLabel="dateLabel">
+                            <rect key="frame" x="16" y="0.0" width="100" height="208"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="7QO-8b-aJn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提示" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNc-cY-PZQ" userLabel="contentLabel">
+                            <rect key="frame" x="124" y="0.0" width="455" height="208"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ess-6x-zjN" firstAttribute="top" secondItem="vzo-Nn-ssT" secondAttribute="top" id="1qo-Ny-yTf"/>
+                        <constraint firstItem="YNc-cY-PZQ" firstAttribute="leading" secondItem="Ess-6x-zjN" secondAttribute="trailing" constant="8" id="7YV-ea-fo3"/>
+                        <constraint firstAttribute="trailing" secondItem="YNc-cY-PZQ" secondAttribute="trailing" id="9Hb-xQ-o9m"/>
+                        <constraint firstItem="Ess-6x-zjN" firstAttribute="leading" secondItem="vzo-Nn-ssT" secondAttribute="leading" constant="16" id="jVZ-95-eb0"/>
+                        <constraint firstAttribute="bottom" secondItem="Ess-6x-zjN" secondAttribute="bottom" id="nJW-nV-cIJ"/>
+                        <constraint firstItem="YNc-cY-PZQ" firstAttribute="top" secondItem="vzo-Nn-ssT" secondAttribute="top" id="tfM-n8-XwB"/>
+                        <constraint firstAttribute="bottom" secondItem="YNc-cY-PZQ" secondAttribute="bottom" id="uDU-ga-FZ3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vzo-Nn-ssT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dS9-xx-bRL"/>
+                <constraint firstAttribute="trailing" secondItem="vzo-Nn-ssT" secondAttribute="trailing" id="hni-D7-UrT"/>
+                <constraint firstAttribute="bottom" secondItem="vzo-Nn-ssT" secondAttribute="bottom" id="hoR-Io-CaR"/>
+                <constraint firstItem="vzo-Nn-ssT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hpc-tc-MNF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="contentLabel" destination="YNc-cY-PZQ" id="X1b-2l-Qgf"/>
+                <outlet property="dateLabel" destination="Ess-6x-zjN" id="NdX-V1-Deh"/>
+            </connections>
+            <point key="canvasLocation" x="301.60000000000002" y="-72.863568215892059"/>
+        </view>
+    </objects>
+</document>

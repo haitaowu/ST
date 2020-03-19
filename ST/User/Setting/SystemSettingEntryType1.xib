@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="QdP-7u-fBg" customClass="SystemSettingEntryType1" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aboutus_item_img" translatesAutoresizingMaskIntoConstraints="NO" id="78z-u5-Skw">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="KB2-uQ-ZOR"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9Z-B9-xx0">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="NRI-I6-ang"/>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NRI-I6-ang" firstAttribute="centerY" secondItem="QdP-7u-fBg" secondAttribute="centerY" id="Cuf-bb-YDS"/>
+                <constraint firstItem="k9Z-B9-xx0" firstAttribute="centerY" secondItem="QdP-7u-fBg" secondAttribute="centerY" id="LU6-Zv-bMF"/>
+                <constraint firstAttribute="trailing" secondItem="NRI-I6-ang" secondAttribute="trailing" constant="10" id="NLO-YS-L9R"/>
+                <constraint firstItem="k9Z-B9-xx0" firstAttribute="leading" secondItem="78z-u5-Skw" secondAttribute="trailing" constant="8" id="WdB-4G-w6Q"/>
+                <constraint firstItem="78z-u5-Skw" firstAttribute="leading" secondItem="QdP-7u-fBg" secondAttribute="leading" constant="10" id="YeH-VG-uxm"/>
+                <constraint firstItem="78z-u5-Skw" firstAttribute="top" secondItem="QdP-7u-fBg" secondAttribute="top" constant="4" id="bEp-Xk-6Kj"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconView" destination="78z-u5-Skw" id="BFA-j4-KV9"/>
+                <outlet property="label" destination="k9Z-B9-xx0" id="n8f-VU-c4H"/>
+            </connections>
+            <point key="canvasLocation" x="-69.5" y="-181"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="aboutus_item_img" width="36" height="36"/>
+        <image name="arrow" width="6" height="7"/>
+    </resources>
+</document>

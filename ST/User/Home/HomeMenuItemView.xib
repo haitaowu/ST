@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Wn0-pK-NUv" userLabel="HomeMenuItemView" customClass="HomeMenuItemView" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjs-Vc-yqx">
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_menu_1" translatesAutoresizingMaskIntoConstraints="NO" id="Ydb-0v-uT3"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单件录入" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JY-7c-ZRG">
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ydb-0v-uT3" secondAttribute="trailing" id="9c9-fh-Ive"/>
+                        <constraint firstItem="Ydb-0v-uT3" firstAttribute="centerX" secondItem="Pjs-Vc-yqx" secondAttribute="centerX" id="KVo-Fp-OGq"/>
+                        <constraint firstAttribute="bottom" secondItem="8JY-7c-ZRG" secondAttribute="bottom" id="R7u-CT-TrT"/>
+                        <constraint firstItem="Ydb-0v-uT3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Pjs-Vc-yqx" secondAttribute="leading" id="Zwr-2S-11i"/>
+                        <constraint firstItem="8JY-7c-ZRG" firstAttribute="leading" secondItem="Pjs-Vc-yqx" secondAttribute="leading" id="b4t-bT-Itc"/>
+                        <constraint firstItem="8JY-7c-ZRG" firstAttribute="top" secondItem="Ydb-0v-uT3" secondAttribute="bottom" constant="11" id="f6R-oy-Yju"/>
+                        <constraint firstItem="Ydb-0v-uT3" firstAttribute="top" secondItem="Pjs-Vc-yqx" secondAttribute="top" id="kqC-q0-nIP"/>
+                        <constraint firstAttribute="trailing" secondItem="8JY-7c-ZRG" secondAttribute="trailing" id="z7N-os-x98"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Pjs-Vc-yqx" firstAttribute="centerY" secondItem="Wn0-pK-NUv" secondAttribute="centerY" id="6MC-H7-BUo"/>
+                <constraint firstItem="Pjs-Vc-yqx" firstAttribute="centerX" secondItem="Wn0-pK-NUv" secondAttribute="centerX" id="bR7-lu-gsI"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconView" destination="Ydb-0v-uT3" id="BGo-je-Zbu"/>
+                <outlet property="titleView" destination="8JY-7c-ZRG" id="boR-mA-9vQ"/>
+            </connections>
+            <point key="canvasLocation" x="-1" y="-837"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="home_menu_1" width="32" height="32"/>
+    </resources>
+</document>

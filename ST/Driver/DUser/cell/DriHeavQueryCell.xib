@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DriHeavQueryCell" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="579" height="208"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzo-Nn-ssT">
+                    <rect key="frame" x="0.0" y="0.0" width="579" height="208"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ess-6x-zjN" userLabel="numLabel">
+                            <rect key="frame" x="0.0" y="94" width="193" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwd-NV-DEY" userLabel="dateLabel">
+                            <rect key="frame" x="193" y="94" width="193" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="route" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkX-C4-Bec" userLabel="routeLabel">
+                            <rect key="frame" x="386" y="94" width="193" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="vwd-NV-DEY" firstAttribute="width" secondItem="Ess-6x-zjN" secondAttribute="width" id="1hG-7r-pU5"/>
+                        <constraint firstItem="Ess-6x-zjN" firstAttribute="centerY" secondItem="vzo-Nn-ssT" secondAttribute="centerY" id="E6d-nt-ZSS"/>
+                        <constraint firstItem="nkX-C4-Bec" firstAttribute="leading" secondItem="vwd-NV-DEY" secondAttribute="trailing" id="NzC-Nn-ub3"/>
+                        <constraint firstItem="nkX-C4-Bec" firstAttribute="width" secondItem="Ess-6x-zjN" secondAttribute="width" id="a1N-Md-iI1"/>
+                        <constraint firstItem="nkX-C4-Bec" firstAttribute="centerY" secondItem="vwd-NV-DEY" secondAttribute="centerY" id="dME-nh-O7J"/>
+                        <constraint firstAttribute="trailing" secondItem="nkX-C4-Bec" secondAttribute="trailing" id="fMs-Kx-eMf"/>
+                        <constraint firstItem="Ess-6x-zjN" firstAttribute="leading" secondItem="vzo-Nn-ssT" secondAttribute="leading" id="nXX-iP-Imu"/>
+                        <constraint firstItem="vwd-NV-DEY" firstAttribute="leading" secondItem="Ess-6x-zjN" secondAttribute="trailing" id="x7M-ui-GJ7"/>
+                        <constraint firstItem="vwd-NV-DEY" firstAttribute="centerY" secondItem="Ess-6x-zjN" secondAttribute="centerY" id="yfp-62-VD9"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="vzo-Nn-ssT" secondAttribute="bottom" id="JFY-Mt-zSv"/>
+                <constraint firstItem="vzo-Nn-ssT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rke-oW-sJm"/>
+                <constraint firstItem="vzo-Nn-ssT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iAY-b9-IE9"/>
+                <constraint firstAttribute="trailing" secondItem="vzo-Nn-ssT" secondAttribute="trailing" id="jWn-4M-OOr"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dateLabel" destination="vwd-NV-DEY" id="Rzc-Qn-7GT"/>
+                <outlet property="numLabel" destination="Ess-6x-zjN" id="Eu7-PK-Axw"/>
+                <outlet property="routeLabel" destination="nkX-C4-Bec" id="Igi-Hz-g1X"/>
+            </connections>
+            <point key="canvasLocation" x="301.60000000000002" y="-72.863568215892059"/>
+        </view>
+    </objects>
+</document>

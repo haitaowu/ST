@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11201"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController" customModule="ST" customModuleProvider="target">
+            <connections>
+                <outlet property="gridContainer" destination="4Sa-cx-C6j" id="0rV-3Y-yb1"/>
+                <outlet property="gridView" destination="lFd-J7-dgl" id="ayD-rq-CwI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Sa-cx-C6j">
+                    <subviews>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="lFd-J7-dgl" customClass="GridView" customModule="ST" customModuleProvider="target">
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="lFd-J7-dgl" secondAttribute="trailing" id="Vrv-e8-Y2a"/>
+                        <constraint firstAttribute="bottom" secondItem="lFd-J7-dgl" secondAttribute="bottom" id="gCZ-Qa-2jQ"/>
+                        <constraint firstItem="lFd-J7-dgl" firstAttribute="top" secondItem="4Sa-cx-C6j" secondAttribute="top" id="u3d-nT-0Bb"/>
+                        <constraint firstItem="lFd-J7-dgl" firstAttribute="leading" secondItem="4Sa-cx-C6j" secondAttribute="leading" id="xJx-01-AVa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="4Sa-cx-C6j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="AGA-6W-VMf"/>
+                <constraint firstAttribute="trailing" secondItem="4Sa-cx-C6j" secondAttribute="trailing" constant="16" id="I9h-3h-Ntm"/>
+                <constraint firstItem="4Sa-cx-C6j" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="UZp-db-sCI"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

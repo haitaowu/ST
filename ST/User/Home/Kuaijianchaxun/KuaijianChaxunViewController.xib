@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KuaijianChaxunViewController" customModule="ST" customModuleProvider="target">
+            <connections>
+                <outlet property="topContainer" destination="Nmb-gE-1v1" id="Tiw-15-4lS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="yFh-Ku-JfE" id="qGd-m2-Dw3"/>
+                <outlet property="yundanhaoField" destination="ZbS-GO-Drh" id="HnD-rq-YAK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-gE-1v1">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wpm-0o-1aX">
+                            <rect key="frame" x="8" y="10" width="359" height="40"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运单号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeV-rG-KXQ">
+                                    <rect key="frame" x="6" y="10" width="57" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入运单号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZbS-GO-Drh">
+                                    <rect key="frame" x="69" y="5" width="238" height="30"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-5w-qa0">
+                                    <rect key="frame" x="315" y="4" width="32" height="32"/>
+                                    <state key="normal" image="sao_yi_sao_icon"/>
+                                    <connections>
+                                        <action selector="saoBtnClicked:" destination="-1" eventType="touchUpInside" id="PuY-Bz-Mnk"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="ZbS-GO-Drh" firstAttribute="leading" secondItem="VeV-rG-KXQ" secondAttribute="trailing" constant="6" id="L77-cA-FBa"/>
+                                <constraint firstAttribute="trailing" secondItem="iQM-5w-qa0" secondAttribute="trailing" constant="12" id="MYu-oV-iI2"/>
+                                <constraint firstAttribute="height" constant="40" id="PQq-Px-I0i"/>
+                                <constraint firstItem="ZbS-GO-Drh" firstAttribute="centerY" secondItem="Wpm-0o-1aX" secondAttribute="centerY" id="hbF-Zt-0Au"/>
+                                <constraint firstItem="iQM-5w-qa0" firstAttribute="leading" secondItem="ZbS-GO-Drh" secondAttribute="trailing" constant="8" id="iaI-cu-tB0"/>
+                                <constraint firstItem="iQM-5w-qa0" firstAttribute="centerY" secondItem="Wpm-0o-1aX" secondAttribute="centerY" id="idx-v2-GHD"/>
+                                <constraint firstItem="VeV-rG-KXQ" firstAttribute="leading" secondItem="Wpm-0o-1aX" secondAttribute="leading" constant="6" id="oGd-dG-6ff"/>
+                                <constraint firstItem="VeV-rG-KXQ" firstAttribute="centerY" secondItem="Wpm-0o-1aX" secondAttribute="centerY" id="rbP-XY-y5e"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXf-ZM-2kO">
+                            <rect key="frame" x="267" y="58" width="88" height="33"/>
+                            <color key="backgroundColor" red="0.1137254902" green="0.72941176470000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="sgi-wA-6Ya"/>
+                                <constraint firstAttribute="width" constant="88" id="ziK-vi-Wka"/>
+                            </constraints>
+                            <state key="normal" title="查询">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="chaxunBtnClicked:" destination="-1" eventType="touchUpInside" id="3Bg-j2-XrF"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Wpm-0o-1aX" firstAttribute="top" secondItem="Nmb-gE-1v1" secondAttribute="top" constant="10" id="0ii-Sv-cNo"/>
+                        <constraint firstItem="Wpm-0o-1aX" firstAttribute="leading" secondItem="Nmb-gE-1v1" secondAttribute="leading" constant="8" id="9nF-yS-qjf"/>
+                        <constraint firstAttribute="height" constant="110" id="IN2-oL-L71"/>
+                        <constraint firstAttribute="trailing" secondItem="xXf-ZM-2kO" secondAttribute="trailing" constant="20" id="UNe-7s-9Ad"/>
+                        <constraint firstItem="xXf-ZM-2kO" firstAttribute="top" secondItem="Wpm-0o-1aX" secondAttribute="bottom" constant="8" id="olM-vt-HKg"/>
+                        <constraint firstAttribute="trailing" secondItem="Wpm-0o-1aX" secondAttribute="trailing" constant="8" id="vFz-tt-ams"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFh-Ku-JfE" customClass="WebView" customModule="ST" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="yFh-Ku-JfE" secondAttribute="trailing" id="BGS-By-g0W"/>
+                <constraint firstAttribute="bottom" secondItem="yFh-Ku-JfE" secondAttribute="bottom" id="Co2-Pq-0iV"/>
+                <constraint firstItem="Nmb-gE-1v1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="L8V-Nl-dlU"/>
+                <constraint firstItem="yFh-Ku-JfE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UCq-BN-9nO"/>
+                <constraint firstItem="Nmb-gE-1v1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="chA-t8-VGa"/>
+                <constraint firstItem="yFh-Ku-JfE" firstAttribute="top" secondItem="Nmb-gE-1v1" secondAttribute="bottom" id="lnG-QY-0Ct"/>
+                <constraint firstAttribute="trailing" secondItem="Nmb-gE-1v1" secondAttribute="trailing" id="xXo-Vp-Bjq"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="103.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="sao_yi_sao_icon" width="32" height="32"/>
+    </resources>
+</document>

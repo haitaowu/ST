@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SendArriHeader" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="79"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bA-gx-3il">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="79"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2LV-hb-e7Z">
+                            <rect key="frame" x="20" y="19.5" width="166.5" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="psg-Hi-cp6"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="发车" image="send_car">
+                                <color key="titleColor" red="0.0" green="0.95965325342465757" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickTypeBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="Zx9-1X-8iH"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxy-QL-AG1">
+                            <rect key="frame" x="206.5" y="19.5" width="166.5" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="到车" image="arriver_car">
+                                <color key="titleColor" red="1" green="0.1621101097" blue="0.1521261022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickTypeBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="5sF-sK-2Sz"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2LV-hb-e7Z" firstAttribute="leading" secondItem="9bA-gx-3il" secondAttribute="leading" constant="20" id="0Hc-8v-WCG"/>
+                        <constraint firstAttribute="trailing" secondItem="zxy-QL-AG1" secondAttribute="trailing" constant="20" id="8dR-ne-20C"/>
+                        <constraint firstItem="2LV-hb-e7Z" firstAttribute="centerY" secondItem="9bA-gx-3il" secondAttribute="centerY" id="8sG-eL-gBW"/>
+                        <constraint firstItem="2LV-hb-e7Z" firstAttribute="centerY" secondItem="zxy-QL-AG1" secondAttribute="centerY" id="R7I-VK-7K2"/>
+                        <constraint firstItem="zxy-QL-AG1" firstAttribute="leading" secondItem="2LV-hb-e7Z" secondAttribute="trailing" constant="20" id="dMD-Yw-rVS"/>
+                        <constraint firstItem="2LV-hb-e7Z" firstAttribute="width" secondItem="zxy-QL-AG1" secondAttribute="width" id="lzz-Wf-AI6"/>
+                        <constraint firstItem="2LV-hb-e7Z" firstAttribute="height" secondItem="zxy-QL-AG1" secondAttribute="height" id="uLL-sm-AQF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9bA-gx-3il" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QJi-q9-vzI"/>
+                <constraint firstAttribute="trailing" secondItem="9bA-gx-3il" secondAttribute="trailing" id="STw-0P-Mf1"/>
+                <constraint firstItem="9bA-gx-3il" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="c1U-bc-KMo"/>
+                <constraint firstAttribute="bottom" secondItem="9bA-gx-3il" secondAttribute="bottom" id="qMu-W3-fuZ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="arriveCarBtn" destination="zxy-QL-AG1" id="y63-lc-xwu"/>
+                <outlet property="sendCarBtn" destination="2LV-hb-e7Z" id="fqg-iN-kW4"/>
+            </connections>
+            <point key="canvasLocation" x="68" y="-184.85757121439281"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arriver_car" width="26" height="20"/>
+        <image name="send_car" width="26" height="20"/>
+    </resources>
+</document>

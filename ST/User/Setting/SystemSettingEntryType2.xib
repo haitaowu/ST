@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="c3y-Ma-swP" customClass="SystemSettingEntryType2" customModule="ST" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aboutus_item_img" translatesAutoresizingMaskIntoConstraints="NO" id="kC1-PF-CY0">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="yyf-Kn-lha"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa0-bL-6Mt">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvB-QQ-6Fz">
+                    <state key="normal" title="⬜️"/>
+                    <state key="selected" title="☑️"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="aa0-bL-6Mt" firstAttribute="centerY" secondItem="c3y-Ma-swP" secondAttribute="centerY" id="1Tf-OP-CMX"/>
+                <constraint firstItem="aa0-bL-6Mt" firstAttribute="leading" secondItem="kC1-PF-CY0" secondAttribute="trailing" constant="8" id="4gW-xe-Ico"/>
+                <constraint firstItem="kC1-PF-CY0" firstAttribute="top" secondItem="c3y-Ma-swP" secondAttribute="top" constant="4" id="CPB-wa-XM4"/>
+                <constraint firstItem="kC1-PF-CY0" firstAttribute="leading" secondItem="c3y-Ma-swP" secondAttribute="leading" constant="10" id="Ihp-uh-62d"/>
+                <constraint firstItem="AvB-QQ-6Fz" firstAttribute="centerY" secondItem="c3y-Ma-swP" secondAttribute="centerY" id="ODR-8S-9Yc"/>
+                <constraint firstAttribute="trailing" secondItem="AvB-QQ-6Fz" secondAttribute="trailing" constant="2" id="mRG-1K-hZQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconView" destination="kC1-PF-CY0" id="mKm-jR-JWv"/>
+                <outlet property="label" destination="aa0-bL-6Mt" id="MBl-Ii-LAb"/>
+                <outlet property="stateBtn" destination="AvB-QQ-6Fz" id="ctq-2m-cqh"/>
+            </connections>
+            <point key="canvasLocation" x="-69.5" y="-181"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="aboutus_item_img" width="36" height="36"/>
+    </resources>
+</document>
