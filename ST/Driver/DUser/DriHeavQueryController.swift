@@ -61,7 +61,7 @@ class DriHeavQueryController: UIViewController,UITableViewDelegate,UITableViewDa
     self.searchField.layer.borderWidth = 1
     self.searchField.layer.masksToBounds = true
     self.searchField.addLeftSpaceView(width: 8)
-    self.searchField.addRightView(imgName: "search")
+		self.searchField.addRightView(imgName: "search",width: 40,height: 40)
     
     let screenSize = UIScreen.main.bounds.size
     let titleSpace:CGFloat = 16

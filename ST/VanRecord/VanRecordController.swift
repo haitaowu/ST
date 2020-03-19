@@ -64,7 +64,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 		self.searchField.layer.borderWidth = 1
 		self.searchField.layer.masksToBounds = true
 		self.searchField.addLeftSpaceView(width: 8)
-		self.searchField.addRightView(imgName: "search")
+		self.searchField.addRightView(imgName: "search",width: 40,height: 40)
 		self.searchField.returnKeyType = .search
 		self.searchField.delegate = self
 		

@@ -62,7 +62,7 @@ class DriDamgeQueryController: UIViewController,UITableViewDelegate,UITableViewD
     self.searchField.layer.borderWidth = 1
     self.searchField.layer.masksToBounds = true
     self.searchField.addLeftSpaceView(width: 8)
-    self.searchField.addRightView(imgName: "search")
+		self.searchField.addRightView(imgName: "search",width: 30,height: 30)
 		let screenSize = UIScreen.main.bounds.size
 		let titleSpace:CGFloat = 16
 		let titlesWith = screenSize.width - CGFloat(self.titlesAry.count + 1) * titleSpace

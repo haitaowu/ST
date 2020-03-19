@@ -17,15 +17,19 @@ extension UITextField{
         self.leftView = spaceView
         self.leftViewMode = .always
     }
-    
-    func addRightView(imgName: String) -> Void {
-        let frame = CGRect(x: 0, y: 0, width: self.vHeight(), height: self.vHeight())
-        let img = UIImage(named: imgName)
-        let imgView = UIImageView(image: img)
-        imgView.contentMode = .center
-        imgView.frame = frame
-        self.rightView = imgView
-        self.rightViewMode = .always
+	
+	func addRightView(imgName: String,width: CGFloat, height: CGFloat) -> Void {
+		let frame = CGRect(x: 0, y: 0, width: width, height: width)
+		let img = UIImage(named: imgName)
+		let imgView = UIImageView(image: img)
+		imgView.contentMode = .center
+		imgView.backgroundColor = .green
+		let view = UIView()
+		view.frame = frame
+		view.addSubview(imgView)
+		imgView.frame = view.bounds
+		self.rightView = view
+		self.rightViewMode = .always
     }
 	
 	func addRightBtn(imgName: String, action: Selector, target:Any?) -> Void{

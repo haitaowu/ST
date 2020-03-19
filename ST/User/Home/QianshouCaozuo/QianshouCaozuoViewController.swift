@@ -17,6 +17,9 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
     var headers:[String] = ["运单号","签收人","图片"]
     var columnPercents:[CGFloat] = [0.4,0.4,0.2]
     @IBOutlet weak var listView: STListView!
+	
+
+	//MARK:- overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.appBgColor
@@ -27,6 +30,8 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
         self.setupUploadNavItem()
         // Do any additional setup after loading the view.
     }
+	
+	//MARK:- private methods
     func deleteObject(object:STListViewModel) -> Bool{
         if let object = object as? QianshouModel{
             STDb.shared.deleteQs(model: object)
@@ -35,27 +40,21 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
         }
         return false
     }
+	
     private func setupUploadNavItem(){
         let uploadBtn = UIBarButtonItem(image: UIImage(named: "upload"), style: UIBarButtonItem.Style.done, target: self, action: #selector(onUploadAction))
         self.navigationItem.rightBarButtonItem = uploadBtn
     }
 	
+	private func reloadData(){
+			self.objects = STDb.shared.allQs()
+			self.listView.reloadData()
+	}
 	
+	
+	//MARK:- selectors
     @objc private func onUploadAction(){
         self.showLoading(msg: "上传中，清稍后")
-//        DataManager.shared.uploadQianshou(m: STDb.shared.allQs()){
-//        DataManager.shared.reqBillQianshou(m: STDb.shared.allQs()){
-//            [unowned self]result in
-//            self.hideLoading()
-//            if result.0{
-//                STDb.shared.removeAllQs()
-//                self.reloadData()
-//                self.remindUser(msg: "上传成功")
-//            }else{
-//                self.remindUser(msg: result.1)
-//            }
-//        }
-        
         DataManager.shared.reqBillQianshou(m: STDb.shared.allQs()) {
             [unowned self] (succ, msg) in
             self.hideLoading()
@@ -69,11 +68,7 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
         }
     }
     
-    private func reloadData(){
-        self.objects = STDb.shared.allQs()
-        self.listView.reloadData()
-    }
-	
+    
     @IBAction func camaraBtnClicked(_ sender: Any) {
         let ydh = self.ydhField.text ?? ""
         if ydh.isEmpty{
@@ -90,7 +85,40 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
         
         self.present(imagePicker, animated: true, completion: nil)
     }
+	
+
+			@IBAction func scanBtnClicked(_ sender: Any) {
+					self.openQrReader()
+			}
+			
+	///点击存储button
+			@IBAction func saveButtonClicked(_ sender: Any) {
+					let ydh = self.ydhField.text ?? ""
+					let qsr = self.qsrField.text ?? ""
+					let bz = self.bzField.text ?? ""
+					
+					if ydh.isEmpty{
+							self.remindUser(msg: "运单号不能为空")
+							return
+					}
+					if !ydh.isBarcode(){
+							self.remindUser(msg: "运单号格式错误")
+							return
+					}
+					if qsr.isEmpty{
+							self.remindUser(msg: "签收人不能为空")
+							return
+					}
+	//        if bz.isEmpty{
+	//            self.remindUser(msg: "备注不能为空")
+	//            return
+	//        }
+					let m = QianshouModel(billCode: ydh, signName: qsr, tp: tp, signRemark: bz, signDate: Date.stNow)
+					DataManager.shared.saveQianshou(m: m)
+					self.reloadData()
+			}
     
+	//MARK:- UIImagePickerController delegate
     private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
 // Local variable inserted by Swift 4.2 migrator.
 //let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
@@ -113,44 +141,10 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
         self.dismiss(animated: true, completion: nil)
     }
     
+	//MARK:- QRCodeReaderViewDelegate
     func onReadQrCode(code: String) {
         self.ydhField.text = code
     }
     
-    @IBAction func scanBtnClicked(_ sender: Any) {
-        self.openQrReader()
-    }
-    
-    @IBAction func saveButtonClicked(_ sender: Any) {
-        let ydh = self.ydhField.text ?? ""
-        let qsr = self.qsrField.text ?? ""
-        let bz = self.bzField.text ?? ""
-        
-        if ydh.isEmpty{
-            self.remindUser(msg: "运单号不能为空")
-            return
-        }
-        if !ydh.isBarcode(){
-            self.remindUser(msg: "运单号格式错误")
-            return
-        }
-        if qsr.isEmpty{
-            self.remindUser(msg: "签收人不能为空")
-            return
-        }
-//        if bz.isEmpty{
-//            self.remindUser(msg: "备注不能为空")
-//            return
-//        }
-        let m = QianshouModel(billCode: ydh, signName: qsr, tp: tp, signRemark: bz, signDate: Date.stNow)
-        DataManager.shared.saveQianshou(m: m)
-        self.reloadData()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-
 
 }
