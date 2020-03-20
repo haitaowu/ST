@@ -160,6 +160,8 @@
 		BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE20A9A11F66CD5200D2D753 /* BaseUI.storyboard */; };
 		BE28976C23CADD0C009FB9EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE28976E23CADD0C009FB9EE /* InfoPlist.strings */; };
 		BE28977223CADE50009FB9EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE28977423CADE50009FB9EE /* Localizable.strings */; };
+		BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */; };
+		BE2BEA47242466CA007C1F26 /* AnnouceQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */; };
 		BE354DDA23A5D117008AE45E /* TruckRouteListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE354DD823A5D117008AE45E /* TruckRouteListController.xib */; };
 		BE354DDB23A5D117008AE45E /* TruckRouteListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE354DD923A5D117008AE45E /* TruckRouteListController.swift */; };
 		BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCEC228C0B770007B6E0 /* PaijianSaomiaoViewController.swift */; };
@@ -528,6 +530,8 @@
 		BE28976F23CADDBD009FB9EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BE28977323CADE50009FB9EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE28977523CADE55009FB9EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouceQueryController.xib; sourceTree = "<group>"; };
+		BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouceQueryController.swift; sourceTree = "<group>"; };
 		BE354DD823A5D117008AE45E /* TruckRouteListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TruckRouteListController.xib; sourceTree = "<group>"; };
 		BE354DD923A5D117008AE45E /* TruckRouteListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruckRouteListController.swift; sourceTree = "<group>"; };
 		BE38BCEC228C0B770007B6E0 /* PaijianSaomiaoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaijianSaomiaoViewController.swift; sourceTree = "<group>"; };
@@ -1503,6 +1507,8 @@
 				BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */,
 				BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */,
 				BE5FD58023729F79004CF114 /* CenAnnounceDetailController.xib */,
+				BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */,
+				BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1927,6 +1933,7 @@
 				BE38BD55228C0B770007B6E0 /* WentijianCaozuoViewController.xib in Resources */,
 				BE38BD47228C0B770007B6E0 /* ShoujianSaomiaoViewController.xib in Resources */,
 				BE85CC8E22CC928B009D00AC /* DriDamgeQueryController.xib in Resources */,
+				BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */,
 				BEE7471C22C5128C002B241E /* DNumHeader.xib in Resources */,
 				BEE7471822C5128C002B241E /* DMissionFooter.xib in Resources */,
 				BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */,
@@ -2099,6 +2106,7 @@
 				892583D21DC8DA9700285DB5 /* Debugging.swift in Sources */,
 				8932BF731DC257A400A18267 /* UIViewController+setcontentViewController.swift in Sources */,
 				892583CE1DC8DA9700285DB5 /* ConstraintRelation.swift in Sources */,
+				BE2BEA47242466CA007C1F26 /* AnnouceQueryController.swift in Sources */,
 				BE38BD49228C0B770007B6E0 /* SettingViewController.swift in Sources */,
 				BE0FC4F322BF404800271FED /* UICollectionView+JX.swift in Sources */,
 				BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */,

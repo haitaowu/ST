@@ -24,9 +24,8 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
   var endDate:Date?
   
   
-  var msgAry:Array<AnnoModel>?
-  var searchMsgAry:Array<AnnoModel>?
-  
+  var dataAry:Array<AnnoModel>?
+
   
   //MARK:- Overrides
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -56,11 +55,9 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
     self.tableView.register(nibNotiCell, forCellReuseIdentifier: AnnounceCell.cellID())
     self.tableView.es.addPullToRefresh {
       [unowned self] in
-      let result = self.reqParams()
-      let request = result.req
-      let params = result.params
+      let request = self.reqParams()
       guard let req = request else{return}
-      self.fetchAnnoDatas(params: params, req: req)
+      self.fetchAnnoDatas(req: req)
     }
     self.tableView.es.startPullToRefresh()
   }
@@ -92,6 +89,16 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
     }
   }
 
+	///显示查询结果界面(controller)
+	func showQueryView(queryReq:STRequest?){
+		let control: AnnouceQueryController = AnnouceQueryController()
+		control.queryReq = queryReq
+		control.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(control, animated: true)
+	}
+	
+	
+	
   //MARK:- SELECTORS
   //选择起始时间
   @IBAction func clickStartTimeBtn(_ sender: Any) {
@@ -141,33 +148,21 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
   
  //点击开始查询
   @IBAction func clickToQuery(_ sender: UIButton) {
-    sender.isSelected = !sender.isSelected
-    if sender.isSelected{
-      self.tableView.es.startPullToRefresh()
-    }else{
-      self.tableView.reloadData()
-    }
+		if let req = self.reqOfQuery(){
+			self.showQueryView(queryReq: req)
+		}
   }
+
 
   
   //MARK:- tableView datasource
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if self.queryBtn.isSelected{
-      return self.searchMsgAry?.count ?? 0
-    }else{
-      return self.msgAry?.count ?? 0
-    }
+		return self.dataAry?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cellModel:AnnoModel?
-    if self.queryBtn.isSelected{
-      cellModel = self.searchMsgAry?[indexPath.row]
-    }else{
-      cellModel = self.msgAry?[indexPath.row]
-    }
     let  cell = tableView.dequeueReusableCell(withIdentifier: AnnounceCell.cellID()) as? AnnounceCell
-    if let model = cellModel{
+    if let model = self.dataAry?[indexPath.row]{
       cell?.updateCellUI(model: model)
     }
     return cell!;
@@ -180,13 +175,7 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let control = CenAnnounceDetailController(nibName: "CenAnnounceDetailController", bundle: nil)
-    let cellModel:AnnoModel?
-    if self.queryBtn.isSelected{
-      cellModel = self.searchMsgAry?[indexPath.row]
-    }else{
-      cellModel = self.msgAry?[indexPath.row]
-    }
-    if let model = cellModel{
+    if let model = self.dataAry?[indexPath.row]{
       control.model = model
     }
     control.hidesBottomBarWhenPushed = true
@@ -203,53 +192,68 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
   
   
   //MARK:- params helper
-  func reqParams() -> (params:[String: String],req:STRequest?){
+	///无查询条件的公告列表的参数
+  func reqParams() -> STRequest?{
     var request:STRequest?
-    var reqParams:[String:String] = [:]
+    var params:[String:String] = [:]
+    let manager = DataManager.shared
+    if ((manager.roleType == .center) || (manager.roleType == .site)) {
+      let accStr = manager.loginUser.siteName
+      params["scanSite"] = accStr
+      request = AnnounDataReq(params: params)
+    }else{
+      let truckNum = manager.loginDriver.truckNum
+      params["truckNum"] = truckNum
+      request = AnnoDriverDataReq(params: params)
+    }
+    return (request)
+  }
+	
+	
+	///条件查询的公告列表的参数
+	func reqOfQuery() -> STRequest?{
+    var request:STRequest?
+    var params:[String:String] = [:]
     if self.queryBtn.isSelected{
       if let startD = self.startDate{
         let starTime = self.dateStrFrom(date: startD, formatStr: "yyyy-MM-dd HH:mm:ss")
-        reqParams["starTime"] = starTime
+        params["starTime"] = starTime
       }
       
       if let endD = self.startDate{
         let endTime = self.dateStrFrom(date: endD, formatStr: "yyyy-MM-dd HH:mm:ss")
-        reqParams["endTime"] = endTime
+        params["endTime"] = endTime
       }
       
       let searchTxt = self.searchBar.text
       if searchTxt?.isEmpty == false{
-        reqParams["findData"] = searchTxt
+        params["findData"] = searchTxt
       }
     }
 
     let manager = DataManager.shared
     if ((manager.roleType == .center) || (manager.roleType == .site)) {
       let accStr = manager.loginUser.siteName
-      reqParams["scanSite"] = accStr
-      request = AnnounDataReq(params: reqParams)
+      params["scanSite"] = accStr
+      request = AnnounDataReq(params: params)
     }else{
       let truckNum = manager.loginDriver.truckNum
-      reqParams["truckNum"] = truckNum
-      request = AnnoDriverDataReq(params: reqParams)
+      params["truckNum"] = truckNum
+      request = AnnoDriverDataReq(params: params)
     }
-    return (reqParams,request)
+    return request
   }
   
 
   
   //MARK:- request server
   ///请求公告数据
-  func fetchAnnoDatas(params: [String: String],req: STRequest) -> Void {
+  func fetchAnnoDatas(req: STRequest) -> Void {
     STNetworking<[AnnoModel]>(stRequest:req) {
       [unowned self] resp in
       self.tableView.es.stopPullToRefresh()
       if resp.stauts == Status.Success.rawValue{
-        if self.queryBtn.isSelected{
-          self.msgAry = resp.data
-        }else{
-          self.searchMsgAry = resp.data
-        }
+				self.dataAry = resp.data
         self.tableView.reloadData()
       }else if resp.stauts == Status.NetworkTimeout.rawValue{
         self.remindUser(msg: "网络超时，请稍后尝试")
@@ -260,23 +264,6 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
       }?.resume()
   }
   
-  ///按条件查询数据
-  /*func fetchSearchAnnoDatasBy(params: [String:String],req: STRequest) -> Void {
-    STNetworking<[AnnoModel]>(stRequest:req) {
-      [unowned self] resp in
-      self.tableView.es.stopPullToRefresh()
-      if resp.stauts == Status.Success.rawValue{
-        self.searchMsgAry = resp.data
-        self.tableView.reloadData()
-      }else if resp.stauts == Status.NetworkTimeout.rawValue{
-        self.remindUser(msg: "网络超时，请稍后尝试")
-      }else{
-        let msg = resp.msg
-        self.remindUser(msg: msg)
-      }
-      }?.resume()
-  }
- */
   
   
   //MARK:- UISearchBarDelegate
@@ -291,6 +278,9 @@ class CenAnnouceController: UIViewController,UITableViewDelegate,UITableViewData
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     searchBar.endEditing(true)
+		if let req = self.reqOfQuery(){
+			self.showQueryView(queryReq: req)
+		}
     print("searchBarSearchButtonClicked")
   }
   
