@@ -23,7 +23,6 @@ extension UITextField{
 		let img = UIImage(named: imgName)
 		let imgView = UIImageView(image: img)
 		imgView.contentMode = .center
-		imgView.backgroundColor = .green
 		let view = UIView()
 		view.frame = frame
 		view.addSubview(imgView)

@@ -105,15 +105,20 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 		self.tabBarItem = UITabBarItem(title: "记录", image:UIImage(named:"more_disselect") , selectedImage: UIImage(named:"more_select"));
 	}
 	
+	///显示查询x结果的界面
+	func showQueryView(){
+		let control = VanRecordResController()
+		control.hidesBottomBarWhenPushed = true
+		control.paramsQuery = self.paramsRec()
+		self.navigationController?.pushViewController(control, animated: true)
+	}
+	
 	
   //MARK:- SELECTORS
 	//点击开始查询
 	@IBAction func clickToQuery(_ sender: UIButton) {
 		self.view.endEditing(true)
-		let control = VanRecordResController()
-		control.hidesBottomBarWhenPushed = true
-		control.paramsQuery = self.paramsRec()
-		self.navigationController?.pushViewController(control, animated: true)
+		self.showQueryView()
 	}
 	
 	
@@ -193,6 +198,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	//MARK:- UITextFieldDelegate
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		self.view.endEditing(true)
+		self.showQueryView()
 		return true;
 	}
 	
@@ -212,7 +218,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	
 	//MARK:- tableView delegate
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 40;
+		return 44;
 	}
 	
 	
