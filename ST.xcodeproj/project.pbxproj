@@ -1504,8 +1504,8 @@
 			isa = PBXGroup;
 			children = (
 				BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */,
-				BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */,
 				BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */,
+				BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */,
 				BE5FD58023729F79004CF114 /* CenAnnounceDetailController.xib */,
 				BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */,
 				BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */,
@@ -2505,6 +2505,8 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE = "";
@@ -2583,6 +2585,7 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE_SPECIFIER = "";

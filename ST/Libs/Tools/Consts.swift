@@ -22,14 +22,17 @@ struct Consts {
     
     //生产环境的接口
 //    static var Server = "http://58.215.182.251:5889"
+	
+	//测试环境的接口
+	static var Server = "http://58.215.182.252:8610/"
+	
     
     //测试环境的接口
 //    static var Server = "http://58.215.182.251:5900"
-    
-    static var BaseUrl = "AndroidServiceSTIOS/"
-    //测试环境的接口
-    static var Server = "http://58.215.182.252:8610/"
 	
+
+    static var BaseUrl = "AndroidServiceSTIOS/"
+
 	///图片下载地址
     static var ImgServer = "http://58.215.182.252:8070/download/"
     

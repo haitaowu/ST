@@ -10,6 +10,7 @@ import Foundation
 
 
 
+//MARK:- 堵车
 //堵车模型
 struct HeavyRecModel:SimpleCodable {
 	//(String)  路由
@@ -108,7 +109,7 @@ struct HeavyReq:STRequest {
 
 
 
-//车损列表模型
+//MARK:- 车损列表模型
 struct DamRecModel:SimpleCodable {
 	//(String)  路由
 	var lineName: String = ""
@@ -171,7 +172,7 @@ struct DamaDetailModel:SimpleCodable {
 	}
 }
 
-///司机的请求request
+//MARK:- 司机的请求request
 struct AnnoDriverDataReq:STRequest {
 	var params:[String:String]
 	var logicUrl: String{
@@ -191,7 +192,7 @@ struct AnnoDriverDataReq:STRequest {
 
 
 
-////车损报备详情Request
+//MARK:- 车损报备详情Request
 struct DamaDetailReq:STRequest {
 	var damCode:String
 	var logicUrl: String{
@@ -233,7 +234,7 @@ struct DamaVanReq:STRequest {
 
 
 
-//查询车牌信息模型
+//MARK:- 查询车牌信息模型
 struct TruckNumModel:SimpleCodable {
 	
 	//(String)   班车名称
@@ -272,7 +273,7 @@ struct TruckNumMDataReq:STRequest {
 	}
 }
 
-//路由信息模型
+//MARK:- 路由信息模型
 struct TruckRouteModel:SimpleCodable {
 	
 	///路由编号

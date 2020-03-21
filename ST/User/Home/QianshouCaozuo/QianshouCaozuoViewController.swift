@@ -109,14 +109,22 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 			self.remindUser(msg: "签收人不能为空")
 			return
 		}
-		//        if bz.isEmpty{
-		//            self.remindUser(msg: "备注不能为空")
-		//            return
-		//        }
-		let m = QianshouModel(billCode: ydh, signName: qsr, tp: tp, signRemark: bz, signDate: Date.stNow)
-		DataManager.shared.saveQianshou(m: m)
-		self.reloadData()
+		
+		//运单号是否到件和录单检测
+		let req = OrderValiReq(billCode: ydh)
+		self.showLoading(msg: "验证运单号...")
+		self.reqValidateOrderIllegal(req: req) {
+			[unowned self] result in
+			if (result){
+				let m = QianshouModel(billCode: ydh, signName: qsr, tp: self.tp, signRemark: bz, signDate: Date.stNow)
+				DataManager.shared.saveQianshou(m: m)
+				self.reloadData()
+			}
+		}
+		
+		
 	}
+	
 	
 	//MARK:- UIImagePickerController delegate
 	private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
@@ -141,6 +149,24 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 		self.ydhField.text = code
 	}
 	
+	
+	
+	//MARK:- request server
+	func reqValidateOrderIllegal(req: OrderValiReq, result: @escaping ((_ res: Bool)->Void)){
+		
+		STNetworking<ReqResult>(stRequest: req) {
+			[unowned self] resp in
+			if resp.stauts == Status.Success.rawValue{
+				self.hideLoading()
+				result(true)
+      }else if resp.stauts == Status.NetworkTimeout.rawValue{
+        self.remindUser(msg: "网络超时，请稍后尝试")
+      }else{
+				self.remindUser(msg: "运单号不正确")
+			}
+		}?.resume()
+		
+	}
 	
 	
 	
