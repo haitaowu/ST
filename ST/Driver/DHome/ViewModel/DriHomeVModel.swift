@@ -73,6 +73,9 @@ struct UnFinishedModel:SimpleCodable {
 	///修改后的下一站
 	var bakNextStaTion: String = ""
 	
+	///司机发车状态 0 :未发车, 1:已发车
+	var  deiverStatus: String = ""
+	
 	init() {
 	}
 }
@@ -88,6 +91,25 @@ struct UnFinishedReq:STRequest {
 	var parameters: [AnyHashable : Any]{
 		let signStr = carCode.driverMd5Str()
 		let base64str = carCode.base64Str()
+		return [
+			"data":base64str,
+			"sign":signStr,
+		]
+	}
+}
+
+
+///司机首页发车登记的req
+struct DriSendSignReq:STRequest {
+	var params:[String: String]
+	var logicUrl: String{
+		return "Dri/updateDriverTime.do"
+	}
+	
+	var parameters: [AnyHashable : Any]{
+		let paramsStr = params.jsonDicStr()
+		let base64str = paramsStr.base64Str()
+		let signStr = paramsStr.driverMd5Str()
 		return [
 			"data":base64str,
 			"sign":signStr,

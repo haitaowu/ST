@@ -77,6 +77,9 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		let sendHeader = DSendInfoHeader.headerNib();
 		self.tableView.register(sendHeader, forHeaderFooterViewReuseIdentifier: DSendInfoHeader.headerID())
 		
+		let signFooter = DSSignFooter.footerNib();
+		self.tableView.register(signFooter, forHeaderFooterViewReuseIdentifier: DSSignFooter.footerID())
+		
 		let nibNotiCell = DriHMsgCell.cellNib();
 		self.tableView.register(nibNotiCell, forCellReuseIdentifier: DriHMsgCell.cellID())
 		
@@ -199,6 +202,8 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			}else{
 				return 0.001;
 			}
+		}else if section == kSectionCarSendInfoIdx {
+			return DSSignFooter.footerHeight()
 		}else{
 			return 0.001;
 		}
@@ -208,12 +213,19 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		if section == kSectionMissionTitleIdx {
 			if let carInfo = self.carInfoModel,carInfo.bakNextStaTion.isEmpty==false{
-				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DMissionFooter.footerID()) as! DMissionFooter
-				header.updateUI(model: carInfo)
-				return header
+				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DMissionFooter.footerID()) as! DMissionFooter
+				footer.updateUI(model: carInfo)
+				return footer
 			}else{
 				return nil;
 			}
+		}else if section == kSectionCarSendInfoIdx {
+			let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSSignFooter.footerID()) as! DSSignFooter
+			footer.updateUI(model: self.carInfoModel){
+				[unowned self] in
+				self.reqSendSign()
+				}
+			return footer
 		}else{
 			return nil;
 		}
@@ -274,6 +286,26 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			}?.resume()
 	}
 	
+	//请求发车登记
+	func reqSendSign()->Void{
+		let dateStr = Date.init().dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
+		var params:[String:String] = [:]
+		params["sendCode"] = self.carInfoModel?.sendCode
+		params["deiverScanDate"] = dateStr
+		let req: DriSendSignReq = DriSendSignReq(params: params)
+		STNetworking<ReqResult>(stRequest:req) {
+		[unowned self] resp in
+		if resp.stauts == Status.Success.rawValue{
+			self.carInfoModel?.deiverStatus = "1"
+			self.tableView.reloadData()
+		}else if resp.stauts == Status.NetworkTimeout.rawValue{
+			self.remindUser(msg: "网络超时，请稍后尝试")
+		}else{
+			let msg = resp.msg
+			self.remindUser(msg: msg)
+		}
+		}?.resume()
+	}
 	
 }
 

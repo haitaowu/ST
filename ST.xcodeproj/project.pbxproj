@@ -284,6 +284,8 @@
 		BE99EED922BDC9B500F89305 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99EED822BDC9B500F89305 /* Types.swift */; };
 		BE9BFF1F22D6D96000C6BAAE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */; };
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
+		BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */; };
+		BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */; };
 		BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */; };
 		BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */; };
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
@@ -677,6 +679,8 @@
 		BE99EED822BDC9B500F89305 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
+		BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSignFooter.swift; sourceTree = "<group>"; };
+		BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSignFooter.xib; sourceTree = "<group>"; };
 		BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TruckNumListController.xib; sourceTree = "<group>"; };
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
@@ -1822,6 +1826,8 @@
 				BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */,
 				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
 				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
+				BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */,
+				BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1928,6 +1934,7 @@
 				BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */,
 				BE38BD45228C0B770007B6E0 /* QianshouCaozuoViewController.xib in Resources */,
 				BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */,
+				BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */,
 				BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */,
 				BE38BD52228C0B770007B6E0 /* SettingEntryItemView.xib in Resources */,
 				BE38BD55228C0B770007B6E0 /* WentijianCaozuoViewController.xib in Resources */,
@@ -2182,6 +2189,7 @@
 				BE38BD48228C0B770007B6E0 /* ShoujianSaomiaoViewController.swift in Sources */,
 				8912B0D61DD0D12A0021B160 /* STListViewCell.swift in Sources */,
 				BE38BD5E228C0BAF0007B6E0 /* WangdianCell.swift in Sources */,
+				BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */,
 				BE0FC4EF22BF404800271FED /* JXNetworkingDataSource.swift in Sources */,
 				BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */,
 				899BD3781DC0FC6F000C6687 /* GridView.swift in Sources */,
