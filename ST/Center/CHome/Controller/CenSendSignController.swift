@@ -55,6 +55,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	
   var selTruckModel:TruckNumModel?
   var selRouteModel:TruckRouteModel?
+	///发车信息模型
+  var truckInfoModel:SendTruckInfoModel?
   
   let SectionImgIdx = 1
   let RowImgsIdx = 1
@@ -151,6 +153,17 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   //确认
   @IBAction func clickConfirmItem(_ sender: Any) {
 //    self.submitSendInfo()
+		//1.检测发车时间是否超过当前时间
+		let format:String = "yyyy-MM-dd HH:mm:ss"
+		let routeDateStr = "2020-3-2"
+		let currentDate = Date()
+		var routeDate = routeDateStr.dateOf(format:"yyyy-MM-dd")
+		routeDate = routeDate.dateFrom(format: format)
+		if routeDate.isBefore(date: currentDate){
+			self.remindUser(msg: "已经超过路由设定的时间")
+			return
+		}
+
 		if let imgs = self.imgesAry,imgs.count > 1{
 			self.showLoading(msg: "提交数据中")
 			var loadImgs = imgs
@@ -281,6 +294,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 		}
 		if let nextSite = nextStation,nextSite.isEmpty==false{
 			self.nextStationField.text = nextSite
+		}else{
+			self.nextStationField.text = ""
 		}
   }
 	
@@ -299,6 +314,13 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 		}, origin: self.view)
 	}
 	
+	///已经获取发车的数据信息，更新界面。
+	func updateSendCarUI(){
+		if let car = self.truckInfoModel{
+			self.carTypeField.text = car.trucktype
+		}
+	}
+	
   //MARK:-  lazy methods
   lazy var imgPicker:UIImagePickerController = {
     let imgPicker = UIImagePickerController()
@@ -311,6 +333,24 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   //MARK:- private
 	//根据选择或者输入的车牌号查询挂车历史号
 	func fetchTrailTruckInfoBy(truckNum: String){
+		let user = DataManager.shared.loginUser
+		var params:[String: String] = [:]
+		params["siteName"] = user.siteName
+		params["truckNum"] = truckNum
+		self.fetchTrailTruckDatas(params: params)
+	}
+	
+	//根据选择或者输入的车牌号查询发车的信息
+	func fetchSendCarInfoBy(truckNum: String){
+		let user = DataManager.shared.loginUser
+		var params:[String: String] = [:]
+		params["siteName"] = user.siteName
+		params["truckNum"] = truckNum
+		self.fetchSendTruckInfo(params: params)
+	}
+	
+	//根据选择或者输入的车牌号查询路由数据
+	func fetchTruckRouteInfoBy(truckNum: String){
 		let user = DataManager.shared.loginUser
 		var params:[String: String] = [:]
 		params["siteName"] = user.siteName
@@ -483,7 +523,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   //车牌查询
   func fetchTruckNums(){
     self.showLoading(msg: "请求车牌数据..")
-    let req = TruckNumMDataReq()
+		let siteName = DataManager.shared.loginUser.siteName
+		let req = TruckNumMDataReq(siteName:siteName)
     STNetworking<[TruckNumModel]>(stRequest: req) {
       [unowned self] (resp) in
       self.hideLoading()
@@ -495,6 +536,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
           self.carNumField.text = model.truckNum
           self.navigationController?.popViewController(animated: true)
 					self.fetchTrailTruckInfoBy(truckNum: model.truckNum)
+					self.fetchSendCarInfoBy(truckNum: model.truckNum)
         }
         control.truckNumAry = resp.data
         self.navigationController?.pushViewController(control, animated: true)
@@ -514,7 +556,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	//路由数据
 	func fetchTruckRoutes(){
 		self.showLoading(msg: "请求路由数据..")
-		let req = TruckRouteMDataReq()
+		let siteName = DataManager.shared.loginUser.siteName
+		let req = TruckRouteMDataReq(siteName:siteName)
 		STNetworking<[TruckRouteModel]>(stRequest: req) {
 			[unowned self] (resp) in
 			self.hideLoading()
@@ -566,6 +609,28 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 			}?.resume()
 	}
   
+	///根据车牌查询发车的信息
+		func fetchSendTruckInfo(params: [String: String]){
+			self.showLoading(msg: "检测发车信息..")
+			let req = SendTruckInfoReq(params: params)
+			STNetworking<SendTruckInfoModel>(stRequest: req) {
+				[unowned self] (resp) in
+				self.hideLoading()
+				if resp.stauts == Status.Success.rawValue{
+					self.truckInfoModel = resp.data
+					self.updateSendCarUI()
+				}else if resp.stauts == Status.NetworkTimeout.rawValue{
+					self.remindUser(msg: "网络连接超时")
+				}else{
+					var msg = resp.msg
+					if resp.stauts == Status.PasswordWrong.rawValue{
+						msg = "错误"
+					}
+					self.remindUser(msg: msg)
+				}
+				}?.resume()
+		}
+	
   //提交已装载情况的图片
 	func submitImgData(pathStr: String, fileName: String, img: UIImage) -> Void {
 		let reqUrl = URL.init(string: "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do")

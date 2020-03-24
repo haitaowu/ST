@@ -17,6 +17,7 @@ extension String{
         return height
     }
 
+	
     func nsRangeOf(txt: String) -> NSRange? {
         guard let ran = range(of: txt) else{
             return NSRange(location: 0,length: 0)
@@ -56,6 +57,21 @@ extension String{
 			return ""
 		}
 	}
+	
+	//转换当前字符串为指定格式的日期对象，如果不指定格式则为默认的格式
+	func dateOf(format:String = "yyyy-MM-dd HH:mm:ss") -> Date {
+		let dateFormat = DateFormatter()
+		dateFormat.timeZone = TimeZone.current
+		dateFormat.locale = Locale.init(identifier: "zh_CN")
+		dateFormat.dateFormat = format
+		let date = dateFormat.date(from: self)
+		if let d = date{
+			return d
+		}else{
+			return Date()
+		}
+	}
+	
 	
     
 }

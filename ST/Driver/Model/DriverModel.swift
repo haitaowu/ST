@@ -258,14 +258,15 @@ struct TruckNumModel:SimpleCodable {
 
 ///车牌信息模型的请求request
 struct TruckNumMDataReq:STRequest {
+	var siteName:String
 	var logicUrl: String{
 		return "Emp/findTruckInfo.do"
 	}
 	
 	
 	var parameters: [AnyHashable : Any]{
-		let base64str = Consts.EmpKey.base64Str()
-		let signStr = Consts.EmpKey.employeeMdStr()
+		let base64str = siteName.base64Str()
+		let signStr = siteName.employeeMdStr()
 		return [
 			"data":base64str,
 			"sign":signStr,
@@ -293,19 +294,19 @@ struct TruckRouteModel:SimpleCodable {
 	
 	init() {
 	}
-	
 }
 
 ///路由信息模型的请求request
 struct TruckRouteMDataReq:STRequest {
+	var siteName:String
 	var logicUrl: String{
 		return "Emp/findLineInfo.do"
 	}
 	
 	
 	var parameters: [AnyHashable : Any]{
-		let base64str = Consts.EmpKey.base64Str()
-		let signStr = Consts.EmpKey.employeeMdStr()
+		let base64str = siteName.base64Str()
+		let signStr = siteName.employeeMdStr()
 		return [
 			"data":base64str,
 			"sign":signStr,
@@ -328,6 +329,64 @@ struct TrailTruckDataReq:STRequest {
 	var params:[String: String]
 	var logicUrl: String{
 		return "Emp/qryTruckCarNum.do"
+	}
+	
+	
+	var parameters: [AnyHashable : Any]{
+		let paramsStr = params.jsonDicStr()
+		let base64str = paramsStr.base64Str()
+		let signStr = paramsStr.employeeMdStr()
+		return [
+			"data":base64str,
+			"sign":signStr,
+		]
+	}
+}
+
+//MARK:- 发车
+struct SendTruckInfoModel:SimpleCodable {
+	
+	///是否始发站
+	var bl_state: String = ""
+	/// 到达站
+	var comeSite: String = ""
+	///最新上下站
+	var endPreNextStation: String = ""
+	///最新扫描网点
+	var endScanSite: String = ""
+	///最新状态
+	var endScanType: String = ""
+	///路由code
+	var lineCode: String = ""
+	///路由
+	var lineName: String = ""
+	///始发站
+	var sendSite: String = ""
+	///封签号（后)
+	var sendsealScanAhead: String = ""
+	///	 封签号（后侧）
+	var sendsealScanBackDoor: String = ""
+	///封签号（前侧）
+	var sendsealScanMittertor: String = ""
+	///经停站1
+	var stopSite1: String = ""
+	///经停站2
+	var stopSite2: String = ""
+	///经停站3
+	var stopSite3: String = ""
+	/// 挂车号
+	var truckCarNum: String = ""
+	/// 车型
+	var trucktype: String = ""
+	init() {
+	}
+}
+
+///根据车牌查询发车的请求request
+struct SendTruckInfoReq:STRequest {
+	var params:[String: String]
+	var logicUrl: String{
+		return "Emp/findStartCar.do"
 	}
 	
 	

@@ -313,7 +313,8 @@ class CenArriSignController: UITableViewController,QrInterface,CLLocationManager
   //车牌查询
   func fetchTruckNums(){
     self.showLoading(msg: "请求车牌数据..")
-    let req = TruckNumMDataReq()
+		let siteName = DataManager.shared.loginUser.siteName
+		let req = TruckNumMDataReq(siteName:siteName)
     STNetworking<[TruckNumModel]>(stRequest: req) {
       [unowned self] (resp) in
       self.hideLoading()
