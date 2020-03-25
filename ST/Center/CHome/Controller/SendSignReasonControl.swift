@@ -40,9 +40,9 @@ class SendSignReasonControl: UITableViewController{
 
   //MARK:- overrides
   override func viewDidLoad() {
-
     self.view.addDismissGesture()
-    
+		self.lateReaTxtView.placeholder = "输入超时的原因"
+		self.sealReaTxtView.placeholder = "输入封签号不一致的原因"
   }
 	
   
@@ -126,7 +126,6 @@ class SendSignReasonControl: UITableViewController{
   private func paramsSend()-> [String: String]?{
     
     var params:[String:String] = [:]
-		params["lateReason"] = "lateValueReason"
 		if self.needLateRea {
 			if let lateReason = self.lateReaTxtView.text,lateReason.isEmpty == false {
 				params["lateReason"] = lateReason
@@ -137,7 +136,7 @@ class SendSignReasonControl: UITableViewController{
 		}
 		
 		if self.needSealRea {
-			if let sealReason = self.lateReaTxtView.text,sealReason.isEmpty == false {
+			if let sealReason = self.sealReaTxtView.text,sealReason.isEmpty == false {
 				params["comesealAtypismReason"] = sealReason
 			}else{
 				self.remindUser(msg: "请输入封签号不一致原因")

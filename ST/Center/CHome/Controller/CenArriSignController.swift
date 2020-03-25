@@ -127,11 +127,39 @@ class CenArriSignController: UITableViewController,QrInterface,CLLocationManager
   //MARK:-  selectors
   //确认
   @IBAction func clickConfirmItem(_ sender: Any) {
-		if(self.inSignArea()){
-			if let params = self.paramsArri(){
-				self.submitArriSign(params: params)
+//		if(self.inSignArea()){
+			var paramsArri = self.paramsArri()
+			if paramsArri == nil {
+				return
 			}
-		}
+			
+			let sealRea = self.needSealDiffReason()
+			if sealRea{
+				let storyboard = UIStoryboard(name: "STCenter", bundle: nil)
+				let control = storyboard.instantiateViewController(withIdentifier: "SendSignReasonControl") as! SendSignReasonControl
+				control.needSealRea = sealRea
+				control.submitBlock = {
+					[unowned self] (result,params) in
+					if result {
+						for(key,val) in params{
+							paramsArri![key] = val
+						}
+						self.submitArriSign(params: paramsArri!)
+					}else{
+						print("cancel cancel ....")
+					}
+					control.dismiss(animated: true, completion: nil)
+				}
+				
+				control.modalPresentationStyle = .fullScreen
+				self.navigationController?.present(control, animated: true, completion: {
+				})
+			}else{
+				if paramsArri != nil{
+					self.submitArriSign(params: paramsArri!)
+				}
+			}
+//		}
   }
 	
   ///点击去扫描
@@ -210,6 +238,30 @@ class CenArriSignController: UITableViewController,QrInterface,CLLocationManager
 		}
 	}
 	
+	
+	///是否需要填写封签号不一致原因
+	func needSealDiffReason()-> Bool{
+		if let car = self.sendTruckInfo{
+			let front = self.labelFrontSideField.text
+			if car.sendsealScanMittertor != front{
+				return true
+			}
+			let back = self.labelBackField.text
+			if back != car.sendsealScanAhead{
+				return true
+			}
+			let backSide = self.labelBackSideField.text
+			if backSide != car.sendsealScanBackDoor{
+				return true
+			}
+			
+			return false
+			
+		}else{
+			return false
+		}
+	}
+	
   
   //MARK:- QrInterface
   func onReadQrCode(code: String) {
@@ -267,6 +319,12 @@ class CenArriSignController: UITableViewController,QrInterface,CLLocationManager
   private func paramsArri()-> [String: String]?{
     var params:[String:String] = [:]
     //    #warning("是否外调加班车参数不需要传递吗？")
+		if let car = self.sendTruckInfo{
+			params["blTempWork"] = car.blTempWork
+		}else{
+      params["blTempWork"] = "0"
+		}
+		
     let truckNumTxt = self.carNumField.text
     if let truckNum = truckNumTxt,truckNum.isEmpty==false{
       params["truckNum"] = truckNum

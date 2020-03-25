@@ -397,7 +397,6 @@ struct SendTruckInfoReq:STRequest {
 		return "Emp/findStartCar.do"
 	}
 	
-	
 	var parameters: [AnyHashable : Any]{
 		let paramsStr = params.jsonDicStr()
 		let base64str = paramsStr.base64Str()
@@ -408,6 +407,7 @@ struct SendTruckInfoReq:STRequest {
 		]
 	}
 }
+
 
 
 //发车登记的request
@@ -430,6 +430,7 @@ struct SendCarSignReq:STRequest {
 }
 
 
+//MARK:- 到车
 //到车信息模型
 struct SendTruckModel:SimpleCodable {
 	
@@ -443,11 +444,24 @@ struct SendTruckModel:SimpleCodable {
 	var truckType: String = ""
 	/// 路由
 	var lineName: String = ""
+	///日期
+	var scanDate: String = ""
+	/// 录入人
+	var scanMan: String = ""
+	/// 录入站点
+	var scanSite: String = ""
+	///封签号（后)
+	var sendsealScanAhead: String = ""
+	///封签号（后侧）
+	var sendsealScanBackDoor: String = ""
+	///封签号（前侧）
+	var sendsealScanMittertor: String = ""
 
 	init() {
 	}
 	
 }
+
 
 ///到车信息模型的请求request
 struct ArriTruckMDataReq:STRequest {
