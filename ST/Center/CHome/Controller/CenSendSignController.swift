@@ -14,6 +14,10 @@ import Alamofire
 
 
 class CenSendSignController: UITableViewController,QrInterface,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate{
+	
+  let SectionImgIdx = 1
+  let RowImgsIdx = 1
+	
   
   //是否外调加班
   @IBOutlet weak var tmpBtn: UIButton!
@@ -34,18 +38,20 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   @IBOutlet weak var routeField: UITextField!
   //下一站
   @IBOutlet weak var nextStationField: UITextField!
-  //封签号（后）
+  ///封签号（后）
   @IBOutlet weak var labelBackField: UITextField!
-  //封签号（前侧）
+  ///封签号（前侧）
   @IBOutlet weak var labelFrontSideField: UITextField!
-  //封签号（后侧）
+  ///封签号（后侧）
   @IBOutlet weak var labelBackSideField: UITextField!
   //发车时间
   @IBOutlet weak var setOutTimeField: UITextField!
   
   @IBOutlet weak var imgsView: DriVideoView!
 	
-	let group = DispatchGroup()
+
+
+  let group = DispatchGroup()
 	
 	
 	//装载图片提交服务器返回的地址数组
@@ -58,14 +64,14 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	///发车信息模型
   var truckInfoModel:SendTruckInfoModel?
   
-  let SectionImgIdx = 1
-  let RowImgsIdx = 1
-  
+
 
   //MARK:- overrides
   override func viewDidLoad() {
+
     self.imgesAry = Array.init()
     self.imgesAry?.append(UIImage(named: "plus")!)
+
     self.view.addDismissGesture()
     
     for label in self.titleLabels{
@@ -128,6 +134,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
       self.imgsView.updateUI(imgs: imgsAry, type: .imgLoc, addAble: true)
     }
   }
+	
   
   //展示图片预览
   func showImgAt(idx:Int, imgs:Array<Any>) -> Void {
@@ -152,39 +159,45 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   //MARK:-  selectors
   //确认
   @IBAction func clickConfirmItem(_ sender: Any) {
-//    self.submitSendInfo()
-		//1.检测发车时间是否超过当前时间
-		let format:String = "yyyy-MM-dd HH:mm:ss"
-		let routeDateStr = "2020-3-2"
-		let currentDate = Date()
-		var routeDate = routeDateStr.dateOf(format:"yyyy-MM-dd")
-		routeDate = routeDate.dateFrom(format: format)
-		if routeDate.isBefore(date: currentDate){
-			self.remindUser(msg: "已经超过路由设定的时间")
-			return
-		}
-
-		if let imgs = self.imgesAry,imgs.count > 1{
-			self.showLoading(msg: "提交数据中")
-			var loadImgs = imgs
-			loadImgs.removeLast()
-			self.loadImgUrls.removeAll()
-			for (idx,img) in loadImgs.enumerated(){
-				group.enter()
-				let fileName = "load\(idx).jpeg"
-				self.submitImgData(pathStr: "SendCar", fileName: fileName, img: img)
-			}
-		}else{
-			self.remindUser(msg: "请选择装载图片")
+		
+		var paramsSend = self.paramsSend()
+		if paramsSend == nil {
 			return
 		}
 		
-		group.notify(queue: .main) {
-			[unowned self] in
-			if let params = self.paramsSend(){
-				self.submitSendSignData(params: params)
+		let lateRea = self.needLateReason()
+		let sealRea = self.needSealDiffReason()
+		if lateRea || sealRea{
+			let storyboard = UIStoryboard(name: "STCenter", bundle: nil)
+			let control = storyboard.instantiateViewController(withIdentifier: "SendSignReasonControl") as! SendSignReasonControl
+			control.needLateRea = lateRea
+			control.needSealRea = sealRea
+			control.submitBlock = {
+				[unowned self] (result,params) in
+				if result {
+					for(key,val) in params{
+						paramsSend![key] = val
+						print("key:\(key)+value:\(val)")
+						if let imgs = self.imgesAry{
+							self.submitImgs(imgs: imgs, params: paramsSend!)
+						}
+					}
+				}else{
+					print("cancel cancel ....")
+				}
+				control.dismiss(animated: true, completion: nil)
+			}
+			
+			control.modalPresentationStyle = .fullScreen
+			self.navigationController?.present(control, animated: true, completion: {
+			})
+		}else{
+			if let imgs = self.imgesAry{
+				self.submitImgs(imgs: imgs, params: paramsSend!)
 			}
 		}
+		
+		
   }
 	
   
@@ -321,6 +334,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 		}
 	}
 	
+	
+	
   //MARK:-  lazy methods
   lazy var imgPicker:UIImagePickerController = {
     let imgPicker = UIImagePickerController()
@@ -358,6 +373,50 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 		self.fetchTrailTruckDatas(params: params)
 	}
 	
+	///是否需要填写超时原因
+	func needLateReason()-> Bool{
+		let lineNameTxt = self.routeField.text
+		if let route = self.selRouteModel,route.lineName == lineNameTxt! {
+			//1.检测发车时间是否超过当前时间
+			let sendDateStr = route.sendDate
+			let currentDate = Date()
+			let sendDate = sendDateStr.dateOf()
+			if sendDate.isBefore(date: currentDate){
+				return true
+			}else{
+				return false
+			}
+		}else{
+			return false
+		}
+	}
+	
+	
+	///是否需要填写封签号不一致原因
+	func needSealDiffReason()-> Bool{
+		if let car = self.truckInfoModel{
+			if car.bl_state == "1" {
+				return false
+			}else{
+				let front = self.labelFrontSideField.text
+				if car.sendsealScanMittertor != front{
+					return true
+				}
+				let back = self.labelBackField.text
+				if back != car.sendsealScanAhead{
+					return true
+				}
+				let backSide = self.labelBackSideField.text
+				if backSide != car.sendsealScanBackDoor{
+					return true
+				}
+				return false
+			}
+		}else{
+			return false
+		}
+	}
+	
 	
 	//MARK:- UITextFieldDelegate
 	func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -368,10 +427,18 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 			return true
 		}
 	}
+	
+	
+	
+	
   //MARK:- UITableViewDelegate
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if (indexPath.section == SectionImgIdx) &&  (indexPath.row == RowImgsIdx) {
-      return DriVideoView.viewHeightBy(itemCount: (self.imgesAry?.count)!)
+    if (indexPath.section == SectionImgIdx){
+      if (indexPath.row == RowImgsIdx) {
+        return DriVideoView.viewHeightBy(itemCount: (self.imgesAry?.count)!)
+      }else{
+        return 50
+      }
     }else{
       return 50
     }
@@ -384,6 +451,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     return 0.001
   }
+
   
   //MARK:- UIImagePickerControllerDelegate
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -429,8 +497,9 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     })
     return image
   }
+	
   
-  //MARK:- request parameter helper
+  //MARK:- request helper
   private func paramsSend()-> [String: String]?{
     
     var params:[String:String] = [:]
@@ -472,6 +541,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
       self.remindUser(msg: "请输入路由")
       return nil
     }
+		
     
     let nextSiteTxt = self.nextStationField.text
     if let nextSite = nextSiteTxt,nextSite.isEmpty==false{
@@ -483,7 +553,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     
     let aheadTxt = self.labelBackField.text
     if let ahead = aheadTxt,ahead.isEmpty==false{
-      params["sendsealScanAhead"] = ahead
+			params["sendsealScanAhead"] = ahead
     }else{
       self.remindUser(msg: "请输入封签号（后）")
       return nil
@@ -504,10 +574,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 			params["scanDate"] = scanDate
 		}
 		
-		if self.loadImgUrls.count > 0{
-			params["picUrl"] = self.loadImgUrls.joined(separator: ",")
-		}else{
-			self.remindUser(msg: "装载图片上传失败")
+		if (self.imgesAry?.count ?? 0) <= 1{
+			self.remindUser(msg: "添加装载图片")
 			return nil
 		}
 		
@@ -517,6 +585,32 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     
     return params
   }
+	
+	///提交图片、发车数据
+	func submitImgs(imgs:Array<UIImage>, params:[String:String]) -> Void {
+		self.showLoading(msg: "提交数据中")
+		var loadImgs = imgs
+		loadImgs.removeLast()
+		self.loadImgUrls.removeAll()
+		for (idx,img) in loadImgs.enumerated(){
+			group.enter()
+			let fileName = "load\(idx).jpeg"
+			self.submitImgData(pathStr: "SendCar", fileName: fileName, img: img)
+		}
+
+		var paramsSub = params
+		group.notify(queue: .main) {
+			[unowned self] in
+			if self.loadImgUrls.count > 0{
+				paramsSub["picUrl"] = self.loadImgUrls.joined(separator: ",")
+				self.submitSendSignData(params: paramsSub)
+			}else{
+				self.remindUser(msg: "添加装载图片")
+			}
+			
+		}
+	}
+	
 	
   
   //MARK:- request server
@@ -537,6 +631,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
           self.navigationController?.popViewController(animated: true)
 					self.fetchTrailTruckInfoBy(truckNum: model.truckNum)
 					self.fetchSendCarInfoBy(truckNum: model.truckNum)
+					self.labelBackSideField.text = ""
         }
         control.truckNumAry = resp.data
         self.navigationController?.pushViewController(control, animated: true)

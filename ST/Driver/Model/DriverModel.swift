@@ -283,14 +283,22 @@ struct TruckRouteModel:SimpleCodable {
 	var lineName: String = ""
 	///始发站
 	var sendSite: String = ""
+	var sendDate: String = ""
 	///到达站
 	var comeSite: String = ""
+	var comeDate: String = ""
 	///经停站1
 	var stopSite1: String = ""
+	var stopSite1ComeDate: String = ""
+	var stopSite1SendDate: String = ""
 	///经停站2
 	var stopSite2: String = ""
+	var stopSite2ComeDate: String = ""
+	var stopSite2SendDate: String = ""
 	///经停站3
 	var stopSite3: String = ""
+	var stopSite3ComeDate: String = ""
+	var stopSite3SendDate: String = ""
 	
 	init() {
 	}

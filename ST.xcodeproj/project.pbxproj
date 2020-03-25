@@ -111,6 +111,7 @@
 		BE0718B22094BEE3007A33A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */; };
 		BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */; };
 		BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */; };
+		BE0E02C9242A3C8A000CEA82 /* SendSignReasonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */; };
 		BE0FC4E922BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */; };
 		BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */; };
 		BE0FC4EB22BF404800271FED /* JXPhotoBrowserPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */; };
@@ -481,6 +482,7 @@
 		BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendSignReasonControl.swift; sourceTree = "<group>"; };
 		BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserFadeTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserZoomTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserPresentationController.swift; sourceTree = "<group>"; };
@@ -1692,6 +1694,7 @@
 				BE1A68BF22EE825A003691B1 /* CenterMenuController.swift */,
 				BE1A68C022EE825A003691B1 /* CenterMenuController.xib */,
 				BE1A68C522EEC9DB003691B1 /* CenSendSignController.swift */,
+				BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */,
 				BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */,
 				BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */,
 				BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */,
@@ -2119,6 +2122,7 @@
 				BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */,
 				BE20849522B7CA9E00860F54 /* DriVideoView.swift in Sources */,
 				892583BB1DC8DA9700285DB5 /* ConstraintDSL.swift in Sources */,
+				BE0E02C9242A3C8A000CEA82 /* SendSignReasonControl.swift in Sources */,
 				BE0FC4F922BF404800271FED /* JXPhotoBrowserZoomPresentingAnimator.swift in Sources */,
 				BE8FC47122F2D4C800426865 /* CentPersonController.swift in Sources */,
 				892583C31DC8DA9700285DB5 /* ConstraintLayoutSupportDSL.swift in Sources */,
