@@ -150,26 +150,26 @@ class SendSignReasonControl: UITableViewController{
 	
   
   //MARK:- request server
-	///交发车签到数据
-  func submitSendSignData(params:[String: String]) -> Void {
-    let req = SendCarSignReq(params: params)
-    STNetworking<RespMsg>(stRequest:req) {
-      [unowned self] resp in
-      if resp.stauts == Status.Success.rawValue{
-        self.remindUser(msg: "提交成功")
-        self.navigationController?.popViewController(animated: true)
-      }else if resp.stauts == Status.NetworkTimeout.rawValue{
-        self.remindUser(msg: "网络超时，请稍后尝试")
-      }else{
-        var msg = resp.msg
-        if resp.stauts == Status.PasswordWrong.rawValue{
-          msg = "提交错误"
-        }
-        self.remindUser(msg: msg)
-      }
-      }?.resume()
-  }
-  
+	///发车签到数据
+//  func submitSendSignData(params:[String: String]) -> Void {
+//    let req = SendCarSignReq(params: params)
+//    STNetworking<RespMsg>(stRequest:req) {
+//      [unowned self] resp in
+//      if resp.stauts == Status.Success.rawValue{
+//        self.remindUser(msg: "提交成功")
+//        self.navigationController?.popViewController(animated: true)
+//      }else if resp.stauts == Status.NetworkTimeout.rawValue{
+//        self.remindUser(msg: "网络超时，请稍后尝试")
+//      }else{
+//        var msg = resp.msg
+//        if resp.stauts == Status.PasswordWrong.rawValue{
+//          msg = "提交错误"
+//        }
+//        self.remindUser(msg: msg)
+//      }
+//      }?.resume()
+//  }
+//
   
   
 }

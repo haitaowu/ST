@@ -11,7 +11,7 @@ import Foundation
 class CentInfoTableController: UITableViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var pwdField: UITextField!
+//    @IBOutlet weak var pwdField: UITextField!
 //    @IBOutlet weak var phoneField: UITextField!
     //所属中心
     @IBOutlet weak var ownerField: UITextField!
@@ -32,7 +32,7 @@ class CentInfoTableController: UITableViewController {
     
     private func setupViewUI()
     {
-        self.pwdField.addLeftSpaceView(width: 8)
+//        self.pwdField.addLeftSpaceView(width: 8)
         self.ownerField.addLeftSpaceView(width: 8)
         let centerStr = DataManager.shared.loginUser.deptName
         self.ownerField.text = centerStr
@@ -81,12 +81,12 @@ class CentInfoTableController: UITableViewController {
 		var params:[String:String] = [:]
 		
 		let user = DataManager.shared.loginUser
-		if let newPassword = self.pwdField.text,newPassword.isEmpty==false{
-			params["newPassword"] = newPassword
-		}else{
-			self.remindUser(msg: "请输入密码")
-			return nil
-		}
+//		if let newPassword = self.pwdField.text,newPassword.isEmpty==false{
+//			params["newPassword"] = newPassword
+//		}else{
+//			self.remindUser(msg: "请输入密码")
+//			return nil
+//		}
 
 		params["employeeCode"] = user.empCode
 		let manager = DataManager.shared

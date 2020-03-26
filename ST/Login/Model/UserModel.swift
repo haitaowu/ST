@@ -36,7 +36,7 @@ struct AuthCodeReq:STRequest {
             mdStr = phone.employeeMdStr()
         }
         return [
-            "data":phone,
+					"data":phone.base64Str(),
             "sign":mdStr
         ]
     }
@@ -45,9 +45,7 @@ struct AuthCodeReq:STRequest {
 
 //修改密码
 struct ResetPwdReq:STRequest {
-    var authCode:String
-    var passWord:String
-    var phone:String
+    var params:[String:String]
     var roleType:RoleType
     
     var logicUrl: String{
@@ -59,26 +57,20 @@ struct ResetPwdReq:STRequest {
     }
     
     var parameters: [AnyHashable : Any]{
-        let dic = self.paramsDic()
+
+			let dataStr = params.jsonDicStr()
         var mdStr:String
         if self.roleType == RoleType.driver {
-            mdStr = dic.driverMD5DataStr()
+            mdStr = dataStr.driverMd5Str()
         }else{
-            mdStr = dic.empMD5DataStr()
+            mdStr = params.empMD5DataStr()
         }
         return [
-            "data":dic.jsonDicStr(),
+            "data":dataStr.base64Str(),
             "sign":mdStr
         ]
     }
     
-    
-    func paramsDic() -> [AnyHashable:Any]{
-        var dic = ["authCode":self.authCode]
-        dic["passWord"] = self.passWord
-        dic["phone"] = self.phone
-        return dic
-    }
     
 }
 

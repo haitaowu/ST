@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,30 +12,30 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="AaF-AU-kgO"/>
+                        <viewControllerLayoutGuide type="bottom" id="VrW-aY-Hbp"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleAspectFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginback" translatesAutoresizingMaskIntoConstraints="NO" id="H5T-rO-t49">
-                                <rect key="frame" x="-2" y="24" width="418" height="838"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.25882352941176467" green="0.68627450980392157" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="H5T-rO-t49" secondAttribute="trailing" constant="-22" id="Jox-fG-RVC"/>
-                            <constraint firstItem="H5T-rO-t49" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="Va4-iz-UEr"/>
-                            <constraint firstItem="H5T-rO-t49" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-22" id="afT-rE-kki"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="H5T-rO-t49" secondAttribute="bottom" id="oGd-CB-g4g"/>
+                            <constraint firstAttribute="trailing" secondItem="H5T-rO-t49" secondAttribute="trailing" id="BTg-x7-L3c"/>
+                            <constraint firstItem="H5T-rO-t49" firstAttribute="top" secondItem="AaF-AU-kgO" secondAttribute="bottom" id="u7I-FY-zlk"/>
+                            <constraint firstItem="VrW-aY-Hbp" firstAttribute="top" secondItem="H5T-rO-t49" secondAttribute="bottom" id="uBZ-9y-5Ho"/>
+                            <constraint firstItem="H5T-rO-t49" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ufM-qH-XH7"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="35.879999999999995" y="559.49625187406298"/>
         </scene>
     </scenes>
     <resources>

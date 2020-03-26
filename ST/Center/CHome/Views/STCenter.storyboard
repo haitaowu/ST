@@ -1195,52 +1195,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fy2-CD-Prn">
-                                        <rect key="frame" x="0.0" y="78" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fy2-CD-Prn" id="WcD-Yu-2Vv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDJ-1G-9Ds">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJG-ik-gVH">
-                                                            <rect key="frame" x="16" y="13" width="80" height="18"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="80" id="Vq6-qZ-OXF"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="746-yG-DBh">
-                                                            <rect key="frame" x="112" y="5" width="286" height="34"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                                        </textField>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstItem="746-yG-DBh" firstAttribute="top" secondItem="qDJ-1G-9Ds" secondAttribute="top" constant="5" id="Ddd-s8-9CW"/>
-                                                        <constraint firstItem="746-yG-DBh" firstAttribute="leading" secondItem="CJG-ik-gVH" secondAttribute="trailing" constant="16" id="UOx-c6-i95"/>
-                                                        <constraint firstItem="CJG-ik-gVH" firstAttribute="leading" secondItem="qDJ-1G-9Ds" secondAttribute="leading" constant="16" id="XoH-n4-7Ef"/>
-                                                        <constraint firstItem="CJG-ik-gVH" firstAttribute="centerY" secondItem="qDJ-1G-9Ds" secondAttribute="centerY" id="bdU-xC-Wrf"/>
-                                                        <constraint firstAttribute="trailing" secondItem="746-yG-DBh" secondAttribute="trailing" constant="16" id="okn-yd-xXC"/>
-                                                        <constraint firstAttribute="bottom" secondItem="746-yG-DBh" secondAttribute="bottom" constant="5" id="x8s-Gz-rHJ"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="qDJ-1G-9Ds" secondAttribute="bottom" id="63E-Oy-uYv"/>
-                                                <constraint firstItem="qDJ-1G-9Ds" firstAttribute="top" secondItem="WcD-Yu-2Vv" secondAttribute="top" id="dx3-JG-fwx"/>
-                                                <constraint firstAttribute="trailing" secondItem="qDJ-1G-9Ds" secondAttribute="trailing" id="qwa-h0-ALh"/>
-                                                <constraint firstItem="qDJ-1G-9Ds" firstAttribute="leading" secondItem="WcD-Yu-2Vv" secondAttribute="leading" id="wux-OQ-ypA"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="yMT-sl-7qt">
-                                        <rect key="frame" x="0.0" y="122" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="78" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yMT-sl-7qt" id="0kS-Yu-MOB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -1288,7 +1244,7 @@
                             <tableViewSection id="SZJ-WN-1VX">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RuC-Fg-0zX">
-                                        <rect key="frame" x="0.0" y="202" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="158" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RuC-Fg-0zX" id="W8J-YI-7On">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -1296,7 +1252,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="PQ9-6I-iOK">
-                                        <rect key="frame" x="0.0" y="246" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="202" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PQ9-6I-iOK" id="C07-MI-Byv">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -1323,7 +1279,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="T62-Ed-9p8">
-                                        <rect key="frame" x="0.0" y="326" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="282" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T62-Ed-9p8" id="c28-VN-nES">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -1342,7 +1298,6 @@
                     <connections>
                         <outlet property="nameLabel" destination="uZP-Xu-FuD" id="H3M-eb-IYP"/>
                         <outlet property="ownerField" destination="xRS-4U-NyF" id="TnS-nO-AjV"/>
-                        <outlet property="pwdField" destination="746-yG-DBh" id="V81-ZE-6sH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D84-J6-NRh" userLabel="First Responder" sceneMemberID="firstResponder"/>

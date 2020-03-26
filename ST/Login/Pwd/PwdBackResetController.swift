@@ -8,7 +8,7 @@
 
 
 import UIKit
-import Alamofire
+
 
 
 class PwdBackResetController: UIViewController{
@@ -16,9 +16,9 @@ class PwdBackResetController: UIViewController{
     @IBOutlet weak var sureBtn: UIButton!
     @IBOutlet weak var pwdField: UITextField!
     @IBOutlet weak var pwdAgainField: UITextField!
+
     
-    
-    var params:Parameters = [:]
+	var params:[String: String] = [:]
     var roleType:RoleType = RoleType.center
     
 
@@ -63,17 +63,15 @@ class PwdBackResetController: UIViewController{
             return;
         }
         
-        if pwdAgain == pwd {
-            self.remindUser(msg: "两次输入新密码i不一致")
+        if pwdAgain != pwd {
+            self.remindUser(msg: "两次输入新密码不一致")
             return;
         }
         
-        self.showResetPwdSuccView()
-        return
+//        self.showResetPwdSuccView()
+//        return
         
-        let phone = self.params["phone"] as! String
-        let authCode = self.params["authCode"] as! String
-        self.reqResetPwd(phone: phone, passWord: pwd, authCode: authCode)
+        self.reqResetPwd(params: params)
     }
     
     
@@ -93,22 +91,23 @@ class PwdBackResetController: UIViewController{
     
     
     //MARK:- request server
-    func reqResetPwd(phone:String, passWord:String, authCode:String) -> Void {
-        let req = ResetPwdReq(authCode: authCode, passWord: passWord, phone: phone, roleType: self.roleType)
-        STNetworking<RespMsg>(stRequest:req) {
-            [unowned self] resp in
-            if resp.stauts == Status.Success.rawValue{
-                self.showResetPwdSuccView()
-            }else if resp.stauts == Status.NetworkTimeout.rawValue{
-                self.remindUser(msg: "网络超时，请稍后尝试")
-            }else{
-                var msg = resp.msg
-                if resp.stauts == Status.PasswordWrong.rawValue{
-                    msg = "密码错误"
-                }
-                self.remindUser(msg: msg)
-            }
-            }?.resume()
-    }
+	func reqResetPwd(params:[String: String]) -> Void {
+		let req = ResetPwdReq(params:params , roleType: self.roleType)
+		STNetworking<RespMsg>(stRequest:req) {
+			[unowned self] resp in
+			if resp.stauts == Status.Success.rawValue{
+				self.showResetPwdSuccView()
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
+			}else{
+				var msg = resp.msg
+				if resp.stauts == Status.PasswordWrong.rawValue{
+					msg = "密码错误"
+				}
+				self.remindUser(msg: msg)
+			}
+			}?.resume()
+	}
     
+	
 }
