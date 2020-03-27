@@ -46,10 +46,10 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="vWR-7k-7hY">
-                    <rect key="frame" x="0.0" y="50" width="375" height="176"/>
+                    <rect key="frame" x="0.0" y="50" width="375" height="132"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="176" id="mzT-sB-ahg"/>
+                        <constraint firstAttribute="height" constant="132" id="mzT-sB-ahg"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="S7u-zM-tR4"/>
@@ -57,7 +57,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcQ-gr-Hi2">
-                    <rect key="frame" x="0.0" y="234" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="187" width="375" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="进行中的任务" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtK-xv-pym">
                             <rect key="frame" x="8" y="8" width="359" height="34"/>
@@ -73,7 +73,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
-                    <rect key="frame" x="0.0" y="284" width="375" height="383"/>
+                    <rect key="frame" x="0.0" y="237" width="375" height="430"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ldS-MM-975"/>
@@ -93,7 +93,7 @@
                 <constraint firstItem="vWR-7k-7hY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XDU-oN-hI4"/>
                 <constraint firstItem="m4w-NZ-Y7q" firstAttribute="top" secondItem="hcQ-gr-Hi2" secondAttribute="bottom" id="bFk-ei-2mc"/>
                 <constraint firstItem="vWR-7k-7hY" firstAttribute="top" secondItem="VRP-6w-ZOY" secondAttribute="bottom" id="ifc-Fo-ocE"/>
-                <constraint firstItem="hcQ-gr-Hi2" firstAttribute="top" secondItem="vWR-7k-7hY" secondAttribute="bottom" constant="8" id="kZh-MD-4Pj"/>
+                <constraint firstItem="hcQ-gr-Hi2" firstAttribute="top" secondItem="vWR-7k-7hY" secondAttribute="bottom" constant="5" id="kZh-MD-4Pj"/>
                 <constraint firstAttribute="trailing" secondItem="m4w-NZ-Y7q" secondAttribute="trailing" id="voF-Bt-oKl"/>
                 <constraint firstAttribute="bottom" secondItem="m4w-NZ-Y7q" secondAttribute="bottom" id="ywN-Pm-Tvc"/>
             </constraints>

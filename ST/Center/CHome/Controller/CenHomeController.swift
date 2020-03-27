@@ -249,7 +249,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func fetchAnnouncesData(req: STRequest) -> Void{
 		STNetworking<[AnnoModel]>(stRequest:req) {
 			[unowned self] resp in
-//			self.group.leave()
       self.annTable.es.stopPullToRefresh()
 			if resp.stauts == Status.Success.rawValue{
 				self.announcesAry = resp.data

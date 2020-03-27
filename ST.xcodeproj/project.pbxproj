@@ -318,16 +318,12 @@
 		BEE7471522C5128C002B241E /* DriMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470022C5128B002B241E /* DriMenuController.swift */; };
 		BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470222C5128B002B241E /* DSendInfoHeader.swift */; };
 		BEE7471722C5128C002B241E /* DriCarInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470322C5128B002B241E /* DriCarInfoCell.swift */; };
-		BEE7471922C5128C002B241E /* DMissionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470522C5128B002B241E /* DMissionHeader.xib */; };
 		BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470622C5128B002B241E /* STMenuCell.xib */; };
 		BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470722C5128B002B241E /* DSendInfoHeader.xib */; };
 		BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470822C5128B002B241E /* DNumFooter.xib */; };
 		BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470A22C5128B002B241E /* STMenuCell.swift */; };
 		BEE7472022C5128C002B241E /* DriCarInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */; };
-		BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */; };
 		BEE7472222C5128C002B241E /* DNumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470E22C5128B002B241E /* DNumFooter.swift */; };
-		BEE7472322C5128C002B241E /* DriverNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */; };
-		BEE7472422C5128C002B241E /* DMissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7471022C5128B002B241E /* DMissionHeader.swift */; };
 		BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777423AB23A2002E6828 /* Accelerate.framework */; };
 		BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777623AB23A8002E6828 /* CallKit.framework */; };
 		BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777823AB23AF002E6828 /* AdSupport.framework */; };
@@ -711,16 +707,12 @@
 		BEE7470022C5128B002B241E /* DriMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriMenuController.swift; sourceTree = "<group>"; };
 		BEE7470222C5128B002B241E /* DSendInfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSendInfoHeader.swift; sourceTree = "<group>"; };
 		BEE7470322C5128B002B241E /* DriCarInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriCarInfoCell.swift; sourceTree = "<group>"; };
-		BEE7470522C5128B002B241E /* DMissionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMissionHeader.xib; sourceTree = "<group>"; };
 		BEE7470622C5128B002B241E /* STMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STMenuCell.xib; sourceTree = "<group>"; };
 		BEE7470722C5128B002B241E /* DSendInfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSendInfoHeader.xib; sourceTree = "<group>"; };
 		BEE7470822C5128B002B241E /* DNumFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DNumFooter.xib; sourceTree = "<group>"; };
 		BEE7470A22C5128B002B241E /* STMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STMenuCell.swift; sourceTree = "<group>"; };
 		BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriCarInfoCell.xib; sourceTree = "<group>"; };
-		BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverNotiHeader.swift; sourceTree = "<group>"; };
 		BEE7470E22C5128B002B241E /* DNumFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNumFooter.swift; sourceTree = "<group>"; };
-		BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverNotiHeader.xib; sourceTree = "<group>"; };
-		BEE7471022C5128B002B241E /* DMissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMissionHeader.swift; sourceTree = "<group>"; };
 		BEE7777423AB23A2002E6828 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		BEE7777623AB23A8002E6828 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		BEE7777823AB23AF002E6828 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1809,14 +1801,10 @@
 				BEE7470822C5128B002B241E /* DNumFooter.xib */,
 				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
 				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
-				BEE7471022C5128B002B241E /* DMissionHeader.swift */,
-				BEE7470522C5128B002B241E /* DMissionHeader.xib */,
 				BEE7470322C5128B002B241E /* DriCarInfoCell.swift */,
 				BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */,
 				BEE7470A22C5128B002B241E /* STMenuCell.swift */,
 				BEE7470622C5128B002B241E /* STMenuCell.xib */,
-				BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */,
-				BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */,
 				BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */,
 				BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */,
 			);
@@ -1993,8 +1981,6 @@
 				BE39C77F23ACB18A006C35BB /* DVVersion_pkg.cfg in Resources */,
 				BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */,
 				BE38BD4B228C0B770007B6E0 /* SystemSettingEntryType2.xib in Resources */,
-				BEE7471922C5128C002B241E /* DMissionHeader.xib in Resources */,
-				BEE7472322C5128C002B241E /* DriverNotiHeader.xib in Resources */,
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
 				BE39C77723ACB18A006C35BB /* street.sty in Resources */,
@@ -2129,7 +2115,6 @@
 				892583C11DC8DA9700285DB5 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				BE38BD56228C0B770007B6E0 /* WentijianCaozuoViewController.swift in Sources */,
 				BE38BD3E228C0B770007B6E0 /* HTDashView.swift in Sources */,
-				BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */,
 				8912B0DF1DD0E29F0021B160 /* QrInterface.swift in Sources */,
 				BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */,
 				892583C81DC8DA9700285DB5 /* ConstraintMakerPriortizable.swift in Sources */,
@@ -2204,7 +2189,6 @@
 				892583C41DC8DA9700285DB5 /* ConstraintMaker.swift in Sources */,
 				BE0FC4FC22BF404800271FED /* JXPhotoBrowserTransitioningDelegate.swift in Sources */,
 				BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */,
-				BEE7472422C5128C002B241E /* DMissionHeader.swift in Sources */,
 				BE86077F235ED49F008BB2B2 /* DriHMsgCell.swift in Sources */,
 				BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */,
 				BE38BD4D228C0B770007B6E0 /* SettingEntryItemView.swift in Sources */,

@@ -48,10 +48,10 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tvx-aL-BEM">
-                    <rect key="frame" x="0.0" y="40" width="375" height="176"/>
+                    <rect key="frame" x="0.0" y="40" width="375" height="132"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="176" id="evw-94-1tm"/>
+                        <constraint firstAttribute="height" constant="132" id="evw-94-1tm"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="RU5-5A-Y8Y"/>
@@ -59,10 +59,10 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdc-9P-tAc" userLabel="FuncView">
-                    <rect key="frame" x="0.0" y="216" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="177" width="375" height="44"/>
                     <subviews>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46z-IL-5eU">
-                            <rect key="frame" x="20" y="5" width="157.5" height="40"/>
+                            <rect key="frame" x="20" y="2" width="157.5" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="h4T-4W-YwW"/>
                             </constraints>
@@ -76,7 +76,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g86-c4-n2m">
-                            <rect key="frame" x="197.5" y="5" width="157.5" height="40"/>
+                            <rect key="frame" x="197.5" y="2" width="157.5" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="到车" image="arriver_car">
@@ -90,7 +90,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="46z-IL-5eU" firstAttribute="leading" secondItem="bdc-9P-tAc" secondAttribute="leading" constant="20" id="Dac-wJ-JHx"/>
-                        <constraint firstAttribute="height" constant="50" id="EpE-mn-bfs"/>
+                        <constraint firstAttribute="height" constant="44" id="EpE-mn-bfs"/>
                         <constraint firstItem="46z-IL-5eU" firstAttribute="centerY" secondItem="g86-c4-n2m" secondAttribute="centerY" id="HV5-WL-rab"/>
                         <constraint firstItem="46z-IL-5eU" firstAttribute="height" secondItem="g86-c4-n2m" secondAttribute="height" id="Mbk-vF-aFX"/>
                         <constraint firstAttribute="trailing" secondItem="g86-c4-n2m" secondAttribute="trailing" constant="20" id="RS7-bC-48y"/>
@@ -100,7 +100,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbW-hq-evg" userLabel="titleView">
-                    <rect key="frame" x="0.0" y="266" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="221" width="375" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="发车提醒" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJZ-o9-XA6">
                             <rect key="frame" x="8" y="8" width="359" height="24"/>
@@ -116,7 +116,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
-                    <rect key="frame" x="0.0" y="306" width="375" height="361"/>
+                    <rect key="frame" x="0.0" y="261" width="375" height="406"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ldS-MM-975"/>
@@ -134,7 +134,7 @@
                 <constraint firstAttribute="trailing" secondItem="bdc-9P-tAc" secondAttribute="trailing" id="Paf-cW-vfe"/>
                 <constraint firstItem="tvx-aL-BEM" firstAttribute="top" secondItem="kt0-it-vuR" secondAttribute="bottom" id="UDA-Cc-Vg0"/>
                 <constraint firstItem="m4w-NZ-Y7q" firstAttribute="top" secondItem="YbW-hq-evg" secondAttribute="bottom" id="VJB-pX-13V"/>
-                <constraint firstItem="bdc-9P-tAc" firstAttribute="top" secondItem="tvx-aL-BEM" secondAttribute="bottom" id="Wts-64-r9g"/>
+                <constraint firstItem="bdc-9P-tAc" firstAttribute="top" secondItem="tvx-aL-BEM" secondAttribute="bottom" constant="5" id="Wts-64-r9g"/>
                 <constraint firstItem="bdc-9P-tAc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XVi-Vc-8rE"/>
                 <constraint firstItem="YbW-hq-evg" firstAttribute="top" secondItem="bdc-9P-tAc" secondAttribute="bottom" id="Xk3-Oz-KyX"/>
                 <constraint firstItem="YbW-hq-evg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ygr-Qz-MO1"/>
