@@ -10,26 +10,25 @@ import UIKit
 import ESPullToRefresh
 
 
+enum ArriverSendType:Int{
+    case arrive = 0, send = 1
+}
+
+
 
 
 class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 	
-//	let kNumOfSection = 4
-//
-//	let kSectionNotiIdx = 0
-//	let kSectionMissionTitleIdx = 1
-//	let kSectionNumIdx = 2
-//	let kSectionCarSendInfoIdx = 3
 	
 	//MARK:-IBoutlets
 //	@IBOutlet weak var tableView: UITableView!
 	
 	@IBOutlet weak var annTable: UITableView!
 	@IBOutlet weak var carTable: UITableView!
-	
+	@IBOutlet  var funcBtns:[UIButton]!
+
 	var carInfoModel:EmpHomeSendModel?
 	var announcesAry:[AnnoModel]?
-	let group = DispatchGroup()
 	
 	//MARK:- Overrides
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -48,12 +47,21 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		self.setupNavBarUI()
 		self.setupTable()
 		self.setupRefreshTable()
+    
+    for btn in funcBtns{
+      var color = UIColor.green
+      if btn.tag == 0{
+        color = UIColor.red
+      }
+      btn.addCorner(radius: 20, color: color, borderWidth: 0.8)
+    }
 	}
 	
 	//MARK:- setup view
 	func setupTabBarItems() -> Void {
 		self.tabBarItem = UITabBarItem.init(title: "首页", image: UIImage(named: "home_disselect"), selectedImage: UIImage(named:"home_select"));
 	}
+	
 	
 	private func setupNavBarUI(){
 		self.title = "首页";
@@ -116,6 +124,15 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	
+	//MARK:- selectors
+	///发车、到车按钮
+	@IBAction func clickSignBtn(_ sender: UIButton) {
+		let type:ArriverSendType = ArriverSendType(rawValue: sender.tag)!
+		self.showSign(type:type)
+	}
+	
+	
+		//MARK:- private
 	//显示到车、发车登录
 	func showSign(type: ArriverSendType){
 		if type == ArriverSendType.arrive {
@@ -134,10 +151,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	//MARK:- tableView datasource
-//	func numberOfSections(in tableView: UITableView) -> Int {
-//		return kNumOfSection;
-//	}
-	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if tableView.tag == self.annTable.tag {
 			let count = self.announcesAry?.count ?? 0
@@ -146,20 +159,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			let count = self.carInfoModel?.homeInfo.count ?? 0
 			return count;
 		}
-		
-//		if section == kSectionNotiIdx {
-//			let count = self.announcesAry?.count ?? 0
-//			return count
-//		}else if section == kSectionMissionTitleIdx {
-//			return 0;
-//		}else if section == kSectionNumIdx {
-//			return 0;
-//		}else if section == kSectionCarSendInfoIdx {
-//			let count = self.carInfoModel?.homeInfo.count ?? 0
-//			return count;
-//		}else{
-//			return 0;
-//		}
 	}
 	
 	
@@ -175,30 +174,12 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			let cell = tableView.dequeueReusableCell(withIdentifier: SendCarInfoCell.cellID()) as!SendCarInfoCell
 			return cell
 		}
-		
-//		if indexPath.section == kSectionNotiIdx {
-//			let cell = tableView.dequeueReusableCell(withIdentifier: CenterAnnoCell.cellID()) as! CenterAnnoCell
-//			if let ary = self.announcesAry{
-//				let model = ary[indexPath.row]
-//				cell.updateCellUI(model: model)
-//			}
-//			return cell
-//		}else if indexPath.section == kSectionCarSendInfoIdx {
-//			let cell = tableView.dequeueReusableCell(withIdentifier: SendCarInfoCell.cellID()) as!SendCarInfoCell
-//			if let infoAry = self.carInfoModel?.homeInfo{
-//				let model = infoAry[indexPath.row]
-//				cell.updateUIBy(model: model)
-//			}
-//			return cell;
-//		}else{
-//			let cell = tableView.dequeueReusableCell(withIdentifier: SendCarInfoCell.cellID())
-//			return cell!;
-//		}
 	}
 	
 	
 	//MARK:- tableView delegate
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
 		if tableView.tag == self.annTable.tag {
 			let control = CenAnnounceDetailController(nibName: "CenAnnounceDetailController", bundle: nil)
 			if let model = self.announcesAry?[indexPath.row]{
@@ -207,16 +188,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			control.hidesBottomBarWhenPushed = true
 			self.navigationController?.pushViewController(control, animated: true)
 		}
-		
-//
-//   if indexPath.section == kSectionNotiIdx {
-//    let control = CenAnnounceDetailController(nibName: "CenAnnounceDetailController", bundle: nil)
-//    if let model = self.announcesAry?[indexPath.row]{
-//      control.model = model
-//    }
-//    control.hidesBottomBarWhenPushed = true
-//    self.navigationController?.pushViewController(control, animated: true)
-//   }
   }
   
   
@@ -231,17 +202,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 				return 40
 			}
 		}
-//
-//		if indexPath.section == kSectionCarSendInfoIdx {
-//			if let infoAry = self.carInfoModel?.homeInfo{
-//				let model = infoAry[indexPath.row]
-//				return SendCarInfoCell.cellHeight(data: model)
-//			}else{
-//				return 40
-//			}
-//		}else{
-//			return 40
-//		}
+    
 	}
 	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -251,15 +212,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			return 0.001
 		}
 		
-//		if section == kSectionNotiIdx {
-//			return CenNotiHeader.headerHeight();
-//		}else if section == kSectionMissionTitleIdx {
-//			return SendArriHeader.headerHeight();
-//		}else if section == kSectionNumIdx {
-//			return EmpCarsTitleHeader.headerHeight();
-//		}else{
-//			return 40;
-//		}
 	}
 	
 	
@@ -273,32 +225,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		}else{
 			return nil
 		}
-		
-//
-//		if section == kSectionNotiIdx {
-//			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CenNotiHeader.headerID())
-//			return header
-//		}else if section == kSectionMissionTitleIdx {
-//			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SendArriHeader.headerID())
-//			if let typeHeader = header as?SendArriHeader{
-//				typeHeader.typeBlock = {
-//					[unowned self] (type:ArriverSendType) in
-//					self.showSign(type:type)
-//				}
-//			}
-//			return header
-//		}else if section == kSectionNumIdx {
-//			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: EmpCarsTitleHeader.headerID())
-//			return header
-//		}else if section == kSectionCarSendInfoIdx {
-//			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CarCountHeader.headerID()) as! CarCountHeader
-//			if let model = self.carInfoModel{
-//				header.updateUIBy(model: model)
-//			}
-//			return header
-//		}else{
-//			return nil;
-//		}
 	}
 	
 	
@@ -312,26 +238,6 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	//MARK:- request servers
-  /*
-	func fetchDatas(){
-		let siteName = DataManager.shared.loginUser.siteName
-		let req = EmpHomAnnoReq(siteName: siteName)
-		
-		group.enter()
-		self.fetchAnnouncesData(req: req)
-		
-		let recReq = EmpHomSendReq(siteName: siteName)
-		group.enter()
-		self.fetchCarInfos(req: recReq)
-		
-		group.notify(queue: .main) {
-			[unowned self] in
-			self.tableView.es.stopPullToRefresh()
-			self.tableView.reloadData()
-		}
-	}
-  */
-	
 	///货车当前状态数据
 	func fetchCarInfos(req:STRequest) -> Void {
 		STNetworking<EmpHomeSendModel>(stRequest:req) {

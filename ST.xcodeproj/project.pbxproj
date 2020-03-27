@@ -293,8 +293,6 @@
 		BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */; };
 		BEA67BB022DC78FA007D8E4C /* CenNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */; };
 		BEA67BB122DC78FA007D8E4C /* CenNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */; };
-		BEA67BB422DC7A17007D8E4C /* SendArriHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */; };
-		BEA67BB522DC7A17007D8E4C /* SendArriHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
@@ -307,8 +305,6 @@
 		BECA053F23792FCA0053C60F /* SendCarInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */; };
 		BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA0540237931680053C60F /* CenterAnnoCell.swift */; };
 		BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA0541237931680053C60F /* CenterAnnoCell.xib */; };
-		BECA0546237934D70053C60F /* EmpCarsTitleHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */; };
-		BECA0547237934D70053C60F /* EmpCarsTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */; };
 		BECA054A23793A410053C60F /* CarCountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA054823793A400053C60F /* CarCountHeader.swift */; };
 		BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA054923793A410053C60F /* CarCountHeader.xib */; };
 		BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED08227232F894700EF69D5 /* VanRecCell.xib */; };
@@ -690,8 +686,6 @@
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
 		BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenNotiHeader.xib; sourceTree = "<group>"; };
 		BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenNotiHeader.swift; sourceTree = "<group>"; };
-		BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendArriHeader.swift; sourceTree = "<group>"; };
-		BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendArriHeader.xib; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanRecordDetailControl.swift; sourceTree = "<group>"; };
@@ -705,8 +699,6 @@
 		BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendCarInfoCell.xib; sourceTree = "<group>"; };
 		BECA0540237931680053C60F /* CenterAnnoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterAnnoCell.swift; sourceTree = "<group>"; };
 		BECA0541237931680053C60F /* CenterAnnoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterAnnoCell.xib; sourceTree = "<group>"; };
-		BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmpCarsTitleHeader.xib; sourceTree = "<group>"; };
-		BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpCarsTitleHeader.swift; sourceTree = "<group>"; };
 		BECA054823793A400053C60F /* CarCountHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarCountHeader.swift; sourceTree = "<group>"; };
 		BECA054923793A410053C60F /* CarCountHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCountHeader.xib; sourceTree = "<group>"; };
 		BED08227232F894700EF69D5 /* VanRecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecCell.xib; sourceTree = "<group>"; };
@@ -1712,14 +1704,10 @@
 			children = (
 				BECA054823793A400053C60F /* CarCountHeader.swift */,
 				BECA054923793A410053C60F /* CarCountHeader.xib */,
-				BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */,
-				BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */,
 				BECA0540237931680053C60F /* CenterAnnoCell.swift */,
 				BECA0541237931680053C60F /* CenterAnnoCell.xib */,
 				BECA053C23792FCA0053C60F /* SendCarInfoCell.swift */,
 				BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */,
-				BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */,
-				BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */,
 				BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */,
 				BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */,
 				BE1A68C322EE87A7003691B1 /* STCenter.storyboard */,
@@ -2015,7 +2003,6 @@
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
 				BE39C77723ACB18A006C35BB /* street.sty in Resources */,
-				BECA0546237934D70053C60F /* EmpCarsTitleHeader.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
 				BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */,
@@ -2026,7 +2013,6 @@
 				BE6B5CBA232DD6660076DB33 /* PwdBackCodeController.xib in Resources */,
 				BE39C77B23ACB18A006C35BB /* baiduNaviSDK.bundle in Resources */,
 				BE39C77A23ACB18A006C35BB /* DVHotcity.cfg in Resources */,
-				BEA67BB522DC7A17007D8E4C /* SendArriHeader.xib in Resources */,
 				BE44322C1F530F1C004069DF /* MaterialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2136,7 +2122,6 @@
 				8912B0DD1DD0E09C0021B160 /* QRCodeReaderViewController.swift in Sources */,
 				893497C91DDACE9900A505AF /* WebViewController.swift in Sources */,
 				89F61E3B1DCE20C10065C9CA /* Customer.swift in Sources */,
-				BECA0547237934D70053C60F /* EmpCarsTitleHeader.swift in Sources */,
 				899BD3611DC0FB32000C6687 /* LoginViewController.swift in Sources */,
 				892583EE1DC8DF0200285DB5 /* Consts.swift in Sources */,
 				892583CD1DC8DA9700285DB5 /* ConstraintRelatableTarget.swift in Sources */,
@@ -2204,7 +2189,6 @@
 				BE38BD46228C0B770007B6E0 /* QianshouCaozuoViewController.swift in Sources */,
 				892583C01DC8DA9700285DB5 /* ConstraintLayoutGuide.swift in Sources */,
 				8932BF701DC256B200A18267 /* AppMainViewController.swift in Sources */,
-				BEA67BB422DC7A17007D8E4C /* SendArriHeader.swift in Sources */,
 				BE99EED922BDC9B500F89305 /* Types.swift in Sources */,
 				BE0FC4F222BF404800271FED /* JXPhotoBrowserNetworkingCell.swift in Sources */,
 				BE8C067C22B6120B00A9901A /* DriDamgeController.swift in Sources */,
