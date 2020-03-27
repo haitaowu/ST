@@ -946,15 +946,14 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0s6-N7-LgZ">
-                                                                    <rect key="frame" x="112" y="0.0" width="139" height="44"/>
+                                                                    <rect key="frame" x="112" y="5" width="139" height="34"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4f-t3-r8h">
-                                                                    <rect key="frame" x="259" y="2" width="100" height="40"/>
+                                                                    <rect key="frame" x="259" y="6" width="100" height="32"/>
                                                                     <color key="backgroundColor" red="0.90044641489999999" green="0.001029404346" blue="0.062086164950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="40" id="Epm-A1-EGB"/>
                                                                         <constraint firstAttribute="width" constant="100" id="W9I-h6-9dF"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -966,14 +965,15 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="0s6-N7-LgZ" secondAttribute="bottom" id="N4F-Xs-WBC"/>
+                                                                <constraint firstAttribute="bottom" secondItem="0s6-N7-LgZ" secondAttribute="bottom" constant="5" id="N4F-Xs-WBC"/>
                                                                 <constraint firstItem="AdL-Rx-UnY" firstAttribute="leading" secondItem="AFO-hy-mQH" secondAttribute="leading" constant="16" id="aaj-LD-DA2"/>
-                                                                <constraint firstItem="0s6-N7-LgZ" firstAttribute="top" secondItem="AFO-hy-mQH" secondAttribute="top" id="cfO-f4-9Vm"/>
+                                                                <constraint firstItem="0s6-N7-LgZ" firstAttribute="top" secondItem="AFO-hy-mQH" secondAttribute="top" constant="5" id="cfO-f4-9Vm"/>
                                                                 <constraint firstAttribute="trailing" secondItem="S4f-t3-r8h" secondAttribute="trailing" constant="16" id="d0s-l4-any"/>
                                                                 <constraint firstItem="S4f-t3-r8h" firstAttribute="centerY" secondItem="AFO-hy-mQH" secondAttribute="centerY" id="ecU-3B-onD"/>
                                                                 <constraint firstItem="AdL-Rx-UnY" firstAttribute="centerY" secondItem="AFO-hy-mQH" secondAttribute="centerY" id="mQa-IC-LEe"/>
                                                                 <constraint firstItem="S4f-t3-r8h" firstAttribute="leading" secondItem="0s6-N7-LgZ" secondAttribute="trailing" constant="8" id="nhW-Ht-Hrl"/>
                                                                 <constraint firstItem="0s6-N7-LgZ" firstAttribute="leading" secondItem="AdL-Rx-UnY" secondAttribute="trailing" constant="16" id="pjp-on-GYm"/>
+                                                                <constraint firstItem="S4f-t3-r8h" firstAttribute="height" secondItem="0s6-N7-LgZ" secondAttribute="height" multiplier="0.941176" id="uee-SB-G0V"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

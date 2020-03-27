@@ -16,7 +16,8 @@ class AnnounceCell: BaseCell {
     //MARK:-  public
     func updateCellUI(model: AnnoModel) -> Void {
         self.dateLabel.text = model.noticeTime
-        self.contentLabel.text = model.content
+        self.contentLabel.text = model.title
     }
+	
     
 }

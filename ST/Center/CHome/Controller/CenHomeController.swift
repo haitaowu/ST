@@ -25,7 +25,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	@IBOutlet weak var tableView: UITableView!
 	
 	var carInfoModel:EmpHomeSendModel?
-	var announcesAry:[EmpHomAnno]?
+	var announcesAry:[AnnoModel]?
 	let group = DispatchGroup()
 	
 	//MARK:- Overrides
@@ -54,6 +54,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	private func setupNavBarUI(){
 		self.title = "首页";
+    self.navigationController?.navigationBar.isTranslucent = false
 	}
 	
 	func setupTable(){
@@ -155,6 +156,18 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	
 	//MARK:- tableView delegate
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   if indexPath.section == kSectionNotiIdx {
+    let control = CenAnnounceDetailController(nibName: "CenAnnounceDetailController", bundle: nil)
+    if let model = self.announcesAry?[indexPath.row]{
+      control.model = model
+    }
+    control.hidesBottomBarWhenPushed = true
+    self.navigationController?.pushViewController(control, animated: true)
+   }
+  }
+  
+  
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.section == kSectionCarSendInfoIdx {
 			if let infoAry = self.carInfoModel?.homeInfo{
@@ -257,7 +270,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	///公告的数据
 	func fetchAnnouncesData(req: STRequest) -> Void{
-		STNetworking<[EmpHomAnno]>(stRequest:req) {
+		STNetworking<[AnnoModel]>(stRequest:req) {
 			[unowned self] resp in
 			self.group.leave()
 			if resp.stauts == Status.Success.rawValue{

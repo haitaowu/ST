@@ -22,7 +22,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	let kSectionNumIdx = 2
 	let kSectionCarSendInfoIdx = 3
 	
-	var msgAry:Array<DriMsgModel>?
+	var msgAry:Array<AnnoModel>?
 	var carInfoModel:UnFinishedModel?
 	let group = DispatchGroup()
 	
@@ -149,6 +149,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	
 	//MARK:- tableView delegate
+	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.section == kSectionNotiIdx {
 			return 40;
@@ -253,7 +254,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func fetchMsgsDatas() -> Void {
 		let carCode = DataManager.shared.loginDriver.truckNum
 		let req = DriMsgReq(carCode: carCode)
-		STNetworking<[DriMsgModel]>(stRequest:req) {
+		STNetworking<[AnnoModel]>(stRequest:req) {
 			[unowned self] resp in
 			self.group.leave()
 			if resp.stauts == Status.Success.rawValue{

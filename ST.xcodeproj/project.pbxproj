@@ -313,6 +313,7 @@
 		BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA054923793A410053C60F /* CarCountHeader.xib */; };
 		BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED08227232F894700EF69D5 /* VanRecCell.xib */; };
 		BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED08228232F894700EF69D5 /* VanRecCell.swift */; };
+		BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */; };
 		BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746F922C510AD002B241E /* DriHeavyController.swift */; };
 		BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746FD22C5128B002B241E /* DriHomeController.swift */; };
 		BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE746FE22C5128B002B241E /* DriHomeController.xib */; };
@@ -710,6 +711,7 @@
 		BECA054923793A410053C60F /* CarCountHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCountHeader.xib; sourceTree = "<group>"; };
 		BED08227232F894700EF69D5 /* VanRecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecCell.xib; sourceTree = "<group>"; };
 		BED08228232F894700EF69D5 /* VanRecCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecCell.swift; sourceTree = "<group>"; };
+		BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		BEE746F922C510AD002B241E /* DriHeavyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavyController.swift; sourceTree = "<group>"; };
 		BEE746FD22C5128B002B241E /* DriHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHomeController.swift; sourceTree = "<group>"; };
 		BEE746FE22C5128B002B241E /* DriHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHomeController.xib; sourceTree = "<group>"; };
@@ -1662,6 +1664,7 @@
 				BE3DCFD422D6E021003176E3 /* String+Extension.swift */,
 				BE3DCFD622D6E154003176E3 /* Date+Extension.swift */,
 				BE3DFA532330B4260032527E /* Dictionary+Extension.swift */,
+				BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */,
 			);
 			name = Category;
 			path = ST/Base/Category;
@@ -2113,6 +2116,7 @@
 				892583D41DC8DA9700285DB5 /* LayoutConstraintItem.swift in Sources */,
 				BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */,
 				89F3ECEB1DC444B000DDA832 /* HomeMenuItemView.swift in Sources */,
+				BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */,
 				892583D21DC8DA9700285DB5 /* Debugging.swift in Sources */,
 				8932BF731DC257A400A18267 /* UIViewController+setcontentViewController.swift in Sources */,
 				892583CE1DC8DA9700285DB5 /* ConstraintRelation.swift in Sources */,

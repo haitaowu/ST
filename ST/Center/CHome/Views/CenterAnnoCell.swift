@@ -14,9 +14,9 @@ class CenterAnnoCell: BaseCell {
     
     
     //MARK:-  public
-    func updateCellUI(model: EmpHomAnno) -> Void {
+    func updateCellUI(model: AnnoModel) -> Void {
         self.dateLabel.text = model.noticeTime
-        self.contentLabel.text = model.content
+			self.contentLabel.text = model.title
     }
     
 }

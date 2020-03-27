@@ -12,15 +12,15 @@ import Foundation
 	
 //MARK:-司机首页公告
 ///司机首页公告模型
-struct DriMsgModel:SimpleCodable {
-	var content: String = ""
-	var noticeTime: String = ""
-	var person: String = ""
-	var title: String = ""
-	var sendSite: String = ""
-	init() {
-	}
-}
+//struct DriMsgModel ext AnnoModel {
+//	var content: String = ""
+//	var noticeTime: String = ""
+//	var person: String = ""
+//	var title: String = ""
+//	var sendSite: String = ""
+//	init() {
+//	}
+//}
 
 //司机首页公告req
 struct DriMsgReq:STRequest {
