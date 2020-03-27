@@ -69,32 +69,19 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	func setupTable(){
-//		let nibHeader = CenNotiHeader.headerNib();
-//		self.tableView.register(nibHeader, forHeaderFooterViewReuseIdentifier: CenNotiHeader.headerID());
-//
-//		let sendArriHeader = SendArriHeader.headerNib();
-//		self.tableView.register(sendArriHeader, forHeaderFooterViewReuseIdentifier: SendArriHeader.headerID());
-//
 
-//		let numHeader = EmpCarsTitleHeader.headerNib();
-//		self.tableView.register(numHeader, forHeaderFooterViewReuseIdentifier: EmpCarsTitleHeader.headerID())
-//
-		
 		let sendHeader = CarCountHeader.headerNib();
-//		self.tableView.register(sendHeader, forHeaderFooterViewReuseIdentifier: CarCountHeader.headerID())
-		
+
 		//car info table header
 		self.carTable.register(sendHeader, forHeaderFooterViewReuseIdentifier: CarCountHeader.headerID())
 		
 		let nibNotiCell = CenterAnnoCell.cellNib();
-//		self.tableView.register(nibNotiCell, forCellReuseIdentifier: CenterAnnoCell.cellID())
-		
+
 		//announce table cell
 		self.annTable.register(nibNotiCell, forCellReuseIdentifier: CenterAnnoCell.cellID())
 		
 		let sendInfoCell = SendCarInfoCell.cellNib();
-//		self.tableView.register(sendInfoCell, forCellReuseIdentifier: SendCarInfoCell.cellID())
-		
+
 		//car info table cell
 		self.carTable.register(sendInfoCell, forCellReuseIdentifier: SendCarInfoCell.cellID())
 	}
@@ -214,14 +201,15 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		
 	}
 	
-	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if tableView.tag == self.carTable.tag {
-			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CarCountHeader.headerID()) as! CarCountHeader
 			if let model = self.carInfoModel{
+				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CarCountHeader.headerID()) as! CarCountHeader
 				header.updateUIBy(model: model)
+				return header
+			}else{
+				return nil
 			}
-			return header
 		}else{
 			return nil
 		}

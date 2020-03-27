@@ -291,8 +291,6 @@
 		BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */; };
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
 		BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */; };
-		BEA67BB022DC78FA007D8E4C /* CenNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */; };
-		BEA67BB122DC78FA007D8E4C /* CenNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
@@ -684,8 +682,6 @@
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
-		BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenNotiHeader.xib; sourceTree = "<group>"; };
-		BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenNotiHeader.swift; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanRecordDetailControl.swift; sourceTree = "<group>"; };
@@ -1708,8 +1704,6 @@
 				BECA0541237931680053C60F /* CenterAnnoCell.xib */,
 				BECA053C23792FCA0053C60F /* SendCarInfoCell.swift */,
 				BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */,
-				BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */,
-				BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */,
 				BE1A68C322EE87A7003691B1 /* STCenter.storyboard */,
 			);
 			path = Views;
@@ -1972,7 +1966,6 @@
 				8912B0D71DD0D12A0021B160 /* STListViewCell.xib in Resources */,
 				BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */,
 				BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */,
-				BEA67BB022DC78FA007D8E4C /* CenNotiHeader.xib in Resources */,
 				896674851DE1517E000C970A /* YuangongCell.xib in Resources */,
 				BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */,
 				BE38BD39228C0B770007B6E0 /* ProfileViewController.xib in Resources */,
@@ -2273,7 +2266,6 @@
 				892583B91DC8DA9700285DB5 /* ConstraintConstantTarget.swift in Sources */,
 				BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */,
 				BE44322B1F530F1C004069DF /* MaterialViewController.swift in Sources */,
-				BEA67BB122DC78FA007D8E4C /* CenNotiHeader.swift in Sources */,
 				892583C51DC8DA9700285DB5 /* ConstraintMakerEditable.swift in Sources */,
 				BE0FC4EC22BF404800271FED /* JXPhotoBrowserTransitioning.swift in Sources */,
 				8932BF751DC25E9500A18267 /* AppColors.swift in Sources */,
