@@ -294,6 +294,9 @@
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
+		BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2C242DC58300169C2C /* BaseFooter.swift */; };
+		BEB14E30242DC80B00169C2C /* ExceptionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */; };
+		BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */; };
 		BEB58FCF22E6F49E0014FA5D /* VanRecordDetailControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */; };
 		BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5E6912333678F0087CD0B /* DriverModel.swift */; };
 		BEC8B44122BCF9720095C045 /* TinyConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43B22BCF9720095C045 /* TinyConsole.swift */; };
@@ -315,16 +318,14 @@
 		BEE7471522C5128C002B241E /* DriMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470022C5128B002B241E /* DriMenuController.swift */; };
 		BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470222C5128B002B241E /* DSendInfoHeader.swift */; };
 		BEE7471722C5128C002B241E /* DriCarInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470322C5128B002B241E /* DriCarInfoCell.swift */; };
-		BEE7471822C5128C002B241E /* DMissionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470422C5128B002B241E /* DMissionFooter.xib */; };
 		BEE7471922C5128C002B241E /* DMissionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470522C5128B002B241E /* DMissionHeader.xib */; };
 		BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470622C5128B002B241E /* STMenuCell.xib */; };
 		BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470722C5128B002B241E /* DSendInfoHeader.xib */; };
-		BEE7471C22C5128C002B241E /* DNumHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470822C5128B002B241E /* DNumHeader.xib */; };
+		BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470822C5128B002B241E /* DNumFooter.xib */; };
 		BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470A22C5128B002B241E /* STMenuCell.swift */; };
-		BEE7471F22C5128C002B241E /* DMissionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470B22C5128B002B241E /* DMissionFooter.swift */; };
 		BEE7472022C5128C002B241E /* DriCarInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */; };
 		BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */; };
-		BEE7472222C5128C002B241E /* DNumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470E22C5128B002B241E /* DNumHeader.swift */; };
+		BEE7472222C5128C002B241E /* DNumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470E22C5128B002B241E /* DNumFooter.swift */; };
 		BEE7472322C5128C002B241E /* DriverNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */; };
 		BEE7472422C5128C002B241E /* DMissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7471022C5128B002B241E /* DMissionHeader.swift */; };
 		BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777423AB23A2002E6828 /* Accelerate.framework */; };
@@ -684,6 +685,9 @@
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
+		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
+		BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHeader.swift; sourceTree = "<group>"; };
+		BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExceptionHeader.xib; sourceTree = "<group>"; };
 		BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanRecordDetailControl.swift; sourceTree = "<group>"; };
 		BEC5E6912333678F0087CD0B /* DriverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		BEC8B43B22BCF9720095C045 /* TinyConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsole.swift; sourceTree = "<group>"; };
@@ -707,16 +711,14 @@
 		BEE7470022C5128B002B241E /* DriMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriMenuController.swift; sourceTree = "<group>"; };
 		BEE7470222C5128B002B241E /* DSendInfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSendInfoHeader.swift; sourceTree = "<group>"; };
 		BEE7470322C5128B002B241E /* DriCarInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriCarInfoCell.swift; sourceTree = "<group>"; };
-		BEE7470422C5128B002B241E /* DMissionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMissionFooter.xib; sourceTree = "<group>"; };
 		BEE7470522C5128B002B241E /* DMissionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMissionHeader.xib; sourceTree = "<group>"; };
 		BEE7470622C5128B002B241E /* STMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STMenuCell.xib; sourceTree = "<group>"; };
 		BEE7470722C5128B002B241E /* DSendInfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSendInfoHeader.xib; sourceTree = "<group>"; };
-		BEE7470822C5128B002B241E /* DNumHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DNumHeader.xib; sourceTree = "<group>"; };
+		BEE7470822C5128B002B241E /* DNumFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DNumFooter.xib; sourceTree = "<group>"; };
 		BEE7470A22C5128B002B241E /* STMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STMenuCell.swift; sourceTree = "<group>"; };
-		BEE7470B22C5128B002B241E /* DMissionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMissionFooter.swift; sourceTree = "<group>"; };
 		BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriCarInfoCell.xib; sourceTree = "<group>"; };
 		BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverNotiHeader.swift; sourceTree = "<group>"; };
-		BEE7470E22C5128B002B241E /* DNumHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNumHeader.swift; sourceTree = "<group>"; };
+		BEE7470E22C5128B002B241E /* DNumFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNumFooter.swift; sourceTree = "<group>"; };
 		BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverNotiHeader.xib; sourceTree = "<group>"; };
 		BEE7471022C5128B002B241E /* DMissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMissionHeader.swift; sourceTree = "<group>"; };
 		BEE7777423AB23A2002E6828 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -1192,6 +1194,7 @@
 		BE17CD1D22AFBE86006D9EF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BEB14E2C242DC58300169C2C /* BaseFooter.swift */,
 				BE17CD2922AFC23E006D9EF0 /* BaseHeader.swift */,
 				BE17CD2522AFBEB6006D9EF0 /* BaseCell.swift */,
 			);
@@ -1798,22 +1801,22 @@
 		BEE7470122C5128B002B241E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */,
+				BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */,
 				BE86077D235ED49E008BB2B2 /* DriHMsgCell.swift */,
 				BE86077E235ED49F008BB2B2 /* DriHMsgCell.xib */,
-				BEE7470B22C5128B002B241E /* DMissionFooter.swift */,
-				BEE7470422C5128B002B241E /* DMissionFooter.xib */,
+				BEE7470E22C5128B002B241E /* DNumFooter.swift */,
+				BEE7470822C5128B002B241E /* DNumFooter.xib */,
+				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
+				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
 				BEE7471022C5128B002B241E /* DMissionHeader.swift */,
 				BEE7470522C5128B002B241E /* DMissionHeader.xib */,
-				BEE7470E22C5128B002B241E /* DNumHeader.swift */,
-				BEE7470822C5128B002B241E /* DNumHeader.xib */,
 				BEE7470322C5128B002B241E /* DriCarInfoCell.swift */,
 				BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */,
 				BEE7470A22C5128B002B241E /* STMenuCell.swift */,
 				BEE7470622C5128B002B241E /* STMenuCell.xib */,
 				BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */,
 				BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */,
-				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
-				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
 				BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */,
 				BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */,
 			);
@@ -1929,8 +1932,7 @@
 				BE38BD47228C0B770007B6E0 /* ShoujianSaomiaoViewController.xib in Resources */,
 				BE85CC8E22CC928B009D00AC /* DriDamgeQueryController.xib in Resources */,
 				BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */,
-				BEE7471C22C5128C002B241E /* DNumHeader.xib in Resources */,
-				BEE7471822C5128C002B241E /* DMissionFooter.xib in Resources */,
+				BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */,
 				BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */,
 				BE20A9981F6660EE00D2D753 /* NoticeCell.xib in Resources */,
 				899BD3621DC0FB32000C6687 /* LoginViewController.xib in Resources */,
@@ -1996,6 +1998,7 @@
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
 				BE39C77723ACB18A006C35BB /* street.sty in Resources */,
+				BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
 				BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */,
@@ -2129,7 +2132,6 @@
 				BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */,
 				8912B0DF1DD0E29F0021B160 /* QrInterface.swift in Sources */,
 				BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */,
-				BEE7471F22C5128C002B241E /* DMissionFooter.swift in Sources */,
 				892583C81DC8DA9700285DB5 /* ConstraintMakerPriortizable.swift in Sources */,
 				893497D11DDAD27F00A505AF /* Webview.swift in Sources */,
 				BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */,
@@ -2168,6 +2170,7 @@
 				89F3ECFF1DC499E500DDA832 /* HightlightableView.swift in Sources */,
 				BE0FC4F722BF404800271FED /* JXPhotoBrowserFadePresentingAnimator.swift in Sources */,
 				BE38BD3C228C0B770007B6E0 /* ProfileViewController.swift in Sources */,
+				BEB14E30242DC80B00169C2C /* ExceptionHeader.swift in Sources */,
 				BE38BD53228C0B770007B6E0 /* QuyuChaxunViewController.swift in Sources */,
 				BE85CC8F22CC928B009D00AC /* DriDamgeQueryController.swift in Sources */,
 				BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */,
@@ -2221,6 +2224,7 @@
 				8912B0DC1DD0E09C0021B160 /* QRCodeReaderView.swift in Sources */,
 				89F3ECCF1DC43DD600DDA832 /* UIView+border.swift in Sources */,
 				892583BA1DC8DA9700285DB5 /* ConstraintDescription.swift in Sources */,
+				BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */,
 				89F61E371DCE1D850065C9CA /* DataManager.swift in Sources */,
 				BE17CD2722AFBEB6006D9EF0 /* BaseCell.swift in Sources */,
 				BE623A9F23BC553B009A1A20 /* DriDamQueryResController.swift in Sources */,
@@ -2276,7 +2280,7 @@
 				BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */,
 				89F61E411DCE24A70065C9CA /* SiteInfo.swift in Sources */,
 				892583BC1DC8DA9700285DB5 /* ConstraintInsets.swift in Sources */,
-				BEE7472222C5128C002B241E /* DNumHeader.swift in Sources */,
+				BEE7472222C5128C002B241E /* DNumFooter.swift in Sources */,
 				BE38BD38228C0B770007B6E0 /* LaterPinterBillTableController.swift in Sources */,
 				899BD36B1DC0FB8B000C6687 /* MessageViewController.swift in Sources */,
 				BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */,

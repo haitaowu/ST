@@ -41,6 +41,7 @@ class AppMainViewController: ContainerViewController {
             UINavigationController(rootViewController: v3),
             UINavigationController(rootViewController: user)
         ]
+			tabBar.tabBar.isTranslucent = false
         self.content = tabBar
     }
     

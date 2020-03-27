@@ -15,19 +15,22 @@ import ESPullToRefresh
 
 class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 	
-	let kNumOfSection = 4
-	
+
+
 	let kSectionNotiIdx = 0
-	let kSectionMissionTitleIdx = 1
-	let kSectionNumIdx = 2
-	let kSectionCarSendInfoIdx = 3
+	let kSectionCarSendInfoIdx = 1
 	
+	
+
 	var msgAry:Array<AnnoModel>?
 	var carInfoModel:UnFinishedModel?
 	let group = DispatchGroup()
 	
 	//MARK:-IBoutlets
-	@IBOutlet weak var tableView: UITableView!
+
+	@IBOutlet weak var annTable: UITableView!
+	@IBOutlet weak var carTable: UITableView!
+  
 	
 	//MARK:- Overrides
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -43,7 +46,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		self.setupTable()
-		//		self.fetchUnFinishedDatas()
+		self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
 		self.setupNavBar()
 	}
 	
@@ -55,43 +58,41 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func setupNavBar() -> Void {
 		self.title = "首页";
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "菜单", style:.plain, target: self, action: #selector(DriHomeController.clickDriMenu))
+    self.navigationController?.navigationBar.isTranslucent = false
 	}
 	
 	
 	private func setupTable(){
+
+		self.carTable.register(ExceptionHeader.headerNib(), forHeaderFooterViewReuseIdentifier: ExceptionHeader.headerID())
 		
-		self.edgesForExtendedLayout = [.bottom]
+		self.carTable.register(DNumFooter.footerNib(), forHeaderFooterViewReuseIdentifier: DNumFooter.footerID())
 		
-		let nibHeader = DriverNotiHeader.headerNib()
-		self.tableView.register(nibHeader, forHeaderFooterViewReuseIdentifier: DriverNotiHeader.headerID())
+    self.carTable.register(DSendInfoHeader.headerNib(), forHeaderFooterViewReuseIdentifier: DSendInfoHeader.headerID())
+    
+    self.carTable.register(DSSignFooter.footerNib(), forHeaderFooterViewReuseIdentifier: DSSignFooter.footerID())
 		
-		let missionHeader = DMissionHeader.headerNib()
-		self.tableView.register(missionHeader, forHeaderFooterViewReuseIdentifier: DMissionHeader.headerID())
 		
-		let missionFooter = DMissionFooter.footerNib();
-		self.tableView.register(missionFooter, forHeaderFooterViewReuseIdentifier: DMissionFooter.footerID());
+    self.annTable.register(DriHMsgCell.cellNib(), forCellReuseIdentifier: DriHMsgCell.cellID())
+    
+    self.carTable.register(DriCarInfoCell.cellNib(), forCellReuseIdentifier: DriCarInfoCell.cellID())
 		
-		let numHeader = DNumHeader.headerNib();
-		self.tableView.register(numHeader, forHeaderFooterViewReuseIdentifier: DNumHeader.headerID())
-		
-		let sendHeader = DSendInfoHeader.headerNib();
-		self.tableView.register(sendHeader, forHeaderFooterViewReuseIdentifier: DSendInfoHeader.headerID())
-		
-		let signFooter = DSSignFooter.footerNib();
-		self.tableView.register(signFooter, forHeaderFooterViewReuseIdentifier: DSSignFooter.footerID())
-		
-		let nibNotiCell = DriHMsgCell.cellNib();
-		self.tableView.register(nibNotiCell, forCellReuseIdentifier: DriHMsgCell.cellID())
-		
-		let sendInfoCell = DriCarInfoCell.cellNib();
-		self.tableView.register(sendInfoCell, forCellReuseIdentifier: DriCarInfoCell.cellID())
-		
-		self.tableView.es.addPullToRefresh {
+    
+		self.annTable.es.addPullToRefresh {
 			[unowned self] in
-			self.fetchDatas()
+			self.fetchMsgsDatas()
 		}
-		
-		self.tableView.es.startPullToRefresh()
+		self.annTable.es.startPullToRefresh()
+    
+    
+    self.carTable.es.addPullToRefresh {
+      [unowned self] in
+      self.fetchUnFinishedDatas()
+    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+      self.carTable.es.startPullToRefresh()
+    }
 	}
 	
 	
@@ -105,50 +106,62 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	//MARK:- tableView datasource
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return kNumOfSection;
+		if tableView.tag == self.annTable.tag{
+			return 1
+		}else{
+			return 2
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if section == kSectionNotiIdx {
+		if tableView.tag == self.annTable.tag{
 			return self.msgAry?.count ?? 0
-		}else if section == kSectionMissionTitleIdx {
-			return 0;
-		}else if section == kSectionNumIdx {
-			return 0;
-		}else if section == kSectionCarSendInfoIdx {
-			if self.carInfoModel != nil{
-				return DriCarInfoCell.keysAry.count;
-			}else{
-				return 0
-			}
 		}else{
-			return 0;
+			if section == kSectionNotiIdx {
+				return 0
+			}else{
+				if self.carInfoModel != nil{
+					return DriCarInfoCell.keysAry.count;
+				}else{
+					return 0
+				}
+			}
 		}
 	}
 	
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		if indexPath.section == kSectionNotiIdx {
+		if tableView.tag == self.annTable.tag {
 			let cell = tableView.dequeueReusableCell(withIdentifier: DriHMsgCell.cellID()) as! DriHMsgCell
 			if let dataAry = self.msgAry{
 				let model = dataAry[indexPath.row]
 				cell.updateCellUI(model: model)
 			}
-			return cell;
-		}else if indexPath.section == kSectionCarSendInfoIdx {
+			return cell
+		}else{
 			let cell = tableView.dequeueReusableCell(withIdentifier: DriCarInfoCell.cellID()) as! DriCarInfoCell
 			if let model = self.carInfoModel{
 				cell.updateUIBy(model: model, indexPath: indexPath)
 			}
 			return cell
-		}else{
-			let cell = tableView.dequeueReusableCell(withIdentifier: DriCarInfoCell.cellID())
-			return cell!;
 		}
+
 	}
 	
 	
 	//MARK:- tableView delegate
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
+		if tableView.tag == self.annTable.tag {
+			let control = CenAnnounceDetailController(nibName: "CenAnnounceDetailController", bundle: nil)
+			if let model = self.msgAry?[indexPath.row]{
+				control.model = model
+			}
+			control.hidesBottomBarWhenPushed = true
+			self.navigationController?.pushViewController(control, animated: true)
+		}
+  }
+	
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.section == kSectionNotiIdx {
@@ -160,105 +173,94 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		}
 	}
 	
+	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		if section == kSectionNotiIdx {
-			return DriverNotiHeader.headerHeight();
-		}else if section == kSectionMissionTitleIdx {
-			return DMissionHeader.headerHeight();
-		}else if section == kSectionNumIdx {
-			return DNumHeader.headerHeight();
+		if tableView.tag == self.carTable.tag{
+			if section == kSectionNotiIdx {
+				if let carInfo = self.carInfoModel,carInfo.bakNextStaTion.isEmpty==false{
+					return ExceptionHeader.headerHeight()
+				}else{
+					return 0.001;
+				}
+			}else if section == kSectionCarSendInfoIdx {
+				return DSendInfoHeader.headerHeight();
+			}else{
+				return 0.001
+			}
 		}else{
-			return 40;
+			return 0.001
 		}
+		
 	}
 	
 	
+	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		if section == kSectionNotiIdx {
-			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DriverNotiHeader.headerID())
-			return header
-		}else if section == kSectionMissionTitleIdx {
-			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DMissionHeader.headerID()) as! DMissionHeader
-			
-			return header
-		}else if section == kSectionNumIdx {
-			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DNumHeader.headerID()) as! DNumHeader
-			if let model = self.carInfoModel{
-				header.updateUIBy(model: model)
+		if tableView.tag == self.carTable.tag{
+			if section == kSectionNotiIdx {
+				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExceptionHeader.headerID()) as! ExceptionHeader
+				return header
+			}else if section == kSectionCarSendInfoIdx {
+				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSendInfoHeader.headerID()) as! DSendInfoHeader
+				return header
+			}else{
+				return nil
 			}
-			return header
-		}else if section == kSectionCarSendInfoIdx {
-			let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSendInfoHeader.headerID())
-			return header
 		}else{
-			return nil;
+			return nil
 		}
 	}
 	
 	
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		if section == kSectionMissionTitleIdx {
-			if let carInfo = self.carInfoModel,carInfo.bakNextStaTion.isEmpty==false{
-				return DMissionFooter.footerHeight()
+
+		if tableView.tag == self.carTable.tag {
+			if section == kSectionNotiIdx{
+				return DNumFooter.footerHeight()
 			}else{
-				return 0.001;
+				return DSSignFooter.footerHeight()
 			}
-		}else if section == kSectionCarSendInfoIdx {
-			return DSSignFooter.footerHeight()
 		}else{
-			return 0.001;
+			return 0.001
 		}
 	}
 	
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		if section == kSectionMissionTitleIdx {
-			if let carInfo = self.carInfoModel,carInfo.bakNextStaTion.isEmpty==false{
-				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DMissionFooter.footerID()) as! DMissionFooter
-				footer.updateUI(model: carInfo)
+		
+		if tableView.tag == self.carTable.tag {
+			if section == kSectionNotiIdx{
+				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DNumFooter.footerID()) as! DNumFooter
+				if let model = self.carInfoModel{
+					footer.updateUIBy(model: model)
+				}
 				return footer
 			}else{
-				return nil;
-			}
-		}else if section == kSectionCarSendInfoIdx {
-			let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSSignFooter.footerID()) as! DSSignFooter
-			footer.updateUI(model: self.carInfoModel){
-				[unowned self] in
-				self.reqSendSign()
+				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSSignFooter.footerID()) as! DSSignFooter
+				footer.updateUI(model: self.carInfoModel){
+					[unowned self] in
+					self.reqSendSign()
 				}
-			return footer
+				return footer
+			}
+			
 		}else{
-			return nil;
+			return nil
 		}
+
 	}
 	
 	//MARK:- request server
-	//公告数据
-	func fetchDatas() -> Void {
-		group.enter()
-		self.fetchMsgsDatas()
-		
-		group.enter()
-		self.fetchUnFinishedDatas()
-		
-		group.notify(queue: .main) {
-			[unowned self] in
-			print("leave the goup thread.")
-			self.tableView.es.stopPullToRefresh()
-			self.tableView.reloadData()
-		}
-		
-	}
-	
 	//公告数据
 	func fetchMsgsDatas() -> Void {
 		let carCode = DataManager.shared.loginDriver.truckNum
 		let req = DriMsgReq(carCode: carCode)
 		STNetworking<[AnnoModel]>(stRequest:req) {
 			[unowned self] resp in
-			self.group.leave()
+      self.annTable.es.stopPullToRefresh()
 			if resp.stauts == Status.Success.rawValue{
 				self.msgAry = resp.data
+				self.annTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
@@ -275,9 +277,10 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		let req = UnFinishedReq(carCode: carCode)
 		STNetworking<UnFinishedModel>(stRequest:req) {
 			[unowned self] resp in
-			self.group.leave()
+      self.carTable.es.stopPullToRefresh()
 			if resp.stauts == Status.Success.rawValue{
 				self.carInfoModel = resp.data
+				self.carTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
@@ -298,7 +301,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		[unowned self] resp in
 		if resp.stauts == Status.Success.rawValue{
 			self.carInfoModel?.deiverStatus = "1"
-			self.tableView.reloadData()
+			self.carTable.reloadData()
 		}else if resp.stauts == Status.NetworkTimeout.rawValue{
 			self.remindUser(msg: "网络超时，请稍后尝试")
 		}else{

@@ -8,13 +8,13 @@
 
 import Foundation
 
-class DNumHeader: BaseHeader {
+class DNumFooter: BaseFooter{
  
   @IBOutlet weak var numLabel: UILabel!
   
   //MARK:- static
-  static func headerHeight() -> CGFloat{
-    return 50
+  static func footerHeight() -> CGFloat{
+    return 40
   }
   
   func updateUIBy(model: UnFinishedModel) -> Void {

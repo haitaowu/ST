@@ -43,7 +43,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.edgesForExtendedLayout = [.bottom]
+		self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
 		self.setupNavBarUI()
 		self.setupTable()
 		self.setupRefreshTable()
