@@ -24,8 +24,7 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
 	var msgAry:Array<AnnoModel>?
 	var carInfoModel:UnFinishedModel?
-	let group = DispatchGroup()
-	
+
 	//MARK:-IBoutlets
 
 	@IBOutlet weak var annTable: UITableView!

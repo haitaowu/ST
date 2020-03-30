@@ -21,16 +21,16 @@ struct Consts {
 	static var pwdCenterKey = "pwdCenterKey"
     
     //生产环境的接口
-//    static var Server = "http://58.215.182.251:5889/"
-//    static var BaseUrl = "AndroidService/"
+    static var Server = "http://58.215.182.251:5889/"
+    static var BaseUrl = "AndroidService/"
 	
 	//测试环境的接口
 //    static var Server = "http://58.215.182.251:5900/"
 
     
     //测试环境的接口
-	static var Server = "http://58.215.182.252:8610/"
-    static var BaseUrl = "AndroidServiceSTIOS/"
+//	static var Server = "http://58.215.182.252:8610/"
+//    static var BaseUrl = "AndroidServiceSTIOS/"
 
 	///图片下载地址
     static var ImgServer = "http://58.215.182.252:8070/download/"
