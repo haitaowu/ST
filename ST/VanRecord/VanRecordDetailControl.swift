@@ -117,7 +117,7 @@ class VanRecordDetailControl: UITableViewController{
 			let comeData = detailModel.comeData
 			self.listCodeLabel.text = detailModel.listCode
 			self.stateLabel.text = detailModel.truckState
-			self.tmpTypeLabel.text = sendData.blTempWork
+			self.tmpTypeLabel.text = sendData.blTempWorkStr()
 			self.trukNumLabel.text = sendData.truckNum
 			self.truckTypeLabel.text = sendData.truckType
 			self.truckCarNumLabel.text = sendData.truckCarNum

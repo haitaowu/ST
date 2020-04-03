@@ -26,8 +26,12 @@ class DriCarInfoCell: BaseCell {
 		let keyTitle = keyStr.components(separatedBy: ",")
 		if let modelDic = model.toJSON(),let key = keyTitle.first,let title = keyTitle.last{
 			if let valStr = modelDic[key] as? String{
-				let string = title+valStr
-				self.txtLabel.text = string
+				if key == "blTempWork" {
+					self.txtLabel.text = model.blTempWorkStr()
+				}else{
+					let string = title+valStr
+					self.txtLabel.text = string
+				}
 			}
 		}
 	}

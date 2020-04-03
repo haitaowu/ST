@@ -450,7 +450,8 @@ class DriHeavyController: UITableViewController,UIImagePickerControllerDelegate,
 	
 	//MARK:- request server
 	private func submitImgData(flag: Int, pathStr:String, fileName: String, imgData:Data){
-		let reqUrl = URL.init(string: "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do")
+		
+		let reqUrl = URL.init(string: Consts.UploadServer)
 		guard let url = reqUrl else {
 			return
 		}

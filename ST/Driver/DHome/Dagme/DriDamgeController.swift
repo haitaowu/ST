@@ -500,7 +500,7 @@ class DriDamgeController: UITableViewController,UIImagePickerControllerDelegate,
   //MARK:- request server
 	//提交图片
   func submitDamageImg(flag: Int, pathStr: String, fileName: String, imgData:Data){
-    let url = URL.init(string: "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do")
+    let url = URL.init(string: Consts.UploadServer)
     guard let uploadUrl = url else{return}
     
     Alamofire.upload(multipartFormData: { (multipartFormData) in

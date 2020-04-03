@@ -76,6 +76,15 @@ struct UnFinishedModel:SimpleCodable {
 	///司机发车状态 0 :未发车, 1:已发车
 	var  deiverStatus: String = ""
 	
+	///是否加班：1:加班     0或空:为不加班
+	func blTempWorkStr() -> String {
+		if(self.blTempWork == "1"){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
+	
 	init() {
 	}
 }

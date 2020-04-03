@@ -456,6 +456,15 @@ struct SendTruckModel:SimpleCodable {
 	var sendsealScanBackDoor: String = ""
 	///封签号（前侧）
 	var sendsealScanMittertor: String = ""
+	
+	///是否加班：1:加班     0或空:为不加班
+	func blTempWorkStr() -> String {
+		if(self.blTempWork == "1"){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
 
 	init() {
 	}

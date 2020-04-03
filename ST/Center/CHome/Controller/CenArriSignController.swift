@@ -117,7 +117,7 @@ class CenArriSignController: UITableViewController,QrInterface,CLLocationManager
 	
   //MARK:- update ui
   func updateSendTruckUIBy(carInfo: SendTruckModel){
-    self.tmpTruckLabel.text = carInfo.blTempWork
+    self.tmpTruckLabel.text = carInfo.blTempWorkStr()
     self.carTypeLabel.text = carInfo.truckType
     self.carPendNumLabel.text = carInfo.truckCarNum
     self.routeLabel.text = carInfo.lineName

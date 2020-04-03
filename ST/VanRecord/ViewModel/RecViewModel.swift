@@ -81,6 +81,15 @@ struct SendDataModel:SimpleCodable {
 	var truckNum: String = ""
 	// (String)车型
 	var truckType: String = ""
+	
+	///是否加班：1:加班     0或空:为不加班
+	func blTempWorkStr() -> String {
+		if(self.blTempWork == "1"){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
 }
 
 
@@ -129,22 +138,35 @@ struct DriSADetailModel:SimpleCodable {
 	var listCode: String = ""
 	//
 	var truckState: String = ""
+	
 }
 
 
-//司机到车/发车记录详情的request
+
+//中心、司机到车/发车记录详情的request
 struct DriSARecDetailReq:STRequest {
 	var listCode:String
+	let manager = DataManager.shared
 	var logicUrl: String{
-		return "Dri/findSendComeTruckCount.do"
+		if (manager.roleType == .driver) {
+			return "Dri/findSendComeTruckCount.do"
+		}else{
+			return "Emp/findSendComeTruckCount.do"
+		}
 	}
 	
 	var parameters: [AnyHashable : Any]{
 		let base64str = listCode.base64Str()
-		let signStr = listCode.driverMd5Str();
+		var signStr = ""
+		if (manager.roleType == .driver) {
+			signStr = listCode.driverMd5Str()
+		}else{
+			signStr = listCode.employeeMdStr()
+		}
 		return [
 			"data":base64str,
 			"sign":signStr
+			
 		]
 	}
 }

@@ -728,7 +728,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	
   //提交已装载情况的图片
 	func submitImgData(pathStr: String, fileName: String, img: UIImage) -> Void {
-		let reqUrl = URL.init(string: "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do")
+		let reqUrl = URL.init(string: Consts.UploadServer)
+		
 		guard let url = reqUrl else {
 			return
 		}
