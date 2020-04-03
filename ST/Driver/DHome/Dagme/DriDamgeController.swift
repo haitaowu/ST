@@ -317,7 +317,8 @@ class DriDamgeController: UITableViewController,UIImagePickerControllerDelegate,
 			imgAry.removeLast()
 			self.realUrlsAry.removeAll()
       for (idx,img) in imgAry.enumerated(){
-        let fileName = "live\(idx).jpeg"
+					let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+        let fileName = "\(prefixName)live\(idx).jpeg"
         let imgData = img.jpegData(compressionQuality: 0.5)
         let pathStr = "Damage"
         guard let data = imgData else{return}
@@ -336,7 +337,8 @@ class DriDamgeController: UITableViewController,UIImagePickerControllerDelegate,
 			imgAry.removeLast()
 			self.damUrlsAry.removeAll()
       for (idx,img) in imgAry.enumerated(){
-        let fileName = "damage\(idx).jpeg"
+				let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+        let fileName = "\(prefixName)damage\(idx).jpeg"
         let imgData = img.jpegData(compressionQuality: 0.5)
         let pathStr = "Damage"
         guard let data = imgData else{return}

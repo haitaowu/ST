@@ -198,7 +198,8 @@ class DriHeavyController: UITableViewController,UIImagePickerControllerDelegate,
 			for (idx,img) in imgAry.enumerated(){
 				if let imgData = img.jpegData(compressionQuality: 0.5){
 					group.enter()
-					let fileName = "real\(idx).jpeg"
+					let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+					let fileName = "\(prefixName)real\(idx).jpeg"
 					self.submitImgData(flag: 0, pathStr: "Jar",fileName: fileName, imgData: imgData)
 				}
 			}
@@ -212,7 +213,8 @@ class DriHeavyController: UITableViewController,UIImagePickerControllerDelegate,
 			for (idx,img) in imgAry.enumerated(){
 				if let imgData = img.jpegData(compressionQuality: 0.5){
 					group.enter()
-					let fileName =  "nav\(idx).jpeg"
+					let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+					let fileName =  "\(prefixName)nav\(idx).jpeg"
 					self.submitImgData(flag: 1, pathStr: "Jar",fileName: fileName, imgData: imgData)
 				}
 			}

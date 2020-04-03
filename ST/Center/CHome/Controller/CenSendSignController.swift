@@ -594,7 +594,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 		self.loadImgUrls.removeAll()
 		for (idx,img) in loadImgs.enumerated(){
 			group.enter()
-			let fileName = "load\(idx).jpeg"
+			let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+			let fileName = "\(prefixName)load\(idx).jpeg"
 			self.submitImgData(pathStr: "SendCar", fileName: fileName, img: img)
 		}
 
