@@ -640,9 +640,6 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
         self.remindUser(msg: "网络超时，请稍后尝试")
       }else{
         var msg = resp.msg
-        if resp.stauts == Status.PasswordWrong.rawValue{
-          msg = "提交错误"
-        }
         self.remindUser(msg: msg)
       }
     }?.resume()
@@ -672,9 +669,6 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				var msg = resp.msg
-				if resp.stauts == Status.PasswordWrong.rawValue{
-					msg = "提交错误"
-				}
 				self.remindUser(msg: msg)
 			}
 			}?.resume()
@@ -694,13 +688,10 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 					self.carPendNumField.text = truckNum
 				}
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
-//				self.remindUser(msg: "网络超时，请稍后尝试")
+				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-//				var msg = resp.msg
-//				if resp.stauts == Status.PasswordWrong.rawValue{
-//					msg = "错误"
-//				}
-//				self.remindUser(msg: msg)
+				let msg = resp.msg
+				self.remindUser(msg: msg)
 			}
 			}?.resume()
 	}
@@ -719,9 +710,6 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 					self.remindUser(msg: "网络连接超时")
 				}else{
 					var msg = resp.msg
-					if resp.stauts == Status.PasswordWrong.rawValue{
-						msg = "错误"
-					}
 					self.remindUser(msg: msg)
 				}
 				}?.resume()
