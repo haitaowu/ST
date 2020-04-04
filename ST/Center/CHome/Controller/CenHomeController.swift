@@ -180,6 +180,7 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 			return true
 		}
 	}
+
 	
 	//MARK:- override for DZNEmptyDataSetSource
 	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
@@ -229,57 +230,7 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 		}
 	}
 	
-//	func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-//		if scrollView.tag == self.annTable.tag{
-//			if self.hasAnnoData() == false{
-//				let title = "暂无公告..."
-//				let attriStr = NSAttributedString(string: title)
-//				return attriStr
-//			}else{
-//				return nil
-//			}
-//		}else if scrollView.tag == self.carTable.tag{
-//			if (self.hasCarArriData() == false){
-//				let title = "暂车辆信息..."
-//				let attriStr = NSAttributedString(string: title)
-//				return attriStr
-//			}else{
-//				return nil
-//			}
-//		}else{
-//			return nil
-//		}
-//	}
 	
-	
-	
-//	func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
-//		if scrollView.tag == self.annTable.tag{
-//			if self.hasAnnoData() == false{
-//				return self.emptyBtnTitle()
-//			}else{
-//				return nil
-//			}
-//		}else{
-//			if (self.hasCarArriData() == false){
-//				return self.emptyBtnTitle()
-//			}else{
-//				return nil
-//			}
-//		}
-//
-//	}
-
-	
-	//MARK:- DZNEmptyDataSetDelegate
-//	func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
-//		if scrollView.tag == self.annTable.tag {
-//			self.annTable.es.startPullToRefresh()
-//		}else{
-//			self.carTable.es.startPullToRefresh()
-//		}
-//	}
-
 	//MARK:- selectors
 	///发车、到车按钮
 	@IBAction func clickSignBtn(_ sender: UIButton) {
