@@ -8,6 +8,8 @@
 
 import UIKit
 import ESPullToRefresh
+import DZNEmptyDataSet
+
 
 
 enum ArriverSendType:Int{
@@ -17,7 +19,7 @@ enum ArriverSendType:Int{
 
 
 
-class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegate{
 	
 	
 	//MARK:-IBoutlets
@@ -69,6 +71,11 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	func setupTable(){
+		
+		self.annTable.emptyDataSetSource = self
+		self.annTable.emptyDataSetDelegate = self
+		self.carTable.emptyDataSetSource = self
+		self.carTable.emptyDataSetDelegate = self
 
 		let sendHeader = CarCountHeader.headerNib();
 
@@ -111,6 +118,168 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	}
 	
 	
+	
+	//MARK:- empty data
+	///emptyata button title
+	func emptyBtnTitle() -> NSAttributedString {
+		let title = "点我刷新试试"
+		let attris = [NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attriStr = NSAttributedString(string: title,attributes: attris)
+		return attriStr
+	}
+	
+	
+	///是否第一次加载公告数据
+	func firstLoadAnnoData()->Bool{
+		if self.announcesAry == nil{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有公告信息
+	func hasAnnoData()->Bool{
+		if self.firstLoadAnnoData() == false{
+			if let data = self.announcesAry{
+				if data.count > 0{
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
+	
+	///是否第一次加载到车数据
+	func firstLoadCarArriData()->Bool{
+		if self.carInfoModel == nil{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有到车数据
+	func hasCarArriData()->Bool{
+		if self.firstLoadCarArriData() == false{
+			if let data = self.carInfoModel{
+				if (Int(data.count) ?? 0) > 0{
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
+	
+	//MARK:- override for DZNEmptyDataSetSource
+	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if scrollView.tag == self.annTable.tag{
+			if self.hasAnnoData() == false{
+				let title = "暂无公告..."
+				let attriStr = NSAttributedString(string: title)
+				return attriStr
+			}else{
+				return nil
+			}
+		}else if scrollView.tag == self.carTable.tag{
+			if (self.hasCarArriData() == false){
+				let title = "暂车辆信息..."
+				let attriStr = NSAttributedString(string: title)
+				return attriStr
+			}else{
+				return nil
+			}
+		}else{
+			return nil
+		}
+	}
+	
+	
+	override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if scrollView.tag == self.annTable.tag{
+			if self.hasAnnoData() == false{
+				return self.emptyBtnTitle()
+			}else{
+				return nil
+			}
+		}else{
+			if (self.hasCarArriData() == false){
+				return self.emptyBtnTitle()
+			}else{
+				return nil
+			}
+		}
+	}
+	
+	override func reloadViewData(scrollView: UIScrollView!) {
+		if scrollView.tag == self.annTable.tag {
+			self.annTable.es.startPullToRefresh()
+		}else{
+			self.carTable.es.startPullToRefresh()
+		}
+	}
+	
+//	func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+//		if scrollView.tag == self.annTable.tag{
+//			if self.hasAnnoData() == false{
+//				let title = "暂无公告..."
+//				let attriStr = NSAttributedString(string: title)
+//				return attriStr
+//			}else{
+//				return nil
+//			}
+//		}else if scrollView.tag == self.carTable.tag{
+//			if (self.hasCarArriData() == false){
+//				let title = "暂车辆信息..."
+//				let attriStr = NSAttributedString(string: title)
+//				return attriStr
+//			}else{
+//				return nil
+//			}
+//		}else{
+//			return nil
+//		}
+//	}
+	
+	
+	
+//	func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
+//		if scrollView.tag == self.annTable.tag{
+//			if self.hasAnnoData() == false{
+//				return self.emptyBtnTitle()
+//			}else{
+//				return nil
+//			}
+//		}else{
+//			if (self.hasCarArriData() == false){
+//				return self.emptyBtnTitle()
+//			}else{
+//				return nil
+//			}
+//		}
+//
+//	}
+
+	
+	//MARK:- DZNEmptyDataSetDelegate
+//	func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
+//		if scrollView.tag == self.annTable.tag {
+//			self.annTable.es.startPullToRefresh()
+//		}else{
+//			self.carTable.es.startPullToRefresh()
+//		}
+//	}
+
 	//MARK:- selectors
 	///发车、到车按钮
 	@IBAction func clickSignBtn(_ sender: UIButton) {
@@ -230,8 +399,8 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func fetchCarInfos(req:STRequest) -> Void {
 		STNetworking<EmpHomeSendModel>(stRequest:req) {
 			[unowned self] resp in
-//			self.group.leave()
       self.carTable.es.stopPullToRefresh()
+			self.carInfoModel = EmpHomeSendModel()
 			if resp.stauts == Status.Success.rawValue{
 				self.carInfoModel = resp.data
         self.carTable.reloadData()
@@ -250,6 +419,7 @@ class CenHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		STNetworking<[AnnoModel]>(stRequest:req) {
 			[unowned self] resp in
       self.annTable.es.stopPullToRefresh()
+			self.announcesAry = []
 			if resp.stauts == Status.Success.rawValue{
 				self.announcesAry = resp.data
         self.annTable.reloadData()

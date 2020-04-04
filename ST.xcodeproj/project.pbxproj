@@ -310,6 +310,7 @@
 		BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA054923793A410053C60F /* CarCountHeader.xib */; };
 		BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED08227232F894700EF69D5 /* VanRecCell.xib */; };
 		BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED08228232F894700EF69D5 /* VanRecCell.swift */; };
+		BED8DDBD2438290A00E9FF2C /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8DDBC2438290A00E9FF2C /* BaseController.swift */; };
 		BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */; };
 		BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746F922C510AD002B241E /* DriHeavyController.swift */; };
 		BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746FD22C5128B002B241E /* DriHomeController.swift */; };
@@ -699,6 +700,7 @@
 		BECA054923793A410053C60F /* CarCountHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCountHeader.xib; sourceTree = "<group>"; };
 		BED08227232F894700EF69D5 /* VanRecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecCell.xib; sourceTree = "<group>"; };
 		BED08228232F894700EF69D5 /* VanRecCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecCell.swift; sourceTree = "<group>"; };
+		BED8DDBC2438290A00E9FF2C /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		BEE746F922C510AD002B241E /* DriHeavyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavyController.swift; sourceTree = "<group>"; };
 		BEE746FD22C5128B002B241E /* DriHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHomeController.swift; sourceTree = "<group>"; };
@@ -1176,6 +1178,7 @@
 		BE17CD1C22AFBE86006D9EF0 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				BED8DDBB2438283C00E9FF2C /* Controller */,
 				BE723EC32329EFA7005FC86C /* Helper */,
 				BE9BFF1D22D6D8A700C6BAAE /* Category */,
 				BE17CD1D22AFBE86006D9EF0 /* View */,
@@ -1762,6 +1765,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		BED8DDBB2438283C00E9FF2C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BED8DDBC2438290A00E9FF2C /* BaseController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		BEE746F822C510AD002B241E /* Heavy */ = {
 			isa = PBXGroup;
 			children = (
@@ -2014,6 +2025,7 @@
 				"${BUILT_PRODUCTS_DIR}/BSGridCollectionViewLayout/BSGridCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/BSImageView/BSImageView.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/ESPullToRefresh/ESPullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
@@ -2029,6 +2041,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSGridCollectionViewLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImagePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImageView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESPullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
@@ -2191,6 +2204,7 @@
 				BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */,
 				BE86077F235ED49F008BB2B2 /* DriHMsgCell.swift in Sources */,
 				BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */,
+				BED8DDBD2438290A00E9FF2C /* BaseController.swift in Sources */,
 				BE38BD4D228C0B770007B6E0 /* SettingEntryItemView.swift in Sources */,
 				BE20A98C1F66605100D2D753 /* NoticeDetailController.swift in Sources */,
 				892583CC1DC8DA9700285DB5 /* ConstraintPriorityTarget.swift in Sources */,
