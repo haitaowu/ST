@@ -11,7 +11,7 @@ import ESPullToRefresh
 
 
 
-class AnnouceQueryController: UIViewController,UITableViewDelegate,UITableViewDataSource{
+class AnnouceQueryController: BaseController,UITableViewDelegate,UITableViewDataSource{
   
   @IBOutlet weak var tableView: UITableView!
 
@@ -37,6 +37,8 @@ class AnnouceQueryController: UIViewController,UITableViewDelegate,UITableViewDa
   
   //init tableView
   private func basicInitTable(){
+		self.tableView.emptyDataSetSource = self
+		self.tableView.emptyDataSetDelegate = self
     let nibNotiCell = AnnounceCell.cellNib();
     self.tableView.register(nibNotiCell, forCellReuseIdentifier: AnnounceCell.cellID())
     self.tableView.es.addPullToRefresh {
@@ -96,7 +98,63 @@ class AnnouceQueryController: UIViewController,UITableViewDelegate,UITableViewDa
     return 0.001
   }
   
+	//MARK:- empty data
+	///emptyata button title
+	func emptyBtnTitle() -> NSAttributedString {
+		let title = "点我刷新试试"
+		let attris = [NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attriStr = NSAttributedString(string: title,attributes: attris)
+		return attriStr
+	}
+	
+	///是否第一次加载数据
+	func firstLoadData()->Bool{
+		if self.dataAry == nil{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有公告信息
+	func hasAnnData()->Bool{
+		if self.firstLoadData() == false{
+			if let data = self.dataAry{
+				if data.count > 0{
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
   
+	//MARK:- override for DZNEmptyDataSetSource delegate
+	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if self.hasAnnData() == false{
+			let title = "暂无公告"
+			let attriStr = NSAttributedString(string: title)
+			return attriStr
+		}else{
+			return nil
+		}
+	}
+	
+	override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if self.hasAnnData() == false{
+			return self.emptyBtnTitle()
+		}else{
+			return nil
+		}
+	}
+	
+	override func reloadViewData(scrollView: UIScrollView!) {
+		self.tableView.es.startPullToRefresh()
+	}
 
   
   //MARK:- request server
@@ -105,15 +163,16 @@ class AnnouceQueryController: UIViewController,UITableViewDelegate,UITableViewDa
     STNetworking<[AnnoModel]>(stRequest:req) {
       [unowned self] resp in
       self.tableView.es.stopPullToRefresh()
+			self.dataAry = []
       if resp.stauts == Status.Success.rawValue{
         self.dataAry = resp.data
-        self.tableView.reloadData()
       }else if resp.stauts == Status.NetworkTimeout.rawValue{
         self.remindUser(msg: "网络超时，请稍后尝试")
       }else{
         let msg = resp.msg
         self.remindUser(msg: msg)
       }
+			self.tableView.reloadData()
       }?.resume()
   }
   
