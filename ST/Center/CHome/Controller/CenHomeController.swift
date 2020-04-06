@@ -354,13 +354,13 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 			self.carInfoModel = EmpHomeSendModel()
 			if resp.stauts == Status.Success.rawValue{
 				self.carInfoModel = resp.data
-        self.carTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+			self.carTable.reloadData()
 			}?.resume()
 	}
 	
@@ -373,13 +373,13 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 			self.announcesAry = []
 			if resp.stauts == Status.Success.rawValue{
 				self.announcesAry = resp.data
-        self.annTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+			self.annTable.reloadData()
 			}?.resume()
 	}
 	

@@ -278,6 +278,7 @@ class VanRecordController: BaseController ,UITableViewDelegate,UITableViewDataSo
 		}
 	}
 	
+	
 	//MARK:- override for DZNEmptyDataSetSource delegate
 	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
 		if self.hasRecsData() == false{
@@ -355,13 +356,13 @@ class VanRecordController: BaseController ,UITableViewDelegate,UITableViewDataSo
 			self.recsAry = []
 			if resp.stauts == Status.Success.rawValue{
 				self.recsAry = resp.data
-				self.tableView.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+			self.tableView.reloadData()
 			}?.resume()
 	}
 
