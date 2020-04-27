@@ -115,10 +115,17 @@ class VanRecordResController: BaseController ,UITableViewDelegate,UITableViewDat
 	}
 	
 	//MARK:- empty data
+	///empty attributestring title
+	func attri(title: String) -> NSAttributedString {
+		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
+		let attrStr = NSAttributedString(string: title, attributes: attributes)
+		return attrStr
+	}
+	
 	///emptyata button title
 	func emptyBtnTitle() -> NSAttributedString {
 		let title = "点我刷新试试"
-		let attris = [NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
 		let attriStr = NSAttributedString(string: title,attributes: attris)
 		return attriStr
 	}
@@ -154,8 +161,7 @@ class VanRecordResController: BaseController ,UITableViewDelegate,UITableViewDat
 	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
 		if self.hasRecsData() == false{
 			let title = "暂无记录..."
-			let attriStr = NSAttributedString(string: title)
-			return attriStr
+			return self.attri(title: title)
 		}else{
 			return nil
 		}
@@ -182,7 +188,7 @@ class VanRecordResController: BaseController ,UITableViewDelegate,UITableViewDat
 			self.recsAry = []
 			self.tableView.es.stopPullToRefresh()
 			if resp.stauts == Status.Success.rawValue{
-//				self.recsAry = resp.data
+				self.recsAry = resp.data
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{

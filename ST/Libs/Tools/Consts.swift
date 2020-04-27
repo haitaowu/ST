@@ -32,8 +32,11 @@ struct Consts {
 //	static var Server = "http://58.215.182.252:8610/"
 //    static var BaseUrl = "AndroidServiceSTIOS/"
 
-	///图片下载地址
-    static var ImgServer = "http://58.215.182.252:8070/download/"
+	///图片下载地址测试
+//    static var ImgServer = "http://58.215.182.252:8070/download/"
+	
+	///图片下载地址生产环境
+    static var ImgServer = "http://58.215.182.251:8070/download/"
 	
 	///正式：图片上传地址
     static var UploadServer = "http://58.215.182.251:5889/SuTongAppInterface/File/uploadFile.do"

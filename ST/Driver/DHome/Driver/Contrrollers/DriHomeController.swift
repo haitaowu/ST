@@ -13,7 +13,7 @@ import ESPullToRefresh
 
 
 
-class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class DriHomeController: BaseController,UITableViewDataSource,UITableViewDelegate {
 	
 
 
@@ -24,6 +24,8 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
 	var msgAry:Array<AnnoModel>?
 	var carInfoModel:UnFinishedModel?
+	
+	var hasReqCarInfo:Bool = false
 
 	//MARK:-IBoutlets
 
@@ -62,7 +64,12 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	
 	private func setupTable(){
-
+		
+		self.annTable.emptyDataSetSource = self
+		self.annTable.emptyDataSetDelegate = self
+		self.carTable.emptyDataSetSource = self
+		self.carTable.emptyDataSetDelegate = self
+		
 		self.carTable.register(ExceptionHeader.headerNib(), forHeaderFooterViewReuseIdentifier: ExceptionHeader.headerID())
 		
 		self.carTable.register(DNumFooter.footerNib(), forHeaderFooterViewReuseIdentifier: DNumFooter.footerID())
@@ -182,7 +189,11 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 					return 0.001;
 				}
 			}else if section == kSectionCarSendInfoIdx {
-				return DSendInfoHeader.headerHeight();
+				if ((self.firstLoadCarArriData()==false)&&(self.carInfoModel != nil)) {
+					return DSendInfoHeader.headerHeight();
+				}else{
+					return 0.001
+				}
 			}else{
 				return 0.001
 			}
@@ -200,8 +211,12 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExceptionHeader.headerID()) as! ExceptionHeader
 				return header
 			}else if section == kSectionCarSendInfoIdx {
-				let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSendInfoHeader.headerID()) as! DSendInfoHeader
-				return header
+				if ((self.firstLoadCarArriData()==false)&&(self.carInfoModel != nil)) {
+					let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSendInfoHeader.headerID()) as! DSendInfoHeader
+					return header
+				}else{
+					return nil
+				}
 			}else{
 				return nil
 			}
@@ -228,26 +243,143 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		
 		if tableView.tag == self.carTable.tag {
-			if section == kSectionNotiIdx{
-				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DNumFooter.footerID()) as! DNumFooter
-				if let model = self.carInfoModel{
-					footer.updateUIBy(model: model)
+			if ((self.firstLoadCarArriData()==false)&&(self.carInfoModel != nil)) {
+				if section == kSectionNotiIdx{
+					let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DNumFooter.footerID()) as! DNumFooter
+					if let model = self.carInfoModel{
+						footer.updateUIBy(model: model)
+					}
+					return footer
+				}else{
+					let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSSignFooter.footerID()) as! DSSignFooter
+					footer.updateUI(model: self.carInfoModel){
+						[unowned self] in
+						self.reqSendSign()
+					}
+					return footer
 				}
-				return footer
 			}else{
-				let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DSSignFooter.footerID()) as! DSSignFooter
-				footer.updateUI(model: self.carInfoModel){
-					[unowned self] in
-					self.reqSendSign()
-				}
-				return footer
+				return nil
 			}
-			
 		}else{
 			return nil
 		}
 
 	}
+	
+	//MARK:- empty data
+	///empty attributestring title
+	func attri(title: String) -> NSAttributedString {
+		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
+		let attrStr = NSAttributedString(string: title, attributes: attributes)
+		return attrStr
+	}
+	
+	
+	///emptyata button title
+	func emptyBtnTitle() -> NSAttributedString {
+		let title = "点我刷新试试"
+		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attriStr = NSAttributedString(string: title,attributes: attris)
+		return attriStr
+	}
+	
+	
+	///是否第一次加载公告数据
+	func firstLoadAnnoData()->Bool{
+		if self.msgAry == nil{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有公告信息
+	func hasAnnoData()->Bool{
+		if self.firstLoadAnnoData() == false{
+			if let data = self.msgAry{
+				if data.count > 0{
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
+	
+	///是否第一次加载进行中任务数据
+	func firstLoadCarArriData()->Bool{
+		if self.hasReqCarInfo == false{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有发车数据
+	func hasCarData()->Bool{
+		if self.firstLoadCarArriData() == false{
+			if self.carInfoModel != nil{
+				return true
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
+
+	
+	//MARK:- override for DZNEmptyDataSetSource
+	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if scrollView.tag == self.annTable.tag{
+			if self.hasAnnoData() == false{
+				let title = "暂无公告..."
+				return self.attri(title: title)
+			}else{
+				return nil
+			}
+		}else if scrollView.tag == self.carTable.tag{
+			if (self.hasCarData() == false){
+				let title = "暂无进行中的任务..."
+				return self.attri(title: title)
+			}else{
+				return nil
+			}
+		}else{
+			return nil
+		}
+	}
+	
+	
+	override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if scrollView.tag == self.annTable.tag{
+			if self.hasAnnoData() == false{
+				return self.emptyBtnTitle()
+			}else{
+				return nil
+			}
+		}else{
+			if (self.hasCarData() == false){
+				return self.emptyBtnTitle()
+			}else{
+				return nil
+			}
+		}
+	}
+	
+	override func reloadViewData(scrollView: UIScrollView!) {
+		if scrollView.tag == self.annTable.tag {
+			self.annTable.es.startPullToRefresh()
+		}else{
+			self.carTable.es.startPullToRefresh()
+		}
+	}
+	
 	
 	//MARK:- request server
 	//公告数据
@@ -259,13 +391,13 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
       self.annTable.es.stopPullToRefresh()
 			if resp.stauts == Status.Success.rawValue{
 				self.msgAry = resp.data
-				self.annTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+				self.annTable.reloadData()
 			}?.resume()
 	}
 	
@@ -277,15 +409,16 @@ class DriHomeController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		STNetworking<UnFinishedModel>(stRequest:req) {
 			[unowned self] resp in
       self.carTable.es.stopPullToRefresh()
+			self.hasReqCarInfo = true
 			if resp.stauts == Status.Success.rawValue{
 				self.carInfoModel = resp.data
-				self.carTable.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+			self.carTable.reloadData()
 			}?.resume()
 	}
 	

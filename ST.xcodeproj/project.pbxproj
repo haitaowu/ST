@@ -2462,7 +2462,7 @@
 					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2543,7 +2543,7 @@
 					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",

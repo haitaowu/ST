@@ -99,10 +99,17 @@ class AnnouceQueryController: BaseController,UITableViewDelegate,UITableViewData
   }
   
 	//MARK:- empty data
+	///empty attributestring title
+	func attri(title: String) -> NSAttributedString {
+		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
+		let attrStr = NSAttributedString(string: title, attributes: attributes)
+		return attrStr
+	}
+	
 	///emptyata button title
 	func emptyBtnTitle() -> NSAttributedString {
 		let title = "点我刷新试试"
-		let attris = [NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
 		let attriStr = NSAttributedString(string: title,attributes: attris)
 		return attriStr
 	}
@@ -137,8 +144,7 @@ class AnnouceQueryController: BaseController,UITableViewDelegate,UITableViewData
 	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
 		if self.hasAnnData() == false{
 			let title = "暂无公告"
-			let attriStr = NSAttributedString(string: title)
-			return attriStr
+			return self.attri(title: title)
 		}else{
 			return nil
 		}
