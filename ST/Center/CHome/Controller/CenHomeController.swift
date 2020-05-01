@@ -200,7 +200,7 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 			}
 		}else if scrollView.tag == self.carTable.tag{
 			if (self.hasCarArriData() == false){
-				let title = "暂车辆信息..."
+				let title = "暂无车辆信息..."
 				let attriStr = NSAttributedString(string: title)
 				return attriStr
 			}else{

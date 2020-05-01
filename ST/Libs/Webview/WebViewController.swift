@@ -34,13 +34,17 @@ class WebViewController: UIViewController {
     convenience init(bundleName:String){
         self.init(nibName: "WebViewController", bundle: nil)
         self.url = "file://".appending(Bundle.main.bundlePath.appending("/html/\(bundleName).html"))
+			self.url = self.url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
     }
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
+	
+	
     /*
     // MARK: - Navigation
 

@@ -328,6 +328,7 @@ class CenAnnouceController: BaseController,UITableViewDelegate,UITableViewDataSo
         let msg = resp.msg
         self.remindUser(msg: msg)
       }
+			
 			self.tableView.reloadData()
       }?.resume()
   }

@@ -2443,7 +2443,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2502,7 +2502,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS -D DEBUG";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE = "";
@@ -2525,7 +2525,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2584,6 +2584,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE_SPECIFIER = "";

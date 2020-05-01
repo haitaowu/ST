@@ -13,7 +13,6 @@
                 <outlet property="titleHeightLayout" destination="QHc-wA-inS" id="ghc-dM-h1o"/>
                 <outlet property="titleLabel" destination="RcF-0e-3qj" id="RK3-LX-oBM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="webView" destination="iw4-we-9gD" id="i8y-X9-vdo"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -79,23 +78,15 @@
                         <constraint firstItem="imh-ZO-1bh" firstAttribute="leading" secondItem="Nr1-5R-jYD" secondAttribute="leading" id="yAc-5W-IJE"/>
                     </constraints>
                 </view>
-                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iw4-we-9gD">
-                    <rect key="frame" x="16" y="98" width="382" height="764"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Nr1-5R-jYD" firstAttribute="trailing" secondItem="Tq6-CO-1hI" secondAttribute="trailing" id="0Vf-Je-tec"/>
-                <constraint firstAttribute="trailing" secondItem="iw4-we-9gD" secondAttribute="trailing" constant="16" id="8xS-bf-hPa"/>
                 <constraint firstItem="Nr1-5R-jYD" firstAttribute="top" secondItem="Tq6-CO-1hI" secondAttribute="bottom" id="NvT-UO-Z0D"/>
                 <constraint firstAttribute="trailing" secondItem="Tq6-CO-1hI" secondAttribute="trailing" constant="16" id="TCb-1p-luH"/>
                 <constraint firstItem="Nr1-5R-jYD" firstAttribute="leading" secondItem="Tq6-CO-1hI" secondAttribute="leading" id="VYp-W0-ETd"/>
-                <constraint firstItem="iw4-we-9gD" firstAttribute="top" secondItem="Nr1-5R-jYD" secondAttribute="bottom" constant="8" id="aWO-FZ-WHk"/>
                 <constraint firstItem="Tq6-CO-1hI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ax6-Br-2gv"/>
                 <constraint firstItem="Tq6-CO-1hI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="edS-sw-inE"/>
-                <constraint firstAttribute="bottom" secondItem="iw4-we-9gD" secondAttribute="bottom" constant="34" id="kFp-v2-xPO"/>
-                <constraint firstItem="iw4-we-9gD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="rfK-Ug-vp1"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="139.28571428571428"/>
         </view>
