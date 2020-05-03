@@ -329,6 +329,11 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			return;
 		}
 		let siteName = car.bakNextStaTion
+		if siteName == ""{
+			self.remindUser(msg: "暂无下站信息,无法导航")
+			return
+		}
+		
 		self.group.enter()
 		let req = NextLocReq(siteName: siteName)
 		STNetworking<NexSiteLocModel>(stRequest:req) {
