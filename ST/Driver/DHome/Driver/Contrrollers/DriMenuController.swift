@@ -328,6 +328,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		guard let car = self.carInfo else {
 			return;
 		}
+		
 		let siteName = car.bakNextStaTion
 		if siteName == ""{
 			self.remindUser(msg: "暂无下站信息,无法导航")
@@ -349,6 +350,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		}
 		}?.resume()
 	}
+	
 	
 	
 	

@@ -2443,7 +2443,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2525,7 +2525,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
