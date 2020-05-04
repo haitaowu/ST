@@ -150,7 +150,8 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		endNode.pos.eType = BNCoordinate_BaiduMapSDK
 		nodes.append(endNode)
 		
-		BNaviService.getInstance()?.routePlanManager()?.startNaviRoutePlan(BNRoutePlanMode_Recommend, naviNodes: nodes, time: nil, delegete: self, userInfo: nil)
+			BNaviService.getInstance()?.routePlanManager()?.startNaviRoutePlan(BNRoutePlanMode_Recommend, naviNodes: nodes, time: nil, delegete: self, userInfo: nil)
+		
 		
 	}
 	
@@ -329,6 +330,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			return;
 		}
 		let siteName = car.bakNextStaTion
+
 		if siteName == ""{
 			self.remindUser(msg: "暂无下站信息,无法导航")
 			return

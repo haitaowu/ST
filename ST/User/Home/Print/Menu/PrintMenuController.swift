@@ -29,10 +29,11 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
 		self.menuAry = [
 			[kName:"主单打印",kSubTitle:"简",kStory:"BaseUI",kId:"SimplePrintControl",kBgColor:"color",kICon:"icon"],
 			[kName:"主单打印",kSubTitle:"全",kStory:"BaseUI",kId:"CompletePrintControl",kBgColor:"color",kICon:"icon"],
-			[kName:"主单打印",kSubTitle:"派件联打印",kStory:"BaseUI",kId:"BillRecordTableController",kBgColor:"color",kICon:"icon"]
+			[kName:"子单打印",kSubTitle:"",kStory:"BaseUI",kId:"LaterPinterBillTableController",kBgColor:"color",kICon:"icon"]
 		]
 	}
   
+	
 	//MARK:- setup base view
 	func setupCollectionView(){
 		self.collectionView.register(PrintMenuItem.itemNib(), forCellWithReuseIdentifier: PrintMenuItem.reuseID())

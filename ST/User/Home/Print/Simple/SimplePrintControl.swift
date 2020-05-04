@@ -13,7 +13,7 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var sendSiteField: UITextField!
-//    @IBOutlet weak var sendDateField: UITextField!
+    @IBOutlet weak var sendDateField: UITextField!
     @IBOutlet weak var billNumField: UITextField!
 //    @IBOutlet weak var expressTypeBtn: UIButton!
     @IBOutlet weak var destAdrField: UITextField!
@@ -40,7 +40,7 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
 //        self.receSiteTxtView.placeholder = "输入地址";
-//        self.sendDateField.text = self.currentDateStr();
+        self.sendDateField.text = self.currentDateStr();
         self.sendSiteField.text = DataManager.shared.loginUser.siteName;
     }
     
@@ -81,14 +81,14 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
 //        return;
         
         var Rec: Parameters = [:];
-//        let registerDate = self.sendDateField.text!
-//        if registerDate.isEmpty{
-//            self.remindUser(msg: "请选择日期");
-//            return;
-//        }else{
-//            Rec["registerDate"] = registerDate
-//            billInfo["registerDate"] = registerDate;
-//        }
+        let registerDate = self.sendDateField.text!
+        if registerDate.isEmpty{
+            self.remindUser(msg: "请选择日期");
+            return;
+        }else{
+            Rec["registerDate"] = registerDate
+            billInfo["registerDate"] = registerDate;
+        }
         
         let SITE_NAME = self.sendSiteField.text!
         if SITE_NAME.isEmpty{

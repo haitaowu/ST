@@ -250,6 +250,8 @@
 		BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */; };
 		BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */; };
 		BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */; };
+		BE6A8E16245FB89C00A489A9 /* MenuRSHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A8E15245FB89B00A489A9 /* MenuRSHeader.xib */; };
+		BE6A8E18245FB8A900A489A9 /* MenuRSHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A8E17245FB8A900A489A9 /* MenuRSHeader.swift */; };
 		BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAC232DD6640076DB33 /* UserModel.swift */; };
 		BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */; };
 		BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */; };
@@ -645,6 +647,8 @@
 		BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryController.xib; sourceTree = "<group>"; };
 		BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryCell.xib; sourceTree = "<group>"; };
 		BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavQueryCell.swift; sourceTree = "<group>"; };
+		BE6A8E15245FB89B00A489A9 /* MenuRSHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuRSHeader.xib; sourceTree = "<group>"; };
+		BE6A8E17245FB8A900A489A9 /* MenuRSHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRSHeader.swift; sourceTree = "<group>"; };
 		BE6B5CAC232DD6640076DB33 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdResetSuccController.swift; sourceTree = "<group>"; };
 		BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdResetSuccController.xib; sourceTree = "<group>"; };
@@ -1753,6 +1757,8 @@
 				BEA67F1C245D878700A9099C /* PrintMenuController.xib */,
 				BEA67F1D245D878700A9099C /* PrintMenuItem.swift */,
 				BEA67F1E245D878700A9099C /* PrintMenuController.swift */,
+				BE6A8E15245FB89B00A489A9 /* MenuRSHeader.xib */,
+				BE6A8E17245FB8A900A489A9 /* MenuRSHeader.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -2010,6 +2016,7 @@
 				BE39C77E23ACB18A006C35BB /* DVSDirectory.cfg in Resources */,
 				BE1A68C222EE825A003691B1 /* CenterMenuController.xib in Resources */,
 				BE623AA423BC6163009A1A20 /* VanRecordResController.xib in Resources */,
+				BE6A8E16245FB89C00A489A9 /* MenuRSHeader.xib in Resources */,
 				BE8C067922B6119300A9901A /* Driver.storyboard in Resources */,
 				BE6B5CB9232DD6660076DB33 /* PwdBackResetController.xib in Resources */,
 				BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */,
@@ -2198,6 +2205,7 @@
 				89F61E3D1DCE22900065C9CA /* Employee.swift in Sources */,
 				BE354DDB23A5D117008AE45E /* TruckRouteListController.swift in Sources */,
 				BE623AA323BC6163009A1A20 /* VanRecordResController.swift in Sources */,
+				BE6A8E18245FB8A900A489A9 /* MenuRSHeader.swift in Sources */,
 				BE20A9971F6660EE00D2D753 /* NoticeCell.swift in Sources */,
 				BE0FC4F822BF404800271FED /* JXPhotoBrowserFadeDismissingAnimator.swift in Sources */,
 				BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */,
