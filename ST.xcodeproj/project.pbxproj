@@ -213,18 +213,6 @@
 		BE38BD5E228C0BAF0007B6E0 /* WangdianCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BD5A228C0BAF0007B6E0 /* WangdianCell.swift */; };
 		BE38BD5F228C0BAF0007B6E0 /* WangdianPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BD5B228C0BAF0007B6E0 /* WangdianPickerViewController.swift */; };
 		BE38BD60228C0BAF0007B6E0 /* WangdianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BD5C228C0BAF0007B6E0 /* WangdianCell.xib */; };
-		BE39C77423ACB18A006C35BB /* libBNTTSComponentSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */; };
-		BE39C77523ACB18A006C35BB /* libbaiduNaviSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */; };
-		BE39C77623ACB18A006C35BB /* mode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76A23ACB18A006C35BB /* mode.bundle */; };
-		BE39C77723ACB18A006C35BB /* street.sty in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76B23ACB18A006C35BB /* street.sty */; };
-		BE39C77823ACB18A006C35BB /* baiduTTSSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */; };
-		BE39C77923ACB18A006C35BB /* DVStreet.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76D23ACB18A006C35BB /* DVStreet.cfg */; };
-		BE39C77A23ACB18A006C35BB /* DVHotcity.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */; };
-		BE39C77B23ACB18A006C35BB /* baiduNaviSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */; };
-		BE39C77C23ACB18A006C35BB /* DVDirectory.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77023ACB18A006C35BB /* DVDirectory.cfg */; };
-		BE39C77D23ACB18A006C35BB /* DVHotMap.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77123ACB18A006C35BB /* DVHotMap.cfg */; };
-		BE39C77E23ACB18A006C35BB /* DVSDirectory.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */; };
-		BE39C77F23ACB18A006C35BB /* DVVersion_pkg.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */; };
 		BE3DCFD322D6DD3B003176E3 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD222D6DD3B003176E3 /* UITextField+Extension.swift */; };
 		BE3DCFD522D6E021003176E3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD422D6E021003176E3 /* String+Extension.swift */; };
 		BE3DCFD722D6E154003176E3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD622D6E154003176E3 /* Date+Extension.swift */; };
@@ -253,6 +241,7 @@
 		BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */; };
 		BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */; };
 		BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */; };
+		BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */; };
 		BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAC232DD6640076DB33 /* UserModel.swift */; };
 		BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */; };
 		BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */; };
@@ -344,7 +333,6 @@
 		BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AC23AB49B4002E6828 /* libz.tbd */; };
 		BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF205EC22E994760050E2A7 /* OperationHeader.xib */; };
 		BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF205ED22E994760050E2A7 /* OperationHeader.swift */; };
-		BEF53AA623AE6A8E00A7ED7C /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */; };
 		BEFFD9C722CD8DA900C124C9 /* DriDamQueryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFFD9C622CD8DA900C124C9 /* DriDamQueryDetailController.swift */; };
 /* End PBXBuildFile section */
 
@@ -583,37 +571,6 @@
 		BE38BD5A228C0BAF0007B6E0 /* WangdianCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WangdianCell.swift; sourceTree = "<group>"; };
 		BE38BD5B228C0BAF0007B6E0 /* WangdianPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WangdianPickerViewController.swift; sourceTree = "<group>"; };
 		BE38BD5C228C0BAF0007B6E0 /* WangdianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WangdianCell.xib; sourceTree = "<group>"; };
-		BE39C75423ACB18A006C35BB /* BNRoutePlanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRoutePlanModel.h; sourceTree = "<group>"; };
-		BE39C75523ACB18A006C35BB /* BNMapManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75623ACB18A006C35BB /* BNNaviProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNaviProtocol.h; sourceTree = "<group>"; };
-		BE39C75723ACB18A006C35BB /* BNLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNLocation.h; sourceTree = "<group>"; };
-		BE39C75823ACB18A006C35BB /* BNCarRouteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCarRouteData.h; sourceTree = "<group>"; };
-		BE39C75923ACB18A006C35BB /* BNaviService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNaviService.h; sourceTree = "<group>"; };
-		BE39C75A23ACB18A006C35BB /* BNDriveRouteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDriveRouteProtocol.h; sourceTree = "<group>"; };
-		BE39C75B23ACB18A006C35BB /* BNRoutePlanManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRoutePlanManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75C23ACB18A006C35BB /* BNNaviMessageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNaviMessageInfo.h; sourceTree = "<group>"; };
-		BE39C75D23ACB18A006C35BB /* BNCommonDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCommonDef.h; sourceTree = "<group>"; };
-		BE39C75E23ACB18A006C35BB /* BNStrategyManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNStrategyManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75F23ACB18A006C35BB /* BNSoundProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNSoundProtocol.h; sourceTree = "<group>"; };
-		BE39C76023ACB18A006C35BB /* BNDigitDogManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDigitDogManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76123ACB18A006C35BB /* BNUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNUtility.h; sourceTree = "<group>"; };
-		BE39C76223ACB18A006C35BB /* BNUIManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNUIManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76323ACB18A006C35BB /* BNLocationManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNLocationManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76423ACB18A006C35BB /* BNMapOverlayProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapOverlayProtocol.h; sourceTree = "<group>"; };
-		BE39C76523ACB18A006C35BB /* BNMapViewManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapViewManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76623ACB18A006C35BB /* BNaviModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNaviModel.h; sourceTree = "<group>"; };
-		BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBNTTSComponentSDK.a; sourceTree = "<group>"; };
-		BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaiduNaviSDK.a; sourceTree = "<group>"; };
-		BE39C76A23ACB18A006C35BB /* mode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mode.bundle; sourceTree = "<group>"; };
-		BE39C76B23ACB18A006C35BB /* street.sty */ = {isa = PBXFileReference; lastKnownFileType = file; path = street.sty; sourceTree = "<group>"; };
-		BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baiduTTSSDK.bundle; sourceTree = "<group>"; };
-		BE39C76D23ACB18A006C35BB /* DVStreet.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVStreet.cfg; sourceTree = "<group>"; };
-		BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVHotcity.cfg; sourceTree = "<group>"; };
-		BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baiduNaviSDK.bundle; sourceTree = "<group>"; };
-		BE39C77023ACB18A006C35BB /* DVDirectory.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVDirectory.cfg; sourceTree = "<group>"; };
-		BE39C77123ACB18A006C35BB /* DVHotMap.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVHotMap.cfg; sourceTree = "<group>"; };
-		BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVSDirectory.cfg; sourceTree = "<group>"; };
-		BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVVersion_pkg.cfg; sourceTree = "<group>"; };
 		BE3DCFD222D6DD3B003176E3 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		BE3DCFD422D6E021003176E3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		BE3DCFD622D6E154003176E3 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -642,6 +599,7 @@
 		BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryController.xib; sourceTree = "<group>"; };
 		BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryCell.xib; sourceTree = "<group>"; };
 		BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavQueryCell.swift; sourceTree = "<group>"; };
+		BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BE6B5CAC232DD6640076DB33 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdResetSuccController.swift; sourceTree = "<group>"; };
 		BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdResetSuccController.xib; sourceTree = "<group>"; };
@@ -734,7 +692,6 @@
 		BEE777AC23AB49B4002E6828 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BEF205EC22E994760050E2A7 /* OperationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationHeader.xib; sourceTree = "<group>"; };
 		BEF205ED22E994760050E2A7 /* OperationHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationHeader.swift; sourceTree = "<group>"; };
-		BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BEFFD9C622CD8DA900C124C9 /* DriDamQueryDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriDamQueryDetailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -750,7 +707,6 @@
 				BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */,
 				BEE777A323AB48E8002E6828 /* MobileCoreServices.framework in Frameworks */,
 				BEE777A123AB48C7002E6828 /* CoreTelephony.framework in Frameworks */,
-				BE39C77523ACB18A006C35BB /* libbaiduNaviSDK.a in Frameworks */,
 				BEE7779F23AB48A2002E6828 /* CoreMotion.framework in Frameworks */,
 				8968B34F1DBF4F2100F0606D /* libsqlite3.0.tbd in Frameworks */,
 				BEE7778523AB23E3002E6828 /* CoreLocation.framework in Frameworks */,
@@ -762,10 +718,9 @@
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
 				BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */,
 				BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */,
+				BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */,
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
-				BE39C77423ACB18A006C35BB /* libBNTTSComponentSDK.a in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
-				BEF53AA623AE6A8E00A7ED7C /* BMKLocationKit.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
 				4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */,
 			);
@@ -1390,7 +1345,7 @@
 		BE38BD61228C0CE20007B6E0 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				BEE7778723AB443B002E6828 /* BDMap */,
+				BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */,
 				BE0FC4C622BF404800271FED /* JXPhotoBrowser */,
 				BEC8B43A22BCF9720095C045 /* TinyConsole */,
 				893497C61DDACE8800A505AF /* Webview */,
@@ -1403,60 +1358,6 @@
 				BE4874A81F54484600F4B8B5 /* extension */,
 			);
 			path = Libs;
-			sourceTree = "<group>";
-		};
-		BE39C75223ACB18A006C35BB /* BaiduNaviSDK */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C75323ACB18A006C35BB /* inc */,
-				BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */,
-				BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */,
-				BE39C76923ACB18A006C35BB /* resource */,
-			);
-			path = BaiduNaviSDK;
-			sourceTree = "<group>";
-		};
-		BE39C75323ACB18A006C35BB /* inc */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C75423ACB18A006C35BB /* BNRoutePlanModel.h */,
-				BE39C75523ACB18A006C35BB /* BNMapManagerProtocol.h */,
-				BE39C75623ACB18A006C35BB /* BNNaviProtocol.h */,
-				BE39C75723ACB18A006C35BB /* BNLocation.h */,
-				BE39C75823ACB18A006C35BB /* BNCarRouteData.h */,
-				BE39C75923ACB18A006C35BB /* BNaviService.h */,
-				BE39C75A23ACB18A006C35BB /* BNDriveRouteProtocol.h */,
-				BE39C75B23ACB18A006C35BB /* BNRoutePlanManagerProtocol.h */,
-				BE39C75C23ACB18A006C35BB /* BNNaviMessageInfo.h */,
-				BE39C75D23ACB18A006C35BB /* BNCommonDef.h */,
-				BE39C75E23ACB18A006C35BB /* BNStrategyManagerProtocol.h */,
-				BE39C75F23ACB18A006C35BB /* BNSoundProtocol.h */,
-				BE39C76023ACB18A006C35BB /* BNDigitDogManagerProtocol.h */,
-				BE39C76123ACB18A006C35BB /* BNUtility.h */,
-				BE39C76223ACB18A006C35BB /* BNUIManagerProtocol.h */,
-				BE39C76323ACB18A006C35BB /* BNLocationManagerProtocol.h */,
-				BE39C76423ACB18A006C35BB /* BNMapOverlayProtocol.h */,
-				BE39C76523ACB18A006C35BB /* BNMapViewManagerProtocol.h */,
-				BE39C76623ACB18A006C35BB /* BNaviModel.h */,
-			);
-			path = inc;
-			sourceTree = "<group>";
-		};
-		BE39C76923ACB18A006C35BB /* resource */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C76A23ACB18A006C35BB /* mode.bundle */,
-				BE39C76B23ACB18A006C35BB /* street.sty */,
-				BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */,
-				BE39C76D23ACB18A006C35BB /* DVStreet.cfg */,
-				BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */,
-				BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */,
-				BE39C77023ACB18A006C35BB /* DVDirectory.cfg */,
-				BE39C77123ACB18A006C35BB /* DVHotMap.cfg */,
-				BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */,
-				BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */,
-			);
-			path = resource;
 			sourceTree = "<group>";
 		};
 		BE4432281F530E9E004069DF /* Material */ = {
@@ -1728,15 +1629,6 @@
 			path = ProductPicker;
 			sourceTree = "<group>";
 		};
-		BEB22EC923AB52AB00B01FEF /* Framworks */ = {
-			isa = PBXGroup;
-			children = (
-				BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */,
-				BE39C75223ACB18A006C35BB /* BaiduNaviSDK */,
-			);
-			path = Framworks;
-			sourceTree = "<group>";
-		};
 		BEC5E690233367820087CD0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1820,14 +1712,6 @@
 				BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		BEE7778723AB443B002E6828 /* BDMap */ = {
-			isa = PBXGroup;
-			children = (
-				BEB22EC923AB52AB00B01FEF /* Framworks */,
-			);
-			path = BDMap;
 			sourceTree = "<group>";
 		};
 		BEF205EB22E994760050E2A7 /* Views */ = {
@@ -1941,7 +1825,6 @@
 				BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */,
 				BE38BD32228C0B770007B6E0 /* PrinterPreviewController.xib in Resources */,
 				BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */,
-				BE39C77923ACB18A006C35BB /* DVStreet.cfg in Resources */,
 				BEE7471422C5128C002B241E /* DriMenuController.xib in Resources */,
 				8968B2CD1DBE606E00F0606D /* LaunchScreen.storyboard in Resources */,
 				BE1A68C422EE87A7003691B1 /* STCenter.storyboard in Resources */,
@@ -1949,13 +1832,10 @@
 				BE38BD2E228C0B770007B6E0 /* FinancialController.xib in Resources */,
 				BE38BD5D228C0BAF0007B6E0 /* WangdianPickerViewController.xib in Resources */,
 				BE38BD42228C0B770007B6E0 /* HTAlertConfirmView.xib in Resources */,
-				BE39C77823ACB18A006C35BB /* baiduTTSSDK.bundle in Resources */,
-				BE39C77623ACB18A006C35BB /* mode.bundle in Resources */,
 				BE28977223CADE50009FB9EE /* Localizable.strings in Resources */,
 				BE38BD54228C0B770007B6E0 /* QuyuChaxunViewController.xib in Resources */,
 				BE20A99E1F66712C00D2D753 /* testDoc.xlsx in Resources */,
 				BE38BD51228C0B770007B6E0 /* SettingViewController.xib in Resources */,
-				BE39C77E23ACB18A006C35BB /* DVSDirectory.cfg in Resources */,
 				BE1A68C222EE825A003691B1 /* CenterMenuController.xib in Resources */,
 				BE623AA423BC6163009A1A20 /* VanRecordResController.xib in Resources */,
 				BE8C067922B6119300A9901A /* Driver.storyboard in Resources */,
@@ -1963,7 +1843,6 @@
 				BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */,
 				BE623A9B23BC4C1F009A1A20 /* DriHeavQueryResController.xib in Resources */,
 				BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */,
-				BE39C77C23ACB18A006C35BB /* DVDirectory.cfg in Resources */,
 				8912B0D71DD0D12A0021B160 /* STListViewCell.xib in Resources */,
 				BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */,
 				BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */,
@@ -1974,7 +1853,6 @@
 				89F3ECED1DC444B900DDA832 /* HomeMenuItemView.xib in Resources */,
 				896674761DE07642000C970A /* html in Resources */,
 				BE38BD4F228C0B770007B6E0 /* SystemSettingViewController.xib in Resources */,
-				BE39C77D23ACB18A006C35BB /* DVHotMap.cfg in Resources */,
 				BE28976C23CADD0C009FB9EE /* InfoPlist.strings in Resources */,
 				BE38BD4A228C0B770007B6E0 /* SystemSettingEntryType1.xib in Resources */,
 				BE38BD60228C0BAF0007B6E0 /* WangdianCell.xib in Resources */,
@@ -1989,12 +1867,10 @@
 				89F100711DD364ED00798405 /* HomeViewController.xib in Resources */,
 				BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */,
 				BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */,
-				BE39C77F23ACB18A006C35BB /* DVVersion_pkg.cfg in Resources */,
 				BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */,
 				BE38BD4B228C0B770007B6E0 /* SystemSettingEntryType2.xib in Resources */,
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
-				BE39C77723ACB18A006C35BB /* street.sty in Resources */,
 				BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
@@ -2004,8 +1880,6 @@
 				BE89706C2327320B00096C78 /* RoleSelectController.xib in Resources */,
 				BE5FD58623729F79004CF114 /* CenAnnouceController.xib in Resources */,
 				BE6B5CBA232DD6660076DB33 /* PwdBackCodeController.xib in Resources */,
-				BE39C77B23ACB18A006C35BB /* baiduNaviSDK.bundle in Resources */,
-				BE39C77A23ACB18A006C35BB /* DVHotcity.cfg in Resources */,
 				BE44322C1F530F1C004069DF /* MaterialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2443,7 +2317,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4;
+				CURRENT_PROJECT_VERSION = 2.5;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2452,6 +2326,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs/BDMap",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
+					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2525,7 +2400,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4;
+				CURRENT_PROJECT_VERSION = 2.5;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2534,6 +2409,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs/BDMap",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
+					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
