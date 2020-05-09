@@ -11,7 +11,7 @@ import Foundation
 class CentInfoTableController: UITableViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var pwdField: UITextField!
+//    @IBOutlet weak var pwdField: UITextField!
 //    @IBOutlet weak var phoneField: UITextField!
     //所属中心
     @IBOutlet weak var ownerField: UITextField!
@@ -32,21 +32,10 @@ class CentInfoTableController: UITableViewController {
     
     private func setupViewUI()
     {
-//        let typeImg = UIImage(named: "arrow");
-//        let rightViewF = CGRect(x: 0, y: 0, width: 44, height: 44)
-//        let ownerRigthVeiw = UIButton.init(frame: rightViewF)
-//        ownerRigthVeiw.setImage(typeImg, for: .normal)
-//        ownerRigthVeiw.addTarget(self, action: #selector(CentInfoTableController.clickOwnerBtn), for: .touchUpInside)
-//        self.ownerField.rightView = ownerRigthVeiw
-//        self.ownerField.rightViewMode = .always
-        
-//        self.phoneField.addLeftSpaceView(width: 8)
-        self.pwdField.addLeftSpaceView(width: 8)
+//        self.pwdField.addLeftSpaceView(width: 8)
         self.ownerField.addLeftSpaceView(width: 8)
         let centerStr = DataManager.shared.loginUser.deptName
         self.ownerField.text = centerStr
-//        let phone = DataManager.shared.loginUser.phone
-//        self.phoneField.text = phone
         let name = DataManager.shared.loginUser.empName
         self.nameLabel.text = name
         //所属中心是哪个字段
@@ -92,12 +81,12 @@ class CentInfoTableController: UITableViewController {
 		var params:[String:String] = [:]
 		
 		let user = DataManager.shared.loginUser
-		if let newPassword = self.pwdField.text,newPassword.isEmpty==false{
-			params["newPassword"] = newPassword
-		}else{
-			self.remindUser(msg: "请输入密码")
-			return nil
-		}
+//		if let newPassword = self.pwdField.text,newPassword.isEmpty==false{
+//			params["newPassword"] = newPassword
+//		}else{
+//			self.remindUser(msg: "请输入密码")
+//			return nil
+//		}
 
 		params["employeeCode"] = user.empCode
 		let manager = DataManager.shared

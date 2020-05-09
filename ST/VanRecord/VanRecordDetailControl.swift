@@ -117,7 +117,7 @@ class VanRecordDetailControl: UITableViewController{
 			let comeData = detailModel.comeData
 			self.listCodeLabel.text = detailModel.listCode
 			self.stateLabel.text = detailModel.truckState
-			self.tmpTypeLabel.text = sendData.blTempWork
+			self.tmpTypeLabel.text = sendData.blTempWorkStr()
 			self.trukNumLabel.text = sendData.truckNum
 			self.truckTypeLabel.text = sendData.truckType
 			self.truckCarNumLabel.text = sendData.truckCarNum
@@ -131,7 +131,7 @@ class VanRecordDetailControl: UITableViewController{
 				let picUrl = detailModel.sendData.picUrl
 				let imgAry = picUrl.components(separatedBy: ",")
 				for picStr in imgAry {
-//					let imgStr = Consts.ImgServer+picStr
+					guard picStr.isEmpty == false else{continue}
 					let imgStr = picStr
 					self.imgesAry?.append(imgStr)
 				}

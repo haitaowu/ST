@@ -10,6 +10,7 @@ import Foundation
 
 
 
+//MARK:- 堵车
 //堵车模型
 struct HeavyRecModel:SimpleCodable {
 	//(String)  路由
@@ -108,7 +109,7 @@ struct HeavyReq:STRequest {
 
 
 
-//车损列表模型
+//MARK:- 车损列表模型
 struct DamRecModel:SimpleCodable {
 	//(String)  路由
 	var lineName: String = ""
@@ -171,7 +172,7 @@ struct DamaDetailModel:SimpleCodable {
 	}
 }
 
-///司机的请求request
+//MARK:- 司机的请求request
 struct AnnoDriverDataReq:STRequest {
 	var params:[String:String]
 	var logicUrl: String{
@@ -191,7 +192,7 @@ struct AnnoDriverDataReq:STRequest {
 
 
 
-////车损报备详情Request
+//MARK:- 车损报备详情Request
 struct DamaDetailReq:STRequest {
 	var damCode:String
 	var logicUrl: String{
@@ -233,7 +234,7 @@ struct DamaVanReq:STRequest {
 
 
 
-//查询车牌信息模型
+//MARK:- 查询车牌信息模型
 struct TruckNumModel:SimpleCodable {
 	
 	//(String)   班车名称
@@ -257,14 +258,15 @@ struct TruckNumModel:SimpleCodable {
 
 ///车牌信息模型的请求request
 struct TruckNumMDataReq:STRequest {
+	var siteName:String
 	var logicUrl: String{
 		return "Emp/findTruckInfo.do"
 	}
 	
 	
 	var parameters: [AnyHashable : Any]{
-		let base64str = Consts.EmpKey.base64Str()
-		let signStr = Consts.EmpKey.employeeMdStr()
+		let base64str = siteName.base64Str()
+		let signStr = siteName.employeeMdStr()
 		return [
 			"data":base64str,
 			"sign":signStr,
@@ -272,7 +274,7 @@ struct TruckNumMDataReq:STRequest {
 	}
 }
 
-//路由信息模型
+//MARK:- 路由信息模型
 struct TruckRouteModel:SimpleCodable {
 	
 	///路由编号
@@ -281,30 +283,38 @@ struct TruckRouteModel:SimpleCodable {
 	var lineName: String = ""
 	///始发站
 	var sendSite: String = ""
+	var sendDate: String = ""
 	///到达站
 	var comeSite: String = ""
+	var comeDate: String = ""
 	///经停站1
 	var stopSite1: String = ""
+	var stopSite1ComeDate: String = ""
+	var stopSite1SendDate: String = ""
 	///经停站2
 	var stopSite2: String = ""
+	var stopSite2ComeDate: String = ""
+	var stopSite2SendDate: String = ""
 	///经停站3
 	var stopSite3: String = ""
+	var stopSite3ComeDate: String = ""
+	var stopSite3SendDate: String = ""
 	
 	init() {
 	}
-	
 }
 
 ///路由信息模型的请求request
 struct TruckRouteMDataReq:STRequest {
+	var siteName:String
 	var logicUrl: String{
 		return "Emp/findLineInfo.do"
 	}
 	
 	
 	var parameters: [AnyHashable : Any]{
-		let base64str = Consts.EmpKey.base64Str()
-		let signStr = Consts.EmpKey.employeeMdStr()
+		let base64str = siteName.base64Str()
+		let signStr = siteName.employeeMdStr()
 		return [
 			"data":base64str,
 			"sign":signStr,
@@ -341,6 +351,64 @@ struct TrailTruckDataReq:STRequest {
 	}
 }
 
+//MARK:- 发车
+struct SendTruckInfoModel:SimpleCodable {
+	
+	///是否始发站
+	var bl_state: String = ""
+	/// 到达站
+	var comeSite: String = ""
+	///最新上下站
+	var endPreNextStation: String = ""
+	///最新扫描网点
+	var endScanSite: String = ""
+	///最新状态
+	var endScanType: String = ""
+	///路由code
+	var lineCode: String = ""
+	///路由
+	var lineName: String = ""
+	///始发站
+	var sendSite: String = ""
+	///封签号（后)
+	var sendsealScanAhead: String = ""
+	///	 封签号（后侧）
+	var sendsealScanBackDoor: String = ""
+	///封签号（前侧）
+	var sendsealScanMittertor: String = ""
+	///经停站1
+	var stopSite1: String = ""
+	///经停站2
+	var stopSite2: String = ""
+	///经停站3
+	var stopSite3: String = ""
+	/// 挂车号
+	var truckCarNum: String = ""
+	/// 车型
+	var trucktype: String = ""
+	init() {
+	}
+}
+
+///根据车牌查询发车的请求request
+struct SendTruckInfoReq:STRequest {
+	var params:[String: String]
+	var logicUrl: String{
+		return "Emp/findStartCar.do"
+	}
+	
+	var parameters: [AnyHashable : Any]{
+		let paramsStr = params.jsonDicStr()
+		let base64str = paramsStr.base64Str()
+		let signStr = paramsStr.employeeMdStr()
+		return [
+			"data":base64str,
+			"sign":signStr,
+		]
+	}
+}
+
+
 
 //发车登记的request
 struct SendCarSignReq:STRequest {
@@ -362,6 +430,7 @@ struct SendCarSignReq:STRequest {
 }
 
 
+//MARK:- 到车
 //到车信息模型
 struct SendTruckModel:SimpleCodable {
 	
@@ -375,11 +444,33 @@ struct SendTruckModel:SimpleCodable {
 	var truckType: String = ""
 	/// 路由
 	var lineName: String = ""
+	///日期
+	var scanDate: String = ""
+	/// 录入人
+	var scanMan: String = ""
+	/// 录入站点
+	var scanSite: String = ""
+	///封签号（后)
+	var sendsealScanAhead: String = ""
+	///封签号（后侧）
+	var sendsealScanBackDoor: String = ""
+	///封签号（前侧）
+	var sendsealScanMittertor: String = ""
+	
+	///是否加班：1:加班     0或空:为不加班
+	func blTempWorkStr() -> String {
+		if(self.blTempWork == "1"){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
 
 	init() {
 	}
 	
 }
+
 
 ///到车信息模型的请求request
 struct ArriTruckMDataReq:STRequest {

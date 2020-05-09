@@ -11,9 +11,17 @@ import Foundation
 protocol STListViewModel {
     var columnNames:[String]{get}
 }
+
+///没有数据返回情况下
 struct UploadResult:SimpleCodable {
-    
 }
+
+///没有数据返回情况下
+struct ReqResult:SimpleCodable {
+}
+
+
+//MARK:- 收件
 struct ShoujianModel {
     var billCode:String = ""
     var recMan:String = ""
@@ -34,6 +42,7 @@ struct ShoujianSaveRequest:STUploadRequest {
     }
 }
 
+//MARK:- 发件
 struct FajianModel {
     var billCode:String = ""
     var preOrNext:String = ""
@@ -54,6 +63,8 @@ struct FajianSaveRequest:STUploadRequest {
         return "/uploadSend.do"
     }
 }
+
+//MARK:- 到件
 struct DaojianModel {
     var billCode:String = ""
     var preOrNext:String = ""
@@ -76,6 +87,7 @@ struct DaojianSaveRequest:STUploadRequest {
 
 
 
+//MARK:- 派件
 struct PaijianModel {
     var billCode:String = ""
     var dispMan:String = ""
@@ -97,6 +109,7 @@ struct PaijianSaveRequest:STUploadRequest {
     }
 }
 
+//MARK:- 签收
 struct QianshouModel {
     var billCode:String = ""
     var signName:String = ""
@@ -105,11 +118,13 @@ struct QianshouModel {
     var signDate:String = ""
 }
 
+
 extension QianshouModel:STListViewModel{
     var columnNames:[String]{
         return [billCode,signName,tp.isEmpty ? "否":"是"]
     }
 }
+
 
 extension QianshouModel:SimpleCodable{}
 struct QianshouSaveRequest:STUploadRequest {
@@ -120,6 +135,24 @@ struct QianshouSaveRequest:STUploadRequest {
     }
 }
 
+//MARK:- 运单号是否到件和录单
+///request
+struct OrderValiReq:STRequest {
+	var billCode:String
+	var logicUrl: String{
+		return "m8/qryCome.do"
+	}
+
+	var parameters: [AnyHashable : Any]{
+		return [
+			"billCode":billCode
+		]
+	}
+}
+
+
+
+//MARK:- 问题件
 struct WentijianModel {
     var billCode:String = ""
     var problemType:String = ""
@@ -140,6 +173,8 @@ struct WentijianSaveRequest:STUploadRequest {
         return "/uploadProblem.do"
     }
 }
+
+//MARK:- 区域
 struct QuyuModel:SimpleCodable {
     var siteName:String = ""
     var prov:String  = ""
@@ -156,6 +191,8 @@ extension QuyuModel:STListViewModel{
         return [prov,siteName,tel]
     }
 }
+
+//MARK:- 运单查询
 struct YundanChaxunScan {
     var scanDate:String = ""
     var content:String = ""
@@ -185,8 +222,6 @@ struct YundanChaxunRequest:STRequest {
     }
 }
 
-
-
 struct QuyuChaxunRequest:STRequest {
     var prov:String = ""
     var city:String = ""
@@ -203,6 +238,7 @@ struct QuyuChaxunRequest:STRequest {
     }
 }
 
+//MARK:- accountmoney
 struct AccountMoney:SimpleCodable{
     var ConfirmMoney:String = ""
 }

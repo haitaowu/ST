@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CenHomeController" customModule="ST" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CenHomeController" customModule="掌上速通" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="m4w-NZ-Y7q" id="foB-3c-92n"/>
+                <outlet property="annTable" destination="tvx-aL-BEM" id="rRP-LX-XA7"/>
+                <outlet property="carTable" destination="m4w-NZ-Y7q" id="wvX-wn-F7y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="funcBtns" destination="46z-IL-5eU" collectionClass="NSMutableArray" id="Azg-Kl-wkk"/>
+                <outletCollection property="funcBtns" destination="g86-c4-n2m" collectionClass="NSMutableArray" id="qsY-Uq-bNr"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,9 +21,102 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kt0-it-vuR" userLabel="alertView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notice_sound" translatesAutoresizingMaskIntoConstraints="NO" id="7v7-c5-ADT">
+                            <rect key="frame" x="10" y="12" width="15" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="7v7-c5-ADT" secondAttribute="height" multiplier="24:25" id="0Hw-BU-uTQ"/>
+                                <constraint firstAttribute="width" constant="15" id="CPk-2h-r1h"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公告" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeO-Ac-2Ol">
+                            <rect key="frame" x="33" y="9.5" width="35" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="5Be-Tu-FOK"/>
+                        <constraint firstItem="OeO-Ac-2Ol" firstAttribute="centerY" secondItem="7v7-c5-ADT" secondAttribute="centerY" id="AYj-VO-MCz"/>
+                        <constraint firstItem="7v7-c5-ADT" firstAttribute="centerY" secondItem="kt0-it-vuR" secondAttribute="centerY" id="Kuh-OC-0e6"/>
+                        <constraint firstItem="7v7-c5-ADT" firstAttribute="leading" secondItem="kt0-it-vuR" secondAttribute="leading" constant="10" id="VLN-Zu-g4l"/>
+                        <constraint firstItem="OeO-Ac-2Ol" firstAttribute="leading" secondItem="7v7-c5-ADT" secondAttribute="trailing" constant="8" id="paE-A4-9HY"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tvx-aL-BEM">
+                    <rect key="frame" x="0.0" y="40" width="375" height="132"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="132" id="evw-94-1tm"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="RU5-5A-Y8Y"/>
+                        <outlet property="delegate" destination="-1" id="VVX-K9-yts"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdc-9P-tAc" userLabel="FuncView">
+                    <rect key="frame" x="0.0" y="177" width="375" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46z-IL-5eU">
+                            <rect key="frame" x="20" y="2" width="157.5" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="h4T-4W-YwW"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="发车" image="send_car">
+                                <color key="titleColor" red="0.0" green="0.95965325339999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickSignBtn:" destination="-1" eventType="touchUpInside" id="BLs-O8-XLb"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g86-c4-n2m">
+                            <rect key="frame" x="197.5" y="2" width="157.5" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="到车" image="arriver_car">
+                                <color key="titleColor" red="1" green="0.1621101097" blue="0.1521261022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickSignBtn:" destination="-1" eventType="touchUpInside" id="o14-IU-pQq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="46z-IL-5eU" firstAttribute="leading" secondItem="bdc-9P-tAc" secondAttribute="leading" constant="20" id="Dac-wJ-JHx"/>
+                        <constraint firstAttribute="height" constant="44" id="EpE-mn-bfs"/>
+                        <constraint firstItem="46z-IL-5eU" firstAttribute="centerY" secondItem="g86-c4-n2m" secondAttribute="centerY" id="HV5-WL-rab"/>
+                        <constraint firstItem="46z-IL-5eU" firstAttribute="height" secondItem="g86-c4-n2m" secondAttribute="height" id="Mbk-vF-aFX"/>
+                        <constraint firstAttribute="trailing" secondItem="g86-c4-n2m" secondAttribute="trailing" constant="20" id="RS7-bC-48y"/>
+                        <constraint firstItem="g86-c4-n2m" firstAttribute="leading" secondItem="46z-IL-5eU" secondAttribute="trailing" constant="20" id="SkR-eS-WFR"/>
+                        <constraint firstItem="46z-IL-5eU" firstAttribute="width" secondItem="g86-c4-n2m" secondAttribute="width" id="UaE-mW-HZa"/>
+                        <constraint firstItem="46z-IL-5eU" firstAttribute="centerY" secondItem="bdc-9P-tAc" secondAttribute="centerY" id="WCe-XJ-TWb"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbW-hq-evg" userLabel="titleView">
+                    <rect key="frame" x="0.0" y="221" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="发车提醒" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJZ-o9-XA6">
+                            <rect key="frame" x="8" y="8" width="359" height="24"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="K6U-bx-Xka"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
+                    <rect key="frame" x="0.0" y="261" width="375" height="406"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ldS-MM-975"/>
@@ -31,7 +125,30 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kt0-it-vuR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0e2-lj-P8m"/>
+                <constraint firstItem="m4w-NZ-Y7q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5P7-5g-Hkh"/>
+                <constraint firstAttribute="bottom" secondItem="m4w-NZ-Y7q" secondAttribute="bottom" id="9Na-WM-oHK"/>
+                <constraint firstItem="kt0-it-vuR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="C1z-dy-aMH"/>
+                <constraint firstAttribute="trailing" secondItem="YbW-hq-evg" secondAttribute="trailing" id="EvN-88-y9I"/>
+                <constraint firstAttribute="trailing" secondItem="bdc-9P-tAc" secondAttribute="trailing" id="Paf-cW-vfe"/>
+                <constraint firstItem="tvx-aL-BEM" firstAttribute="top" secondItem="kt0-it-vuR" secondAttribute="bottom" id="UDA-Cc-Vg0"/>
+                <constraint firstItem="m4w-NZ-Y7q" firstAttribute="top" secondItem="YbW-hq-evg" secondAttribute="bottom" id="VJB-pX-13V"/>
+                <constraint firstItem="bdc-9P-tAc" firstAttribute="top" secondItem="tvx-aL-BEM" secondAttribute="bottom" constant="5" id="Wts-64-r9g"/>
+                <constraint firstItem="bdc-9P-tAc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XVi-Vc-8rE"/>
+                <constraint firstItem="YbW-hq-evg" firstAttribute="top" secondItem="bdc-9P-tAc" secondAttribute="bottom" id="Xk3-Oz-KyX"/>
+                <constraint firstItem="YbW-hq-evg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ygr-Qz-MO1"/>
+                <constraint firstAttribute="trailing" secondItem="kt0-it-vuR" secondAttribute="trailing" id="ien-ru-FWC"/>
+                <constraint firstAttribute="trailing" secondItem="m4w-NZ-Y7q" secondAttribute="trailing" id="m9p-5F-EeK"/>
+                <constraint firstAttribute="trailing" secondItem="tvx-aL-BEM" secondAttribute="trailing" id="qQO-dN-k89"/>
+                <constraint firstItem="tvx-aL-BEM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v3A-w2-WNV"/>
+            </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="147.97601199400302"/>
         </view>
     </objects>
+    <resources>
+        <image name="arriver_car" width="26" height="20"/>
+        <image name="notice_sound" width="16" height="17"/>
+        <image name="send_car" width="26" height="20"/>
+    </resources>
 </document>

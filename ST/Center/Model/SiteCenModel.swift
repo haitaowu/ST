@@ -50,23 +50,23 @@ struct EmpHomSendReq:STRequest {
 
 
 //中心、网点账号首页公告的模型
-struct EmpHomAnno:SimpleCodable {
-	///String    发布内容  [需要进行 base64 解码]
-	var content: String = ""
-	///操作时间
-	var scanDate: String = ""
-	
-	///String     发布时间
-	var noticeTime: String = ""
-	
-	///String     发布网点
-	var person: String = ""
-	///String     公告标题
-	var title: String = ""
-	
-	init() {
-	}
-}
+//struct EmpHomAnno:SimpleCodable {
+//	///String    发布内容  [需要进行 base64 解码]
+//	var content: String = ""
+//	///操作时间
+//	var scanDate: String = ""
+//	
+//	///String     发布时间
+//	var noticeTime: String = ""
+//	
+//	///String     发布网点
+//	var person: String = ""
+//	///String     公告标题
+//	var title: String = ""
+//	
+//	init() {
+//	}
+//}
 
 
 ///中心、网点账号首页公告的请求request
@@ -95,7 +95,7 @@ struct AnnoModel:SimpleCodable {
     var noticeTime: String = ""
     var person: String = ""
     var title: String = ""
-
+		var sendSite: String = ""
     init() {
     }
 }

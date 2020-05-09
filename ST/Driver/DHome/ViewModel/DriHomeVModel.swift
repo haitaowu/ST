@@ -12,15 +12,15 @@ import Foundation
 	
 //MARK:-司机首页公告
 ///司机首页公告模型
-struct DriMsgModel:SimpleCodable {
-	var content: String = ""
-	var noticeTime: String = ""
-	var person: String = ""
-	var title: String = ""
-	var sendSite: String = ""
-	init() {
-	}
-}
+//struct DriMsgModel ext AnnoModel {
+//	var content: String = ""
+//	var noticeTime: String = ""
+//	var person: String = ""
+//	var title: String = ""
+//	var sendSite: String = ""
+//	init() {
+//	}
+//}
 
 //司机首页公告req
 struct DriMsgReq:STRequest {
@@ -73,6 +73,18 @@ struct UnFinishedModel:SimpleCodable {
 	///修改后的下一站
 	var bakNextStaTion: String = ""
 	
+	///司机发车状态 0 :未发车, 1:已发车
+	var  deiverStatus: String = ""
+	
+	///是否加班：1:加班     0或空:为不加班
+	func blTempWorkStr() -> String {
+		if(self.blTempWork == "1"){
+			return "是"
+		}else{
+			return "否"
+		}
+	}
+	
 	init() {
 	}
 }
@@ -88,6 +100,25 @@ struct UnFinishedReq:STRequest {
 	var parameters: [AnyHashable : Any]{
 		let signStr = carCode.driverMd5Str()
 		let base64str = carCode.base64Str()
+		return [
+			"data":base64str,
+			"sign":signStr,
+		]
+	}
+}
+
+
+///司机首页发车登记的req
+struct DriSendSignReq:STRequest {
+	var params:[String: String]
+	var logicUrl: String{
+		return "Dri/updateDriverTime.do"
+	}
+	
+	var parameters: [AnyHashable : Any]{
+		let paramsStr = params.jsonDicStr()
+		let base64str = paramsStr.base64Str()
+		let signStr = paramsStr.driverMd5Str()
 		return [
 			"data":base64str,
 			"sign":signStr,

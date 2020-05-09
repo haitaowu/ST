@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DriHomeController" customModule="ST" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DriHomeController" customModule="掌上速通" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="m4w-NZ-Y7q" id="foB-3c-92n"/>
+                <outlet property="annTable" destination="vWR-7k-7hY" id="fz6-Ll-J64"/>
+                <outlet property="carTable" destination="m4w-NZ-Y7q" id="jsw-73-eaC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,9 +19,61 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRP-6w-ZOY" userLabel="AlertView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notice_sound" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-UO-2Fb">
+                            <rect key="frame" x="10" y="17" width="15" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="xMD-UO-2Fb" secondAttribute="height" multiplier="24:25" id="Cnn-Kh-gKJ"/>
+                                <constraint firstAttribute="width" constant="15" id="PjU-cT-B9O"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公告" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0n-0I-2d1">
+                            <rect key="frame" x="33" y="14.5" width="35" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xMD-UO-2Fb" firstAttribute="leading" secondItem="VRP-6w-ZOY" secondAttribute="leading" constant="10" id="LV9-GK-Re7"/>
+                        <constraint firstItem="xMD-UO-2Fb" firstAttribute="centerY" secondItem="VRP-6w-ZOY" secondAttribute="centerY" id="gav-9f-GW0"/>
+                        <constraint firstAttribute="height" constant="50" id="lbU-mW-D9j"/>
+                        <constraint firstItem="c0n-0I-2d1" firstAttribute="leading" secondItem="xMD-UO-2Fb" secondAttribute="trailing" constant="8" id="sAD-UX-qcz"/>
+                        <constraint firstItem="c0n-0I-2d1" firstAttribute="centerY" secondItem="xMD-UO-2Fb" secondAttribute="centerY" id="zKT-VU-sob"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="vWR-7k-7hY">
+                    <rect key="frame" x="0.0" y="50" width="375" height="132"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="132" id="mzT-sB-ahg"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="S7u-zM-tR4"/>
+                        <outlet property="delegate" destination="-1" id="X7w-L7-ZKJ"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcQ-gr-Hi2">
+                    <rect key="frame" x="0.0" y="187" width="375" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="进行中的任务" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtK-xv-pym">
+                            <rect key="frame" x="8" y="8" width="359" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="zIc-2M-aeI"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="m4w-NZ-Y7q">
+                    <rect key="frame" x="0.0" y="237" width="375" height="430"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ldS-MM-975"/>
@@ -31,7 +82,25 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VRP-6w-ZOY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5vD-vW-VdA"/>
+                <constraint firstItem="VRP-6w-ZOY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Gze-6x-yCb"/>
+                <constraint firstAttribute="trailing" secondItem="VRP-6w-ZOY" secondAttribute="trailing" id="Ihl-JG-INa"/>
+                <constraint firstItem="m4w-NZ-Y7q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JUx-1R-Aq9"/>
+                <constraint firstItem="hcQ-gr-Hi2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LZG-tm-BM5"/>
+                <constraint firstAttribute="trailing" secondItem="vWR-7k-7hY" secondAttribute="trailing" id="TLN-eh-Kag"/>
+                <constraint firstAttribute="trailing" secondItem="hcQ-gr-Hi2" secondAttribute="trailing" id="VjY-t7-PnJ"/>
+                <constraint firstItem="vWR-7k-7hY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XDU-oN-hI4"/>
+                <constraint firstItem="m4w-NZ-Y7q" firstAttribute="top" secondItem="hcQ-gr-Hi2" secondAttribute="bottom" id="bFk-ei-2mc"/>
+                <constraint firstItem="vWR-7k-7hY" firstAttribute="top" secondItem="VRP-6w-ZOY" secondAttribute="bottom" id="ifc-Fo-ocE"/>
+                <constraint firstItem="hcQ-gr-Hi2" firstAttribute="top" secondItem="vWR-7k-7hY" secondAttribute="bottom" constant="5" id="kZh-MD-4Pj"/>
+                <constraint firstAttribute="trailing" secondItem="m4w-NZ-Y7q" secondAttribute="trailing" id="voF-Bt-oKl"/>
+                <constraint firstAttribute="bottom" secondItem="m4w-NZ-Y7q" secondAttribute="bottom" id="ywN-Pm-Tvc"/>
+            </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="147.97601199400302"/>
         </view>
     </objects>
+    <resources>
+        <image name="notice_sound" width="16" height="17"/>
+    </resources>
 </document>

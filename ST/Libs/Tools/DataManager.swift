@@ -317,6 +317,7 @@ class DataManager{
         STDb.shared.saveWtj(model: m)
         //self.uploadWentijian(m: [m])
     }
+	
     func uploadWentijian(m:[WentijianModel],callback:SaveCompleteCallback? = nil){
         let req = WentijianSaveRequest(obj: m)
         STNetworking<UploadResult>(stRequest:req){
@@ -346,6 +347,7 @@ class DataManager{
             complete()
         }
     }
+	
     private func fileUpload(target:String,filePath:String,complete:@escaping () -> Void){
         let req = STImageUploadRequest(target: target, imagePath: filePath)
         UrlSessioinNetworking(request: req){
@@ -354,6 +356,7 @@ class DataManager{
         }?.resume()
         
     }
+	
     func saveLocalImage(img:UIImage,ydh:String,complete:(String) -> Void){
         let filename = ydh + "_" + NSUUID().uuidString + ".jpg"
         let filePath = NSHomeDirectory().appending("/Documents/\(filename)")

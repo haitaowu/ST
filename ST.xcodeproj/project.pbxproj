@@ -111,6 +111,7 @@
 		BE0718B22094BEE3007A33A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */; };
 		BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */; };
 		BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */; };
+		BE0E02C9242A3C8A000CEA82 /* SendSignReasonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */; };
 		BE0FC4E922BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */; };
 		BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */; };
 		BE0FC4EB22BF404800271FED /* JXPhotoBrowserPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */; };
@@ -160,6 +161,8 @@
 		BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE20A9A11F66CD5200D2D753 /* BaseUI.storyboard */; };
 		BE28976C23CADD0C009FB9EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE28976E23CADD0C009FB9EE /* InfoPlist.strings */; };
 		BE28977223CADE50009FB9EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE28977423CADE50009FB9EE /* Localizable.strings */; };
+		BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */; };
+		BE2BEA47242466CA007C1F26 /* AnnouceQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */; };
 		BE354DDA23A5D117008AE45E /* TruckRouteListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE354DD823A5D117008AE45E /* TruckRouteListController.xib */; };
 		BE354DDB23A5D117008AE45E /* TruckRouteListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE354DD923A5D117008AE45E /* TruckRouteListController.swift */; };
 		BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCEC228C0B770007B6E0 /* PaijianSaomiaoViewController.swift */; };
@@ -210,18 +213,6 @@
 		BE38BD5E228C0BAF0007B6E0 /* WangdianCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BD5A228C0BAF0007B6E0 /* WangdianCell.swift */; };
 		BE38BD5F228C0BAF0007B6E0 /* WangdianPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BD5B228C0BAF0007B6E0 /* WangdianPickerViewController.swift */; };
 		BE38BD60228C0BAF0007B6E0 /* WangdianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BD5C228C0BAF0007B6E0 /* WangdianCell.xib */; };
-		BE39C77423ACB18A006C35BB /* libBNTTSComponentSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */; };
-		BE39C77523ACB18A006C35BB /* libbaiduNaviSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */; };
-		BE39C77623ACB18A006C35BB /* mode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76A23ACB18A006C35BB /* mode.bundle */; };
-		BE39C77723ACB18A006C35BB /* street.sty in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76B23ACB18A006C35BB /* street.sty */; };
-		BE39C77823ACB18A006C35BB /* baiduTTSSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */; };
-		BE39C77923ACB18A006C35BB /* DVStreet.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76D23ACB18A006C35BB /* DVStreet.cfg */; };
-		BE39C77A23ACB18A006C35BB /* DVHotcity.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */; };
-		BE39C77B23ACB18A006C35BB /* baiduNaviSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */; };
-		BE39C77C23ACB18A006C35BB /* DVDirectory.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77023ACB18A006C35BB /* DVDirectory.cfg */; };
-		BE39C77D23ACB18A006C35BB /* DVHotMap.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77123ACB18A006C35BB /* DVHotMap.cfg */; };
-		BE39C77E23ACB18A006C35BB /* DVSDirectory.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */; };
-		BE39C77F23ACB18A006C35BB /* DVVersion_pkg.cfg in Resources */ = {isa = PBXBuildFile; fileRef = BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */; };
 		BE3DCFD322D6DD3B003176E3 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD222D6DD3B003176E3 /* UITextField+Extension.swift */; };
 		BE3DCFD522D6E021003176E3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD422D6E021003176E3 /* String+Extension.swift */; };
 		BE3DCFD722D6E154003176E3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3DCFD622D6E154003176E3 /* Date+Extension.swift */; };
@@ -250,6 +241,7 @@
 		BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */; };
 		BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */; };
 		BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */; };
+		BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */; };
 		BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAC232DD6640076DB33 /* UserModel.swift */; };
 		BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */; };
 		BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */; };
@@ -282,17 +274,18 @@
 		BE99EED922BDC9B500F89305 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99EED822BDC9B500F89305 /* Types.swift */; };
 		BE9BFF1F22D6D96000C6BAAE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */; };
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
+		BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */; };
+		BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */; };
 		BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */; };
 		BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */; };
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
 		BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */; };
-		BEA67BB022DC78FA007D8E4C /* CenNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */; };
-		BEA67BB122DC78FA007D8E4C /* CenNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */; };
-		BEA67BB422DC7A17007D8E4C /* SendArriHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */; };
-		BEA67BB522DC7A17007D8E4C /* SendArriHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
+		BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2C242DC58300169C2C /* BaseFooter.swift */; };
+		BEB14E30242DC80B00169C2C /* ExceptionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */; };
+		BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */; };
 		BEB58FCF22E6F49E0014FA5D /* VanRecordDetailControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */; };
 		BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5E6912333678F0087CD0B /* DriverModel.swift */; };
 		BEC8B44122BCF9720095C045 /* TinyConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43B22BCF9720095C045 /* TinyConsole.swift */; };
@@ -302,12 +295,12 @@
 		BECA053F23792FCA0053C60F /* SendCarInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */; };
 		BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA0540237931680053C60F /* CenterAnnoCell.swift */; };
 		BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA0541237931680053C60F /* CenterAnnoCell.xib */; };
-		BECA0546237934D70053C60F /* EmpCarsTitleHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */; };
-		BECA0547237934D70053C60F /* EmpCarsTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */; };
 		BECA054A23793A410053C60F /* CarCountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA054823793A400053C60F /* CarCountHeader.swift */; };
 		BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA054923793A410053C60F /* CarCountHeader.xib */; };
 		BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED08227232F894700EF69D5 /* VanRecCell.xib */; };
 		BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED08228232F894700EF69D5 /* VanRecCell.swift */; };
+		BED8DDBD2438290A00E9FF2C /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8DDBC2438290A00E9FF2C /* BaseController.swift */; };
+		BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */; };
 		BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746F922C510AD002B241E /* DriHeavyController.swift */; };
 		BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746FD22C5128B002B241E /* DriHomeController.swift */; };
 		BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE746FE22C5128B002B241E /* DriHomeController.xib */; };
@@ -315,18 +308,12 @@
 		BEE7471522C5128C002B241E /* DriMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470022C5128B002B241E /* DriMenuController.swift */; };
 		BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470222C5128B002B241E /* DSendInfoHeader.swift */; };
 		BEE7471722C5128C002B241E /* DriCarInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470322C5128B002B241E /* DriCarInfoCell.swift */; };
-		BEE7471822C5128C002B241E /* DMissionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470422C5128B002B241E /* DMissionFooter.xib */; };
-		BEE7471922C5128C002B241E /* DMissionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470522C5128B002B241E /* DMissionHeader.xib */; };
 		BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470622C5128B002B241E /* STMenuCell.xib */; };
 		BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470722C5128B002B241E /* DSendInfoHeader.xib */; };
-		BEE7471C22C5128C002B241E /* DNumHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470822C5128B002B241E /* DNumHeader.xib */; };
+		BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470822C5128B002B241E /* DNumFooter.xib */; };
 		BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470A22C5128B002B241E /* STMenuCell.swift */; };
-		BEE7471F22C5128C002B241E /* DMissionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470B22C5128B002B241E /* DMissionFooter.swift */; };
 		BEE7472022C5128C002B241E /* DriCarInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */; };
-		BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */; };
-		BEE7472222C5128C002B241E /* DNumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470E22C5128B002B241E /* DNumHeader.swift */; };
-		BEE7472322C5128C002B241E /* DriverNotiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */; };
-		BEE7472422C5128C002B241E /* DMissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7471022C5128B002B241E /* DMissionHeader.swift */; };
+		BEE7472222C5128C002B241E /* DNumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7470E22C5128B002B241E /* DNumFooter.swift */; };
 		BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777423AB23A2002E6828 /* Accelerate.framework */; };
 		BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777623AB23A8002E6828 /* CallKit.framework */; };
 		BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE7777823AB23AF002E6828 /* AdSupport.framework */; };
@@ -346,7 +333,6 @@
 		BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AC23AB49B4002E6828 /* libz.tbd */; };
 		BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF205EC22E994760050E2A7 /* OperationHeader.xib */; };
 		BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF205ED22E994760050E2A7 /* OperationHeader.swift */; };
-		BEF53AA623AE6A8E00A7ED7C /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */; };
 		BEFFD9C722CD8DA900C124C9 /* DriDamQueryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFFD9C622CD8DA900C124C9 /* DriDamQueryDetailController.swift */; };
 /* End PBXBuildFile section */
 
@@ -477,6 +463,7 @@
 		BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendSignReasonControl.swift; sourceTree = "<group>"; };
 		BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserFadeTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserZoomTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserPresentationController.swift; sourceTree = "<group>"; };
@@ -528,6 +515,8 @@
 		BE28976F23CADDBD009FB9EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BE28977323CADE50009FB9EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE28977523CADE55009FB9EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouceQueryController.xib; sourceTree = "<group>"; };
+		BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouceQueryController.swift; sourceTree = "<group>"; };
 		BE354DD823A5D117008AE45E /* TruckRouteListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TruckRouteListController.xib; sourceTree = "<group>"; };
 		BE354DD923A5D117008AE45E /* TruckRouteListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruckRouteListController.swift; sourceTree = "<group>"; };
 		BE38BCEC228C0B770007B6E0 /* PaijianSaomiaoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaijianSaomiaoViewController.swift; sourceTree = "<group>"; };
@@ -582,37 +571,6 @@
 		BE38BD5A228C0BAF0007B6E0 /* WangdianCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WangdianCell.swift; sourceTree = "<group>"; };
 		BE38BD5B228C0BAF0007B6E0 /* WangdianPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WangdianPickerViewController.swift; sourceTree = "<group>"; };
 		BE38BD5C228C0BAF0007B6E0 /* WangdianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WangdianCell.xib; sourceTree = "<group>"; };
-		BE39C75423ACB18A006C35BB /* BNRoutePlanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRoutePlanModel.h; sourceTree = "<group>"; };
-		BE39C75523ACB18A006C35BB /* BNMapManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75623ACB18A006C35BB /* BNNaviProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNaviProtocol.h; sourceTree = "<group>"; };
-		BE39C75723ACB18A006C35BB /* BNLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNLocation.h; sourceTree = "<group>"; };
-		BE39C75823ACB18A006C35BB /* BNCarRouteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCarRouteData.h; sourceTree = "<group>"; };
-		BE39C75923ACB18A006C35BB /* BNaviService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNaviService.h; sourceTree = "<group>"; };
-		BE39C75A23ACB18A006C35BB /* BNDriveRouteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDriveRouteProtocol.h; sourceTree = "<group>"; };
-		BE39C75B23ACB18A006C35BB /* BNRoutePlanManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRoutePlanManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75C23ACB18A006C35BB /* BNNaviMessageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNaviMessageInfo.h; sourceTree = "<group>"; };
-		BE39C75D23ACB18A006C35BB /* BNCommonDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCommonDef.h; sourceTree = "<group>"; };
-		BE39C75E23ACB18A006C35BB /* BNStrategyManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNStrategyManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C75F23ACB18A006C35BB /* BNSoundProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNSoundProtocol.h; sourceTree = "<group>"; };
-		BE39C76023ACB18A006C35BB /* BNDigitDogManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDigitDogManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76123ACB18A006C35BB /* BNUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNUtility.h; sourceTree = "<group>"; };
-		BE39C76223ACB18A006C35BB /* BNUIManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNUIManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76323ACB18A006C35BB /* BNLocationManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNLocationManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76423ACB18A006C35BB /* BNMapOverlayProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapOverlayProtocol.h; sourceTree = "<group>"; };
-		BE39C76523ACB18A006C35BB /* BNMapViewManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapViewManagerProtocol.h; sourceTree = "<group>"; };
-		BE39C76623ACB18A006C35BB /* BNaviModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNaviModel.h; sourceTree = "<group>"; };
-		BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBNTTSComponentSDK.a; sourceTree = "<group>"; };
-		BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaiduNaviSDK.a; sourceTree = "<group>"; };
-		BE39C76A23ACB18A006C35BB /* mode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mode.bundle; sourceTree = "<group>"; };
-		BE39C76B23ACB18A006C35BB /* street.sty */ = {isa = PBXFileReference; lastKnownFileType = file; path = street.sty; sourceTree = "<group>"; };
-		BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baiduTTSSDK.bundle; sourceTree = "<group>"; };
-		BE39C76D23ACB18A006C35BB /* DVStreet.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVStreet.cfg; sourceTree = "<group>"; };
-		BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVHotcity.cfg; sourceTree = "<group>"; };
-		BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baiduNaviSDK.bundle; sourceTree = "<group>"; };
-		BE39C77023ACB18A006C35BB /* DVDirectory.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVDirectory.cfg; sourceTree = "<group>"; };
-		BE39C77123ACB18A006C35BB /* DVHotMap.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVHotMap.cfg; sourceTree = "<group>"; };
-		BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVSDirectory.cfg; sourceTree = "<group>"; };
-		BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DVVersion_pkg.cfg; sourceTree = "<group>"; };
 		BE3DCFD222D6DD3B003176E3 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		BE3DCFD422D6E021003176E3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		BE3DCFD622D6E154003176E3 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -641,6 +599,7 @@
 		BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryController.xib; sourceTree = "<group>"; };
 		BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryCell.xib; sourceTree = "<group>"; };
 		BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavQueryCell.swift; sourceTree = "<group>"; };
+		BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BE6B5CAC232DD6640076DB33 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdResetSuccController.swift; sourceTree = "<group>"; };
 		BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdResetSuccController.xib; sourceTree = "<group>"; };
@@ -673,16 +632,17 @@
 		BE99EED822BDC9B500F89305 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
+		BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSignFooter.swift; sourceTree = "<group>"; };
+		BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSignFooter.xib; sourceTree = "<group>"; };
 		BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TruckNumListController.xib; sourceTree = "<group>"; };
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
-		BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenNotiHeader.xib; sourceTree = "<group>"; };
-		BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenNotiHeader.swift; sourceTree = "<group>"; };
-		BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendArriHeader.swift; sourceTree = "<group>"; };
-		BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendArriHeader.xib; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
+		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
+		BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHeader.swift; sourceTree = "<group>"; };
+		BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExceptionHeader.xib; sourceTree = "<group>"; };
 		BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanRecordDetailControl.swift; sourceTree = "<group>"; };
 		BEC5E6912333678F0087CD0B /* DriverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		BEC8B43B22BCF9720095C045 /* TinyConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsole.swift; sourceTree = "<group>"; };
@@ -694,12 +654,12 @@
 		BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendCarInfoCell.xib; sourceTree = "<group>"; };
 		BECA0540237931680053C60F /* CenterAnnoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterAnnoCell.swift; sourceTree = "<group>"; };
 		BECA0541237931680053C60F /* CenterAnnoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterAnnoCell.xib; sourceTree = "<group>"; };
-		BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmpCarsTitleHeader.xib; sourceTree = "<group>"; };
-		BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpCarsTitleHeader.swift; sourceTree = "<group>"; };
 		BECA054823793A400053C60F /* CarCountHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarCountHeader.swift; sourceTree = "<group>"; };
 		BECA054923793A410053C60F /* CarCountHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCountHeader.xib; sourceTree = "<group>"; };
 		BED08227232F894700EF69D5 /* VanRecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecCell.xib; sourceTree = "<group>"; };
 		BED08228232F894700EF69D5 /* VanRecCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecCell.swift; sourceTree = "<group>"; };
+		BED8DDBC2438290A00E9FF2C /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
+		BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		BEE746F922C510AD002B241E /* DriHeavyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavyController.swift; sourceTree = "<group>"; };
 		BEE746FD22C5128B002B241E /* DriHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHomeController.swift; sourceTree = "<group>"; };
 		BEE746FE22C5128B002B241E /* DriHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHomeController.xib; sourceTree = "<group>"; };
@@ -707,18 +667,12 @@
 		BEE7470022C5128B002B241E /* DriMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriMenuController.swift; sourceTree = "<group>"; };
 		BEE7470222C5128B002B241E /* DSendInfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSendInfoHeader.swift; sourceTree = "<group>"; };
 		BEE7470322C5128B002B241E /* DriCarInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriCarInfoCell.swift; sourceTree = "<group>"; };
-		BEE7470422C5128B002B241E /* DMissionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMissionFooter.xib; sourceTree = "<group>"; };
-		BEE7470522C5128B002B241E /* DMissionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMissionHeader.xib; sourceTree = "<group>"; };
 		BEE7470622C5128B002B241E /* STMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STMenuCell.xib; sourceTree = "<group>"; };
 		BEE7470722C5128B002B241E /* DSendInfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSendInfoHeader.xib; sourceTree = "<group>"; };
-		BEE7470822C5128B002B241E /* DNumHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DNumHeader.xib; sourceTree = "<group>"; };
+		BEE7470822C5128B002B241E /* DNumFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DNumFooter.xib; sourceTree = "<group>"; };
 		BEE7470A22C5128B002B241E /* STMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STMenuCell.swift; sourceTree = "<group>"; };
-		BEE7470B22C5128B002B241E /* DMissionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMissionFooter.swift; sourceTree = "<group>"; };
 		BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriCarInfoCell.xib; sourceTree = "<group>"; };
-		BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverNotiHeader.swift; sourceTree = "<group>"; };
-		BEE7470E22C5128B002B241E /* DNumHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNumHeader.swift; sourceTree = "<group>"; };
-		BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverNotiHeader.xib; sourceTree = "<group>"; };
-		BEE7471022C5128B002B241E /* DMissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMissionHeader.swift; sourceTree = "<group>"; };
+		BEE7470E22C5128B002B241E /* DNumFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNumFooter.swift; sourceTree = "<group>"; };
 		BEE7777423AB23A2002E6828 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		BEE7777623AB23A8002E6828 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		BEE7777823AB23AF002E6828 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -738,7 +692,6 @@
 		BEE777AC23AB49B4002E6828 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BEF205EC22E994760050E2A7 /* OperationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationHeader.xib; sourceTree = "<group>"; };
 		BEF205ED22E994760050E2A7 /* OperationHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationHeader.swift; sourceTree = "<group>"; };
-		BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BEFFD9C622CD8DA900C124C9 /* DriDamQueryDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriDamQueryDetailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -754,7 +707,6 @@
 				BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */,
 				BEE777A323AB48E8002E6828 /* MobileCoreServices.framework in Frameworks */,
 				BEE777A123AB48C7002E6828 /* CoreTelephony.framework in Frameworks */,
-				BE39C77523ACB18A006C35BB /* libbaiduNaviSDK.a in Frameworks */,
 				BEE7779F23AB48A2002E6828 /* CoreMotion.framework in Frameworks */,
 				8968B34F1DBF4F2100F0606D /* libsqlite3.0.tbd in Frameworks */,
 				BEE7778523AB23E3002E6828 /* CoreLocation.framework in Frameworks */,
@@ -766,10 +718,9 @@
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
 				BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */,
 				BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */,
+				BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */,
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
-				BE39C77423ACB18A006C35BB /* libBNTTSComponentSDK.a in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
-				BEF53AA623AE6A8E00A7ED7C /* BMKLocationKit.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
 				4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */,
 			);
@@ -1182,6 +1133,7 @@
 		BE17CD1C22AFBE86006D9EF0 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				BED8DDBB2438283C00E9FF2C /* Controller */,
 				BE723EC32329EFA7005FC86C /* Helper */,
 				BE9BFF1D22D6D8A700C6BAAE /* Category */,
 				BE17CD1D22AFBE86006D9EF0 /* View */,
@@ -1192,6 +1144,7 @@
 		BE17CD1D22AFBE86006D9EF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BEB14E2C242DC58300169C2C /* BaseFooter.swift */,
 				BE17CD2922AFC23E006D9EF0 /* BaseHeader.swift */,
 				BE17CD2522AFBEB6006D9EF0 /* BaseCell.swift */,
 			);
@@ -1392,7 +1345,7 @@
 		BE38BD61228C0CE20007B6E0 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				BEE7778723AB443B002E6828 /* BDMap */,
+				BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */,
 				BE0FC4C622BF404800271FED /* JXPhotoBrowser */,
 				BEC8B43A22BCF9720095C045 /* TinyConsole */,
 				893497C61DDACE8800A505AF /* Webview */,
@@ -1405,60 +1358,6 @@
 				BE4874A81F54484600F4B8B5 /* extension */,
 			);
 			path = Libs;
-			sourceTree = "<group>";
-		};
-		BE39C75223ACB18A006C35BB /* BaiduNaviSDK */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C75323ACB18A006C35BB /* inc */,
-				BE39C76723ACB18A006C35BB /* libBNTTSComponentSDK.a */,
-				BE39C76823ACB18A006C35BB /* libbaiduNaviSDK.a */,
-				BE39C76923ACB18A006C35BB /* resource */,
-			);
-			path = BaiduNaviSDK;
-			sourceTree = "<group>";
-		};
-		BE39C75323ACB18A006C35BB /* inc */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C75423ACB18A006C35BB /* BNRoutePlanModel.h */,
-				BE39C75523ACB18A006C35BB /* BNMapManagerProtocol.h */,
-				BE39C75623ACB18A006C35BB /* BNNaviProtocol.h */,
-				BE39C75723ACB18A006C35BB /* BNLocation.h */,
-				BE39C75823ACB18A006C35BB /* BNCarRouteData.h */,
-				BE39C75923ACB18A006C35BB /* BNaviService.h */,
-				BE39C75A23ACB18A006C35BB /* BNDriveRouteProtocol.h */,
-				BE39C75B23ACB18A006C35BB /* BNRoutePlanManagerProtocol.h */,
-				BE39C75C23ACB18A006C35BB /* BNNaviMessageInfo.h */,
-				BE39C75D23ACB18A006C35BB /* BNCommonDef.h */,
-				BE39C75E23ACB18A006C35BB /* BNStrategyManagerProtocol.h */,
-				BE39C75F23ACB18A006C35BB /* BNSoundProtocol.h */,
-				BE39C76023ACB18A006C35BB /* BNDigitDogManagerProtocol.h */,
-				BE39C76123ACB18A006C35BB /* BNUtility.h */,
-				BE39C76223ACB18A006C35BB /* BNUIManagerProtocol.h */,
-				BE39C76323ACB18A006C35BB /* BNLocationManagerProtocol.h */,
-				BE39C76423ACB18A006C35BB /* BNMapOverlayProtocol.h */,
-				BE39C76523ACB18A006C35BB /* BNMapViewManagerProtocol.h */,
-				BE39C76623ACB18A006C35BB /* BNaviModel.h */,
-			);
-			path = inc;
-			sourceTree = "<group>";
-		};
-		BE39C76923ACB18A006C35BB /* resource */ = {
-			isa = PBXGroup;
-			children = (
-				BE39C76A23ACB18A006C35BB /* mode.bundle */,
-				BE39C76B23ACB18A006C35BB /* street.sty */,
-				BE39C76C23ACB18A006C35BB /* baiduTTSSDK.bundle */,
-				BE39C76D23ACB18A006C35BB /* DVStreet.cfg */,
-				BE39C76E23ACB18A006C35BB /* DVHotcity.cfg */,
-				BE39C76F23ACB18A006C35BB /* baiduNaviSDK.bundle */,
-				BE39C77023ACB18A006C35BB /* DVDirectory.cfg */,
-				BE39C77123ACB18A006C35BB /* DVHotMap.cfg */,
-				BE39C77223ACB18A006C35BB /* DVSDirectory.cfg */,
-				BE39C77323ACB18A006C35BB /* DVVersion_pkg.cfg */,
-			);
-			path = resource;
 			sourceTree = "<group>";
 		};
 		BE4432281F530E9E004069DF /* Material */ = {
@@ -1500,9 +1399,11 @@
 			isa = PBXGroup;
 			children = (
 				BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */,
-				BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */,
 				BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */,
+				BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */,
 				BE5FD58023729F79004CF114 /* CenAnnounceDetailController.xib */,
+				BE2BEA45242466CA007C1F26 /* AnnouceQueryController.swift */,
+				BE2BEA44242466CA007C1F26 /* AnnouceQueryController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1650,6 +1551,7 @@
 				BE3DCFD422D6E021003176E3 /* String+Extension.swift */,
 				BE3DCFD622D6E154003176E3 /* Date+Extension.swift */,
 				BE3DFA532330B4260032527E /* Dictionary+Extension.swift */,
+				BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */,
 			);
 			name = Category;
 			path = ST/Base/Category;
@@ -1682,6 +1584,7 @@
 				BE1A68BF22EE825A003691B1 /* CenterMenuController.swift */,
 				BE1A68C022EE825A003691B1 /* CenterMenuController.xib */,
 				BE1A68C522EEC9DB003691B1 /* CenSendSignController.swift */,
+				BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */,
 				BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */,
 				BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */,
 				BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */,
@@ -1696,16 +1599,10 @@
 			children = (
 				BECA054823793A400053C60F /* CarCountHeader.swift */,
 				BECA054923793A410053C60F /* CarCountHeader.xib */,
-				BECA0545237934D70053C60F /* EmpCarsTitleHeader.swift */,
-				BECA0544237934D70053C60F /* EmpCarsTitleHeader.xib */,
 				BECA0540237931680053C60F /* CenterAnnoCell.swift */,
 				BECA0541237931680053C60F /* CenterAnnoCell.xib */,
 				BECA053C23792FCA0053C60F /* SendCarInfoCell.swift */,
 				BECA053D23792FCA0053C60F /* SendCarInfoCell.xib */,
-				BEA67BB322DC7A17007D8E4C /* SendArriHeader.xib */,
-				BEA67BB222DC7A17007D8E4C /* SendArriHeader.swift */,
-				BEA67BAC22DC78FA007D8E4C /* CenNotiHeader.xib */,
-				BEA67BAD22DC78FA007D8E4C /* CenNotiHeader.swift */,
 				BE1A68C322EE87A7003691B1 /* STCenter.storyboard */,
 			);
 			path = Views;
@@ -1730,15 +1627,6 @@
 				BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */,
 			);
 			path = ProductPicker;
-			sourceTree = "<group>";
-		};
-		BEB22EC923AB52AB00B01FEF /* Framworks */ = {
-			isa = PBXGroup;
-			children = (
-				BEF53AA523AE6A8D00A7ED7C /* BMKLocationKit.framework */,
-				BE39C75223ACB18A006C35BB /* BaiduNaviSDK */,
-			);
-			path = Framworks;
 			sourceTree = "<group>";
 		};
 		BEC5E690233367820087CD0B /* Model */ = {
@@ -1767,6 +1655,14 @@
 				BEC8B43F22BCF9720095C045 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BED8DDBB2438283C00E9FF2C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BED8DDBC2438290A00E9FF2C /* BaseController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		BEE746F822C510AD002B241E /* Heavy */ = {
@@ -1800,32 +1696,22 @@
 		BEE7470122C5128B002B241E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */,
+				BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */,
 				BE86077D235ED49E008BB2B2 /* DriHMsgCell.swift */,
 				BE86077E235ED49F008BB2B2 /* DriHMsgCell.xib */,
-				BEE7470B22C5128B002B241E /* DMissionFooter.swift */,
-				BEE7470422C5128B002B241E /* DMissionFooter.xib */,
-				BEE7471022C5128B002B241E /* DMissionHeader.swift */,
-				BEE7470522C5128B002B241E /* DMissionHeader.xib */,
-				BEE7470E22C5128B002B241E /* DNumHeader.swift */,
-				BEE7470822C5128B002B241E /* DNumHeader.xib */,
+				BEE7470E22C5128B002B241E /* DNumFooter.swift */,
+				BEE7470822C5128B002B241E /* DNumFooter.xib */,
+				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
+				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
 				BEE7470322C5128B002B241E /* DriCarInfoCell.swift */,
 				BEE7470C22C5128B002B241E /* DriCarInfoCell.xib */,
 				BEE7470A22C5128B002B241E /* STMenuCell.swift */,
 				BEE7470622C5128B002B241E /* STMenuCell.xib */,
-				BEE7470D22C5128B002B241E /* DriverNotiHeader.swift */,
-				BEE7470F22C5128B002B241E /* DriverNotiHeader.xib */,
-				BEE7470222C5128B002B241E /* DSendInfoHeader.swift */,
-				BEE7470722C5128B002B241E /* DSendInfoHeader.xib */,
+				BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */,
+				BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		BEE7778723AB443B002E6828 /* BDMap */ = {
-			isa = PBXGroup;
-			children = (
-				BEB22EC923AB52AB00B01FEF /* Framworks */,
-			);
-			path = BDMap;
 			sourceTree = "<group>";
 		};
 		BEF205EB22E994760050E2A7 /* Views */ = {
@@ -1922,13 +1808,14 @@
 				BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */,
 				BE38BD45228C0B770007B6E0 /* QianshouCaozuoViewController.xib in Resources */,
 				BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */,
+				BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */,
 				BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */,
 				BE38BD52228C0B770007B6E0 /* SettingEntryItemView.xib in Resources */,
 				BE38BD55228C0B770007B6E0 /* WentijianCaozuoViewController.xib in Resources */,
 				BE38BD47228C0B770007B6E0 /* ShoujianSaomiaoViewController.xib in Resources */,
 				BE85CC8E22CC928B009D00AC /* DriDamgeQueryController.xib in Resources */,
-				BEE7471C22C5128C002B241E /* DNumHeader.xib in Resources */,
-				BEE7471822C5128C002B241E /* DMissionFooter.xib in Resources */,
+				BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */,
+				BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */,
 				BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */,
 				BE20A9981F6660EE00D2D753 /* NoticeCell.xib in Resources */,
 				899BD3621DC0FB32000C6687 /* LoginViewController.xib in Resources */,
@@ -1938,7 +1825,6 @@
 				BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */,
 				BE38BD32228C0B770007B6E0 /* PrinterPreviewController.xib in Resources */,
 				BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */,
-				BE39C77923ACB18A006C35BB /* DVStreet.cfg in Resources */,
 				BEE7471422C5128C002B241E /* DriMenuController.xib in Resources */,
 				8968B2CD1DBE606E00F0606D /* LaunchScreen.storyboard in Resources */,
 				BE1A68C422EE87A7003691B1 /* STCenter.storyboard in Resources */,
@@ -1946,13 +1832,10 @@
 				BE38BD2E228C0B770007B6E0 /* FinancialController.xib in Resources */,
 				BE38BD5D228C0BAF0007B6E0 /* WangdianPickerViewController.xib in Resources */,
 				BE38BD42228C0B770007B6E0 /* HTAlertConfirmView.xib in Resources */,
-				BE39C77823ACB18A006C35BB /* baiduTTSSDK.bundle in Resources */,
-				BE39C77623ACB18A006C35BB /* mode.bundle in Resources */,
 				BE28977223CADE50009FB9EE /* Localizable.strings in Resources */,
 				BE38BD54228C0B770007B6E0 /* QuyuChaxunViewController.xib in Resources */,
 				BE20A99E1F66712C00D2D753 /* testDoc.xlsx in Resources */,
 				BE38BD51228C0B770007B6E0 /* SettingViewController.xib in Resources */,
-				BE39C77E23ACB18A006C35BB /* DVSDirectory.cfg in Resources */,
 				BE1A68C222EE825A003691B1 /* CenterMenuController.xib in Resources */,
 				BE623AA423BC6163009A1A20 /* VanRecordResController.xib in Resources */,
 				BE8C067922B6119300A9901A /* Driver.storyboard in Resources */,
@@ -1960,11 +1843,9 @@
 				BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */,
 				BE623A9B23BC4C1F009A1A20 /* DriHeavQueryResController.xib in Resources */,
 				BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */,
-				BE39C77C23ACB18A006C35BB /* DVDirectory.cfg in Resources */,
 				8912B0D71DD0D12A0021B160 /* STListViewCell.xib in Resources */,
 				BEE7471A22C5128C002B241E /* STMenuCell.xib in Resources */,
 				BEE7471B22C5128C002B241E /* DSendInfoHeader.xib in Resources */,
-				BEA67BB022DC78FA007D8E4C /* CenNotiHeader.xib in Resources */,
 				896674851DE1517E000C970A /* YuangongCell.xib in Resources */,
 				BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */,
 				BE38BD39228C0B770007B6E0 /* ProfileViewController.xib in Resources */,
@@ -1972,7 +1853,6 @@
 				89F3ECED1DC444B900DDA832 /* HomeMenuItemView.xib in Resources */,
 				896674761DE07642000C970A /* html in Resources */,
 				BE38BD4F228C0B770007B6E0 /* SystemSettingViewController.xib in Resources */,
-				BE39C77D23ACB18A006C35BB /* DVHotMap.cfg in Resources */,
 				BE28976C23CADD0C009FB9EE /* InfoPlist.strings in Resources */,
 				BE38BD4A228C0B770007B6E0 /* SystemSettingEntryType1.xib in Resources */,
 				BE38BD60228C0BAF0007B6E0 /* WangdianCell.xib in Resources */,
@@ -1987,15 +1867,11 @@
 				89F100711DD364ED00798405 /* HomeViewController.xib in Resources */,
 				BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */,
 				BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */,
-				BE39C77F23ACB18A006C35BB /* DVVersion_pkg.cfg in Resources */,
 				BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */,
 				BE38BD4B228C0B770007B6E0 /* SystemSettingEntryType2.xib in Resources */,
-				BEE7471922C5128C002B241E /* DMissionHeader.xib in Resources */,
-				BEE7472322C5128C002B241E /* DriverNotiHeader.xib in Resources */,
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
-				BE39C77723ACB18A006C35BB /* street.sty in Resources */,
-				BECA0546237934D70053C60F /* EmpCarsTitleHeader.xib in Resources */,
+				BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
 				BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */,
@@ -2004,9 +1880,6 @@
 				BE89706C2327320B00096C78 /* RoleSelectController.xib in Resources */,
 				BE5FD58623729F79004CF114 /* CenAnnouceController.xib in Resources */,
 				BE6B5CBA232DD6660076DB33 /* PwdBackCodeController.xib in Resources */,
-				BE39C77B23ACB18A006C35BB /* baiduNaviSDK.bundle in Resources */,
-				BE39C77A23ACB18A006C35BB /* DVHotcity.cfg in Resources */,
-				BEA67BB522DC7A17007D8E4C /* SendArriHeader.xib in Resources */,
 				BE44322C1F530F1C004069DF /* MaterialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2026,6 +1899,7 @@
 				"${BUILT_PRODUCTS_DIR}/BSGridCollectionViewLayout/BSGridCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/BSImageView/BSImageView.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/ESPullToRefresh/ESPullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
@@ -2041,6 +1915,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSGridCollectionViewLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImagePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImageView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESPullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
@@ -2096,14 +1971,17 @@
 				892583D41DC8DA9700285DB5 /* LayoutConstraintItem.swift in Sources */,
 				BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */,
 				89F3ECEB1DC444B000DDA832 /* HomeMenuItemView.swift in Sources */,
+				BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */,
 				892583D21DC8DA9700285DB5 /* Debugging.swift in Sources */,
 				8932BF731DC257A400A18267 /* UIViewController+setcontentViewController.swift in Sources */,
 				892583CE1DC8DA9700285DB5 /* ConstraintRelation.swift in Sources */,
+				BE2BEA47242466CA007C1F26 /* AnnouceQueryController.swift in Sources */,
 				BE38BD49228C0B770007B6E0 /* SettingViewController.swift in Sources */,
 				BE0FC4F322BF404800271FED /* UICollectionView+JX.swift in Sources */,
 				BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */,
 				BE20849522B7CA9E00860F54 /* DriVideoView.swift in Sources */,
 				892583BB1DC8DA9700285DB5 /* ConstraintDSL.swift in Sources */,
+				BE0E02C9242A3C8A000CEA82 /* SendSignReasonControl.swift in Sources */,
 				BE0FC4F922BF404800271FED /* JXPhotoBrowserZoomPresentingAnimator.swift in Sources */,
 				BE8FC47122F2D4C800426865 /* CentPersonController.swift in Sources */,
 				892583C31DC8DA9700285DB5 /* ConstraintLayoutSupportDSL.swift in Sources */,
@@ -2113,7 +1991,6 @@
 				8912B0DD1DD0E09C0021B160 /* QRCodeReaderViewController.swift in Sources */,
 				893497C91DDACE9900A505AF /* WebViewController.swift in Sources */,
 				89F61E3B1DCE20C10065C9CA /* Customer.swift in Sources */,
-				BECA0547237934D70053C60F /* EmpCarsTitleHeader.swift in Sources */,
 				899BD3611DC0FB32000C6687 /* LoginViewController.swift in Sources */,
 				892583EE1DC8DF0200285DB5 /* Consts.swift in Sources */,
 				892583CD1DC8DA9700285DB5 /* ConstraintRelatableTarget.swift in Sources */,
@@ -2125,10 +2002,8 @@
 				892583C11DC8DA9700285DB5 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				BE38BD56228C0B770007B6E0 /* WentijianCaozuoViewController.swift in Sources */,
 				BE38BD3E228C0B770007B6E0 /* HTDashView.swift in Sources */,
-				BEE7472122C5128C002B241E /* DriverNotiHeader.swift in Sources */,
 				8912B0DF1DD0E29F0021B160 /* QrInterface.swift in Sources */,
 				BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */,
-				BEE7471F22C5128C002B241E /* DMissionFooter.swift in Sources */,
 				892583C81DC8DA9700285DB5 /* ConstraintMakerPriortizable.swift in Sources */,
 				893497D11DDAD27F00A505AF /* Webview.swift in Sources */,
 				BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */,
@@ -2167,6 +2042,7 @@
 				89F3ECFF1DC499E500DDA832 /* HightlightableView.swift in Sources */,
 				BE0FC4F722BF404800271FED /* JXPhotoBrowserFadePresentingAnimator.swift in Sources */,
 				BE38BD3C228C0B770007B6E0 /* ProfileViewController.swift in Sources */,
+				BEB14E30242DC80B00169C2C /* ExceptionHeader.swift in Sources */,
 				BE38BD53228C0B770007B6E0 /* QuyuChaxunViewController.swift in Sources */,
 				BE85CC8F22CC928B009D00AC /* DriDamgeQueryController.swift in Sources */,
 				BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */,
@@ -2174,13 +2050,13 @@
 				BE38BD48228C0B770007B6E0 /* ShoujianSaomiaoViewController.swift in Sources */,
 				8912B0D61DD0D12A0021B160 /* STListViewCell.swift in Sources */,
 				BE38BD5E228C0BAF0007B6E0 /* WangdianCell.swift in Sources */,
+				BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */,
 				BE0FC4EF22BF404800271FED /* JXNetworkingDataSource.swift in Sources */,
 				BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */,
 				899BD3781DC0FC6F000C6687 /* GridView.swift in Sources */,
 				BE38BD46228C0B770007B6E0 /* QianshouCaozuoViewController.swift in Sources */,
 				892583C01DC8DA9700285DB5 /* ConstraintLayoutGuide.swift in Sources */,
 				8932BF701DC256B200A18267 /* AppMainViewController.swift in Sources */,
-				BEA67BB422DC7A17007D8E4C /* SendArriHeader.swift in Sources */,
 				BE99EED922BDC9B500F89305 /* Types.swift in Sources */,
 				BE0FC4F222BF404800271FED /* JXPhotoBrowserNetworkingCell.swift in Sources */,
 				BE8C067C22B6120B00A9901A /* DriDamgeController.swift in Sources */,
@@ -2200,9 +2076,9 @@
 				892583C41DC8DA9700285DB5 /* ConstraintMaker.swift in Sources */,
 				BE0FC4FC22BF404800271FED /* JXPhotoBrowserTransitioningDelegate.swift in Sources */,
 				BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */,
-				BEE7472422C5128C002B241E /* DMissionHeader.swift in Sources */,
 				BE86077F235ED49F008BB2B2 /* DriHMsgCell.swift in Sources */,
 				BEE7471622C5128C002B241E /* DSendInfoHeader.swift in Sources */,
+				BED8DDBD2438290A00E9FF2C /* BaseController.swift in Sources */,
 				BE38BD4D228C0B770007B6E0 /* SettingEntryItemView.swift in Sources */,
 				BE20A98C1F66605100D2D753 /* NoticeDetailController.swift in Sources */,
 				892583CC1DC8DA9700285DB5 /* ConstraintPriorityTarget.swift in Sources */,
@@ -2220,6 +2096,7 @@
 				8912B0DC1DD0E09C0021B160 /* QRCodeReaderView.swift in Sources */,
 				89F3ECCF1DC43DD600DDA832 /* UIView+border.swift in Sources */,
 				892583BA1DC8DA9700285DB5 /* ConstraintDescription.swift in Sources */,
+				BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */,
 				89F61E371DCE1D850065C9CA /* DataManager.swift in Sources */,
 				BE17CD2722AFBEB6006D9EF0 /* BaseCell.swift in Sources */,
 				BE623A9F23BC553B009A1A20 /* DriDamQueryResController.swift in Sources */,
@@ -2265,7 +2142,6 @@
 				892583B91DC8DA9700285DB5 /* ConstraintConstantTarget.swift in Sources */,
 				BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */,
 				BE44322B1F530F1C004069DF /* MaterialViewController.swift in Sources */,
-				BEA67BB122DC78FA007D8E4C /* CenNotiHeader.swift in Sources */,
 				892583C51DC8DA9700285DB5 /* ConstraintMakerEditable.swift in Sources */,
 				BE0FC4EC22BF404800271FED /* JXPhotoBrowserTransitioning.swift in Sources */,
 				8932BF751DC25E9500A18267 /* AppColors.swift in Sources */,
@@ -2276,7 +2152,7 @@
 				BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */,
 				89F61E411DCE24A70065C9CA /* SiteInfo.swift in Sources */,
 				892583BC1DC8DA9700285DB5 /* ConstraintInsets.swift in Sources */,
-				BEE7472222C5128C002B241E /* DNumHeader.swift in Sources */,
+				BEE7472222C5128C002B241E /* DNumFooter.swift in Sources */,
 				BE38BD38228C0B770007B6E0 /* LaterPinterBillTableController.swift in Sources */,
 				899BD36B1DC0FB8B000C6687 /* MessageViewController.swift in Sources */,
 				BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */,
@@ -2441,6 +2317,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2449,6 +2326,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs/BDMap",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
+					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2460,6 +2338,7 @@
 					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
 				);
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2497,6 +2376,8 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE = "";
@@ -2519,6 +2400,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.7;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2527,6 +2409,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs/BDMap",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
+					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2538,6 +2421,7 @@
 					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
 					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
 				);
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2575,6 +2459,8 @@
 					"\"UIKit\"",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE_SPECIFIER = "";

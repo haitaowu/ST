@@ -10,7 +10,7 @@ import UIKit
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,BNNaviSoundDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate{
 	
 	
 	
@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BNNaviSoundDelegate{
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		self.window?.tintColor = UIColor.appMajor
 		self.setupNavbar()
-		self.setupBaiDuMap()
 		
 		
 		UIViewController.hook()
@@ -70,54 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,BNNaviSoundDelegate{
 	}
 
 	
-	//MARK:- init third library
-	func setupBaiDuMap(){
-		BNaviService.getInstance()?.initNaviService(nil, success: {
-			BNaviService.getInstance()?.authorizeNaviAppKey(Consts.BDNaviAK, completion: { [unowned self] (result) in
-				if(result){
-					print("authorizeNaviAppkey success....")
-				}else{
-					print("authorizeNaviAppkey failed....")
-				}
-			})
-			
-			BNaviService.getInstance()?.authorizeTTSAppId("appid", apiKey: Consts.BDAIAK, secretKey: Consts.BDAISK, completion: { (result) in
-				print("语音授权成功...")
-			})
-			BNaviService.getInstance()?.soundManager()?.setSoundDelegate(self)
-			
-		}) {
-			
-		}
-		
-	}
-	
-	
-	//MARK:- BNNaviSoundDelegate
-	/**
-	*  播报或进入导航的时候都会检测TTS是否鉴权成功
-	*  (1)如果还没鉴权成功，会尝试先鉴权，然后回调鉴权结果，
-	*  (2)如果已经鉴权成功，也会回调鉴权成功
-	*/
-	func onTTSAuthorized(_ success: Bool) {
-		if(success){
-			print("播报authorize failed")
-		}else{
-			print("播报authorize success")
-		}
-	}
-	
-	
-	/**
-	*  TTS文本回调
-	*/
-	func onPlayTTS(_ text: String!) {
-		print("onPlayTTSonPlayTTSonPlayTTSonPlayTTS")
-	}
-	
-	func onPlay(_ type: BNVoiceSoundType, filePath: String!) {
-		print("onPlayonPlayonPlayonPlay")
-	}
 	
 	
 	

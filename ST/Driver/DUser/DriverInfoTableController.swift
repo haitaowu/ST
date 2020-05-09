@@ -8,37 +8,41 @@
 
 import Foundation
 
+
+
+
 class DriverInfoTableController: UITableViewController {
     
-    @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var phoneField: UITextField!
+  @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var pwdField: UITextField!
-//    @IBOutlet weak var phoneField: UITextField!
+    @IBOutlet weak var pwdAgainField: UITextField!
     @IBOutlet weak var ownerField: UITextField!
     @IBOutlet weak var carNumField: UITextField!
     @IBOutlet weak var carShapeField: UITextField!
+  @IBOutlet weak var codeBtn: UIButton!
+  @IBOutlet weak var codeField: UITextField!
+  
+  var countTimer:Timer?
+  let countTimes:Int = 6
+  var countNum:Int = 0;
     
     //MARK:- Overrides
     override func viewDidLoad() {
         super.viewDidLoad();
+      countNum = countTimes
 		self.setupUI()
     }
 	
 	//MARK:- setup ui
 	private func setupUI(){
 		self.title = "基础资料修改";
-//		let typeImg = UIImage(named: "arrow");
-//		let rightViewF = CGRect(x: 0, y: 0, width: 44, height: 44)
-//		let ownerRigthVeiw = UIButton.init(frame: rightViewF)
-//		ownerRigthVeiw.setImage(typeImg, for: .normal)
-//		ownerRigthVeiw.addTarget(self, action: #selector(DriverInfoTableController.clickOwnerBtn), for: .touchUpInside)
-//		self.ownerField.rightView = ownerRigthVeiw
-//		self.ownerField.rightViewMode = .always
 		self.view.addDismissGesture()
 		
 		let driver = DataManager.shared.loginDriver
 		self.nameLabel.text = driver.truckOwer
 		self.carNumField.text = driver.truckNum
-//		self.phoneField.text = driver.phone
+		self.phoneField.text = driver.phone
 		self.ownerField.text = driver.truckOwer
 	}
 	
@@ -59,11 +63,53 @@ class DriverInfoTableController: UITableViewController {
     @objc func clickOwnerBtn() -> Void {
         print("clickOwnerBtn")
     }
+  
+  
+  //获取验证码
+  @IBAction func clickCodeBtn(_ sender: UIButton) {
+    let phone = self.phoneField.text ?? ""
+    if phone.isEmpty {
+      self.remindUser(msg: "请输入手机号")
+      return;
+    }
+    
+    if phone.isPhoneNum() == false{
+      self.remindUser(msg: "请输入正确的手机号")
+      return;
+    }
+    self.countTime()
+    self.reqAuthCodeBy(phone: phone)
+  }
+  
+  //倒计时
+  @objc func beginCounting() -> Void {
+    countNum = countNum - 1
+    let title = "\(countNum)" + "S"
+    self.codeBtn.setTitle(title, for: .normal)
+    if countNum == 0 {
+      countNum = countTimes
+      self.countTimer?.invalidate()
+      self.codeBtn.isEnabled = true
+      self.codeBtn.backgroundColor = UIColor.red
+      self.codeBtn.setTitle("获取验证码", for: .normal)
+    }
+    
+  }
     
     func tapEndViewEdit() -> Void {
         self.view.endEditing(true)
     }
     
+  
+    //MARK:- private
+  //计时器
+  func countTime() -> Void {
+    self.codeBtn.isEnabled = false
+    self.codeBtn.backgroundColor = UIColor.gray
+    self.countTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginCounting), userInfo: nil, repeats: true)
+    self.countTimer?.fire()
+  
+  }
     //MARK:- tableview delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -81,42 +127,86 @@ class DriverInfoTableController: UITableViewController {
 	
 	//MARK:- params helper
   private func paramsInfo() -> [String: String]?{
-		var params:[String:String] = [:]
-		
-		let driver = DataManager.shared.loginDriver
-		if let newPassword = self.pwdField.text,newPassword.isEmpty==false{
-			params["newPassword"] = newPassword
-		}else{
-			self.remindUser(msg: "请输入密码")
-			return nil
-		}
-
-		params["truckNum"] = driver.truckNum
-		let pwd = Defaults[Consts.DriverPwdKey].stringValue
-		params["oldPassWord"] = pwd
+    var params:[String: String] = [:]
+    let phone = self.phoneField.text ?? ""
+    if phone.isEmpty{
+      self.remindUser(msg: "请输入手机号")
+      return nil;
+    }else{
+      params["phone"] = phone
+    }
+    
+    let passWord = self.pwdField.text ?? ""
+    if passWord.isEmpty{
+      self.remindUser(msg: "请输入密码")
+      return nil;
+    }
+    
+    let pwdAgain = self.pwdAgainField.text ?? ""
+    if pwdAgain.isEmpty{
+      self.remindUser(msg: "请输再次入密码")
+      return nil;
+    }
+    
+    if pwdAgain != passWord{
+      self.remindUser(msg: "两次入密码不一致")
+      return nil;
+    }
+    
+    params["passWord"] = passWord
+    let code = self.codeField.text ?? ""
+    if code.isEmpty {
+      self.remindUser(msg: "请输入验证码")
+      return nil;
+    }else{
+      params["authCode"] = code
+    }
 		return params
 	}
+  
 	
     
     
 	//MARK:- request server
 	///修改基础资料的请求
-	func reqModifyInfoWith(params: [String: String]) -> Void {
-		let req = DriInfoModReq(params: params)
-		STNetworking<RespMsg>(stRequest:req) {
-			[unowned self] resp in
-			self.hideLoading()
-			if resp.stauts == Status.Success.rawValue{
-				NotificationCenter.default.post(name: NSNotification.Name(rawValue: "logout"), object: nil)
-			}else if resp.stauts == Status.NetworkTimeout.rawValue{
-				self.remindUser(msg: "网络超时，请稍后尝试")
-			}else{
-				let msg = resp.msg
-				self.remindUser(msg: msg)
-			}
-			}?.resume()
+  func reqModifyInfoWith(params: [String: String]) -> Void {
+    let req = ResetPwdReq(params:params , roleType: RoleType.driver)
+    STNetworking<RespMsg>(stRequest:req) {
+      [unowned self] resp in
+      self.hideLoading()
+      if resp.stauts == Status.Success.rawValue{
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "logout"), object: nil)
+      }else if resp.stauts == Status.NetworkTimeout.rawValue{
+        self.remindUser(msg: "网络超时，请稍后尝试")
+      }else{
+        var msg = resp.msg
+        if resp.stauts == Status.PasswordWrong.rawValue{
+          msg = "密码错误"
+        }
+        self.remindUser(msg: msg)
+      }
+      }?.resume()
 	}
 
+  ///请求验证码
+  func reqAuthCodeBy(phone:String) -> Void {
+    let req = AuthCodeReq(phone: phone, roleType: RoleType.driver)
+    STNetworking<RespMsg>(stRequest:req) {
+      [unowned self] resp in
+      if resp.stauts == Status.Success.rawValue{
+        self.remindUser(msg: "发送成功")
+      }else if resp.stauts == Status.NetworkTimeout.rawValue{
+        self.remindUser(msg: "网络超时，请稍后尝试")
+      }else{
+        var msg = resp.msg
+        if resp.stauts == Status.PasswordWrong.rawValue{
+          msg = "密码错误"
+        }
+        self.remindUser(msg: msg)
+      }
+      }?.resume()
+  }
+  
 	
     
     

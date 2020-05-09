@@ -12,7 +12,7 @@ import ESPullToRefresh
 
 
 
-class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
+class VanRecordController: BaseController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
 	
 	@IBOutlet weak var searchField: UITextField!
 	
@@ -64,7 +64,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 		self.searchField.layer.borderWidth = 1
 		self.searchField.layer.masksToBounds = true
 		self.searchField.addLeftSpaceView(width: 8)
-		self.searchField.addRightView(imgName: "search")
+		self.searchField.addRightView(imgName: "search",width: 40,height: 40)
 		self.searchField.returnKeyType = .search
 		self.searchField.delegate = self
 		
@@ -82,6 +82,8 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	
 	//setup tableView
 	func setupTable() -> Void {
+		self.tableView.emptyDataSetSource = self
+		self.tableView.emptyDataSetDelegate = self
 		let nibNotiCell = VanRecCell.cellNib()
 		self.tableView.register(nibNotiCell, forCellReuseIdentifier: VanRecCell.cellID())
 		let animator = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
@@ -105,15 +107,20 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 		self.tabBarItem = UITabBarItem(title: "记录", image:UIImage(named:"more_disselect") , selectedImage: UIImage(named:"more_select"));
 	}
 	
+	///显示查询x结果的界面
+	func showQueryView(){
+		let control = VanRecordResController()
+		control.hidesBottomBarWhenPushed = true
+		control.paramsQuery = self.paramsRec()
+		self.navigationController?.pushViewController(control, animated: true)
+	}
+	
 	
   //MARK:- SELECTORS
 	//点击开始查询
 	@IBAction func clickToQuery(_ sender: UIButton) {
 		self.view.endEditing(true)
-		let control = VanRecordResController()
-		control.hidesBottomBarWhenPushed = true
-		control.paramsQuery = self.paramsRec()
-		self.navigationController?.pushViewController(control, animated: true)
+		self.showQueryView()
 	}
 	
 	
@@ -193,6 +200,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	//MARK:- UITextFieldDelegate
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		self.view.endEditing(true)
+		self.showQueryView()
 		return true;
 	}
 	
@@ -212,7 +220,7 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	
 	//MARK:- tableView delegate
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 40;
+		return 44;
 	}
 	
 	
@@ -232,6 +240,72 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 	
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0.001
+	}
+	
+	
+	//MARK:- empty data
+	///empty attributestring title
+	func attri(title: String) -> NSAttributedString {
+		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
+		let attrStr = NSAttributedString(string: title, attributes: attributes)
+		return attrStr
+	}
+	
+	///emptyata button title
+	func emptyBtnTitle() -> NSAttributedString {
+		let title = "点我刷新试试"
+		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
+		let attriStr = NSAttributedString(string: title,attributes: attris)
+		return attriStr
+	}
+	
+	///是否第一次加载到车数据
+	func firstLoadData()->Bool{
+		if self.recsAry == nil{
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	///是否有公告信息
+	func hasRecsData()->Bool{
+		if self.firstLoadData() == false{
+			if let data = self.recsAry{
+				if data.count > 0{
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return true
+		}
+	}
+	
+	
+	//MARK:- override for DZNEmptyDataSetSource delegate
+	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if self.hasRecsData() == false{
+			let title = "暂无记录..."
+			return self.attri(title: title)
+		}else{
+			return nil
+		}
+	}
+	
+	override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+		if self.hasRecsData() == false{
+			return self.emptyBtnTitle()
+		}else{
+			return nil
+		}
+	}
+	
+	override func reloadViewData(scrollView: UIScrollView!) {
+		self.tableView.es.startPullToRefresh()
 	}
 	
 	
@@ -285,15 +359,16 @@ class VanRecordController: UIViewController ,UITableViewDelegate,UITableViewData
 		STNetworking<[SARecModel]>(stRequest:req) {
 			[unowned self] resp in
 			self.tableView.es.stopPullToRefresh()
+			self.recsAry = []
 			if resp.stauts == Status.Success.rawValue{
 				self.recsAry = resp.data
-				self.tableView.reloadData()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
 				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
+			self.tableView.reloadData()
 			}?.resume()
 	}
 

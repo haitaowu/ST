@@ -17,6 +17,7 @@ extension String{
         return height
     }
 
+	
     func nsRangeOf(txt: String) -> NSRange? {
         guard let ran = range(of: txt) else{
             return NSRange(location: 0,length: 0)
@@ -47,7 +48,7 @@ extension String{
         return predicate.evaluate(with: self)
     }
 	
-	///base64 string
+	///base64 encoding string
 	func base64Str()-> String{
 		let data = self.data(using: .utf8)
 		if let base64str = data?.base64EncodedString(){
@@ -56,6 +57,32 @@ extension String{
 			return ""
 		}
 	}
+	
+	///base64 decoding string
+	func decode64String()->String{
+		if let comporessData = Data(base64Encoded: self){
+			let data = comporessData.gzipUncompress()
+			let string = String(data: data, encoding: .utf8) ?? ""
+			return string
+		}
+		return ""
+	}
+	
+	
+	//转换当前字符串为指定格式的日期对象，如果不指定格式则为默认的格式
+	func dateOf(format:String = "yyyy-MM-dd HH:mm:ss") -> Date {
+		let dateFormat = DateFormatter()
+		dateFormat.timeZone = TimeZone.current
+		dateFormat.locale = Locale.init(identifier: "zh_CN")
+		dateFormat.dateFormat = format
+		let date = dateFormat.date(from: self)
+		if let d = date{
+			return d
+		}else{
+			return Date()
+		}
+	}
+	
 	
     
 }
