@@ -8,15 +8,15 @@
 
 import UIKit
 import ActionSheetPicker_3_0
+import MapKit
 
 
 
 
 
-class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDelegate,BNNaviRoutePlanDelegate,BNNaviUIManagerDelegate,BMKLocationAuthDelegate{
+class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDelegate{
 	
 	var menuAry:Array<Any>?
-	var locationManager:BMKLocationManager?
 	
 	var carInfo:UnFinishedModel?
 	
@@ -33,8 +33,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	
 	var nextSiteLoc:NexSiteLocModel?
 	
-	let group = DispatchGroup()
-	
+
 	
 	
 	//MARK:- Overrides
@@ -75,24 +74,11 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		self.menuAry?.append(damgeStr)
 	}
 	
+	
 	//MARK:- private methods
 	func showMenu(menuStr: String) -> Void {
 		if menuStr == CellMenuType.nav.rawValue {
-			
-//			guard self.carInfo != nil else {
-//				self.remindUser(msg: "没有到车信息")
-//				return
-//			}
-			self.showLoading(msg: "请求站点...")
-			self.initLocationService()
 			self.fetchNextStationLoc()
-			self.group.notify(queue: .main) {
-				[unowned self] in
-				self.hideLoading()
-				if let longitude = self.currentLongitude,let latitude = self.currentLatitude{
-					self.startNavi(latitude: latitude, longitude: longitude)
-				}
-			}
 		}else if menuStr == CellMenuType.alert.rawValue {
 			self.alertDurationPicker()
 		}else if menuStr == CellMenuType.heavy.rawValue {
@@ -106,6 +92,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		}else{
 		}
 	}
+	
 	
 	//到车提醒时间
 	func alertDurationPicker(){
@@ -122,109 +109,104 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 		}, origin: self.view)
 	}
 	
-	///选择提醒时间之后r提交服务器。
+	///选择提醒时间之后提交服务器。
 	func submitArriCarAlert(){
 		if let params = self.paramsAlert(){
 			self.submitArriAlertData(param: params)
 		}
 	}
 	
-	//开始导航
+	
 	func startNavi(latitude: Double,longitude: Double){
+		
 		guard let nexLoc = self.nextSiteLoc else{return}
 		
-		var nodes = [BNRoutePlanNode]()
-		let startNode = BNRoutePlanNode()
-		startNode.pos = BNPosition()
-		startNode.pos.x = longitude
-		startNode.pos.y = latitude
-		startNode.pos.eType = BNCoordinate_BaiduMapSDK
-		nodes.append(startNode)
+		let latitute = Double(nexLoc.latitude)!
+		let longitute = Double(nexLoc.longitude)!
+
+		let alter = UIAlertController.init(title: "请选择导航应用程序", message: "", preferredStyle: UIAlertController.Style.actionSheet)
 		
-		let nexLongitude = Double(nexLoc.longitude)
-		let nexLatitude = Double(nexLoc.latitude)
-		let endNode = BNRoutePlanNode()
-		endNode.pos = BNPosition()
-		endNode.pos.x = nexLongitude!
-		endNode.pos.y = nexLatitude!
-		endNode.pos.eType = BNCoordinate_BaiduMapSDK
-		nodes.append(endNode)
+
+		let cancel =  UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel) { (sheet) in
+			
+		}
 		
-			BNaviService.getInstance()?.routePlanManager()?.startNaviRoutePlan(BNRoutePlanMode_Recommend, naviNodes: nodes, time: nil, delegete: self, userInfo: nil)
+		let apple =  UIAlertAction(title: "苹果地图", style: UIAlertAction.Style.default) { (sheet) in
+			self.openIOSMap(longitude: longitute, latitude: latitute)
+		}
 		
+		let gd =  UIAlertAction(title: "高德地图", style: UIAlertAction.Style.default) { (sheet) in
+			self.openGDMap(longitude: longitute, latitude: latitute)
+		}
 		
+		let bd =  UIAlertAction(title: "百度地图", style: UIAlertAction.Style.default) { (sheet) in
+			self.openBaiDuMap(longitude: longitute, latitude: latitute)
+		}
+		
+		alter.addAction(apple)
+		alter.addAction(gd)
+		alter.addAction(bd)
+		alter.addAction(cancel)
+		self.present(alter, animated: true, completion: nil)
 	}
 	
+	// 高德经纬度转为百度地图经纬度
+	// 百度经纬度转为高德经纬度，减掉相应的值就可以了。
+	func getBaiDuCoordinateByGaoDeCoordinate(coordinate:CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+			return CLLocationCoordinate2DMake(coordinate.latitude + 0.006, coordinate.longitude + 0.0065)
+	}
 	
-	//获取当前经纬度
-	func initLocationService(){
-		
-		BMKLocationAuth.sharedInstance()?.checkPermision(withKey: Consts.BDNaviAK, authDelegate: self)
-		
-		self.locationManager = BMKLocationManager.init()
-		if let locManager = self.locationManager{
-			locManager.coordinateType = BMKLocationCoordinateType.BMK09LL
-			locManager.desiredAccuracy = kCLLocationAccuracyBest
-			//设置是否自动停止位置更新
-			locManager.pausesLocationUpdatesAutomatically = false
-			self.group.enter()
-			locManager.requestLocation(withReGeocode: true, withNetworkState: true) { [unowned self] (location, state, error) in
-				if (error != nil){
-//						 print(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-					print("error>>>>>>>>>>>>>")
-				 }
-				if let loc = location{//得到定位信息，添加annotation
-					print ("cclLocation????????????????????????????:\(loc.location)")
-					if let longitude = loc.location?.coordinate.longitude,let latitude = loc.location?.coordinate.latitude{
-						self.currentLongitude = longitude
-						self.currentLatitude = latitude
-						self.group.leave()
-					}
-				}
-			}
+	//打开百度地图
+	func openBaiDuMap(longitude: Double, latitude: Double){
+		let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+
+		let endAddress = "下一站"
+		// 将高德的经纬度转为百度的经纬度
+		let baidu_coordinate = getBaiDuCoordinateByGaoDeCoordinate(coordinate: coordinate)
+		let destination = "\(baidu_coordinate.latitude),\(baidu_coordinate.longitude)"
+		let urlString = "baidumap://map/direction?" + "&destination=" + endAddress + "&mode=driving&destination=" + destination
+		let str = urlString as NSString
+		if self.openMap(str) == false {
+			self.remindUser(msg: "您还没有安装百度地图")
 		}
 	}
 	
-
 	
-	//MARK:- BMKLocationAuthDelegate
-	/**
-	*@brief 返回授权验证错误
-	*@param iError 错误号 : 为0时验证通过，具体参加BMKLocationAuthErrorCode
-	*/
-	func onCheckPermissionState(_ iError: BMKLocationAuthErrorCode) {
+	//打开自带地图
+	func openIOSMap(longitude: Double, latitude: Double){
+		let destination = "下一站"
+		let loc = CLLocationCoordinate2DMake(latitude, longitude)
+		let currentLocation = MKMapItem.forCurrentLocation()
+		let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
+		toLocation.name = destination
+		MKMapItem.openMaps(with: [currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+	
+	
+	//打开高德地图
+	func openGDMap(longitude: Double, latitude: Double){
+		let appName = "速通"
+		let dname = "下一站"
 		
-	}
-
-	
-	//MARK:- BNNaviRoutePlanDelegate
-	func routePlanDidFinished(_ userInfo: [AnyHashable : Any]!) {
-		print("算路成功回调。。。")
-		BNaviService.getInstance()?.uiManager()?.showPage(BNaviUI_NormalNavi, delegate: self, extParams: nil)
+		let urlString = "iosamap://path?sourceApplication=\(appName)&dname=\(dname)&dlat=\(latitude)&dlon=\(longitude)&t=0" as NSString
+		
+		if self.openMap(urlString) == false {
+			self.remindUser(msg: "您还没有安装高德地图")
+		}
 	}
 	
-	func routePlanDidUserCanceled(_ userInfo: [AnyHashable : Any]!) {
-		print("算路取消。。。")
+	
+	// 打开第三方地图
+	private func openMap(_ urlString: NSString) -> Bool {
+			let url = NSURL(string:urlString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
+			if UIApplication.shared.canOpenURL(url! as URL) == true {
+					UIApplication.shared.openURL(url! as URL)
+					return true
+			} else {
+					return false
+			}
 	}
 	
-	func routePlanDidFailedWithError(_ error: Error!, andUserInfo userInfo: [AnyHashable : Any]! = [:]) {
-		print("算路失败回调。。。")
-	}
-	
-	func searchDidFinished(_ userInfo: [AnyHashable : Any]!) {
-		print("检索成功。。。")
-	}
-	
-
-	//MARK:- BNNaviUIManagerDelegate
-	
-	func willExitPage(_ pageType: BNaviUIType, extraInfo: [AnyHashable : Any]!) {
-		print("willExitPage...")
-	}
-	
-	func onExitPage(_ pageType: BNaviUIType, extraInfo: [AnyHashable : Any]!) {
-		print("onExitPage...")
-	}
 	
 	//MARK:- tableView datasource
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -330,27 +312,30 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 			return;
 		}
 		let siteName = car.bakNextStaTion
-
 		if siteName == ""{
 			self.remindUser(msg: "暂无下站信息,无法导航")
-			return
-		}
-		
-		self.group.enter()
-		let req = NextLocReq(siteName: siteName)
-		STNetworking<NexSiteLocModel>(stRequest:req) {
-		[unowned self] resp in
-		self.group.leave()
-		if resp.stauts == Status.Success.rawValue{
-			self.nextSiteLoc = resp.data
-		}else if resp.stauts == Status.NetworkTimeout.rawValue{
-			self.remindUser(msg: "网络超时，请稍后尝试")
+			print("currentThread name：\(Thread.current)")
+//			return
 		}else{
-			let msg = resp.msg
-			self.remindUser(msg: msg)
+			self.showLoading(msg: "请求站点...")
+			let req = NextLocReq(siteName: siteName)
+			STNetworking<NexSiteLocModel>(stRequest:req) {
+				[unowned self] resp in
+				if resp.stauts == Status.Success.rawValue{
+					self.nextSiteLoc = resp.data
+					if let longitude = self.currentLongitude,let latitude = self.currentLatitude{
+						self.startNavi(latitude: latitude, longitude: longitude)
+					}
+				}else if resp.stauts == Status.NetworkTimeout.rawValue{
+					self.remindUser(msg: "网络超时，请稍后尝试")
+				}else{
+					let msg = resp.msg
+					self.remindUser(msg: msg)
+				}
+				}?.resume()
 		}
-		}?.resume()
 	}
+	
 	
 	
 	

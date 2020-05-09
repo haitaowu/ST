@@ -9,7 +9,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "BNaviService.h"
 #import <BMKLocationkit/BMKLocationComponent.h>
 
 

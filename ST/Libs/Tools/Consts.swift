@@ -41,6 +41,7 @@ struct Consts {
 	///3.正式：图片上传地址
 	static var UploadServer = "http://58.215.182.251:5889/SuTongAppInterface/File/uploadFile.do"
 	
+	
 	#endif
 	
 
