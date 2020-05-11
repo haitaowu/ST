@@ -37,6 +37,8 @@ class ShoujianSaomiaoViewController: UIViewController,STListViewDelegate,QrInter
         let uploadBtn = UIBarButtonItem(image: UIImage(named: "upload"), style: UIBarButtonItem.Style.done, target: self, action: #selector(onUploadAction))
         self.navigationItem.rightBarButtonItem = uploadBtn
     }
+	
+    //MARK:- request server
     @objc private func onUploadAction(){
         self.showLoading(msg: "上传中，清稍后")
 //        DataManager.shared.uploadShoujian(m: STDb.shared.allSj()){

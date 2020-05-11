@@ -36,7 +36,8 @@ class HomeViewController: UIViewController {
 		self.topContainer.topBorderWidth = 0.5
 		self.topContainer.bottomBorderWidth = 0.5
 		self.menuItems = [
-			(title:"单件录入",icon:"home_menu_1",key:"danjian",handler:menuItemviewClicked),
+			(title:"单件录入(简)",icon:"home_menu_1",key:"danjian",handler:menuItemviewClicked),
+			(title:"单件录入(全)",icon:"home_menu_1",key:"printComplete",handler:menuItemviewClicked),
 			(title:"运单补打",icon:"home_menu_10",key:"latebill",handler:menuItemviewClicked),
 			(title:"收件扫描",icon:"home_menu_2",key:"shoujian",handler:menuItemviewClicked),
 			(title:"发件扫描",icon:"home_menu_3",key:"fajian",handler:menuItemviewClicked),
@@ -108,6 +109,8 @@ class HomeViewController: UIViewController {
 			self.openLateBillPrintView();
 		}else if type == "print"{
 			self.openPrintMenuView();
+		}else if type == "printComplete"{
+			self.openBillPrintComplete();
 		}
 	}
 	
@@ -137,6 +140,14 @@ class HomeViewController: UIViewController {
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
 	
+	//单件录入（全）界面
+	func openBillPrintComplete(){
+		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
+		let printerVc = storyboard.instantiateViewController(withIdentifier: "CompletePrintControl");
+		printerVc.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(printerVc, animated: true)
+	}
+	
 	func openFinancialView(){
 		let vc = FinancialController(nibName: "FinancialController", bundle: nil)
 		vc.hidesBottomBarWhenPushed = true
@@ -160,6 +171,7 @@ class HomeViewController: UIViewController {
 		vc.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
+	
 	func openQianshou(){
 		let vc = QianshouCaozuoViewController(nibName: "QianshouCaozuoViewController", bundle: nil)
 		vc.hidesBottomBarWhenPushed = true

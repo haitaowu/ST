@@ -50,7 +50,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
   }
   
  
-  
   func currentDateStr() -> String {
     let dateFormat = DateFormatter()
     dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
