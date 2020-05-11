@@ -37,32 +37,26 @@ class FajianSaomiaoViewController: UIViewController,STListViewDelegate ,QrInterf
         let uploadBtn = UIBarButtonItem(image: UIImage(named: "upload"), style: UIBarButtonItem.Style.done, target: self, action: #selector(onUploadAction))
         self.navigationItem.rightBarButtonItem = uploadBtn
     }
-    @objc private func onUploadAction(){
-        self.showLoading(msg: "上传中，清稍后")
-//        DataManager.shared.uploadFajian(m: STDb.shared.allFj()){
-//            [unowned self] result in
-//            self.hideLoading()
-//            if result.0{
-//                STDb.shared.removeAllFj()
-//                self.reloadData()
-//                self.remindUser(msg: "上传成功")
-//            }else{
-//                self.remindUser(msg: result.1)
-//            }
-//        }
-        DataManager.shared.uploadFajian(m: STDb.shared.allFj()) {
-            [unowned self] (succ, msg) in
-            
-            self.hideLoading()
-            if succ{
-                STDb.shared.removeAllFj()
-                self.reloadData()
-                self.remindUser(msg: "上传成功")
-            }else{
-                self.remindUser(msg: msg)
-            }
-        }
-    }
+	@objc private func onUploadAction(){
+		let ary: [FajianModel] = STDb.shared.allFj()
+		guard ary.count > 0 else {
+			self.remindUser(msg: "无发件上传")
+			return
+		}
+		self.showLoading(msg: "上传中，清稍后")
+		DataManager.shared.uploadFajian(m: STDb.shared.allFj()) {
+			[unowned self] (succ, msg) in
+			
+			self.hideLoading()
+			if succ{
+				STDb.shared.removeAllFj()
+				self.reloadData()
+				self.remindUser(msg: "上传成功")
+			}else{
+				self.remindUser(msg: msg)
+			}
+		}
+	}
     private func reloadData(){
         self.objects = STDb.shared.allFj()
         self.listView.reloadData()

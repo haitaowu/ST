@@ -54,6 +54,11 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 	
 	//MARK:- selectors
 	@objc private func onUploadAction(){
+		let ary: [QianshouModel] = STDb.shared.allQs()
+		guard ary.count > 0 else {
+			self.remindUser(msg: "无签收上传")
+			return
+		}
 		self.showLoading(msg: "上传中，清稍后")
 		DataManager.shared.reqBillQianshou(m: STDb.shared.allQs()) {
 			[unowned self] (succ, msg) in
