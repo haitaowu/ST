@@ -17,6 +17,6 @@ struct TransferType:SimpleCodable{
 
 struct TransferTypeLoadRequest:STRequest {
     var logicUrl: String{
-        return "/initClass.do"
+			return "m8/initClass.do"
     }
 }

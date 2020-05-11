@@ -17,7 +17,7 @@ struct ProblemItemReason:SimpleCodable {
 
 struct ProblemItemReasonLoadRequest:STRequest {
     var logicUrl: String{
-        return "/initPType.do"
+        return "m8/initPType.do"
     }
 }
 

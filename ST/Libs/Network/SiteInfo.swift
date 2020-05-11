@@ -18,7 +18,7 @@ struct SiteInfo:SimpleCodable {
 
 struct SiteInfoLoadRequest:STRequest {
     var logicUrl: String{
-        return "/initSite.do"
+			return "m8/initSite.do"
     }
 }
 

@@ -15,6 +15,6 @@ struct Customer:SimpleCodable{
 
 class CustomerLoadRequest:STRequest{
     var logicUrl: String{
-        return "/initCust.do"
+        return "m8/initCust.do"
     }
 }

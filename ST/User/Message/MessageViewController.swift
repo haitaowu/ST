@@ -162,7 +162,7 @@ class MessageViewController: BaseController,UITableViewDelegate,UITableViewDataS
 	
 	//MARK:- request server
 	func reqMessages() {
-		let reqUrl = Consts.Server+Consts.BaseUrl+"/searchSiteNotice.do"
+		let reqUrl = Consts.Server+Consts.BaseUrl+"m8/searchSiteNotice.do"
 		Alamofire.request(reqUrl, method: .post, parameters: nil).responseJSON { response in
 			self.noticesData = []
 			self.tableView.es.stopPullToRefresh()

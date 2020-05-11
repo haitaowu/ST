@@ -25,7 +25,7 @@ struct Consts {
 	//测试环境的接口
 	//1.服务器地址
 	static var Server = "http://58.215.182.252:8610/"
-	static var BaseUrl = "AndroidServiceSTIOS/m8"
+	static var BaseUrl = "AndroidServiceSTIOS/"
 	///2.测试：图片上传地址
 	static var UploadServer = "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do"
 	///3.图片下载地址测试
@@ -35,7 +35,7 @@ struct Consts {
 	//生产环境的接口
 	//1.
 	static var Server = "http://58.215.182.251:5889/"
-	static var BaseUrl = "AndroidService/m8"
+	static var BaseUrl = "AndroidService/"
 	///2.图片下载地址生产环境
 	static var ImgServer = "http://58.215.182.251:8070/download/"
 	///3.正式：图片上传地址

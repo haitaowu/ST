@@ -20,6 +20,6 @@ struct Employee:SimpleCodable {
 
 struct EmployeeLoadRequest:STRequest {
     var logicUrl: String{
-        return "/initEmp.do"
+        return "m8/initEmp.do"
     }
 }

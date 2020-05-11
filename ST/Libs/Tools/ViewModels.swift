@@ -48,7 +48,7 @@ struct ShoujianSaveRequest:STUploadRequest {
 		}
 	}
 	var logicUrl: String{
-		return "/uploadRec.do"
+		return "m8/uploadRec.do"
 	}
 }
 
@@ -77,7 +77,7 @@ struct FajianSaveRequest:STUploadRequest {
 		}
 	}
 	var logicUrl: String{
-		return "/uploadSend.do"
+		return "m8/uploadSend.do"
 	}
 }
 
@@ -105,7 +105,7 @@ struct DaojianSaveRequest:STUploadRequest {
 		}
 	}
 	var logicUrl: String{
-		return "/uploadCome.do"
+		return "m8/uploadCome.do"
 	}
 }
 
@@ -128,8 +128,15 @@ extension PaijianModel:SimpleCodable{}
 struct PaijianSaveRequest:STUploadRequest {
 	var obj:[PaijianModel]
 	var parameterKey:String{ return "disp" }
+	var parameters:[AnyHashable:Any]{
+		if let str = obj.toJSONString(){
+			return [parameterKey:str]
+		}else{
+			return [:]
+		}
+	}
 	var logicUrl: String{
-		return "/uploadDisp.do"
+		return "m8/uploadDisp.do"
 	}
 }
 
@@ -151,6 +158,7 @@ extension QianshouModel:STListViewModel{
 
 
 extension QianshouModel:SimpleCodable{}
+
 struct QianshouSaveRequest:STUploadRequest {
 	var obj:[QianshouModel]
 	var parameterKey:String{ return "sign" }
@@ -162,7 +170,7 @@ struct QianshouSaveRequest:STUploadRequest {
 		}
 	}
 	var logicUrl: String{
-		return "/uploadSign.do"
+		return "m8/uploadSign.do"
 	}
 }
 
@@ -171,7 +179,7 @@ struct QianshouSaveRequest:STUploadRequest {
 struct OrderValiReq:STRequest {
 	var billCode:String
 	var logicUrl: String{
-		return "/qryCome.do"
+		return "m8/qryCome.do"
 	}
 	
 	var parameters: [AnyHashable : Any]{
@@ -208,7 +216,7 @@ struct WentijianSaveRequest:STUploadRequest {
 		}
 	}
 	var logicUrl: String{
-		return "/uploadProblem.do"
+		return "m8/uploadProblem.do"
 	}
 }
 
@@ -253,7 +261,7 @@ extension YundanChaxunRecord:SimpleCodable{}
 struct YundanChaxunRequest:STRequest {
 	var ydh:String = ""
 	var logicUrl: String{
-		return "/searchBill.do"
+		return "m8/searchBill.do"
 	}
 	var parameters: [AnyHashable : Any]{
 		return ["billCode":self.ydh]
@@ -265,7 +273,7 @@ struct QuyuChaxunRequest:STRequest {
 	var city:String = ""
 	var word:String = ""
 	var logicUrl:String{
-		return "/searchSite.do"
+		return "m8/searchSite.do"
 	}
 	var parameters: [AnyHashable : Any]{
 		return [
@@ -283,7 +291,7 @@ struct AccountMoney:SimpleCodable{
 struct AccountMoneySearchRequest:STRequest {
 	var siteName:String = ""
 	var logicUrl: String{
-		return "/searchAcountMoney.do"
+		return "m8/searchAcountMoney.do"
 	}
 	
 	var parameters: [AnyHashable : Any]{

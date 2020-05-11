@@ -17,7 +17,7 @@ struct City:SimpleCodable {
 
 struct CityLoadRequest:STRequest{
     var logicUrl:String{
-        return "/initCity.do"
+        return "m8/initCity.do"
     }
 }
 
