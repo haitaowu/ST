@@ -126,8 +126,6 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 				self.reloadData()
 			}
 		}
-		
-		
 	}
 	
 	
@@ -141,7 +139,6 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 				self.qsrField.text = "拍照签收"
 				self.saveButtonClicked(self)
 			}
-			
 		}
 	}
 	
