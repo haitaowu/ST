@@ -37,19 +37,13 @@ class PaijianSaomiaoViewController: UIViewController,STListViewDelegate,QrInterf
         let uploadBtn = UIBarButtonItem(image: UIImage(named: "upload"), style: UIBarButtonItem.Style.done, target: self, action: #selector(onUploadAction))
         self.navigationItem.rightBarButtonItem = uploadBtn
     }
-    @objc private func onUploadAction(){
-        self.showLoading(msg: "上传中，清稍后")
-//        DataManager.shared.uploadPaijian(m: STDb.shared.allPj()){
-//            [unowned self]result in
-//            self.hideLoading()
-//            if result.0{
-//                STDb.shared.removeAllPj()
-//                self.reloadData()
-//                self.remindUser(msg: "上传成功")
-//            }else{
-//                self.remindUser(msg: result.1)
-//            }
-//        }
+	@objc private func onUploadAction(){
+		let ary: [PaijianModel] = STDb.shared.allPj()
+		guard ary.count > 0 else {
+			self.remindUser(msg: "无派件上传")
+			return
+		}
+		self.showLoading(msg: "上传中，清稍后")
         DataManager.shared.uploadPaijian(m: STDb.shared.allPj()) {
             [unowned self] (succ, msg) in
             self.hideLoading()

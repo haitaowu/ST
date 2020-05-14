@@ -126,6 +126,7 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
 		let alter = UIAlertController.init(title: "请选择导航应用程序", message: "", preferredStyle: UIAlertController.Style.actionSheet)
 		
+
 		let cancel =  UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel) { (sheet) in
 			
 		}
@@ -308,10 +309,8 @@ class DriMenuController: UIViewController,UITableViewDataSource,UITableViewDeleg
 	//根据登录账号获取下个站点的经纬度
 	func fetchNextStationLoc() -> Void {
 		guard let car = self.carInfo else {
-			self.remindUser(msg: "暂无下站信息,无法导航")
-			return
+			return;
 		}
-		
 		let siteName = car.bakNextStaTion
 		if siteName == ""{
 			self.remindUser(msg: "暂无下站信息,无法导航")

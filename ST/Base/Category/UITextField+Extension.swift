@@ -39,6 +39,9 @@ extension UITextField{
 		typeRightVeiw.addTarget(action, action: action, for: .touchUpInside)
 		self.rightView = typeRightVeiw
 		self.rightViewMode = .always
-		
 	}
+	
+
+	
+	
 }

@@ -84,6 +84,8 @@ class QuyuChaxunViewController: UIViewController,STListViewDelegate,PickerInputV
         self.searchQuyu()
     }
     
+	
+    //MARK:- request server
     private func searchQuyu(){
         let add = self.addressInputField.text ?? ""
         let cmps = add.components(separatedBy: "-")

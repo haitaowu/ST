@@ -37,8 +37,13 @@ extension Response{
     }
     
 }
-extension Array:SimpleCodable{}
-extension Dictionary:SimpleCodable{}
+
+extension Array:SimpleCodable{
+}
+
+extension Dictionary:SimpleCodable{
+}
+
 protocol SimpleCodable:HandyJSON{
     static func decode(data:Data?) -> Self?
     func encode() -> Data?
@@ -51,8 +56,7 @@ extension SimpleCodable{
         return nil
     }
     func encode() -> Data?{
-//        if let s = JSONSerializer.serializeToJSON(object: self){
-        if let s = self.toJSONString(){
+			if let s = self.toJSONString(){
             return s.data(using: String.Encoding.utf8)
         }
         return nil

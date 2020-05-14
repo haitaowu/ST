@@ -38,19 +38,14 @@ class DaojianSaomiaoViewController: UIViewController,STListViewDelegate,QrInterf
         self.navigationItem.rightBarButtonItem = uploadBtn
     }
     @objc private func onUploadAction(){
-        self.showLoading(msg: "上传中，清稍后")
-//        DataManager.shared.uploadDaojian(m: STDb.shared.allDj()){
-//            [unowned self]result in
-//            self.hideLoading()
-//            if result.0{
-//                STDb.shared.removeAllDj()
-//                self.reloadData()
-//                self.remindUser(msg: "上传成功")
-//            }else{
-//                self.remindUser(msg: result.1)
-//            }
-//        }
+
+		let ary: [DaojianModel] = STDb.shared.allDj()
+		guard ary.count > 0 else {
+			self.remindUser(msg: "无到件上传")
+			return
+		}
         
+        self.showLoading(msg: "上传中，清稍后")
         DataManager.shared.uploadDaojian(m: STDb.shared.allDj()) {
             [unowned self] (succ, msg) in
             self.hideLoading()

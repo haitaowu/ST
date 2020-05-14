@@ -296,7 +296,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
     //MARK:- request server
     func submitProblemData(parameters: Parameters){
         self.showLoading(msg: "上传问题件...");
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/uploadProblemAndPicBase64.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/uploadProblemAndPicBase64.do"
         NSLog("parameters = \(parameters)");
         Alamofire.request(reqUrl, method: .post, parameters: parameters).responseJSON { response in
             print("Request: \(String(describing: response.request))")   // original url request

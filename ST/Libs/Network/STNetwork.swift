@@ -34,17 +34,17 @@ protocol STUploadRequest:STRequest {
     var parameterKey:String{get}
 }
 
-extension STUploadRequest{
-    var parameterKey:String{ return ""}
-    var parameters:[AnyHashable:Any]{
-        if let jsondata = obj.encode(){
-            if let str = String(data: jsondata, encoding: String.Encoding.utf8){
-                return [self.parameterKey:str]
-            }
-        }
-        return [:]
-    }
-}
+//extension STUploadRequest{
+//    var parameterKey:String{ return ""}
+//    var parameters:[AnyHashable:Any]{
+//        if let jsondata = obj.encode(){
+//            if let str = String(data: jsondata, encoding: String.Encoding.utf8){
+//                return [self.parameterKey:str]
+//            }
+//        }
+//        return [:]
+//    }
+//}
 enum Status:Int {
     case NetworkTimeout = -1
     case MissingParameter = 2
