@@ -194,7 +194,7 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
     //MARK:- request server
     //查询品名的价格
     func requestProductPrice(parameters: Parameters){
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/searchGoodPrice.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/searchGoodPrice.do"
         NSLog("parameters = \(parameters)");
         Alamofire.request(reqUrl, method: .post, parameters: parameters).responseJSON { response in
             print("Request: \(String(describing: response.request))")   // original url request

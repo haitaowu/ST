@@ -139,7 +139,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     //根据运单号查询运单详情
     func queryBillWith(params:Parameters) {
         self.showLoading(msg: "查询单中...");
-        let reqUrl = Consts.Server + Consts.BaseUrl + "/qryBillSub.do"
+        let reqUrl = Consts.Server + Consts.BaseUrl + "m8/qryBillSub.do"
         Alamofire.request(reqUrl, method: .post, parameters: params).responseJSON {[unowned self] response in
             print("Request: \(String(describing: response.request))")   // original url request
             print("Response: \(String(describing: response.response))") // http url response

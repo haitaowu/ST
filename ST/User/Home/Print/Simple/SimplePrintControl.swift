@@ -33,7 +33,7 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     
     //MARK:- private methods
     func setupUI() {
-        self.title = "单件录入(简)";
+        self.title = "单票录入(简)";
         for  view in self.containerViewCollect {
             view.setupDashLine();
         }
@@ -200,7 +200,7 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     //提交录单数据
     func submitBillInfoWith(params:Parameters) {
         self.showLoading(msg: "提交保单中...");
-        let reqUrl = Consts.Server + Consts.BaseUrl + "/uploadPrintBillSubNew.do"
+        let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
         Alamofire.request(reqUrl, method: .post, parameters: params).responseJSON {[unowned self] response in
             if let json = response.result.value as? NSDictionary{
                 if let stauts = json.value(forKey: "stauts"){

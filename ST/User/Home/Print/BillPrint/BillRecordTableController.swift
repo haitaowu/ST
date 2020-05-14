@@ -201,7 +201,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
     //提交录单数据
     func submitBillInfoWith(params:Parameters) {
         self.showLoading(msg: "提交保单中...");
-        let reqUrl = Consts.Server + Consts.BaseUrl + "/uploadPrintBillSubNew.do"
+        let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
         Alamofire.request(reqUrl, method: .post, parameters: params).responseJSON {[unowned self] response in
             print("Request: \(String(describing: response.request))")   // original url request
             print("Response: \(String(describing: response.response))") // http url response

@@ -142,7 +142,7 @@ class FinancialController: UIViewController ,UITextFieldDelegate,WangdianPickerI
     //MARK:- request server 
     //提交充值请求
     func submitFinancialRequestWith(params:Parameters) {
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/uploadBalanceDetail.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/uploadBalanceDetail.do"
         NSLog("parameters = \(params)");
         Alamofire.request(reqUrl, method: .post, parameters: params).responseJSON { response in
             print("Request: \(String(describing: response.request))")   // original url request
@@ -170,7 +170,7 @@ class FinancialController: UIViewController ,UITextFieldDelegate,WangdianPickerI
     
     //根据网点名称查询账务中心
     func queryFinancialWithSite(site:String) {
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/searchSiteFinanceCenter.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/searchSiteFinanceCenter.do"
         var params: Parameters = [:];
         params["siteName"] =  site
         

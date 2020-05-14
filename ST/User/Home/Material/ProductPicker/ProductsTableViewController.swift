@@ -35,7 +35,7 @@ class ProductsTableViewController: UITableViewController,UISearchBarDelegate{
     
     //MARK:- request sever
     func requestProducts() {
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/initGoodInfo.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/initGoodInfo.do"
         Alamofire.request(reqUrl, method: .post, parameters: nil).responseJSON { response in
             if let json = response.result.value as? NSDictionary{
                 //获取字典里面的key为数组
