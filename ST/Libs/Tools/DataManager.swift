@@ -286,20 +286,9 @@ class DataManager{
         //self.uploadQianshou(m: [m])
     }
     
-//    func uploadQianshou(m:[QianshouModel],callback:SaveCompleteCallback? = nil){
-//        let images = m.map{ $0.tp }.filter{ !$0.isEmpty }
-//        self.uploadQianshouImages(images: images){
-//            let req = QianshouSaveRequest(obj: m)
-//            STNetworking<UploadResult>(stRequest:req){
-//                resp in
-//                callback?(resp.stauts == Status.Success.rawValue,resp.msg)
-//                NSLog("\(resp)")
-//            }?.resume()
-//        }
-//    }
-    
     func reqBillQianshou(m:[QianshouModel],callback:SaveCompleteCallback? = nil){
         let images = m.map{ $0.tp }.filter{ !$0.isEmpty }
+		
         let req = QianshouSaveRequest(obj: m)
         STNetworking<UploadResult>(stRequest:req){
             resp in
@@ -318,17 +307,9 @@ class DataManager{
         //self.uploadWentijian(m: [m])
     }
 	
-    func uploadWentijian(m:[WentijianModel],callback:SaveCompleteCallback? = nil){
-        let req = WentijianSaveRequest(obj: m)
-        STNetworking<UploadResult>(stRequest:req){
-            resp in
-            callback?(resp.stauts == Status.Success.rawValue,resp.msg)
-            NSLog("\(resp)")
-        }?.resume()
-    }
     
     func uploadQianshouImages(images:[String],complete:@escaping () -> Void){
-        let target = "/AndroidService/pic/uploadSignPic.do"
+        let target = "AndroidService/pic/uploadSignPic.do"
         self.uploadImages(target: target, images: images, complete: complete)
     }
     
@@ -354,6 +335,11 @@ class DataManager{
             resp in
             complete()
         }?.resume()
+//
+//		STNetworking<UploadResult>(stRequest:req){
+//			resp in
+//			complete()
+//			}?.resume()
         
     }
 	
@@ -372,4 +358,14 @@ class DataManager{
             complete("")
         }
     }
+	
+	func uploadWentijian(m:[WentijianModel],callback:SaveCompleteCallback? = nil){
+        let req = WentijianSaveRequest(obj: m)
+        STNetworking<UploadResult>(stRequest:req){
+            resp in
+            callback?(resp.stauts == Status.Success.rawValue,resp.msg)
+            NSLog("\(resp)")
+        }?.resume()
+    }
+    
 }

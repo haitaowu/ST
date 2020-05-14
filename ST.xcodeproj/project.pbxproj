@@ -2388,20 +2388,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/ST/Libs/BDMap",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
 					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ST/Libs/BDMap",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 2.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2471,20 +2464,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/ST/Libs/BDMap",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks",
 					"$(PROJECT_DIR)/ST/Libs",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ST/Libs/BDMap",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/ThirdLibs",
-					"$(PROJECT_DIR)/ST/Libs/BDMap/Framworks/BaiduNaviSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 2.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
