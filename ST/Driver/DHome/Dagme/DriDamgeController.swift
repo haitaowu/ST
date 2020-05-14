@@ -505,34 +505,34 @@ class DriDamgeController: UITableViewController,UIImagePickerControllerDelegate,
     let url = URL.init(string: Consts.UploadServer)
     guard let uploadUrl = url else{return}
     
-    Alamofire.upload(multipartFormData: { (multipartFormData) in
-			multipartFormData.append(pathStr.data(using: String.Encoding.utf8)!, withName: "path")
-      multipartFormData.append(imgData, withName: "file",fileName: fileName, mimeType: "image/png")
-    }, to: uploadUrl) { (encodingResult) in
-      switch encodingResult{
-      case .success(let upload,_,_):do{
-        upload.responseJSON{[unowned self]response in
-					self.group.leave()
-          if let jsonData = response.result.value as? NSDictionary{
-            if let url = jsonData["picUrl"] as? String{
-              if flag == 0{
-                self.realUrlsAry.append(url)
-              }else{
-                self.damUrlsAry.append(url)
-              }
-            }
-          }
-        }
-        }
-      case .failure(let error):do{
-        self.group.leave()
-        print("upload image failure....")
-        }
-      default:print("default")
-      }
-    }
-
-    
+	Alamofire.upload(multipartFormData: { (multipartFormData) in
+		multipartFormData.append(pathStr.data(using: String.Encoding.utf8)!, withName: "path")
+		multipartFormData.append(imgData, withName: "file",fileName: fileName, mimeType: "image/png")
+	}, to: uploadUrl) { (encodingResult) in
+		switch encodingResult{
+		case .success(let upload,_,_):do{
+			upload.responseJSON{[unowned self]response in
+				self.group.leave()
+				if let jsonData = response.result.value as? NSDictionary{
+					if let url = jsonData["picUrl"] as? String{
+						if flag == 0{
+							self.realUrlsAry.append(url)
+						}else{
+							self.damUrlsAry.append(url)
+						}
+					}
+				}
+			}
+			}
+		case .failure(let error):do{
+			self.group.leave()
+			print("upload image failure....")
+			}
+		default:print("default")
+		}
+	}
+	
+	
 	}
 	
 	

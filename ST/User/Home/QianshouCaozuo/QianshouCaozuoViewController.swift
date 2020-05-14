@@ -86,7 +86,9 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 		imagePicker.sourceType = .photoLibrary
 		#else
 		imagePicker.sourceType = .camera
+		imagePicker.cameraFlashMode = .off
 		#endif
+		
 		
 		self.present(imagePicker, animated: true, completion: nil)
 	}
@@ -130,7 +132,7 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 	
 	
 	//MARK:- UIImagePickerController delegate
-	private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
 		self.dismiss(animated: true, completion: nil)
 		if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 			let ydh = self.ydhField.text ?? ""
@@ -151,8 +153,7 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 		self.ydhField.text = code
 	}
 	
-	
-	
+
 	//MARK:- request server
 	func reqValidateOrderIllegal(req: OrderValiReq, result: @escaping ((_ res: Bool)->Void)){
 		
@@ -161,12 +162,12 @@ class QianshouCaozuoViewController: UIViewController,STListViewDelegate,QrInterf
 			if resp.stauts == Status.Success.rawValue{
 				self.hideLoading()
 				result(true)
-      }else if resp.stauts == Status.NetworkTimeout.rawValue{
-        self.remindUser(msg: "网络超时，请稍后尝试")
-      }else{
-				self.remindUser(msg: "运单号不正确")
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
+			}else{
+				self.remindUser(msg: resp.msg)
 			}
-		}?.resume()
+			}?.resume()
 		
 	}
 	
