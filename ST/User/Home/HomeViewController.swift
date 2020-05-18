@@ -38,7 +38,6 @@ class HomeViewController: UIViewController {
 		self.menuItems = [
 			(title:"单票录入(简)",icon:"home_menu_1",key:"danjian",handler:menuItemviewClicked),
 			(title:"单票录入(全)",icon:"home_menu_1",key:"printComplete",handler:menuItemviewClicked),
-			(title:"运单补打",icon:"home_menu_10",key:"latebill",handler:menuItemviewClicked),
 			(title:"收件扫描",icon:"home_menu_2",key:"shoujian",handler:menuItemviewClicked),
 			(title:"发件扫描",icon:"home_menu_3",key:"fajian",handler:menuItemviewClicked),
 			(title:"到件扫描",icon:"home_menu_4",key:"daojian",handler:menuItemviewClicked),
@@ -47,7 +46,8 @@ class HomeViewController: UIViewController {
 			(title:"问题件操作",icon:"home_menu_7",key:"wentijian",handler:menuItemviewClicked),
 			(title:"快件查询",icon:"home_menu_8",key:"kuaichaxun",handler:menuItemviewClicked),
 			(title:"区域查询",icon:"home_menu_9",key:"quyuchaxun",handler:menuItemviewClicked),
-//			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
+			//			(title:"运单补打",icon:"home_menu_10",key:"latebill",handler:menuItemviewClicked),
+			//			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]
@@ -105,14 +105,16 @@ class HomeViewController: UIViewController {
 			self.openFinancialView();
 		}else if type == "danjian"{
 			self.openBillPrintView();
-		}else if type == "latebill"{
-			self.openLateBillPrintView();
+//		}else if type == "latebill"{
+//			self.openLateBillPrintView();
 		}else if type == "print"{
 			self.openPrintMenuView();
 		}else if type == "printComplete"{
 			self.openBillPrintComplete();
 		}
 	}
+	
+	
 	
 	
 	
@@ -126,12 +128,12 @@ class HomeViewController: UIViewController {
 	}
 	
 	//补打印运单界面
-	func openLateBillPrintView(){
-		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "LaterPinterBillTableController");
-		printerVc.hidesBottomBarWhenPushed = true
-		self.navigationController?.pushViewController(printerVc, animated: true)
-	}
+//	func openLateBillPrintView(){
+//		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
+//		let printerVc = storyboard.instantiateViewController(withIdentifier: "LaterPinterBillTableController");
+//		printerVc.hidesBottomBarWhenPushed = true
+//		self.navigationController?.pushViewController(printerVc, animated: true)
+//	}
 	
 	//运单打印菜单选择界面
 	func openPrintMenuView(){
