@@ -16,7 +16,13 @@ enum ReqStateType:Int {
 typealias ReqResBlock = (_ state:ReqStateType, _ data: Any) ->()
 
 class STHelper: NSObject {
-    static let `default`:STHelper = STHelper()
+	//单例的两种写法
+//	static let shareInstance = STHelper()
+	static let shareInstance: STHelper = {
+		let instance = STHelper()
+		return instance
+	}()
+	
     private override init(){}
 
   /*  func POSTData<T>(stResponse: @escaping (NetResponse<T>) -> Void){
@@ -35,8 +41,9 @@ class STHelper: NSObject {
     
     
     ///POST 请求
-    func POST(url:String,params:Parameters, block:@escaping ReqResBlock){
-        Alamofire.request(url, method: .post, parameters: params ).responseJSON {[unowned self] response in
+    static func POST(url: String, params: Parameters?, block:@escaping ReqResBlock){
+        Alamofire.request(url, method: .post, parameters: params ).responseJSON {
+			response in
             if let json = response.result.value as? NSDictionary{
                 if let stauts = json.value(forKey: "stauts"){
                     if let statusNum = stauts as? Int{

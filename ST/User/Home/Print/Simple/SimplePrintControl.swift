@@ -253,5 +253,6 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     //MARK:- UIScrollView delegate
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true);
+		
     }
 }
