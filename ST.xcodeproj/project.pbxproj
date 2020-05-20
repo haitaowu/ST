@@ -646,7 +646,7 @@
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
 		BEA67F05245D875E00A9099C /* CompletePrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletePrintControl.swift; sourceTree = "<group>"; };
-		BEA67F09245D875E00A9099C /* SimplePrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePrintControl.swift; sourceTree = "<group>"; };
+		BEA67F09245D875E00A9099C /* SimplePrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePrintControl.swift; sourceTree = "<group>"; usesTabs = 1; };
 		BEA67F0B245D875E00A9099C /* LaterPinterBillTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaterPinterBillTableController.swift; sourceTree = "<group>"; };
 		BEA67F0E245D875E00A9099C /* BillRecordTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillRecordTableController.swift; sourceTree = "<group>"; };
 		BEA67F0F245D875E00A9099C /* HTDashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTDashView.swift; sourceTree = "<group>"; };

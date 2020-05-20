@@ -25,7 +25,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	@IBOutlet weak var reciverField: UITextField!
 	@IBOutlet weak var billNumField: UITextField!
 	@IBOutlet weak var fetchBillBtn: UIButton!
-	@IBOutlet weak var destAdrField: UITextField!
+	@IBOutlet weak var destSiteField: UITextField!
 	
 	@IBOutlet weak var goodsNameField: UITextField!
 	//超长
@@ -120,7 +120,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//保险费率
 	@IBOutlet weak var baoxianLv: UILabel!
 	//金额
-	@IBOutlet weak var jinE: UILabel!
+	@IBOutlet weak var jinE: UITextField!
 	//保险费
 	@IBOutlet weak var baoxianFei: UILabel!
 	//超重件数
@@ -148,26 +148,34 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	deinit {
 		print("deinit....")
-		self.billNumField.removeObserver(self, forKeyPath: "text")
+		self.removeObserver(self, forKeyPath: "billNumField.text")
 	}
 	
-	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-		if keyPath == "text" {
-			if let newValue = change?[.newKey] as? String{
-				let params: Parameters = ["billCode": newValue]
-				self.fetchBillDetailInfo(params: params)
-			}
-		}
-	}
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == "billNumField.text" {
+      print("observer for billNumField.text")
+      if let newValue = change?[.newKey] as? String{
+        let params: Parameters = ["billCode": newValue]
+        self.fetchBillDetailInfo(params: params)
+      }
+    }else if keyPath == "destSiteField.text" {
+      print("observer for destSiteField.text")
+      if let newValue = change?[.newKey] as? String{
+        let params:Parameters = ["siteName":newValue]
+        self.fetchSiteSuperName(params: params, view: self.destSiteSupBtn)
+      }
+    }
+  }
 	
-	//MARK:- private methods
+	//base setup for ui
 	func setupUI() {
 		self.title = "单票录入(全)"
 		for  view in self.containerViewCollect {
 			view.setupDashLine()
 		}
 		
-		self.billNumField.addObserver(self, forKeyPath: "text", options: [.new,.old], context: nil)
+		self.addObserver(self, forKeyPath: "billNumField.text", options: [.new,.old], context: nil)
+		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
 		self.sendDateField.text = self.currentDateStr()
 		self.sendSiteField.text = DataManager.shared.loginUser.siteName
@@ -399,7 +407,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		//            billInfo["acceptManAddress"] = acceptManAddress
 		//        }
 		
-		let arriveSite = self.destAdrField.text!
+		let arriveSite = self.destSiteField.text!
 		if arriveSite.isEmpty{
 			self.remindUser(msg: "请输入目的网点")
 			return
@@ -456,14 +464,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.submitBillInfoWith(params: params)
 	}
 	
-	@IBAction func tapExpressBtn(_ sender: Any) {
-		let array = ["派送","自提"]
-		self.view.endEditing(true)
-		HTAlertConfirmView .ShowAlertViewWithTitles(titles: array) {[unowned self] (title:String) ->Void in
-			print("hello baby \(title)")
-			//            self.expressBtn.setTitle(title, for: .normal)
-		}
-	}
 	
 	@IBAction func wangdianBtnClicked(_ sender: Any) {
 		self.showWangdianPicker()
@@ -559,7 +559,20 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//保存
 	@objc func saveBill(){
 		print("click right bar item save ....")
-		self.billNumField.text =  "232323232"
+		guard let paramsData = self.paramsSaveBill() else{
+			return
+		}
+		var params: Parameters = [:]
+		do{
+			let recData = try JSONSerialization.data(withJSONObject: [paramsData], options: .prettyPrinted)
+			let recStr = String.init(data: recData, encoding: .utf8)
+			if recStr != nil{
+				params["rec"] = recStr
+			}
+		}catch{
+		}
+		self.submitBillInfoWith(params: params)
+		
 	}
 	
 	//目的网点所属中心
@@ -571,7 +584,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	@IBAction func sendSite(_ sender: UIButton) {
 		let siteName = DataManager.shared.loginUser.siteName
 		let params:Parameters = ["siteName":siteName]
-		self.fetchSiteSuperName(params: params)
+		self.fetchSiteSuperName(params: params, view: sender)
 	}
 	
 	
@@ -597,12 +610,25 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	@IBAction func deliverType(_ sender: UIButton) {
 		self.fetchDeliverType()
 	}
+  
+  //pay type action sheet
+  @IBAction func payType(_ sender: UIButton) {
+    let types = ["到付","现金","月结"]
+    ActionSheetStringPicker.show(withTitle: "支付类型", rows: types, initialSelection: 0, doneBlock: {
+      [unowned self] (picker, index, vals) in
+      if let typeStr = vals as? String{
+        self.payTypeField.text = typeStr
+      }
+      }, cancel: {(picker) in
+    }, origin: self.view)
+  }
 	
 	
 	
 	//MARK:- WangdianPickerInterface
 	func onWangdianPicked(item:SiteInfo){
-		self.destAdrField.text = item.siteName
+		self.destSiteField.text = item.siteName
+		self.paiSiteField.text = item.siteName
 	}
 	
 	
@@ -649,13 +675,281 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	
+	//MARK:- request params
+	func paramsSaveBill() -> Parameters?{
+		var params: Parameters = [:]
+		params["sendDate"] = self.sendDateField.text
+		if let billCode = self.billNumField.text {
+			params["billCode"] = billCode
+		}else{
+			self.remindUser(msg: "请输入运单号")
+			return nil
+		}
+		
+//		if let billCode = self.billNumField.text {
+//			params["billCode"] = billCode
+//		}else{
+//			self.remindUser(msg: "请输入运单号")
+//			return nil
+//		}
+		
+		
+		if let sendMan = self.senderField.text {
+			params["sendMan"] = sendMan
+		}
+		
+		//寄件省--
+		if let province = self.sendProvinceBtn.titleLabel?.text {
+			params["province"] = province
+		}
+		
+		//寄件市--
+		if let city = self.sendCityBtn.titleLabel?.text {
+			params["city"] = city
+		}
+		
+		//寄件区--
+		if let borough = self.sendDistBtn.titleLabel?.text {
+			params["borough"] = borough
+		}
+		
+		//寄件地？？？
+		if let sendAddress = self.sendAdrDetail.text {
+			params["sendAddress"] = sendAddress
+		}
+		//寄件地址--？？
+		if let sendManAddress = self.sendAdrDetail.text {
+			params["sendManAddress"] = sendManAddress
+		}
+		
+		if let sendManPhone = self.sendPhoneField.text {
+			params["sendManPhone"] = sendManPhone
+		}
+		
+		//收件人--
+		if let acceptMan = self.receiverField1.text {
+			params["acceptMan"] = acceptMan
+		}
+		//收件省--
+		if let provinceName = self.recePronvinBtn.titleLabel?.text {
+			params["provinceName"] = provinceName
+		}
+		
+		//收件市--
+		if let cityName = self.receCityBtn.titleLabel?.text {
+			params["cityName"] = cityName
+		}
+		
+		//收件区--
+		if let countyName = self.receDistBtn.titleLabel?.text {
+			params["countyName"] = countyName
+		}
+		
+		//收件地址--
+		if let acceptManAddress = self.receAdrDetail.text {
+			params["acceptManAddress"] = acceptManAddress
+		}
+		
+		//收件电话--
+		if let acceptManPhone = self.recePhoneField.text {
+			params["acceptManPhone"] = acceptManPhone
+		}
+		
+		//目的地--
+		if let destination = self.destSiteField.text {
+			params["destination"] = destination
+		}
+		
+		//目的分拨中心--
+		if let destinationCenter = self.destSiteSupBtn.titleLabel?.text {
+			params["destinationCenter"] = destinationCenter
+		}
+		
+		//派件网点--
+		if let dispatchSite = self.paiSiteField.text {
+			params["dispatchSite"] = dispatchSite
+		}
+		
+		//寄件网点分拨中心--
+		if let scanSite3 = self.jiSiteSupBtn.titleLabel?.text {
+			params["scanSite3"] = scanSite3
+		}
+		
+		//货物名称--
+		if let goodsName = self.goodsNameField.text {
+			params["goodsName"] = goodsName
+		}
+		//包装类型--
+		if let packType = self.packageBtn.titleLabel?.text {
+			params["packType"] = packType
+		}
+		
+		//结算重量--
+		if let settlementWeight = self.calWeightField.text {
+			params["settlementWeight"] = settlementWeight
+		}
+		//实际重量--
+		if let billWeight = self.weightField.text {
+			params["billWeight"] = billWeight
+		}
+		//体积--
+		if let volume = self.volumeField.text {
+			params["volume"] = volume
+		}
+		//体积重量--
+		if let volumeWeight = self.volumeWeightField.text {
+			params["volumeWeight"] = volumeWeight
+		}
+		
+		//派送方式--
+		if let dispatchMode = self.deliverTypeBtn.titleLabel?.text {
+			params["dispatchMode"] = dispatchMode
+		}
+		
+		//运输方式--
+		if let classType = self.transportTypeBtn.titleLabel?.text {
+			params["classType"] = classType
+		}
+		
+		//件数--
+		if let pieceNumber = self.jianShuField.text {
+			params["pieceNumber"] = pieceNumber
+		}
+		//管理费
+		if let manageFee = self.managerFeeField.text {
+			params["manageFee"] = manageFee
+		}
+		
+		//子单号--
+		if let billCodeSub = self.subBillField.text {
+			params["billCodeSub"] = billCodeSub
+		}
+		
+		
+		//支付方式--
+		if let paymentType = self.payTypeField.text {
+			params["paymentType"] = paymentType
+		}
+		
+		//到付款--
+		if let topayment = self.payMoneyField.text {
+			params["topayment"] = topayment
+		}
+		
+		//运费--
+		if let freight = self.yunFeiField.text {
+			params["freight"] = freight
+		}
+		//保价金额--
+		if let insuredMoney = self.jinE.text {
+			params["insuredMoney"] = insuredMoney
+		}
+		
+		//保价费--
+		if let insureValueStr = self.payMoneyField.text {
+			let ary = insureValueStr.split(separator: ":")
+			if ary.count > 1 {
+				let insureValue = ary.last
+				params["insureValue"] = insureValue
+			}
+			
+		}
+		
+		//回单标识-- int ;
+		if self.signBillBtn.isSelected {
+			params["blReturnBill"] = 1
+			//回单编号--
+			if let rBillcode = self.rebillField.text {
+				params["rBillcode"] = rBillcode
+			}
+		}else{
+			params["blReturnBill"] = 0
+		}
+		
+		//超长标识--int ;
+		if self.overLen.isSelected {
+			params["blOverLong"] = 1
+		}else{
+			params["blOverLong"] = 0
+		}
+		
+		
+		//超重标识--int ;
+		if self.overWeightBtn.isSelected {
+			params["blOverWeight"] = 1
+			//超重件数--
+			if let overWeightPiece = self.chaoZhongJianShu.text {
+				params["overWeightPiece"] = overWeightPiece
+			}
+		}else{
+			params["blOverWeight"] = 0
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		//进仓标识-- int ;
+		if self.storeBtn.isSelected {
+			params["blIntoWarehouse"] = 1
+			//进仓编号--
+			if let storageno = self.storeBillField.text {
+				params["storageno"] = storageno
+			}
+		}else{
+			params["blIntoWarehouse"] = 0
+		}
+		
+		
+		//其他费用--
+		if let otherFee = self.qiTaFei.text {
+			params["otherFee"] = otherFee
+		}
+		//送货费--
+		if let sendgoodsFee = self.songHuoFei.text {
+			params["sendgoodsFee"] = sendgoodsFee
+		}
+		//超区费--
+		if let overAreaFee = self.chaoQuFei.text {
+			params["overAreaFee"] = overAreaFee
+		}
+		//上楼费--
+		if let upstairsFee = self.shangLouFei.text {
+			params["upstairsFee"] = upstairsFee
+		}
+		
+		//收货短信标识--
+		if self.receMsgBtn.isSelected{
+			params["blMessage1"] = 1
+		}else{
+			params["blMessage1"] = 0
+		}
+		
+		//发货短信标识--
+			if self.sendMsgBtn.isSelected{
+				params["blMessage"] = 1
+			}else{
+				params["blMessage"] = 0
+			}
+		
+		
+		return params
+		
+	}
+	
+	
+	
 	
 	//MARK:- request server
 	//提交录单数据
-	func submitBillInfoWith(params:Parameters) {
-		self.showLoading(msg: "提交保单中...")
-		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
-		STHelper.POST(url: reqUrl, params: nil) {
+	func submitBillInfoWith(params: Parameters) {
+		self.showLoading(msg: "提交中...")
+//		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
+		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/uploadBill.do"
+		STHelper.POST(url: reqUrl, params: params) {
 			[unowned self](result, data) in
 			self.hideLoading()
 			if (result == .reqSucc) {
@@ -771,53 +1065,54 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	
-	//query jijian province city district
-	func fetchAddressInfo(params: Parameters?, view: UIButton, key: String){
-		self.showLoading(msg: "...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getProvinceCityTown.do"
-		let reqUrl="http://58.215.182.252:8119/AndroidServiceST-M8/m8/getProvinceCityTown.do"
-		
-		STHelper.POST(url: reqUrl, params: params) {
-			[unowned self](result, data) in
-			self.hideLoading()
-			if (result == .reqSucc) {
-				if let dataAry = data as? Array<Dictionary<String,Any>>{
-					self.showAdrActSheet(key: key, adrs: dataAry, view: view)
-				}
-			}else{
-				guard let msg = data as? String else {
-					return
-				}
-				self.remindUser(msg: msg)
-			}
-		}
-	}
+  //query jijian province city district
+  func fetchAddressInfo(params: Parameters?, view: UIButton, key: String){
+    self.showLoading(msg: "...")
+    //		let baseUrl = "AndroidServiceST-M8/"
+    //		let reqUrl = Consts.Server + baseUrl + "m8/getProvinceCityTown.do"
+    let reqUrl="http://58.215.182.252:8119/AndroidServiceST-M8/m8/getProvinceCityTown.do"
+    
+    STHelper.POST(url: reqUrl, params: params) {
+      [unowned self](result, data) in
+      self.hideLoading()
+      if (result == .reqSucc) {
+        if let dataAry = data as? Array<Dictionary<String,Any>>{
+          self.showAdrActSheet(key: key, adrs: dataAry, view: view)
+        }
+      }else{
+        guard let msg = data as? String else {
+          return
+        }
+        self.remindUser(msg: msg)
+      }
+    }
+  }
 	
 	
 	//查询寄件网点所属分拨中心
-	func fetchSiteSuperName(params: Parameters){
-		self.showLoading(msg: "查询...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/gettabDispatchMode.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/qryFbCenter.do"
-		
-		STHelper.POST(url: reqUrl, params: params) {
-			[unowned self](result, data) in
-			self.hideLoading()
-			if (result == .reqSucc) {
-				if let siteName = data as? String{
-					self.jiSiteSupBtn.setTitle(siteName, for: .normal)
-				}
-			}else{
-				guard let msg = data as? String else {
-					return
-				}
-				self.remindUser(msg: msg)
-			}
-		}
-	}
-	
+  func fetchSiteSuperName(params: Parameters, view: UIButton){
+    self.showLoading(msg: "查询...")
+    //		let baseUrl = "AndroidServiceST-M8/"
+    //		let reqUrl = Consts.Server + baseUrl + "m8/gettabDispatchMode.do"
+    let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/qryFbCenter.do"
+    
+    STHelper.POST(url: reqUrl, params: params) {
+      [unowned self](result, data) in
+      self.hideLoading()
+      if (result == .reqSucc) {
+        if let siteName = data as? String{
+          let nameStr = siteName.replacingAll(matching: ";", with: "")
+          view.setTitle(nameStr, for: .normal)
+        }
+      }else{
+        guard let msg = data as? String else {
+          return
+        }
+        self.remindUser(msg: msg)
+      }
+    }
+  }
+  
 	
 	
 	

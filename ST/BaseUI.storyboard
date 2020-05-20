@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,7 +49,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件日期" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qbI-sM-Q2s">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -113,7 +113,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件网点" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e7x-ae-b8y">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -169,10 +169,24 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入运单号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6w-Kl-hJg">
-                                                                    <rect key="frame" x="72" y="10" width="233" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="153" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Reu-Gu-RVA">
+                                                                    <rect key="frame" x="230" y="0.0" width="75" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="40" id="5ao-P9-xid"/>
+                                                                        <constraint firstAttribute="width" constant="75" id="H1A-8V-TXy"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <state key="normal" title="获取单号">
+                                                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="clickFetchBillNum" destination="gWr-Re-T6w" eventType="touchUpInside" id="4XF-RO-PGZ"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITv-xh-7HI" userLabel="separator">
                                                                     <rect key="frame" x="63" y="12.5" width="1" height="15"/>
                                                                     <color key="backgroundColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -184,9 +198,11 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="o6w-Kl-hJg" firstAttribute="centerY" secondItem="rjz-i6-2Mt" secondAttribute="centerY" id="0cJ-SP-faL"/>
-                                                                <constraint firstAttribute="trailing" secondItem="o6w-Kl-hJg" secondAttribute="trailing" id="Gik-j0-qZX"/>
+                                                                <constraint firstItem="Reu-Gu-RVA" firstAttribute="centerY" secondItem="o6w-Kl-hJg" secondAttribute="centerY" id="4pk-Ke-aS1"/>
+                                                                <constraint firstAttribute="trailing" secondItem="o6w-Kl-hJg" secondAttribute="trailing" constant="80" id="Gik-j0-qZX"/>
                                                                 <constraint firstItem="rjz-i6-2Mt" firstAttribute="leading" secondItem="C9a-Gl-3yY" secondAttribute="leading" constant="8" id="J72-NI-4Hy"/>
                                                                 <constraint firstItem="rjz-i6-2Mt" firstAttribute="centerY" secondItem="C9a-Gl-3yY" secondAttribute="centerY" id="KdT-KU-n3t"/>
+                                                                <constraint firstItem="Reu-Gu-RVA" firstAttribute="leading" secondItem="o6w-Kl-hJg" secondAttribute="trailing" constant="5" id="RpX-La-fiZ"/>
                                                                 <constraint firstItem="ITv-xh-7HI" firstAttribute="centerY" secondItem="rjz-i6-2Mt" secondAttribute="centerY" id="Wo4-Wf-nww"/>
                                                                 <constraint firstItem="ITv-xh-7HI" firstAttribute="leading" secondItem="rjz-i6-2Mt" secondAttribute="trailing" constant="3" id="eYQ-DH-maC"/>
                                                                 <constraint firstItem="o6w-Kl-hJg" firstAttribute="leading" secondItem="ITv-xh-7HI" secondAttribute="trailing" constant="8" id="pz2-gm-HAj"/>
@@ -589,7 +605,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入件数" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JBY-jN-m79">
-                                                                    <rect key="frame" x="72" y="10" width="293" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="293" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -667,6 +683,7 @@
                         <outlet property="destAdrField" destination="rke-jB-SLt" id="90a-fO-yEd"/>
                         <outlet property="expressBtn" destination="KGP-iH-UGb" id="Bpc-Gg-q08"/>
                         <outlet property="expressTypeBtn" destination="KGP-iH-UGb" id="NWF-ts-0WW"/>
+                        <outlet property="fetchBillBtn" destination="Reu-Gu-RVA" id="JDP-HY-seX"/>
                         <outlet property="goodsNameField" destination="fex-o4-Zg5" id="FZI-hB-2Zz"/>
                         <outlet property="receSiteTxtView" destination="yk4-sB-sJa" id="GHz-PQ-6cP"/>
                         <outlet property="sendDateField" destination="qbI-sM-Q2s" id="nNw-hK-90M"/>
@@ -1447,7 +1464,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入运单号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nca-ZA-Fd0">
-                                                                    <rect key="frame" x="72" y="10" width="241" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="241" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -1582,7 +1599,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件网点" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eIX-7l-Coy">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -1646,7 +1663,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="目的网点" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O78-ru-zd5">
-                                                                    <rect key="frame" x="90" y="10" width="275" height="20"/>
+                                                                    <rect key="frame" x="90" y="9.5" width="275" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -1710,7 +1727,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="中转中心" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hqk-rR-uHU">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -2027,7 +2044,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="件数" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gu5-Dh-h6O">
-                                                                    <rect key="frame" x="72" y="10" width="293" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="293" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -2167,7 +2184,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件日期" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LaL-sP-CjK">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -2231,7 +2248,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件网点" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4e-wn-gTb">
-                                                                    <rect key="frame" x="91" y="10" width="264.5" height="20"/>
+                                                                    <rect key="frame" x="91" y="9.5" width="264.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -2287,10 +2304,24 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入运单号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cFc-LM-z0M">
-                                                                    <rect key="frame" x="72" y="10" width="233" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="153" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhT-Vf-cce">
+                                                                    <rect key="frame" x="230" y="0.0" width="75" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="75" id="RDE-I7-Zi8"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="lCP-sH-XUF"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <state key="normal" title="获取单号">
+                                                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="billNumBtn:" destination="Q8m-lg-IZB" eventType="touchUpInside" id="Bdf-LX-SYn"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1B-FR-Ezg" userLabel="separator">
                                                                     <rect key="frame" x="63" y="12.5" width="1" height="15"/>
                                                                     <color key="backgroundColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -2303,11 +2334,13 @@
                                                             <constraints>
                                                                 <constraint firstItem="cFc-LM-z0M" firstAttribute="centerY" secondItem="vzF-vw-xIZ" secondAttribute="centerY" id="Cir-Rt-zRm"/>
                                                                 <constraint firstItem="B1B-FR-Ezg" firstAttribute="centerY" secondItem="vzF-vw-xIZ" secondAttribute="centerY" id="Gm8-OT-p5W"/>
+                                                                <constraint firstItem="yhT-Vf-cce" firstAttribute="leading" secondItem="cFc-LM-z0M" secondAttribute="trailing" constant="5" id="Ip1-AF-9A8"/>
                                                                 <constraint firstItem="vzF-vw-xIZ" firstAttribute="leading" secondItem="tIe-0Q-sLa" secondAttribute="leading" constant="8" id="J7N-g8-g2p"/>
                                                                 <constraint firstItem="B1B-FR-Ezg" firstAttribute="leading" secondItem="vzF-vw-xIZ" secondAttribute="trailing" constant="3" id="TTb-vq-nN9"/>
                                                                 <constraint firstItem="vzF-vw-xIZ" firstAttribute="centerY" secondItem="tIe-0Q-sLa" secondAttribute="centerY" id="U7C-wa-GpB"/>
+                                                                <constraint firstItem="yhT-Vf-cce" firstAttribute="centerY" secondItem="cFc-LM-z0M" secondAttribute="centerY" id="g9J-ri-ud9"/>
                                                                 <constraint firstItem="cFc-LM-z0M" firstAttribute="leading" secondItem="B1B-FR-Ezg" secondAttribute="trailing" constant="8" id="n25-Ae-DlU"/>
-                                                                <constraint firstAttribute="trailing" secondItem="cFc-LM-z0M" secondAttribute="trailing" id="w0l-x0-XGe"/>
+                                                                <constraint firstAttribute="trailing" secondItem="cFc-LM-z0M" secondAttribute="trailing" constant="80" id="w0l-x0-XGe"/>
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdf-H2-vJt">
@@ -2707,7 +2740,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入件数" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qZx-C9-hYo">
-                                                                    <rect key="frame" x="72" y="10" width="293" height="20"/>
+                                                                    <rect key="frame" x="72" y="9.5" width="293" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -2783,6 +2816,7 @@
                         <outlet property="billNumField" destination="cFc-LM-z0M" id="rj1-2U-aOY"/>
                         <outlet property="countField" destination="qZx-C9-hYo" id="zIm-KA-xoB"/>
                         <outlet property="destAdrField" destination="WCw-mv-wq9" id="me4-nt-F53"/>
+                        <outlet property="fetchBillBtn" destination="yhT-Vf-cce" id="Z7J-R8-dZD"/>
                         <outlet property="goodsNameField" destination="WB9-FA-rko" id="4ch-rP-mc9"/>
                         <outlet property="sendDateField" destination="LaL-sP-CjK" id="b6T-I0-97u"/>
                         <outlet property="sendSiteField" destination="a4e-wn-gTb" id="Wse-2e-aGl"/>
@@ -2845,7 +2879,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件日期" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dHY-Tb-e6Q">
-                                                                    <rect key="frame" x="91" y="11.5" width="264.5" height="17"/>
+                                                                    <rect key="frame" x="91" y="11" width="264.5" height="18.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -2909,7 +2943,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件网点" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xst-Aa-ebf">
-                                                                    <rect key="frame" x="91" y="11.5" width="264.5" height="17"/>
+                                                                    <rect key="frame" x="91" y="11" width="264.5" height="18.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -2973,7 +3007,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收件员" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kmj-P3-fqN">
-                                                                    <rect key="frame" x="91" y="11" width="46" height="18"/>
+                                                                    <rect key="frame" x="91" y="10.5" width="46" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -3028,7 +3062,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入运单号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLu-nv-aIV">
-                                                                    <rect key="frame" x="72" y="11" width="158" height="18"/>
+                                                                    <rect key="frame" x="72" y="10.5" width="158" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -3133,7 +3167,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件人" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jqA-45-MES">
-                                                                    <rect key="frame" x="90" y="11" width="275" height="18"/>
+                                                                    <rect key="frame" x="90" y="10.5" width="275" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -3199,7 +3233,7 @@
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件电话" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2hI-YP-Iac">
                                                                     <rect key="frame" x="91" y="0.0" width="274" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -3533,7 +3567,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收件人" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="31e-bp-nnB">
-                                                                    <rect key="frame" x="90" y="11" width="275" height="18"/>
+                                                                    <rect key="frame" x="90" y="10.5" width="275" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -3599,7 +3633,7 @@
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收件电话" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LMJ-CC-hgc">
                                                                     <rect key="frame" x="91" y="0.0" width="274" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -3936,7 +3970,7 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFE-FX-ily">
                                                                     <rect key="frame" x="90" y="3" width="275" height="34"/>
                                                                     <connections>
-                                                                        <action selector="wangdianBtnClicked:" destination="gWr-Re-T6w" eventType="touchUpInside" id="sci-z9-6Qp"/>
+                                                                        <action selector="wangdianBtnClicked:" destination="GAx-WS-NwS" eventType="touchUpInside" id="lo9-Se-SKb"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -4120,7 +4154,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="nzA-fB-oDL">
-                                        <rect key="frame" x="0.0" y="1080" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1140" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nzA-fB-oDL" id="ixx-zs-O5u">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4197,7 +4231,7 @@
                             <tableViewSection id="TfB-h6-Zuq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="u4j-h3-tdh">
-                                        <rect key="frame" x="0.0" y="1166" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1160" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u4j-h3-tdh" id="fpw-Nf-Ph5">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4266,7 +4300,7 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swY-BI-MxB">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <state key="normal" title="类型">
+                                                                    <state key="normal">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                     <connections>
@@ -4308,7 +4342,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="T4r-Gr-5a7">
-                                        <rect key="frame" x="0.0" y="1216" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1210" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T4r-Gr-5a7" id="XhH-XL-hd8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4340,7 +4374,7 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVq-AB-mkD">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <state key="normal" title="运输方式">
+                                                                    <state key="normal">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                     <connections>
@@ -4382,7 +4416,7 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIl-8s-nSX">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <state key="normal" title="派送">
+                                                                    <state key="normal">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                     <connections>
@@ -4424,7 +4458,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="WX8-uj-BoX">
-                                        <rect key="frame" x="0.0" y="1266" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1260" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WX8-uj-BoX" id="29y-qx-iCu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4530,7 +4564,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="D2f-G1-coN">
-                                        <rect key="frame" x="0.0" y="1316" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1310" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D2f-G1-coN" id="ufZ-YW-v4j">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4636,7 +4670,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="ptC-k0-Zqh">
-                                        <rect key="frame" x="0.0" y="1366" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1360" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ptC-k0-Zqh" id="rEG-rQ-qnp">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4742,7 +4776,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="RJk-9w-foq">
-                                        <rect key="frame" x="0.0" y="1416" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1410" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RJk-9w-foq" id="10E-52-dOU">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4772,7 +4806,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="子单号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-hU-EJZ">
-                                                                    <rect key="frame" x="90" y="11" width="275" height="18.5"/>
+                                                                    <rect key="frame" x="90" y="10.5" width="275" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -4810,7 +4844,7 @@
                             <tableViewSection id="kXt-vU-h8J">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="UP0-qe-ssa">
-                                        <rect key="frame" x="0.0" y="1502" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1496" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UP0-qe-ssa" id="QX5-RA-l1M">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4844,6 +4878,17 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-qw-EvE">
+                                                                    <rect key="frame" x="82" y="0.0" width="92" height="40"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <state key="normal">
+                                                                        <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="payType:" destination="GAx-WS-NwS" eventType="touchUpInside" id="rSw-ki-RS0"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="4UO-N6-Eqp" firstAttribute="leading" secondItem="A5p-Aq-fRi" secondAttribute="trailing" id="3iF-cT-k8Q"/>
@@ -4916,7 +4961,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="6yp-Sm-iDw">
-                                        <rect key="frame" x="0.0" y="1552" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1546" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yp-Sm-iDw" id="qrn-9i-GZ8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -4981,7 +5026,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="jdy-YF-G1f">
-                                        <rect key="frame" x="0.0" y="1602" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1596" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jdy-YF-G1f" id="ySq-7f-9tV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -5013,7 +5058,7 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="保险费：2.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNa-zP-E7G" userLabel="保险费">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="保险费:2.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNa-zP-E7G" userLabel="保险费">
                                                                     <rect key="frame" x="250" y="10" width="95" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -5045,7 +5090,7 @@
                             <tableViewSection id="DDk-zS-rZI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="hw8-LX-c3b">
-                                        <rect key="frame" x="0.0" y="1688" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1682" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hw8-LX-c3b" id="e5A-aR-8oh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -5116,7 +5161,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="4WL-tu-8ah">
-                                        <rect key="frame" x="0.0" y="1738" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1732" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4WL-tu-8ah" id="sfE-PX-Fzm">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -5193,7 +5238,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="uOe-mI-LbH">
-                                        <rect key="frame" x="0.0" y="1848" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1782" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOe-mI-LbH" id="7kk-xx-ZgF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -5555,13 +5600,13 @@
                         <outlet property="chaoQuFei" destination="DEK-uo-XSs" id="dPd-dh-tf6"/>
                         <outlet property="chaoZhongJianShu" destination="yOn-tT-GHT" id="0OE-Wr-F4q"/>
                         <outlet property="deliverTypeBtn" destination="pIl-8s-nSX" id="7iL-QW-1VL"/>
-                        <outlet property="destAdrField" destination="KTG-Ef-02D" id="SR8-nZ-zHK"/>
+                        <outlet property="destSiteField" destination="KTG-Ef-02D" id="ZZL-N8-QWi"/>
                         <outlet property="destSiteSupBtn" destination="zYV-4c-q6z" id="XEn-px-Wfx"/>
                         <outlet property="fetchBillBtn" destination="lyP-sF-au6" id="4n8-rP-klh"/>
                         <outlet property="goodsNameField" destination="JXb-kr-IUf" id="haJ-9q-85n"/>
                         <outlet property="jiSiteSupBtn" destination="qfC-R2-poe" id="zbk-ec-yZ8"/>
                         <outlet property="jianShuField" destination="L1T-nk-lDD" id="ebj-Pr-qug"/>
-                        <outlet property="jinE" destination="4N9-K2-GRT" id="we3-tE-zTM"/>
+                        <outlet property="jinE" destination="1IG-bt-sC0" id="XmK-67-Hi2"/>
                         <outlet property="managerFeeField" destination="fpZ-Wa-CCX" id="ZLV-X1-Or0"/>
                         <outlet property="overLen" destination="csm-Co-BT4" id="wCQ-Mk-Yt5"/>
                         <outlet property="overWeightBtn" destination="jVO-AL-5UH" id="bdh-Kl-uGE"/>

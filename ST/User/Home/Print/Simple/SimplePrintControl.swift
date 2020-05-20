@@ -23,6 +23,7 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var countField: UITextField!
 //    @IBOutlet weak var expressBtn: UIButton!
+  @IBOutlet weak var fetchBillBtn: UIButton!
     
     let billInfo:NSMutableDictionary  = NSMutableDictionary();
     
@@ -32,17 +33,18 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     }
     
     //MARK:- private methods
-    func setupUI() {
-        self.title = "单票录入(简)";
-        for  view in self.containerViewCollect {
-            view.setupDashLine();
-        }
-        self.submitBtn.layer.cornerRadius = 5;
-        self.submitBtn.layer.masksToBounds = true;
-//        self.receSiteTxtView.placeholder = "输入地址";
-        self.sendDateField.text = self.currentDateStr();
-        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
+  func setupUI() {
+    self.title = "单票录入(简)";
+    for  view in self.containerViewCollect {
+      view.setupDashLine();
     }
+    self.submitBtn.layer.cornerRadius = 5;
+    self.submitBtn.layer.masksToBounds = true;
+    fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
+    //        self.receSiteTxtView.placeholder = "输入地址";
+    self.sendDateField.text = self.currentDateStr();
+    self.sendSiteField.text = DataManager.shared.loginUser.siteName;
+  }
     
     func currentDateStr() -> String {
         let dateFormat = DateFormatter();
@@ -195,6 +197,10 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     @IBAction func scanBtnClicked(_ sender: Any) {
         self.openQrReader()
     }
+  // huo qu yundan hao 
+  @IBAction func billNumBtn(_ sender: Any) {
+      
+  }
     
     //MARK:- request server
     //提交录单数据
@@ -228,6 +234,29 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
             }
         }
     }
+  
+  
+  //app获取电子面单接口
+  func fetchBillNum(){
+    self.showLoading(msg: "查询中...")
+    //    let baseUrl = "AndroidServiceST-M8/"
+    //    let reqUrl = Consts.Server + baseUrl + "m8/getElectronic.do"
+    let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
+    STHelper.POST(url: reqUrl, params: nil) {
+      [unowned self](result, data) in
+      self.hideLoading()
+      if (result == .reqSucc) {
+        if let billCode = data as? String{
+          self.billNumField.text = billCode
+        }
+      }else{
+        guard let msg = data as? String else {
+          return
+        }
+        self.remindUser(msg: msg)
+      }
+    }
+  }
     
     //MARK:- WangdianPickerInterface
     func onWangdianPicked(item:SiteInfo){
