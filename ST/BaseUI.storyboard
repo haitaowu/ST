@@ -4263,7 +4263,7 @@
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="货物名称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JXb-kr-IUf">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                    <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -4487,7 +4487,7 @@
                                                                         <constraint firstAttribute="width" constant="1" id="ZSR-vO-Cvu"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="实际重量" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdy-UN-YIX">
+                                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="实际重量" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdy-UN-YIX">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -4593,7 +4593,7 @@
                                                                         <constraint firstAttribute="height" constant="15" id="bHS-qJ-eUA"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="体积" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QtB-Ze-H2a">
+                                                                <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="体积" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QtB-Ze-H2a">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>

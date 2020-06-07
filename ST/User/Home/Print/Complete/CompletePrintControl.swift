@@ -14,7 +14,7 @@ enum AdrKey: String{
 }
 
 
-class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInterface {
+class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInterface,UITextFieldDelegate {
 	let kSectionSend = 1
 	let kSectionReceive = 2
 	
@@ -182,11 +182,13 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
 		self.tableView.register(MenuRSHeader.headerNib(), forHeaderFooterViewReuseIdentifier: MenuRSHeader.headerID())
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style:.plain, target: self, action: #selector(CompletePrintControl.saveBill))
+		
+		self.weightField.delegate = self
+		self.volumeField.delegate = self
 	}
 	
 	
-	
-	
+
 	func currentDateStr() -> String {
 		let dateFormat = DateFormatter()
 		dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -631,6 +633,51 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.paiSiteField.text = item.siteName
 	}
 	
+	//MARK:- UITExtField delegate
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		if textField.tag == 100 {
+			let weightStr = self.weightField.text!
+			let weightD = Double(weightStr) ?? 0.0
+			
+			let volWeightStr = self.volumeWeightField.text!
+			let volWeightD = Double(volWeightStr) ?? 0.0
+			
+			let weight = weightD > volWeightD ? weightD : volWeightD
+			if weight != 0.0{
+				let calWeightStr = String(weight)
+				self.calWeightField.text = calWeightStr
+			}else{
+				self.calWeightField.text = ""
+			}
+
+			
+		}else if textField.tag == 101 {
+			let weightStr = self.weightField.text!
+			let weightD = Double(weightStr) ?? 0.0
+			
+			let volStr = self.volumeField.text!
+			let vol = Double(volStr) ?? 0.0
+			let volWeight = vol * 200
+			
+			if volWeight > 0.0 {
+				let volWeigthStr = String(volWeight)
+				self.volumeWeightField.text = volWeigthStr
+			}else{
+				self.volumeWeightField.text = ""
+			}
+			
+			let weight = weightD > volWeight ? weightD : volWeight
+			if weight != 0.0{
+				let calWeightStr = String(weight)
+				self.calWeightField.text = calWeightStr
+			}else{
+				self.calWeightField.text = ""
+			}
+			
+			
+		}
+		
+	}
 	
 	//MARK:- 二维码扫描
 	func onReadQrCode(code: String) {
@@ -885,13 +932,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			params["blOverWeight"] = 0
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+
 		//进仓标识-- int ;
 		if self.storeBtn.isSelected {
 			params["blIntoWarehouse"] = 1
@@ -929,11 +970,11 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}
 		
 		//发货短信标识--
-			if self.sendMsgBtn.isSelected{
-				params["blMessage"] = 1
-			}else{
-				params["blMessage"] = 0
-			}
+		if self.sendMsgBtn.isSelected{
+			params["blMessage"] = 1
+		}else{
+			params["blMessage"] = 0
+		}
 		
 		
 		return params
