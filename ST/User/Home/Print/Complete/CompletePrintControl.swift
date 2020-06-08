@@ -160,8 +160,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}else if keyPath == "destSiteField.text" {
 			print("observer for destSiteField.text")
 			if let newValue = change?[.newKey] as? String{
-				let params:Parameters = ["siteName":newValue]
-				self.fetchSiteSuperName(params: params, view: self.destSiteSupBtn)
+//				let params:Parameters = ["siteName":newValue]
+				self.fetchSiteSuperName(siteName: newValue, view: self.destSiteSupBtn)
 			}
 		}
 	}
@@ -330,10 +330,10 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	//show devliver types action sheetpicker
-	func showDeliverTypeSheet(types: Array<Dictionary<String,Any>>){
+	func showDeliverTypeSheet(types: [ExpressTypeModel]){
 		var typeAry: [String] = []
 		for type in types{
-			let name = type["dispatchCame"] as? String ?? ""
+			let name = type.dispatchCame
 			typeAry.append(name)
 		}
 		
@@ -601,8 +601,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//寄件网点所属中心
 	@IBAction func sendSite(_ sender: UIButton) {
 		let siteName = DataManager.shared.loginUser.siteName
-		let params:Parameters = ["siteName":siteName]
-		self.fetchSiteSuperName(params: params, view: sender)
+//		let params:Parameters = ["siteName":siteName]
+		self.fetchSiteSuperName(siteName: siteName, view: sender)
 	}
 	
 	
@@ -1126,8 +1126,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//app获取电子面单接口
 	func fetchBillNum(){
 		self.showLoading(msg: "查询中...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getElectronic.do"
 		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
 		STHelper.POST(url: reqUrl, params: nil) {
 			[unowned self](result, data) in
@@ -1178,6 +1176,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		STNetworking<[TransportType]>(stRequest: req) {
 			[unowned self] (resp) in
+			self.hideLoading()
 			if resp.stauts == Status.Success.rawValue{
 				self.showTranTypeSheet(types: resp.data)
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
@@ -1187,57 +1186,51 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 				self.remindUser(msg: msg)
 			}
 		}?.resume()
+	}
+	
+	
+	//查询派送方式
+	func fetchDeliverType(){
+		self.showLoading(msg: "")
+
+		let req = ExpressReq()
+		STNetworking<[ExpressTypeModel]>(stRequest: req) {
+			[unowned self](resp) in
+			self.hideLoading()
+			if resp.stauts == Status.Success.rawValue{
+				if resp.data.count > 0 {
+					self.showDeliverTypeSheet(types: resp.data)
+				}
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络请求超时")
+			}else{
+				let msg = resp.msg
+				self.remindUser(msg: msg)
+			}
+		}?.resume()
 		
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getClasses.do"
-//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getClasses.do"
+//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/gettabDispatchMode.do"
 //
 //		STHelper.POST(url: reqUrl, params: nil) {
 //			[unowned self](result, data) in
 //			self.hideLoading()
 //			if (result == .reqSucc) {
 //				if let dataAry = data as? Array<Dictionary<String,Any>>{
-//					self.showTranTypeSheet(types: dataAry)
+//					self.showDeliverTypeSheet(types: dataAry)
 //				}
 //			}else{
 //				guard let msg = data as? String else {
 //					return
 //				}
-//				self.remindUser(msg: msg) 
+//				self.remindUser(msg: msg)
 //			}
 //		}
-	}
-	
-	
-	//查询派送方式
-	func fetchDeliverType(){
-		self.showLoading(msg: "查询派送...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/gettabDispatchMode.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/gettabDispatchMode.do"
-		
-		STHelper.POST(url: reqUrl, params: nil) {
-			[unowned self](result, data) in
-			self.hideLoading()
-			if (result == .reqSucc) {
-				if let dataAry = data as? Array<Dictionary<String,Any>>{
-					self.showDeliverTypeSheet(types: dataAry)
-				}
-			}else{
-				guard let msg = data as? String else {
-					return
-				}
-				self.remindUser(msg: msg)
-			}
-		}
 	}
 	
 	
   //query jijian province city district
   func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey){
     self.showLoading(msg: "数据加载中...")
-    //		let baseUrl = "AndroidServiceST-M8/"
-    //		let reqUrl = Consts.Server + baseUrl + "m8/getProvinceCityTown.do"
 
 	let req = AddressReq(adrModel: model)
 	STNetworking<[AdrModel]>(stRequest: req) {
@@ -1255,50 +1248,46 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}
 	}?.resume()
 	
-	
-//
-//    let reqUrl="http://58.215.182.252:8119/AndroidServiceST-M8/m8/getProvinceCityTown.do"
-//    STHelper.POST(url: reqUrl, params: params) {
-//      [unowned self](result, data) in
-//      self.hideLoading()
-//      if (result == .reqSucc) {
-//        if let dataAry = data as? Array<Dictionary<String,Any>>{
-//          self.showAdrActSheet(key: key, adrs: dataAry, view: view)
-//        }
-//      }else{
-//        guard let msg = data as? String else {
-//          return
-//        }
-//        self.remindUser(msg: msg)
-//      }
-//    }
-	
   }
 	
 	
 	//查询寄件网点所属分拨中心
-  func fetchSiteSuperName(params: Parameters, view: UIButton){
-    self.showLoading(msg: "查询...")
-    //		let baseUrl = "AndroidServiceST-M8/"
-    //		let reqUrl = Consts.Server + baseUrl + "m8/gettabDispatchMode.do"
-    let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/qryFbCenter.do"
-    
-    STHelper.POST(url: reqUrl, params: params) {
-      [unowned self](result, data) in
-      self.hideLoading()
-      if (result == .reqSucc) {
-        if let siteName = data as? String{
-          let nameStr = siteName.replacingAll(matching: ";", with: "")
-          view.setTitle(nameStr, for: .normal)
-        }
-      }else{
-        guard let msg = data as? String else {
-          return
-        }
-        self.remindUser(msg: msg)
-      }
-    }
-  }
+	func fetchSiteSuperName(siteName: String, view: UIButton){
+		self.showLoading(msg: "查询...")
+		let req = SiteRequest(siteName: siteName)
+		STNetworking<String>(stRequest: req) {
+			[unowned self] (resp) in
+			self.hideLoading()
+			if resp.stauts == Status.Success.rawValue{
+				let site = resp.data
+				let nameStr = site.replacingAll(matching: ";", with: "")
+				view.setTitle(nameStr, for: .normal)
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "请求超时")
+			}else{
+				let msg = resp.msg
+				self.remindUser(msg: msg)
+			}
+			}?.resume()
+	}
+	
+//	let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/qryFbCenter.do"
+//	STHelper.POST(url: reqUrl, params: params) {
+//	[unowned self](result, data) in
+//	self.hideLoading()
+//	if (result == .reqSucc) {
+//	if let siteName = data as? String{
+//	let nameStr = siteName.replacingAll(matching: ";", with: "")
+//	view.setTitle(nameStr, for: .normal)
+//	}
+//	}else{
+//	guard let msg = data as? String else {
+//	return
+//	}
+//	self.remindUser(msg: msg)
+//	}
+//	}
+
   
 	
 	

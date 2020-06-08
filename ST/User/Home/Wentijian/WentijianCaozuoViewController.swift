@@ -143,19 +143,20 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
             self.pickImageByPhotoLibrary();
         }
     }
+	
     //MARK:- private methods
     // convert UIImage to NSString
 //    func stringForImage(img: UIImage) -> String? {
 //        let data = UIPng
 //    }
     
-    func timeStrWith(format:String) -> String{
-        let dateFormat = DateFormatter.init();
-        dateFormat.dateFormat = format;
-        let date:Date = Date();
-        let dateStr = dateFormat.string(from: date);
-        return dateStr;
-    }
+//    func timeStrWith(format:String) -> String{
+//        let dateFormat = DateFormatter.init();
+//        dateFormat.dateFormat = format;
+//        let date:Date = Date();
+//        let dateStr = dateFormat.string(from: date);
+//        return dateStr;
+//    }
     
     
     func compressImageStringFor(img :UIImage?) -> String? {
@@ -269,7 +270,8 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
         
         let pic = self.compressImageStringFor(img: self.proImg);
         var problemParams: Parameters = [:];
-        let timeStr = self.timeStrWith(format:"hhmmss");
+//        let timeStr = self.timeStrWith(format:"hhmmss");
+		let timeStr = Date().dateStringFrom(dateFormat: "hhmmss")
         problemParams["ID"] =  timeStr
         problemParams["fileType"] =  "png"
         problemParams["BILL_CODE"] =  ydh
@@ -315,6 +317,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
                 if let stauts = json.value(forKey: "stauts"){
                     if let statusNum = stauts as? Int{
                         if statusNum == 4{
+							STDb.shared.removeAllWtj()
                             self.remindUser(msg: "上传成功")
                         }else{
                             let msg = json.value(forKey: "msg") as? String

@@ -41,13 +41,13 @@ class FinancialController: UIViewController ,UITextFieldDelegate,WangdianPickerI
         self.showWangdianPicker();
     }
     
-    func timeStrWith(format:String) -> String{
-        let dateFormat = DateFormatter.init();
-        dateFormat.dateFormat = format;
-        let date:Date = Date();
-        let dateStr = dateFormat.string(from: date);
-        return dateStr;
-    }
+//    func timeStrWith(format:String) -> String{
+//        let dateFormat = DateFormatter.init();
+//        dateFormat.dateFormat = format;
+//        let date:Date = Date();
+//        let dateStr = dateFormat.string(from: date);
+//        return dateStr;
+//    }
     
     //MARK:- WangdianPickerInterface protocol
     func onWangdianPicked(item: SiteInfo) {
@@ -123,7 +123,8 @@ class FinancialController: UIViewController ,UITextFieldDelegate,WangdianPickerI
             Rec["REMARK"] = REMARK
         }
         
-        let ID = self.timeStrWith(format:"hhmmss");
+//        let ID = self.timeStrWith(format:"hhmmss");
+		let ID = Date().dateStringFrom(dateFormat: "hhmmss")
         
         Rec["ID"] = ID
         var params: Parameters = [:];

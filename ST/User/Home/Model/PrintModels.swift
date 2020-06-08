@@ -68,4 +68,29 @@ struct AddressReq: STRequest{
 
 
 
+//pai song fang shi
+struct ExpressTypeModel: SimpleCodable{
+	let dispatchCode: String = ""
+	let dispatchCame: String = ""
+}
 
+struct ExpressReq: STRequest {
+	var logicUrl: String{
+		return "m8/gettabDispatchMode.do"
+	}
+	
+}
+
+
+//ce shi wang dian suo shu feng bo zhong xin
+struct SiteRequest: STRequest{
+	let siteName: String
+	var logicUrl: String{
+		return "m8/qryFbCenter.do"
+	}
+	
+	var parameters: [AnyHashable : Any]{
+		return ["siteName": siteName]
+	}
+	
+}

@@ -44,6 +44,8 @@ extension Array:SimpleCodable{
 extension Dictionary:SimpleCodable{
 }
 
+extension String: SimpleCodable{}
+
 protocol SimpleCodable:HandyJSON{
     static func decode(data:Data?) -> Self?
     func encode() -> Data?

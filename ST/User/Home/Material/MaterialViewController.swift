@@ -38,14 +38,15 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
     }
     
     //MARK:- private
-    func timeStrWith(format:String) -> String{
-        let dateFormat = DateFormatter.init();
-        dateFormat.dateFormat = format;
-        let date:Date = Date();
-        let dateStr = dateFormat.string(from: date);
-        return dateStr;
-    }
+//    func timeStrWith(format:String) -> String{
+//        let dateFormat = DateFormatter.init();
+//        dateFormat.dateFormat = format;
+//        let date:Date = Date();
+//        let dateStr = dateFormat.string(from: date);
+//        return dateStr;
+//    }
     
+	
     func pickSite() {
         self.showWangdianPicker();
     }
@@ -122,7 +123,8 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
             return;
         }
         
-        let timeStr = self.timeStrWith(format:"yyyy-MM-dd hh:mm:ss");
+//        let timeStr = self.timeStrWith(format:"yyyy-MM-dd hh:mm:ss");
+		let timeStr = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
         var rec: Parameters = [:];
         rec["USER_SITE"] =  siteStr
         rec["APPLY_DATE"] =  timeStr
