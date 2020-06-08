@@ -147,25 +147,24 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	deinit {
-		print("deinit....")
 		self.removeObserver(self, forKeyPath: "billNumField.text")
 	}
 	
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == "billNumField.text" {
-      print("observer for billNumField.text")
-      if let newValue = change?[.newKey] as? String{
-        let params: Parameters = ["billCode": newValue]
-        self.fetchBillDetailInfo(params: params)
-      }
-    }else if keyPath == "destSiteField.text" {
-      print("observer for destSiteField.text")
-      if let newValue = change?[.newKey] as? String{
-        let params:Parameters = ["siteName":newValue]
-        self.fetchSiteSuperName(params: params, view: self.destSiteSupBtn)
-      }
-    }
-  }
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == "billNumField.text" {
+			print("observer for billNumField.text")
+			if let newValue = change?[.newKey] as? String{
+				let params: Parameters = ["billCode": newValue]
+				self.fetchBillDetailInfo(params: params)
+			}
+		}else if keyPath == "destSiteField.text" {
+			print("observer for destSiteField.text")
+			if let newValue = change?[.newKey] as? String{
+				let params:Parameters = ["siteName":newValue]
+				self.fetchSiteSuperName(params: params, view: self.destSiteSupBtn)
+			}
+		}
+	}
 	
 	//base setup for ui
 	func setupUI() {
@@ -313,10 +312,12 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	//show transports types action sheetpicker
-	func showTranTypeSheet(types: Array<Dictionary<String,Any>>){
+//	func showTranTypeSheet(types: Array<Dictionary<String,Any>>){
+	func showTranTypeSheet(types: [TransportType]){
 		var typeAry: [String] = []
 		for type in types{
-			let name = type["className"] as? String ?? ""
+//			let name = type["className"] as? String ?? ""
+			let name = type.className
 			typeAry.append(name)
 		}
 		
@@ -345,14 +346,20 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	//show province city town action sheet picker
-	func showAdrActSheet(key: String, adrs: Array<Dictionary<String,Any>>, view: UIButton){
+//	func showAdrActSheet(key: String, adrs: Array<Dictionary<String,Any>>, view: UIButton){
+	func showAdrActSheet(key: AdrKey, adrs: [AdrModel], view: UIButton){
+		guard adrs.count > 0 else{
+			self.remindUser(msg: "未查询到城市信息")
+			return
+		}
 		var adrAry: [String] = []
 		for adr in adrs{
-			let name = adr[key] as? String ?? ""
+			let name = adr[key]
 			adrAry.append(name)
 		}
 		
-		ActionSheetStringPicker.show(withTitle: "", rows: adrAry, initialSelection: 0, doneBlock: { [unowned self](picker, index, val) in
+		ActionSheetStringPicker.show(withTitle: "", rows: adrAry, initialSelection: 0, doneBlock: {
+			[unowned self](picker, index, val) in
 			if let title = val as? String{
 				view.setTitle(title, for: .normal)
 			}
@@ -488,67 +495,75 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//寄件人省
 	@IBAction func sendProvince(_ sender: UIButton) {
 		print("寄件人省")
-		self.fetchAddressInfo(params: nil, view: sender, key: AdrKey.province.rawValue)
+		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province)
 	}
 	
 	//寄件人市
 	@IBAction func sendCity(_ sender: UIButton) {
 		print("寄件人市")
-		var params:Parameters = [:]
 		guard let province = self.sendProvinceBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择寄件省")
 			return
 		}
-		params[AdrKey.province.rawValue] = province
-		self.fetchAddressInfo(params: params, view: sender, key: AdrKey.city.rawValue)
+		var model = AdrModel()
+		model.province = province
+		self.fetchAddressInfo(model: model, view: sender, key: .city)
 	}
 	
 	//寄件人区
 	@IBAction func sendDistrict(_ sender: UIButton) {
-		var params:Parameters = [:]
+//		var params:Parameters = [:]
 		guard let province = self.sendProvinceBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择寄件省")
 			return
 		}
-		params[AdrKey.province.rawValue] = province
+//		params[AdrKey.province.rawValue] = province
 		guard let city = self.sendCityBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择寄件市")
 			return
 		}
-		params[AdrKey.city.rawValue] = city
-		self.fetchAddressInfo(params: params, view: sender, key: AdrKey.town.rawValue)
+//		params[AdrKey.city.rawValue] = city
+		var model = AdrModel()
+		model.province = province
+		model.city = city
+		self.fetchAddressInfo(model: model, view: sender, key: .town)
 	}
 	
 	//收件人省
 	@IBAction func receiveProvince(_ sender: UIButton) {
-		self.fetchAddressInfo(params: nil, view: sender, key: AdrKey.province.rawValue)
+		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province)
 	}
 	
 	//收件人市
 	@IBAction func receiveCity(_ sender: UIButton) {
-		var params:Parameters = [:]
+//		var params:Parameters = [:]
 		guard let province = self.recePronvinBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件省")
 			return
 		}
-		params[AdrKey.province.rawValue] = province
-		self.fetchAddressInfo(params: params, view: sender, key: AdrKey.city.rawValue)
+//		params[AdrKey.province.rawValue] = province
+		var model = AdrModel()
+		model.province = province
+		self.fetchAddressInfo(model: model, view: sender, key: .city)
 	}
 	
 	//收件人区
 	@IBAction func receiveDistrict(_ sender: UIButton) {
-		var params:Parameters = [:]
+//		var params:Parameters = [:]
 		guard let province = self.recePronvinBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件省")
 			return
 		}
-		params[AdrKey.province.rawValue] = province
+//		params[AdrKey.province.rawValue] = province
 		guard let city = self.receCityBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件市")
 			return
 		}
-		params[AdrKey.city.rawValue] = city
-		self.fetchAddressInfo(params: params, view: sender, key: AdrKey.town.rawValue)
+//		params[AdrKey.city.rawValue] = city
+		var model = AdrModel()
+		model.province = province
+		model.city = city
+		self.fetchAddressInfo(model: model, view: sender, key: .town)
 	}
 	
 	
@@ -573,6 +588,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			}
 		}catch{
 		}
+		
 		self.submitBillInfoWith(params: params)
 		
 	}
@@ -726,7 +742,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	func paramsSaveBill() -> Parameters?{
 		var params: Parameters = [:]
 		params["sendDate"] = self.sendDateField.text
-		if let billCode = self.billNumField.text {
+		if let billCode = self.billNumField.text,!billCode.isEmpty {
 			params["billCode"] = billCode
 		}else{
 			self.remindUser(msg: "请输入运单号")
@@ -741,172 +757,263 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 //		}
 		
 		
-		if let sendMan = self.senderField.text {
+		if let sendMan = self.senderField.text,!sendMan.isEmpty {
 			params["sendMan"] = sendMan
+		}else{
+			self.remindUser(msg: "请输入寄件人")
+			return nil
 		}
 		
 		//寄件省--
-		if let province = self.sendProvinceBtn.titleLabel?.text {
+		if let province = self.sendProvinceBtn.titleLabel?.text,!province.isEmpty {
 			params["province"] = province
+		}else{
+			self.remindUser(msg: "请输入寄件省")
+			return nil
 		}
 		
 		//寄件市--
-		if let city = self.sendCityBtn.titleLabel?.text {
+		if let city = self.sendCityBtn.titleLabel?.text,!city.isEmpty {
 			params["city"] = city
+		}else{
+			self.remindUser(msg: "请输入寄件市")
+			return nil
 		}
 		
 		//寄件区--
-		if let borough = self.sendDistBtn.titleLabel?.text {
+		if let borough = self.sendDistBtn.titleLabel?.text ,!borough.isEmpty{
 			params["borough"] = borough
+		}else{
+			self.remindUser(msg: "请输入寄件区")
+			return nil
 		}
 		
 		//寄件地？？？
-		if let sendAddress = self.sendAdrDetail.text {
-			params["sendAddress"] = sendAddress
-		}
+//		if let sendAddress = self.sendAdrDetail.text {
+//			params["sendAddress"] = sendAddress
+//		}
+		
 		//寄件地址--？？
-		if let sendManAddress = self.sendAdrDetail.text {
+		if let sendManAddress = self.sendAdrDetail.text,!sendManAddress.isEmpty {
 			params["sendManAddress"] = sendManAddress
+		}else{
+			self.remindUser(msg: "请输入寄件地址")
+			return nil
 		}
 		
-		if let sendManPhone = self.sendPhoneField.text {
+		if let sendManPhone = self.sendPhoneField.text,!sendManPhone.isEmpty {
 			params["sendManPhone"] = sendManPhone
+		}else{
+			self.remindUser(msg: "请输入寄件人电话")
+			return nil
 		}
 		
 		//收件人--
-		if let acceptMan = self.receiverField1.text {
+		if let acceptMan = self.receiverField1.text, !acceptMan.isEmpty {
 			params["acceptMan"] = acceptMan
+		}else{
+			self.remindUser(msg: "请输入收件人")
+			return nil
 		}
+		
 		//收件省--
-		if let provinceName = self.recePronvinBtn.titleLabel?.text {
+		if let provinceName = self.recePronvinBtn.titleLabel?.text,!provinceName.isEmpty {
 			params["provinceName"] = provinceName
+		}else{
+			self.remindUser(msg: "请选择收件省")
+			return nil
 		}
 		
 		//收件市--
-		if let cityName = self.receCityBtn.titleLabel?.text {
+		if let cityName = self.receCityBtn.titleLabel?.text, !cityName.isEmpty {
 			params["cityName"] = cityName
+		}else{
+			self.remindUser(msg: "请选择收件市")
+			return nil
 		}
 		
 		//收件区--
-		if let countyName = self.receDistBtn.titleLabel?.text {
+		if let countyName = self.receDistBtn.titleLabel?.text, !countyName.isEmpty{
 			params["countyName"] = countyName
+		}else{
+			self.remindUser(msg: "请选择收件区")
+			return nil
 		}
 		
 		//收件地址--
-		if let acceptManAddress = self.receAdrDetail.text {
+		if let acceptManAddress = self.receAdrDetail.text,!acceptManAddress.isEmpty {
 			params["acceptManAddress"] = acceptManAddress
+		}else{
+			self.remindUser(msg: "请输入收件地址")
+			return nil
 		}
 		
 		//收件电话--
-		if let acceptManPhone = self.recePhoneField.text {
+		if let acceptManPhone = self.recePhoneField.text,!acceptManPhone.isEmpty {
 			params["acceptManPhone"] = acceptManPhone
+		}else{
+			self.remindUser(msg: "请输入收件电话")
+			return nil
 		}
 		
 		//目的地--
-		if let destination = self.destSiteField.text {
+		if let destination = self.destSiteField.text, !destination.isEmpty {
 			params["destination"] = destination
+		}else{
+			self.remindUser(msg: "请选择目的地")
+			return nil
 		}
 		
 		//目的分拨中心--
-		if let destinationCenter = self.destSiteSupBtn.titleLabel?.text {
+		if let destinationCenter = self.destSiteSupBtn.titleLabel?.text,!destinationCenter.isEmpty {
 			params["destinationCenter"] = destinationCenter
+		}else{
+			self.remindUser(msg: "请选择目的分拨中心")
+			return nil
 		}
 		
 		//派件网点--
-		if let dispatchSite = self.paiSiteField.text {
+		if let dispatchSite = self.paiSiteField.text,!dispatchSite.isEmpty {
 			params["dispatchSite"] = dispatchSite
+		}else{
+			self.remindUser(msg: "请选择派件网点")
+			return nil
 		}
 		
 		//寄件网点分拨中心--
-		if let scanSite3 = self.jiSiteSupBtn.titleLabel?.text {
+		if let scanSite3 = self.jiSiteSupBtn.titleLabel?.text, !scanSite3.isEmpty {
 			params["scanSite3"] = scanSite3
+		}else{
+			self.remindUser(msg: "请选择寄件网点分拨中心")
+			return nil
 		}
 		
 		//货物名称--
-		if let goodsName = self.goodsNameField.text {
+		if let goodsName = self.goodsNameField.text, !goodsName.isEmpty {
 			params["goodsName"] = goodsName
+		}else{
+			self.remindUser(msg: "请输入货物名称")
+			return nil
 		}
+		
 		//包装类型--
-		if let packType = self.packageBtn.titleLabel?.text {
+		if let packType = self.packageBtn.titleLabel?.text, !packType.isEmpty {
 			params["packType"] = packType
+		}else{
+			self.remindUser(msg: "请选择包装类型")
+			return nil
 		}
 		
 		//结算重量--
-		if let settlementWeight = self.calWeightField.text {
+		if let settlementWeight = self.calWeightField.text, !settlementWeight.isEmpty {
 			params["settlementWeight"] = settlementWeight
 		}
+		
 		//实际重量--
-		if let billWeight = self.weightField.text {
+		if let billWeight = self.weightField.text, !billWeight.isEmpty {
 			params["billWeight"] = billWeight
+		}else{
+			self.remindUser(msg: "请输入实际重量")
+			return nil
 		}
+		
 		//体积--
-		if let volume = self.volumeField.text {
+		if let volume = self.volumeField.text,!volume.isEmpty {
 			params["volume"] = volume
+		}else{
+			self.remindUser(msg: "请输入体积")
+			return nil
 		}
+		
 		//体积重量--
-		if let volumeWeight = self.volumeWeightField.text {
+		if let volumeWeight = self.volumeWeightField.text, !volumeWeight.isEmpty {
 			params["volumeWeight"] = volumeWeight
 		}
 		
 		//派送方式--
-		if let dispatchMode = self.deliverTypeBtn.titleLabel?.text {
+		if let dispatchMode = self.deliverTypeBtn.titleLabel?.text,!dispatchMode.isEmpty {
 			params["dispatchMode"] = dispatchMode
+		}else{
+			self.remindUser(msg: "请选择派送方式")
+			return nil
 		}
 		
 		//运输方式--
-		if let classType = self.transportTypeBtn.titleLabel?.text {
+		if let classType = self.transportTypeBtn.titleLabel?.text, !classType.isEmpty {
 			params["classType"] = classType
+		}else{
+			self.remindUser(msg: "请选择运输方式")
+			return nil
 		}
 		
 		//件数--
-		if let pieceNumber = self.jianShuField.text {
+		if let pieceNumber = self.jianShuField.text, !pieceNumber.isEmpty {
 			params["pieceNumber"] = pieceNumber
+		}else{
+			self.remindUser(msg: "请输入件数")
+			return nil
 		}
+		
 		//管理费
-		if let manageFee = self.managerFeeField.text {
+		if let manageFee = self.managerFeeField.text, !manageFee.isEmpty {
 			params["manageFee"] = manageFee
+		}else{
+			self.remindUser(msg: "请输入管理费")
+			return nil
 		}
 		
 		//子单号--
-		if let billCodeSub = self.subBillField.text {
+		if let billCodeSub = self.subBillField.text, !billCodeSub.isEmpty {
 			params["billCodeSub"] = billCodeSub
 		}
 		
 		
 		//支付方式--
-		if let paymentType = self.payTypeField.text {
+		if let paymentType = self.payTypeField.text,!paymentType.isEmpty {
 			params["paymentType"] = paymentType
+		}else{
+			self.remindUser(msg: "请选择支付方式")
+			return nil
 		}
 		
 		//到付款--
-		if let topayment = self.payMoneyField.text {
+		if let topayment = self.payMoneyField.text, !topayment.isEmpty {
 			params["topayment"] = topayment
+		}else{
+			self.remindUser(msg: "请输入到付款")
+			return nil
 		}
 		
 		//运费--
-		if let freight = self.yunFeiField.text {
+		if let freight = self.yunFeiField.text, !freight.isEmpty {
 			params["freight"] = freight
+		}else{
+			self.remindUser(msg: "请输入运费")
+			return nil
 		}
+		
 		//保价金额--
-		if let insuredMoney = self.jinE.text {
+		if let insuredMoney = self.jinE.text,!insuredMoney.isEmpty {
 			params["insuredMoney"] = insuredMoney
+		}else{
+			self.remindUser(msg: "请输入保价金额")
+			return nil
 		}
 		
 		//保价费--
-		if let insureValueStr = self.payMoneyField.text {
+		if let insureValueStr = self.payMoneyField.text,!insureValueStr.isEmpty {
 			let ary = insureValueStr.split(separator: ":")
 			if ary.count > 1 {
 				let insureValue = ary.last
 				params["insureValue"] = insureValue
 			}
-			
 		}
 		
 		//回单标识-- int ;
 		if self.signBillBtn.isSelected {
 			params["blReturnBill"] = 1
 			//回单编号--
-			if let rBillcode = self.rebillField.text {
+			if let rBillcode = self.rebillField.text,!rBillcode.isEmpty {
 				params["rBillcode"] = rBillcode
 			}
 		}else{
@@ -925,7 +1032,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		if self.overWeightBtn.isSelected {
 			params["blOverWeight"] = 1
 			//超重件数--
-			if let overWeightPiece = self.chaoZhongJianShu.text {
+			if let overWeightPiece = self.chaoZhongJianShu.text,!overWeightPiece.isEmpty {
 				params["overWeightPiece"] = overWeightPiece
 			}
 		}else{
@@ -937,7 +1044,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		if self.storeBtn.isSelected {
 			params["blIntoWarehouse"] = 1
 			//进仓编号--
-			if let storageno = self.storeBillField.text {
+			if let storageno = self.storeBillField.text,!storageno.isEmpty {
 				params["storageno"] = storageno
 			}
 		}else{
@@ -946,19 +1053,24 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		
 		//其他费用--
-		if let otherFee = self.qiTaFei.text {
+		if let otherFee = self.qiTaFei.text,!otherFee.isEmpty {
 			params["otherFee"] = otherFee
 		}
+		
 		//送货费--
-		if let sendgoodsFee = self.songHuoFei.text {
+		if let sendgoodsFee = self.songHuoFei.text,!sendgoodsFee.isEmpty {
 			params["sendgoodsFee"] = sendgoodsFee
+		}else{
+			self.remindUser(msg: "请输入送货费")
+			return nil
 		}
+		
 		//超区费--
-		if let overAreaFee = self.chaoQuFei.text {
+		if let overAreaFee = self.chaoQuFei.text,!overAreaFee.isEmpty {
 			params["overAreaFee"] = overAreaFee
 		}
 		//上楼费--
-		if let upstairsFee = self.shangLouFei.text {
+		if let upstairsFee = self.shangLouFei.text,!upstairsFee.isEmpty {
 			params["upstairsFee"] = upstairsFee
 		}
 		
@@ -989,7 +1101,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	func submitBillInfoWith(params: Parameters) {
 		self.showLoading(msg: "提交中...")
 //		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/uploadBill.do"
+		let reqUrl = "http://58.215.182.252:8610/AndroidServiceSTIOS/m8/uploadBill.do"
 		STHelper.POST(url: reqUrl, params: params) {
 			[unowned self](result, data) in
 			self.hideLoading()
@@ -1062,25 +1174,40 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//查询运输方式
 	func fetchTransportType(){
 		self.showLoading(msg: "查询运输类型...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getClasses.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getClasses.do"
+		let req = TransportReq()
 		
-		STHelper.POST(url: reqUrl, params: nil) {
-			[unowned self](result, data) in
-			self.hideLoading()
-			if (result == .reqSucc) {
-				if let dataAry = data as? Array<Dictionary<String,Any>>{
-					self.showTranTypeSheet(types: dataAry)
-				}
+		STNetworking<[TransportType]>(stRequest: req) {
+			[unowned self] (resp) in
+			if resp.stauts == Status.Success.rawValue{
+				self.showTranTypeSheet(types: resp.data)
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-				guard let msg = data as? String else {
-					return
-				}
+				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
-		}
+		}?.resume()
+		
+		//		let baseUrl = "AndroidServiceST-M8/"
+		//		let reqUrl = Consts.Server + baseUrl + "m8/getClasses.do"
+//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getClasses.do"
+//
+//		STHelper.POST(url: reqUrl, params: nil) {
+//			[unowned self](result, data) in
+//			self.hideLoading()
+//			if (result == .reqSucc) {
+//				if let dataAry = data as? Array<Dictionary<String,Any>>{
+//					self.showTranTypeSheet(types: dataAry)
+//				}
+//			}else{
+//				guard let msg = data as? String else {
+//					return
+//				}
+//				self.remindUser(msg: msg) 
+//			}
+//		}
 	}
+	
 	
 	//查询派送方式
 	func fetchDeliverType(){
@@ -1107,26 +1234,45 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	
   //query jijian province city district
-  func fetchAddressInfo(params: Parameters?, view: UIButton, key: String){
-    self.showLoading(msg: "...")
+  func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey){
+    self.showLoading(msg: "数据加载中...")
     //		let baseUrl = "AndroidServiceST-M8/"
     //		let reqUrl = Consts.Server + baseUrl + "m8/getProvinceCityTown.do"
-    let reqUrl="http://58.215.182.252:8119/AndroidServiceST-M8/m8/getProvinceCityTown.do"
-    
-    STHelper.POST(url: reqUrl, params: params) {
-      [unowned self](result, data) in
-      self.hideLoading()
-      if (result == .reqSucc) {
-        if let dataAry = data as? Array<Dictionary<String,Any>>{
-          self.showAdrActSheet(key: key, adrs: dataAry, view: view)
-        }
-      }else{
-        guard let msg = data as? String else {
-          return
-        }
-        self.remindUser(msg: msg)
-      }
-    }
+
+	let req = AddressReq(adrModel: model)
+	STNetworking<[AdrModel]>(stRequest: req) {
+		[unowned self](resp) in
+		self.hideLoading()
+		if resp.stauts == Status.Success.rawValue{
+			let adrs = resp.data
+			print("adrs array: \(adrs)")
+			self.showAdrActSheet(key: key, adrs: adrs, view: view)
+		}else if resp.stauts == Status.NetworkTimeout.rawValue{
+			self.remindUser(msg: "网络超时，请稍后尝试")
+		}else{
+			let msg = resp.msg
+			self.remindUser(msg: msg)
+		}
+	}?.resume()
+	
+	
+//
+//    let reqUrl="http://58.215.182.252:8119/AndroidServiceST-M8/m8/getProvinceCityTown.do"
+//    STHelper.POST(url: reqUrl, params: params) {
+//      [unowned self](result, data) in
+//      self.hideLoading()
+//      if (result == .reqSucc) {
+//        if let dataAry = data as? Array<Dictionary<String,Any>>{
+//          self.showAdrActSheet(key: key, adrs: dataAry, view: view)
+//        }
+//      }else{
+//        guard let msg = data as? String else {
+//          return
+//        }
+//        self.remindUser(msg: msg)
+//      }
+//    }
+	
   }
 	
 	

@@ -4736,7 +4736,7 @@
                                                                         <constraint firstAttribute="height" constant="15" id="YIa-qf-6lD"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="管理费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpZ-Wa-CCX">
+                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="管理费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpZ-Wa-CCX">
                                                                     <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>

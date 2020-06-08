@@ -288,6 +288,7 @@
 		BEA67F20245D878700A9099C /* PrintMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67F1C245D878700A9099C /* PrintMenuController.xib */; };
 		BEA67F21245D878700A9099C /* PrintMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1D245D878700A9099C /* PrintMenuItem.swift */; };
 		BEA67F22245D878700A9099C /* PrintMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1E245D878700A9099C /* PrintMenuController.swift */; };
+		BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA76E90248DDBB800E341EA /* PrintModels.swift */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
@@ -654,6 +655,7 @@
 		BEA67F1C245D878700A9099C /* PrintMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuController.xib; sourceTree = "<group>"; };
 		BEA67F1D245D878700A9099C /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
 		BEA67F1E245D878700A9099C /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
+		BEA76E90248DDBB800E341EA /* PrintModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
@@ -1609,6 +1611,7 @@
 		BEA67F03245D875E00A9099C /* Print */ = {
 			isa = PBXGroup;
 			children = (
+				BEA76E8F248DDB9E00E341EA /* Model */,
 				BEA67F1A245D878700A9099C /* Menu */,
 				BEA67F04245D875E00A9099C /* Complete */,
 				BEA67F08245D875E00A9099C /* Simple */,
@@ -1663,6 +1666,15 @@
 			);
 			path = Menu;
 			sourceTree = "<group>";
+		};
+		BEA76E8F248DDB9E00E341EA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BEA76E90248DDBB800E341EA /* PrintModels.swift */,
+			);
+			name = Model;
+			path = ST/User/Home/Model;
+			sourceTree = SOURCE_ROOT;
 		};
 		BEAA3BB022B4F6A9006B0E1A /* DHome */ = {
 			isa = PBXGroup;
@@ -2082,6 +2094,7 @@
 				BE0EA7B92466478B0078E9F9 /* MenuRSHeader.swift in Sources */,
 				BE20A9971F6660EE00D2D753 /* NoticeCell.swift in Sources */,
 				BE0FC4F822BF404800271FED /* JXPhotoBrowserFadeDismissingAnimator.swift in Sources */,
+				BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */,
 				BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */,
 				BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */,
 				BE6B5CB7232DD6660076DB33 /* PwdBackCodeController.swift in Sources */,
