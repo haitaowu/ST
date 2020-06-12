@@ -208,23 +208,38 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
 	//app获取电子面单接口
 	func requestBillNum(){
 		self.showLoading(msg: "查询中...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getElectronic.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
-		STHelper.POST(url: reqUrl, params: nil) {
-			[unowned self](result, data) in
+		let req = BillNumReq()
+		STNetworking<String>(stRequest: req) {
+			[unowned self] (resp) in
 			self.hideLoading()
-			if (result == .reqSucc) {
-				if let billCode = data as? String{
-					self.billNumField.text = billCode
-				}
+			if resp.stauts == Status.Success.rawValue{
+				self.billNumField.text = resp.data
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-				guard let msg = data as? String else {
-					return
-				}
+				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
-		}
+		}?.resume()
+		
+		
+		//		let baseUrl = "AndroidServiceST-M8/"
+		//		let reqUrl = Consts.Server + baseUrl + "m8/getElectronic.do"
+//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
+//		STHelper.POST(url: reqUrl, params: nil) {
+//			[unowned self](result, data) in
+//			self.hideLoading()
+//			if (result == .reqSucc) {
+//				if let billCode = data as? String{
+//					self.billNumField.text = billCode
+//				}
+//			}else{
+//				guard let msg = data as? String else {
+//					return
+//				}
+//				self.remindUser(msg: msg)
+//			}
+//		}
 	}
 	
 	

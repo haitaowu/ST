@@ -45,6 +45,7 @@ struct AdrModel: SimpleCodable{
 
 struct AddressReq: STRequest{
 	let adrModel: AdrModel
+	var method: HttpMethod
 	var logicUrl: String  {
 		return "m8/getProvinceCityTown.do"
 	}
@@ -63,6 +64,7 @@ struct AddressReq: STRequest{
 		return params
 	}
 	
+	
 }
 
 
@@ -71,7 +73,7 @@ struct AddressReq: STRequest{
 //pai song fang shi
 struct ExpressTypeModel: SimpleCodable{
 	let dispatchCode: String = ""
-	let dispatchCame: String = ""
+	let dispatchName: String = ""
 }
 
 struct ExpressReq: STRequest {
@@ -94,3 +96,11 @@ struct SiteRequest: STRequest{
 	}
 	
 }
+
+//dian zi mian dan 
+struct BillNumReq: STRequest{
+	var logicUrl: String{
+		return "m8/getElectronic.do"
+	}
+}
+

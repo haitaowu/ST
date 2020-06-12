@@ -1832,7 +1832,7 @@
 				TargetAttributes = {
 					8968B2BE1DBE606E00F0606D = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 9ZRTKDFG4T;
+						DevelopmentTeam = YTV9736654;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2391,12 +2391,12 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
+				DEVELOPMENT_TEAM = YTV9736654;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2467,12 +2467,12 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
+				DEVELOPMENT_TEAM = YTV9736654;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

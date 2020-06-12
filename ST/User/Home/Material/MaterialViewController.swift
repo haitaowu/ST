@@ -81,8 +81,6 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
         }
     }
     
-    
-   
 
     //tap gesture
     @IBAction func tapOnView(_ sender: Any) {

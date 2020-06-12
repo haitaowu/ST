@@ -333,7 +333,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	func showDeliverTypeSheet(types: [ExpressTypeModel]){
 		var typeAry: [String] = []
 		for type in types{
-			let name = type.dispatchCame
+			let name = type.dispatchName
 			typeAry.append(name)
 		}
 		
@@ -1126,21 +1126,37 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//app获取电子面单接口
 	func fetchBillNum(){
 		self.showLoading(msg: "查询中...")
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
-		STHelper.POST(url: reqUrl, params: nil) {
-			[unowned self](result, data) in
+		let req = BillNumReq()
+		STNetworking<String>(stRequest: req) {
+			[unowned self] (resp) in
 			self.hideLoading()
-			if (result == .reqSucc) {
-				if let billCode = data as? String{
-					self.billNumField.text = billCode
-				}
+			if resp.stauts == Status.Success.rawValue{
+				self.billNumField.text = resp.data
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-				guard let msg = data as? String else {
-					return
-				}
+				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
-		}
+		}?.resume()
+		
+//
+//		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/getElectronic.do"
+////		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
+//		STHelper.POST(url: reqUrl, params: nil) {
+//			[unowned self](result, data) in
+//			self.hideLoading()
+//			if (result == .reqSucc) {
+//				if let billCode = data as? String{
+//					self.billNumField.text = billCode
+//				}
+//			}else{
+//				guard let msg = data as? String else {
+//					return
+//				}
+//				self.remindUser(msg: msg)
+//			}
+//		}
 	}
 	
 	
@@ -1148,9 +1164,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	func fetchBillDetailInfo(params: Parameters){
 		//		billCode
 		self.showLoading(msg: "查询中运单信息...")
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getbillData.do"
-		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getbillData.do"
+//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getbillData.do"
+		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/getbillData.do"
 		STHelper.POST(url: reqUrl, params: params) {
 			[unowned self](result, data) in
 			self.hideLoading()
@@ -1208,31 +1223,18 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 				self.remindUser(msg: msg)
 			}
 		}?.resume()
-		
-//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/gettabDispatchMode.do"
-//
-//		STHelper.POST(url: reqUrl, params: nil) {
-//			[unowned self](result, data) in
-//			self.hideLoading()
-//			if (result == .reqSucc) {
-//				if let dataAry = data as? Array<Dictionary<String,Any>>{
-//					self.showDeliverTypeSheet(types: dataAry)
-//				}
-//			}else{
-//				guard let msg = data as? String else {
-//					return
-//				}
-//				self.remindUser(msg: msg)
-//			}
-//		}
 	}
 	
 	
   //query jijian province city district
   func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey){
     self.showLoading(msg: "数据加载中...")
+	STHelper.GET(url: "", params: nil) { (result, data) in
+		self.hideLoading()
+	}
 
-	let req = AddressReq(adrModel: model)
+	
+	let req = AddressReq(adrModel: model, method: .get)
 	STNetworking<[AdrModel]>(stRequest: req) {
 		[unowned self](resp) in
 		self.hideLoading()
@@ -1270,25 +1272,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			}
 			}?.resume()
 	}
-	
-//	let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/qryFbCenter.do"
-//	STHelper.POST(url: reqUrl, params: params) {
-//	[unowned self](result, data) in
-//	self.hideLoading()
-//	if (result == .reqSucc) {
-//	if let siteName = data as? String{
-//	let nameStr = siteName.replacingAll(matching: ";", with: "")
-//	view.setTitle(nameStr, for: .normal)
-//	}
-//	}else{
-//	guard let msg = data as? String else {
-//	return
-//	}
-//	self.remindUser(msg: msg)
-//	}
-//	}
-
-  
 	
 	
 	

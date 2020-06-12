@@ -57,8 +57,8 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
 //        self.navigationItem.rightBarButtonItem = uploadBtn
 //    }
     
-    @objc private func onUploadAction(){
-        self.showLoading(msg: "上传中，清稍后")
+//    @objc private func onUploadAction(){
+//        self.showLoading(msg: "上传中，清稍后")
         
 //        DataManager.shared.uploadWentijian(m: STDb.shared.allWtj()){
 //        [unowned self]result in
@@ -71,17 +71,17 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
 //            self.remindUser(msg: result.1)
 //        }
 //    }
-        DataManager.shared.uploadWentijian(m: STDb.shared.allWtj()) { [unowned self] (succ, msg) in
-            self.hideLoading()
-            if succ{
-                STDb.shared.removeAllWtj()
-                self.reloadData()
-                self.remindUser(msg: "上传成功")
-            }else{
-                self.remindUser(msg: msg)
-            }
-        }
-    }
+//        DataManager.shared.uploadWentijian(m: STDb.shared.allWtj()) { [unowned self] (succ, msg) in
+//            self.hideLoading()
+//            if succ{
+//                STDb.shared.removeAllWtj()
+//                self.reloadData()
+//                self.remindUser(msg: "上传成功")
+//            }else{
+//                self.remindUser(msg: msg)
+//            }
+//        }
+//    }
     
     
     
