@@ -1229,11 +1229,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
   //query jijian province city district
   func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey){
     self.showLoading(msg: "数据加载中...")
-	STHelper.GET(url: "", params: nil) { (result, data) in
-		self.hideLoading()
-	}
-
-	
 	let req = AddressReq(adrModel: model, method: .get)
 	STNetworking<[AdrModel]>(stRequest: req) {
 		[unowned self](resp) in

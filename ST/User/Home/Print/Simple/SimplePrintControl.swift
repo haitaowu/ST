@@ -15,14 +15,11 @@ class SimplePrintControl:UITableViewController,QrInterface,WangdianPickerInterfa
     @IBOutlet weak var sendSiteField: UITextField!
     @IBOutlet weak var sendDateField: UITextField!
     @IBOutlet weak var billNumField: UITextField!
-//    @IBOutlet weak var expressTypeBtn: UIButton!
     @IBOutlet weak var destAdrField: UITextField!
-//    @IBOutlet weak var receSiteTxtView: CustomTextView!
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var goodsNameField: UITextField!
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var countField: UITextField!
-//    @IBOutlet weak var expressBtn: UIButton!
   @IBOutlet weak var fetchBillBtn: UIButton!
     
     let billInfo:NSMutableDictionary  = NSMutableDictionary();
