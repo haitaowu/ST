@@ -27,8 +27,8 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
 		self.title = "标签补打"
 		self.setupCollectionView()
 		self.menuAry = [
-			[kName:"主单打印",kSubTitle:"全",kStory:"BaseUI",kId:"MasterBillPrintControl",kBgColor:"color",kICon:"icon"],
-			[kName:"子单打印",kSubTitle:"简",kStory:"BaseUI",kId:"SubBillPrintControl",kBgColor:"color",kICon:"icon"],
+			[kName:"主单打印",kSubTitle:"派",kStory:"BaseUI",kId:"MasterBillPrintControl",kBgColor:"color",kICon:"icon"],
+			[kName:"子单打印",kSubTitle:"寄",kStory:"BaseUI",kId:"SubBillPrintControl",kBgColor:"color",kICon:"icon"],
 		]
 	}
   

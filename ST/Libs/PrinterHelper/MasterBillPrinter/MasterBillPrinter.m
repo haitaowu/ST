@@ -206,7 +206,7 @@ static NSString *const kServiceUUID = @"ff00";
     }
 }
 
-///打印发件网点存根联的表格
+///打印派件网点存根联的表格
 - (void)startPrintSiteTable{
 	[SPRTPrint pageSetup:800 pageHeightNum:500];
     int maxX = 800-10;
@@ -215,15 +215,83 @@ static NSString *const kServiceUUID = @"ff00";
 	int startY = 10;
 	int headerHeight = 180;
 	int rowHeight = 75;
+	int titleWidth = 80;
+	int deltaX = 10 + 10;
 	
     
     // 第一条横线--------------------------------
 	 [SPRTPrint drawLine:2 startX:startX startY:startY endX:maxX endY:startY isFullline:false];
 	
+	//打印时间
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+	int sPrintDateW = 450;
+	int sPrintDateH = 40;
+	int sPrintDateX = startX + deltaX;
+	int sPrintDateY = startY + headerHeight - sPrintDateH;
+	[SPRTPrint drawText:sPrintDateX textY:sPrintDateY widthNum:sPrintDateW heightNum:sPrintDateH textStr:sPintDateTitle fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//派件网点存根联
+	NSString *typeTitle = @"派件网点存根联:";
+	int typeW = maxX - sPrintDateW - 60;
+	int typeH = 40;
+	int typeX = sPrintDateW + 60;
+	int typeY = sPrintDateY;
+	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	NSString *billCode = @"8000017460324";
+	int codeW = typeW;
+	int codeH = 40;
+	int codeX = typeX;
+	int codeY = typeY - codeH;
+	[SPRTPrint drawText:codeX textY:codeY widthNum:codeW heightNum:codeH textStr:billCode fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	
+	// 横着的条码图形如果宽度不够就会导致打印出 bar Code data/parameter
+    NSString *barCode = @"800001746032";
+    int barCodeH = 80;
+    int barCodeX = codeX - 80;
+	int barCodeY = startY;
+	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
+	
+	
 	// 第二条横线--------------------------------
 	int start2Y = startY+headerHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
 	
+	//寄方
+	NSString *senderTitle = @"寄方";
+	int delataY = 10;
+	int sTitleWidth = titleWidth;
+	int sTitleHeight = rowHeight;
+	int sTitleX = startX + deltaX;
+	int sTitleY = startY + headerHeight + delataY;
+	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	
+	//收方
+	NSString *receiverTitle = @"收方";
+	int rTitleX = startX + deltaX;
+	int rTitleY = sTitleY + rowHeight;
+	int rTitleWidth = titleWidth;
+	int rTitleHeight = rowHeight;
+	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//货物信息
+	NSString *goodsTitle = @"货物信息";
+	int goodsTitleY = rTitleY + rowHeight;
+	int goodsTitleW = titleWidth  - 20;
+	int goodsTitleX = startX + deltaX;
+	int goodsTitleH = rowHeight;
+	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//收费信息
+	NSString *feeTitle = @"收费信息";
+	int feeTitleY = goodsTitleY + rowHeight;
+	int feeTitleW = goodsTitleW;
+	int feeTitleX = startX + deltaX;
+	int feeTitleH = rowHeight;
+	[SPRTPrint drawText:feeTitleX textY:feeTitleY widthNum:feeTitleW heightNum:feeTitleH textStr:feeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+
 	// 第三条横线--------------------------------
 	int start3Y = start2Y + rowHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start3Y endX:maxX endY:start3Y isFullline:false];
@@ -245,22 +313,39 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawLine:2 startX:col1StartX startY:startY endX:col1StartX endY:maxY isFullline:false];
 	
 	//第二条竖线|||||||||||||||||||||||||||||
-	int col2StartX = col1StartX + 80;
+	int col2StartX = col1StartX + titleWidth;
 	int colo2StartY = startY + headerHeight;
 	[SPRTPrint drawLine:2 startX:col2StartX startY:colo2StartY endX:col2StartX endY:maxY isFullline:false];
 	
 	
 	//第三条竖线|||||||||||||||||||||||||||||
-	int col3StartX = maxX - 150;
+	int siteTextW = 160;
+	int col3StartX = maxX - siteTextW;
 	int colo3StartY = colo2StartY + rowHeight;
 	int colo3EndY = colo3StartY + rowHeight;
 	[SPRTPrint drawLine:2 startX:col3StartX startY:colo3StartY endX:col3StartX endY:colo3EndY isFullline:false];
+	
+	//寄件网点
+	NSString *siteNameTitle = @"寄件网点:北京网点";
+	int siteW = siteTextW;
+	int siteH = rowHeight;
+	int siteX = col3StartX;
+	int siteY = rTitleY;
+	[SPRTPrint drawText:siteX textY:siteY widthNum:siteW heightNum:siteH textStr:siteNameTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//第四条竖线|||||||||||||||||||||||||||||
 	int col4StartX = col3StartX;
 	int colo4StartY = colo3EndY + rowHeight;
 	int colo4EndY = maxY;
 	[SPRTPrint drawLine:2 startX:col4StartX startY:colo4StartY endX:col4StartX endY:colo4EndY isFullline:false];
+	
+	//收件客户签字
+	NSString *signTitle = @"收件客户签字:";
+	int signW = siteTextW;
+	int signH = rowHeight;
+	int signX = col3StartX;
+	int signY = feeTitleY;
+	[SPRTPrint drawText:signX textY:signY widthNum:signW heightNum:signH textStr:signTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//第五条竖线|||||||||||||||||||||||||||||
 	int col5StartX = maxX;
@@ -272,7 +357,7 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-///打印寄件客户存根联的表格
+///打印收件客户存根联的表格
 - (void)startPrintCustomerTable{
 	[SPRTPrint pageSetup:800 pageHeightNum:500];
     int maxX = 800-10;
@@ -281,14 +366,82 @@ static NSString *const kServiceUUID = @"ff00";
 	int startY = 10;
 	int headerHeight = 180;
 	int rowHeight = 75;
+	int titleWidth = 80;
+	int deltaX = 10 + 10;
 	
     
     // 第一条横线--------------------------------
 	 [SPRTPrint drawLine:2 startX:startX startY:startY endX:maxX endY:startY isFullline:false];
 	
+	//打印时间
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+	int sPrintDateW = 450;
+	int sPrintDateH = 40;
+	int sPrintDateX = startX + deltaX;
+	int sPrintDateY = startY + headerHeight - sPrintDateH;
+	[SPRTPrint drawText:sPrintDateX textY:sPrintDateY widthNum:sPrintDateW heightNum:sPrintDateH textStr:sPintDateTitle fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//派件网点存根联
+	NSString *typeTitle = @"收件客户存根联:";
+	int typeW = maxX - sPrintDateW - 60;
+	int typeH = 40;
+	int typeX = sPrintDateW + 60;
+	int typeY = sPrintDateY;
+	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	NSString *billCode = @"8000017460324";
+	int codeW = typeW;
+	int codeH = 40;
+	int codeX = typeX;
+	int codeY = typeY - codeH;
+	[SPRTPrint drawText:codeX textY:codeY widthNum:codeW heightNum:codeH textStr:billCode fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	
+	// 横着的条码图形
+    NSString *barCode = @"800001746032";
+    int barCodeH = 80;
+    int barCodeX = codeX - 80;
+	int barCodeY = startY;
+	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
+	
 	// 第二条横线--------------------------------
 	int start2Y = startY+headerHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
+	
+	
+	//寄方
+	int delataY = 10;
+	NSString *senderTitle = @"寄方";
+	int sTitleWidth = titleWidth;
+	int sTitleHeight = rowHeight;
+	int sTitleX = startX + deltaX;
+	int sTitleY = startY + headerHeight + delataY;
+	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	
+	//收方
+	NSString *receiverTitle = @"收方";
+	int rTitleX = startX + deltaX;
+	int rTitleY = sTitleY + rowHeight;
+	int rTitleWidth = titleWidth;
+	int rTitleHeight = rowHeight;
+	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//货物信息
+	NSString * goodsTitle = @"货物信息";
+	int goodsTitleY = rTitleY + rowHeight;
+	int goodsTitleW = titleWidth  - 20;;
+	int goodsTitleX = startX + deltaX;
+	int goodsTitleH = rowHeight;
+	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//收费信息
+	NSString *payTitle = @"付费信息";
+	int payTitleY = goodsTitleY + rowHeight;
+	int payTitleW = titleWidth - 20;
+	int payTitleX = startX + deltaX;
+	int payTitleH = rowHeight;
+	[SPRTPrint drawText:payTitleX textY:payTitleY widthNum:payTitleW heightNum:payTitleH textStr:payTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	// 第三条横线--------------------------------
 	int start3Y = start2Y + rowHeight;
@@ -311,12 +464,12 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawLine:2 startX:col1StartX startY:startY endX:col1StartX endY:maxY isFullline:false];
 	
 	//第二条竖线|||||||||||||||||||||||||||||
-	int col2StartX = col1StartX + 80;
+	int col2StartX = col1StartX + titleWidth;
 	int colo2StartY = startY + headerHeight;
 	[SPRTPrint drawLine:2 startX:col2StartX startY:colo2StartY endX:col2StartX endY:maxY isFullline:false];
 	
 
-	//第五条竖线|||||||||||||||||||||||||||||
+	//第三条竖线|||||||||||||||||||||||||||||
 	int col5StartX = maxX;
 	int colo5StartY = startY;
 	int colo5EndY = maxY;
