@@ -43,12 +43,6 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
     fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
   }
     
-    func currentDateStr() -> String {
-        let dateFormat = DateFormatter();
-        dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss";
-        let dateStr = dateFormat.string(from: Date());
-        return dateStr;
-    }
     
     func showSubmitSuccView() -> Void {
         HTAlertViewPrint.ShowAlertViewWith(printBlock: {[unowned self] in
@@ -58,11 +52,9 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
         };
     }
     
+	///显示打印机连接界面
     func showConnPrinterView() -> Void {
-        let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
-//        connViewControl.billInfo = self.billInfo;
-        let billCode = self.billNumField.text!
-        connViewControl.billSN = billCode;
+        let connViewControl = MasterBillPrinter(nibName: "MasterBillPrinter", bundle: nil)
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
@@ -71,8 +63,6 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
     //MARK:- selectors
 		///	点击查询运单信息按钮
 	@IBAction func fetchBillInfo(_ sender: Any) {
-		//        self.showSubmitSuccView();
-		//        return;
 		
 		var params: Parameters = [:];
 		
@@ -94,7 +84,8 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
 	
     ///点击打印按钮
 	@IBAction func toPrinter(_ sender: Any) {
-		
+		self.showSubmitSuccView();
+		return;
 	}
 	
     @IBAction func wangdianBtnClicked(_ sender: Any) {

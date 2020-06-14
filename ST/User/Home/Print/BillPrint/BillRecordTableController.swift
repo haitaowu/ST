@@ -42,16 +42,11 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
         self.receSiteTxtView.placeholder = "输入地址";
-        self.sendDateField.text = self.currentDateStr();
+        self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
         self.sendSiteField.text = DataManager.shared.loginUser.siteName;
     }
     
-    func currentDateStr() -> String {
-        let dateFormat = DateFormatter();
-        dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss";
-        let dateStr = dateFormat.string(from: Date());
-        return dateStr;
-    }
+  
     
     func showSubmitSuccView() -> Void {
         HTAlertViewPrint.ShowAlertViewWith(printBlock: {[unowned self] in

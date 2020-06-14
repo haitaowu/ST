@@ -5,6 +5,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "CustomTextView.h"
 #import "PrinterPreviewController.h"
+#import "MasterBillPrinter.h"
 
 
 #import <UIKit/UIKit.h>

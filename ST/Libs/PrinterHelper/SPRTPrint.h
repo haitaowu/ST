@@ -48,6 +48,21 @@ static BOOL taskInRunning = NO;
 static NSMutableData *lastData = nil;
 
 
+
+
+extern CBPeripheral *activeDevice;
+extern CBCharacteristic *activeWriteCharacteristic;
+extern CBCharacteristic *activeReadCharacteristic;
+extern CBCharacteristic *activeFlowControlCharacteristic;
+extern int mtu;
+extern int credit;
+extern int response;
+
+extern int cmd;
+
+extern int cjFlag;          // qzfeng 2016/05/10
+
+
 @interface SPRTPrint : NSObject
 /*******************************************************************
  函数名：printtxt

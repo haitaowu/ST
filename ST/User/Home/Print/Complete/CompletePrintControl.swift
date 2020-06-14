@@ -170,7 +170,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
-		self.sendDateField.text = self.currentDateStr()
+		self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
 		self.sendSiteField.text = DataManager.shared.loginUser.siteName
 		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
 		self.tableView.register(MenuRSHeader.headerNib(), forHeaderFooterViewReuseIdentifier: MenuRSHeader.headerID())
@@ -179,16 +179,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.weightField.delegate = self
 		self.volumeField.delegate = self
 	}
-	
-	
 
-	func currentDateStr() -> String {
-		let dateFormat = DateFormatter()
-		dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
-		let dateStr = dateFormat.string(from: Date())
-		return dateStr
-	}
-	
 	
 	func showSubmitSuccView() -> Void {
 		HTAlertViewPrint.ShowAlertViewWith(printBlock: {[unowned self] in
