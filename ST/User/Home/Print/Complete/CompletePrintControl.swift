@@ -147,24 +147,18 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	deinit {
-		self.removeObserver(self, forKeyPath: "billNumField.text")
+		self.removeObserver(self, forKeyPath: "destSiteField.text")
 	}
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-		if keyPath == "billNumField.text" {
-			print("observer for billNumField.text")
-			if let newValue = change?[.newKey] as? String{
-				let params: Parameters = ["billCode": newValue]
-				self.fetchBillDetailInfo(params: params)
-			}
-		}else if keyPath == "destSiteField.text" {
+		if keyPath == "destSiteField.text" {
 			print("observer for destSiteField.text")
 			if let newValue = change?[.newKey] as? String{
-//				let params:Parameters = ["siteName":newValue]
 				self.fetchSiteSuperName(siteName: newValue, view: self.destSiteSupBtn)
 			}
 		}
 	}
+	
 	
 	//base setup for ui
 	func setupUI() {
@@ -173,7 +167,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			view.setupDashLine()
 		}
 		
-		self.addObserver(self, forKeyPath: "billNumField.text", options: [.new,.old], context: nil)
+		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
 		self.sendDateField.text = self.currentDateStr()
@@ -212,13 +206,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.navigationController?.pushViewController(connViewControl, animated: true)
 	}
 	
-	//验证运单号是否正确
-	func isValidateBillNum(billNumStr:String) -> Bool {
-		let regexStr = "^(((66|77|88|99)[0-9]{7})|((8)[0-9]{12})|((2)[0-9]{10}))$"
-		let predicate = NSPredicate(format: "SELF MATCHES %@", regexStr)
-		let isValid = predicate.evaluate(with: billNumStr)
-		return isValid
-	}
 	
 	//MARK:- updateUI
 	func updateUIByBillInfo(detail: Dictionary<String,Any>){
@@ -397,8 +384,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			self.remindUser(msg: "请输入运单号")
 			return
 		}else{
-			let isValidate = self.isValidateBillNum(billNumStr: billCode)
-			if isValidate == true {
+			if billCode.isValidateBillNum(){
 				Rec["billCode"] = billCode
 				billInfo["billCode"] = billCode
 			}else{
@@ -1139,49 +1125,9 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 				self.remindUser(msg: msg)
 			}
 		}?.resume()
-		
-//
-//		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/getElectronic.do"
-////		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
-//		STHelper.POST(url: reqUrl, params: nil) {
-//			[unowned self](result, data) in
-//			self.hideLoading()
-//			if (result == .reqSucc) {
-//				if let billCode = data as? String{
-//					self.billNumField.text = billCode
-//				}
-//			}else{
-//				guard let msg = data as? String else {
-//					return
-//				}
-//				self.remindUser(msg: msg)
-//			}
-//		}
 	}
 	
 	
-	//查询运单信息
-	func fetchBillDetailInfo(params: Parameters){
-		//		billCode
-		self.showLoading(msg: "查询中运单信息...")
-//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getbillData.do"
-		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/getbillData.do"
-		STHelper.POST(url: reqUrl, params: params) {
-			[unowned self](result, data) in
-			self.hideLoading()
-			if (result == .reqSucc) {
-				if let billInfo = data as? Dictionary<String,Any>{
-					self.billDetailInfo = billInfo
-					self.updateUIByBillInfo(detail: billInfo)
-				}
-			}else{
-				guard let msg = data as? String else {
-					return
-				}
-				self.remindUser(msg: msg)
-			}
-		}
-	}
 	
 	
 	//查询运输方式

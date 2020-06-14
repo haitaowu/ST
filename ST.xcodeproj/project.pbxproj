@@ -280,7 +280,6 @@
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
 		BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */; };
 		BEA67F11245D875E00A9099C /* CompletePrintControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F05245D875E00A9099C /* CompletePrintControl.swift */; };
-		BEA67F14245D875E00A9099C /* SimplePrintControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F09245D875E00A9099C /* SimplePrintControl.swift */; };
 		BEA67F15245D875E00A9099C /* LaterPinterBillTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F0B245D875E00A9099C /* LaterPinterBillTableController.swift */; };
 		BEA67F17245D875E00A9099C /* BillRecordTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F0E245D875E00A9099C /* BillRecordTableController.swift */; };
 		BEA67F18245D875E00A9099C /* HTDashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F0F245D875E00A9099C /* HTDashView.swift */; };
@@ -290,6 +289,8 @@
 		BEA67F22245D878700A9099C /* PrintMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1E245D878700A9099C /* PrintMenuController.swift */; };
 		BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA76E90248DDBB800E341EA /* PrintModels.swift */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
+		BEABEAB72495E42A005CA4CF /* MasterBillPrintControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAB62495E42A005CA4CF /* MasterBillPrintControl.swift */; };
+		BEABEABA2495E431005CA4CF /* SubBillPrintControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAB92495E430005CA4CF /* SubBillPrintControl.swift */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
 		BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2C242DC58300169C2C /* BaseFooter.swift */; };
@@ -647,7 +648,6 @@
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
 		BEA67F05245D875E00A9099C /* CompletePrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletePrintControl.swift; sourceTree = "<group>"; };
-		BEA67F09245D875E00A9099C /* SimplePrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePrintControl.swift; sourceTree = "<group>"; usesTabs = 1; };
 		BEA67F0B245D875E00A9099C /* LaterPinterBillTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaterPinterBillTableController.swift; sourceTree = "<group>"; };
 		BEA67F0E245D875E00A9099C /* BillRecordTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillRecordTableController.swift; sourceTree = "<group>"; };
 		BEA67F0F245D875E00A9099C /* HTDashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTDashView.swift; sourceTree = "<group>"; };
@@ -656,6 +656,8 @@
 		BEA67F1D245D878700A9099C /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
 		BEA67F1E245D878700A9099C /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
 		BEA76E90248DDBB800E341EA /* PrintModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
+		BEABEAB62495E42A005CA4CF /* MasterBillPrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillPrintControl.swift; sourceTree = "<group>"; };
+		BEABEAB92495E430005CA4CF /* SubBillPrintControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubBillPrintControl.swift; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
@@ -1611,10 +1613,11 @@
 		BEA67F03245D875E00A9099C /* Print */ = {
 			isa = PBXGroup;
 			children = (
+				BEABEAB82495E430005CA4CF /* SubBill */,
+				BEABEAB52495E42A005CA4CF /* MasterBill */,
 				BEA76E8F248DDB9E00E341EA /* Model */,
 				BEA67F1A245D878700A9099C /* Menu */,
 				BEA67F04245D875E00A9099C /* Complete */,
-				BEA67F08245D875E00A9099C /* Simple */,
 				BEA67F0A245D875E00A9099C /* LatePrinterBill */,
 				BEA67F0D245D875E00A9099C /* BillPrint */,
 			);
@@ -1627,14 +1630,6 @@
 				BEA67F05245D875E00A9099C /* CompletePrintControl.swift */,
 			);
 			path = Complete;
-			sourceTree = "<group>";
-		};
-		BEA67F08245D875E00A9099C /* Simple */ = {
-			isa = PBXGroup;
-			children = (
-				BEA67F09245D875E00A9099C /* SimplePrintControl.swift */,
-			);
-			path = Simple;
 			sourceTree = "<group>";
 		};
 		BEA67F0A245D875E00A9099C /* LatePrinterBill */ = {
@@ -1686,6 +1681,22 @@
 				BE8C067022B6118800A9901A /* View */,
 			);
 			path = DHome;
+			sourceTree = "<group>";
+		};
+		BEABEAB52495E42A005CA4CF /* MasterBill */ = {
+			isa = PBXGroup;
+			children = (
+				BEABEAB62495E42A005CA4CF /* MasterBillPrintControl.swift */,
+			);
+			path = MasterBill;
+			sourceTree = "<group>";
+		};
+		BEABEAB82495E430005CA4CF /* SubBill */ = {
+			isa = PBXGroup;
+			children = (
+				BEABEAB92495E430005CA4CF /* SubBillPrintControl.swift */,
+			);
+			path = SubBill;
 			sourceTree = "<group>";
 		};
 		BEAD75121F6411180045E58C /* ProductPicker */ = {
@@ -2061,6 +2072,7 @@
 				BE0FC50122BF404800271FED /* JXNumberPageControlDelegate.swift in Sources */,
 				BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */,
 				8912B0DD1DD0E09C0021B160 /* QRCodeReaderViewController.swift in Sources */,
+				BEABEAB72495E42A005CA4CF /* MasterBillPrintControl.swift in Sources */,
 				893497C91DDACE9900A505AF /* WebViewController.swift in Sources */,
 				89F61E3B1DCE20C10065C9CA /* Customer.swift in Sources */,
 				899BD3611DC0FB32000C6687 /* LoginViewController.swift in Sources */,
@@ -2199,7 +2211,6 @@
 				89F61E351DCE1C1F0065C9CA /* City.swift in Sources */,
 				BE5FD58423729F79004CF114 /* CenAnnouceController.swift in Sources */,
 				892583D11DC8DA9700285DB5 /* ConstraintViewDSL.swift in Sources */,
-				BEA67F14245D875E00A9099C /* SimplePrintControl.swift in Sources */,
 				892583BE1DC8DA9700285DB5 /* ConstraintItem.swift in Sources */,
 				BEC8B44422BCF9720095C045 /* TinyConsoleController.swift in Sources */,
 				899BD3661DC0FB66000C6687 /* HomeViewController.swift in Sources */,
@@ -2221,6 +2232,7 @@
 				BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */,
 				BE44322B1F530F1C004069DF /* MaterialViewController.swift in Sources */,
 				892583C51DC8DA9700285DB5 /* ConstraintMakerEditable.swift in Sources */,
+				BEABEABA2495E431005CA4CF /* SubBillPrintControl.swift in Sources */,
 				BE0FC4EC22BF404800271FED /* JXPhotoBrowserTransitioning.swift in Sources */,
 				8932BF751DC25E9500A18267 /* AppColors.swift in Sources */,
 				892583EA1DC8DC5400285DB5 /* User.swift in Sources */,

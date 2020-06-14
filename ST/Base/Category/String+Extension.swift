@@ -69,7 +69,7 @@ extension String{
 	}
 	
 	
-	//转换当前字符串为指定格式的日期对象，如果不指定格式则为默认的格式
+	///转换当前字符串为指定格式的日期对象，如果不指定格式则为默认的格式
 	func dateOf(format:String = "yyyy-MM-dd HH:mm:ss") -> Date {
 		let dateFormat = DateFormatter()
 		dateFormat.timeZone = TimeZone.current
@@ -83,6 +83,14 @@ extension String{
 		}
 	}
 	
+	
+	///验证运单号是否正确
+    func isValidateBillNum() -> Bool {
+        let regexStr = "^(((66|77|88|99)[0-9]{7})|((8)[0-9]{12})|((2)[0-9]{10}))$";
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regexStr);
+        let isValid = predicate.evaluate(with: self);
+        return isValid;
+    }
 	
     
 }

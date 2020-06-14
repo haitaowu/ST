@@ -69,13 +69,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
-    //验证运单号是否正确
-    func isValidateBillNum(billNumStr:String) -> Bool {
-        let regexStr = "^(((66|77|88|99)[0-9]{7})|((8)[0-9]{12})|((2)[0-9]{10}))$";
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regexStr);
-        let isValid = predicate.evaluate(with: billNumStr);
-        return isValid;
-    }
+    
     
     //MARK:- selectors
     @IBAction func tapSubmitBtn(_ sender: Any) {
@@ -106,8 +100,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
             self.remindUser(msg: "请输入运单号");
             return;
         }else{
-            let isValidate = self.isValidateBillNum(billNumStr: billCode)
-            if isValidate == true {
+			if billCode.isValidateBillNum(){
                 Rec["billCode"] = billCode
                 billInfo["billCode"] = billCode;
             }else{
