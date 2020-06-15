@@ -26,14 +26,14 @@ struct TransportReq: STRequest{
 
 
 struct AdrModel: SimpleCodable{
-	var town: String = ""
+	var townName: String = ""
 	var city: String = ""
 	var province: String = ""
 	
 	subscript(key: AdrKey) -> String{
 		switch key{
 		case .town:
-			return self.town
+			return self.townName
 		case .city:
 			return self.city
 		case .province:
@@ -45,7 +45,6 @@ struct AdrModel: SimpleCodable{
 
 struct AddressReq: STRequest{
 	let adrModel: AdrModel
-	var method: HttpMethod
 	var logicUrl: String  {
 		return "m8/getProvinceCityTown.do"
 	}
@@ -53,13 +52,13 @@ struct AddressReq: STRequest{
 	var parameters: [AnyHashable : Any]{
 		var params = [AnyHashable: Any]()
 		if !adrModel.province.isEmpty {
-			params[AdrKey.province.rawValue] = adrModel.province
+			params[AdrKey.province.rawValue] = adrModel.province.base64Str()
 		}
 		if !adrModel.city.isEmpty {
-			params[AdrKey.city.rawValue] = adrModel.city
+			params[AdrKey.city.rawValue] = adrModel.city.base64Str()
 		}
-		if !adrModel.town.isEmpty {
-			params[AdrKey.town.rawValue] = adrModel.town
+		if !adrModel.townName.isEmpty {
+			params[AdrKey.town.rawValue] = adrModel.townName.base64Str()
 		}
 		return params
 	}

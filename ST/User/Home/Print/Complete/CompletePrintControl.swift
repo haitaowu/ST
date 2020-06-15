@@ -10,7 +10,7 @@ import Alamofire
 import ActionSheetPicker_3_0
 
 enum AdrKey: String{
-	case town="town",city="city",province="province"
+	case town="townName",city="city",province="province"
 }
 
 
@@ -336,6 +336,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			adrAry.append(name)
 		}
 		
+		
 		ActionSheetStringPicker.show(withTitle: "", rows: adrAry, initialSelection: 0, doneBlock: {
 			[unowned self](picker, index, val) in
 			if let title = val as? String{
@@ -418,25 +419,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			Rec["goodsName"] = goodsName
 			billInfo["goodsName"] = goodsName
 		}
-		//
-		//    let weight = self.weightField.text!
-		//    if weight.isEmpty{
-		//      self.remindUser(msg: "请输入实际重量")
-		//      return
-		//    }else{
-		//      Rec["weight"] = weight
-		//      billInfo["weight"] = weight
-		//    }
-		//
-		//    let pieceNumber = self.countField.text!
-		//    if pieceNumber.isEmpty{
-		//      self.remindUser(msg: "请输入件数")
-		//      return
-		//    }else{
-		//      Rec["pieceNumber"] = pieceNumber
-		//      billInfo["pieceNumber"] = pieceNumber
-		//    }
-		
+	
 		var params: Parameters = [:]
 		do{
 			let recData = try JSONSerialization.data(withJSONObject: [Rec], options: .prettyPrinted)
@@ -472,7 +455,13 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//寄件人省
 	@IBAction func sendProvince(_ sender: UIButton) {
 		print("寄件人省")
-		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province)
+		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province){
+			[unowned self] result in
+			if result{
+				self.sendCityBtn.setTitle("", for: .normal)
+				self.sendDistBtn.setTitle("", for: .normal)
+			}
+		}
 	}
 	
 	//寄件人市
@@ -484,7 +473,12 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}
 		var model = AdrModel()
 		model.province = province
-		self.fetchAddressInfo(model: model, view: sender, key: .city)
+		self.fetchAddressInfo(model: model, view: sender, key: .city){
+			[unowned self] result in
+			if result{
+				self.sendDistBtn.setTitle("", for: .normal)
+			}
+		}
 	}
 	
 	//寄件人区
@@ -503,12 +497,18 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		var model = AdrModel()
 		model.province = province
 		model.city = city
-		self.fetchAddressInfo(model: model, view: sender, key: .town)
+		self.fetchAddressInfo(model: model, view: sender, key: .town, block: nil)
 	}
 	
 	//收件人省
 	@IBAction func receiveProvince(_ sender: UIButton) {
-		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province)
+		self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province){
+			[unowned self] result in
+			if result{
+				self.receCityBtn.setTitle("", for: .normal)
+				self.receDistBtn.setTitle("", for: .normal)
+			}
+		}
 	}
 	
 	//收件人市
@@ -521,7 +521,12 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 //		params[AdrKey.province.rawValue] = province
 		var model = AdrModel()
 		model.province = province
-		self.fetchAddressInfo(model: model, view: sender, key: .city)
+		self.fetchAddressInfo(model: model, view: sender, key: .city){
+			[unowned self] result in
+			if result{
+				self.receDistBtn.setTitle("", for: .normal)
+			}
+		}
 	}
 	
 	//收件人区
@@ -540,7 +545,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		var model = AdrModel()
 		model.province = province
 		model.city = city
-		self.fetchAddressInfo(model: model, view: sender, key: .town)
+		self.fetchAddressInfo(model: model, view: sender, key: .town, block: nil)
 	}
 	
 	
@@ -1164,15 +1169,16 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	
   //query jijian province city district
-  func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey){
+	func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey, block: ((Bool) -> Void)?){
     self.showLoading(msg: "数据加载中...")
-	let req = AddressReq(adrModel: model, method: .get)
+	let req = AddressReq(adrModel: model)
 	STNetworking<[AdrModel]>(stRequest: req) {
 		[unowned self](resp) in
 		self.hideLoading()
 		if resp.stauts == Status.Success.rawValue{
 			let adrs = resp.data
 			print("adrs array: \(adrs)")
+			block?(true)
 			self.showAdrActSheet(key: key, adrs: adrs, view: view)
 		}else if resp.stauts == Status.NetworkTimeout.rawValue{
 			self.remindUser(msg: "网络超时，请稍后尝试")

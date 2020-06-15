@@ -59,7 +59,16 @@ extension String{
 	}
 	
 	///base64 decoding string
-	func decode64String()->String{
+	func decode4String()->String{
+		if let data = Data(base64Encoded: self){
+			let string = String(data: data, encoding: .utf8) ?? ""
+			return string
+		}
+		return ""
+	}
+	
+	///base64 zip decoding string
+	func decodeZip64String()->String{
 		if let comporessData = Data(base64Encoded: self){
 			let data = comporessData.gzipUncompress()
 			let string = String(data: data, encoding: .utf8) ?? ""
