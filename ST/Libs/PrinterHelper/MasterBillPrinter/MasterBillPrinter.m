@@ -279,7 +279,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int sAdrW = sPhoneW;
 	int sAdrH = sPhoneH;
 	int sAdrX = sPhoneX;
-	int sAdrY = sPhoneH;
+	int sAdrY = sPhoneY + sPhoneH;
 	[SPRTPrint drawText:sAdrX textY:sAdrY widthNum:sAdrW heightNum:sAdrH textStr:sAdress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//寄方 end==========================================
@@ -300,11 +300,11 @@ static NSString *const kServiceUUID = @"ff00";
 	int rPhoneY = rTitleY;
 	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *rAddress = @"地址地址";
+	NSString *rAddress = @"地址地址地址地址地址地址地址地址";
 	int rAdrW = rPhoneW;
 	int rAdrH = rPhoneH;
 	int rAdrX = rPhoneX;
-	int rAdrY = rPhoneH;
+	int rAdrY = rPhoneY + rPhoneH;
 	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//收方 end==========================================
@@ -318,8 +318,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//hu wu xin xi
-	NSString *goods = @"hwxx";
-	int goodsW = maxX - titleWidth;
+	NSString *goods = @"物品名称：柜子，件数：1，重量：80，送货方式：派送，寄件日期：2020-06-10";
+	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
 	int goodsY = goodsTitleY;
@@ -335,7 +335,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int feeTitleH = rowHeight;
 	[SPRTPrint drawText:feeTitleX textY:feeTitleY widthNum:feeTitleW heightNum:feeTitleH textStr:feeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//shou fei xin xi
-	NSString *fee = @"hwxx";
+	NSString *fee = @"现金：0，保价金额：80，运费：0";
 	int feeW = maxX - titleWidth;
 	int feeH = rowHeight;
 	int feeX = titleWidth + deltaX;
@@ -477,11 +477,11 @@ static NSString *const kServiceUUID = @"ff00";
 	int sPhoneY = sTitleY;
 	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *sAdress = @"地址地址";
+	NSString *sAdress = @"地址地址地址地址地址地址地址地址";
 	int sAdrW = sPhoneW;
 	int sAdrH = sPhoneH;
 	int sAdrX = sPhoneX;
-	int sAdrY = sPhoneH;
+	int sAdrY = sPhoneY + sPhoneH;
 	[SPRTPrint drawText:sAdrX textY:sAdrY widthNum:sAdrW heightNum:sAdrH textStr:sAdress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//寄方 end==========================================
 	
@@ -500,11 +500,11 @@ static NSString *const kServiceUUID = @"ff00";
 	int rPhoneY = rTitleY;
 	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *rAddress = @"地址地址";
+	NSString *rAddress = @"地址地址地址地址地址地址";
 	int rAdrW = rPhoneW;
 	int rAdrH = rPhoneH;
 	int rAdrX = rPhoneX;
-	int rAdrY = rPhoneH;
+	int rAdrY = rPhoneY + rPhoneH;
 	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//收方end==========================================
 	
@@ -515,9 +515,9 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleX = startX + deltaX;
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-	//hu wu xin xi
-	NSString *goods = @"hwxx";
-	int goodsW = maxX - titleWidth;
+	//huo wu xin xi
+	NSString *goods = @"物品名称：柜子，件数：1，重量：80，送货方式：派送，寄件日期：2020-06-10";
+	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
 	int goodsY = goodsTitleY;
@@ -532,7 +532,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int payTitleH = rowHeight;
 	[SPRTPrint drawText:payTitleX textY:payTitleY widthNum:payTitleW heightNum:payTitleH textStr:payTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//shou fei xin xi
-	NSString *pay = @"hwxx";
+	NSString *pay = @"现金：0，保价金额：80，运费：0";
 	int payW = maxX - titleWidth;
 	int payH = rowHeight;
 	int payX = titleWidth + deltaX;
