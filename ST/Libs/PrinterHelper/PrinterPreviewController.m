@@ -141,7 +141,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
 }
 
 #pragma mark - private methods
-//发送秘钥
+//发送密钥
 - (void)sendKeyChainToPrinter {
     Byte byte[] = {0x1B,0xFB,0x73,0x75,0x74,0x35,0x36,0x69,0x74,0x7A,0x78,0x00};
     NSData *data = [[NSData alloc] initWithBytes:byte length:12];

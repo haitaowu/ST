@@ -201,12 +201,12 @@ static NSString *const kServiceUUID = @"ff00";
                 subCode = [subCodesArra objectAtIndex:index];
             }
             NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
-            [self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//            [self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
         });
     }
 }
 
-///打印派件网点存根联的表格
+///打印发件网点存根联的表格
 - (void)startPrintSiteTable{
 	[SPRTPrint pageSetup:800 pageHeightNum:500];
     int maxX = 800-10;
@@ -231,7 +231,7 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:sPrintDateX textY:sPrintDateY widthNum:sPrintDateW heightNum:sPrintDateH textStr:sPintDateTitle fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//派件网点存根联
-	NSString *typeTitle = @"派件网点存根联:";
+	NSString *typeTitle = @"发件网点存根联:";
 	int typeW = maxX - sPrintDateW - 60;
 	int typeH = 40;
 	int typeX = sPrintDateW + 60;
@@ -258,7 +258,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int start2Y = startY+headerHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
 	
-	//寄方
+	
+	//寄方 start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *senderTitle = @"寄方";
 	int delataY = 10;
 	int sTitleWidth = titleWidth;
@@ -266,31 +267,82 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//phone
+	NSString *sPhone = @"18061955875";
+	int sPhoneW = maxX - titleWidth;
+	int sPhoneH = rowHeight / 2;
+	int sPhoneX = titleWidth + deltaX;
+	int sPhoneY = sTitleY;
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//address
+	NSString *sAdress = @"地址地址";
+	int sAdrW = sPhoneW;
+	int sAdrH = sPhoneH;
+	int sAdrX = sPhoneX;
+	int sAdrY = sPhoneH;
+	[SPRTPrint drawText:sAdrX textY:sAdrY widthNum:sAdrW heightNum:sAdrH textStr:sAdress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	//寄方 end==========================================
 	
 	
-	//收方
+	//收方start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *receiverTitle = @"收方";
 	int rTitleX = startX + deltaX;
 	int rTitleY = sTitleY + rowHeight;
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//phone
+	NSString *rPhone = @"18061955875";
+	int rPhoneW = maxX - titleWidth;
+	int rPhoneH = rowHeight / 2;
+	int rPhoneX = titleWidth + deltaX;
+	int rPhoneY = rTitleY;
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//address
+	NSString *rAddress = @"地址地址";
+	int rAdrW = rPhoneW;
+	int rAdrH = rPhoneH;
+	int rAdrX = rPhoneX;
+	int rAdrY = rPhoneH;
+	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
-	//货物信息
+	//收方 end==========================================
+	
+	
+	//货物信息start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *goodsTitle = @"货物信息";
 	int goodsTitleY = rTitleY + rowHeight;
 	int goodsTitleW = titleWidth  - 20;
 	int goodsTitleX = startX + deltaX;
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//hu wu xin xi
+	NSString *goods = @"hwxx";
+	int goodsW = maxX - titleWidth;
+	int goodsH = rowHeight;
+	int goodsX = titleWidth + deltaX;
+	int goodsY = goodsTitleY;
+	[SPRTPrint drawText:goodsX textY:goodsY widthNum:goodsW heightNum:goodsH textStr:goods fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//货物信息 end==========================================
 	
-	//收费信息
+	
+	//收费信息start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *feeTitle = @"收费信息";
 	int feeTitleY = goodsTitleY + rowHeight;
 	int feeTitleW = goodsTitleW;
 	int feeTitleX = startX + deltaX;
 	int feeTitleH = rowHeight;
 	[SPRTPrint drawText:feeTitleX textY:feeTitleY widthNum:feeTitleW heightNum:feeTitleH textStr:feeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//shou fei xin xi
+	NSString *fee = @"hwxx";
+	int feeW = maxX - titleWidth;
+	int feeH = rowHeight;
+	int feeX = titleWidth + deltaX;
+	int feeY = feeTitleY;
+	[SPRTPrint drawText:feeX textY:feeY widthNum:feeW heightNum:feeH textStr:fee fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//收费信息 end==========================================
+	
 
 	// 第三条横线--------------------------------
 	int start3Y = start2Y + rowHeight;
@@ -325,8 +377,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int colo3EndY = colo3StartY + rowHeight;
 	[SPRTPrint drawLine:2 startX:col3StartX startY:colo3StartY endX:col3StartX endY:colo3EndY isFullline:false];
 	
-	//寄件网点
-	NSString *siteNameTitle = @"寄件网点:北京网点";
+	//目的网点
+	NSString *siteNameTitle = @"目的网点:北京网点";
 	int siteW = siteTextW;
 	int siteH = rowHeight;
 	int siteX = col3StartX;
@@ -340,7 +392,7 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawLine:2 startX:col4StartX startY:colo4StartY endX:col4StartX endY:colo4EndY isFullline:false];
 	
 	//收件客户签字
-	NSString *signTitle = @"收件客户签字:";
+	NSString *signTitle = @"寄件客户签字:";
 	int signW = siteTextW;
 	int signH = rowHeight;
 	int signX = col3StartX;
@@ -357,7 +409,7 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-///打印收件客户存根联的表格
+///打印寄件客户存根联的表格
 - (void)startPrintCustomerTable{
 	[SPRTPrint pageSetup:800 pageHeightNum:500];
     int maxX = 800-10;
@@ -381,8 +433,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int sPrintDateY = startY + headerHeight - sPrintDateH;
 	[SPRTPrint drawText:sPrintDateX textY:sPrintDateY widthNum:sPrintDateW heightNum:sPrintDateH textStr:sPintDateTitle fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
-	//派件网点存根联
-	NSString *typeTitle = @"收件客户存根联:";
+	//寄件客户存根联
+	NSString *typeTitle = @"寄件客户存根联:";
 	int typeW = maxX - sPrintDateW - 60;
 	int typeH = 40;
 	int typeX = sPrintDateW + 60;
@@ -409,7 +461,7 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
 	
 	
-	//寄方
+	//寄方start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	int delataY = 10;
 	NSString *senderTitle = @"寄方";
 	int sTitleWidth = titleWidth;
@@ -417,31 +469,77 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//phone
+	NSString *sPhone = @"18061955875";
+	int sPhoneW = maxX - titleWidth;
+	int sPhoneH = rowHeight / 2;
+	int sPhoneX = titleWidth + deltaX;
+	int sPhoneY = sTitleY;
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//address
+	NSString *sAdress = @"地址地址";
+	int sAdrW = sPhoneW;
+	int sAdrH = sPhoneH;
+	int sAdrX = sPhoneX;
+	int sAdrY = sPhoneH;
+	[SPRTPrint drawText:sAdrX textY:sAdrY widthNum:sAdrW heightNum:sAdrH textStr:sAdress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//寄方 end==========================================
 	
-	
-	//收方
+	//收方start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *receiverTitle = @"收方";
 	int rTitleX = startX + deltaX;
 	int rTitleY = sTitleY + rowHeight;
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//phone
+	NSString *rPhone = @"18061955875";
+	int rPhoneW = maxX - titleWidth;
+	int rPhoneH = rowHeight / 2;
+	int rPhoneX = titleWidth + deltaX;
+	int rPhoneY = rTitleY;
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//address
+	NSString *rAddress = @"地址地址";
+	int rAdrW = rPhoneW;
+	int rAdrH = rPhoneH;
+	int rAdrX = rPhoneX;
+	int rAdrY = rPhoneH;
+	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//收方end==========================================
 	
-	//货物信息
+	//货物信息start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString * goodsTitle = @"货物信息";
 	int goodsTitleY = rTitleY + rowHeight;
 	int goodsTitleW = titleWidth  - 20;;
 	int goodsTitleX = startX + deltaX;
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//hu wu xin xi
+	NSString *goods = @"hwxx";
+	int goodsW = maxX - titleWidth;
+	int goodsH = rowHeight;
+	int goodsX = titleWidth + deltaX;
+	int goodsY = goodsTitleY;
+	[SPRTPrint drawText:goodsX textY:goodsY widthNum:goodsW heightNum:goodsH textStr:goods fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//货物信息 end==========================================
 	
-	//收费信息
+	//付费信息start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *payTitle = @"付费信息";
 	int payTitleY = goodsTitleY + rowHeight;
 	int payTitleW = titleWidth - 20;
 	int payTitleX = startX + deltaX;
 	int payTitleH = rowHeight;
 	[SPRTPrint drawText:payTitleX textY:payTitleY widthNum:payTitleW heightNum:payTitleH textStr:payTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//shou fei xin xi
+	NSString *pay = @"hwxx";
+	int payW = maxX - titleWidth;
+	int payH = rowHeight;
+	int payX = titleWidth + deltaX;
+	int payY = payTitleY;
+	[SPRTPrint drawText:payX textY:payY widthNum:payW heightNum:payH textStr:pay fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//付费信息 end==========================================
+	
 	
 	// 第三条横线--------------------------------
 	int start3Y = start2Y + rowHeight;
@@ -479,247 +577,6 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-
-
-
-- (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
-{
-    [SPRTPrint pageSetup:800 pageHeightNum:500];
-    int maxX = 800-10;
-    int maxY = 500;
-    int topLogHeight = 130;
-    //第一条竖线的x值|||||||||||||||||||||||||||||
-    int col1x = 80;
-    // 第一条横线--------------------------------
-    int line1Y = topLogHeight;
-    [SPRTPrint drawLine:2 startX:col1x startY:line1Y endX:maxX endY:line1Y isFullline:false];
-    
-    // iOS flag
-    NSString *iOSStr = @"iOS";
-    int flagWH = 40;
-    int flagY = 5;
-    int flagX = maxX - flagWH;
-    [SPRTPrint drawText:(flagX) textY:(flagY) widthNum:flagWH heightNum:flagWH textStr:iOSStr fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-
-   
-    // 第二条横线--------------------------------
-    int line2Y = line1Y+110;
-    [SPRTPrint drawLine:2 startX:col1x startY:(120+120) endX:maxX endY:(120+120) isFullline:false];
-    
-    int verticalMargin = 60;
-    // 第三条横线--------------------------------
-    int line3Y = line2Y+verticalMargin;
-    [SPRTPrint drawLine:2 startX:col1x startY:line3Y endX:maxX endY:line3Y isFullline:false];
-    
-    // 第四条横线--------------------------------
-    int line4Y = line3Y+verticalMargin;
-    [SPRTPrint drawLine:2 startX:col1x startY:line4Y endX:maxX endY:line4Y isFullline:false];
-    
-    int verticalShortMargin = (maxY - line4Y) / 3;
-    //第三条竖线的x |||||||||||||||||||||||||||||
-    int col3x = 320;
-    
-    // 第五条横线--------------------------------
-    int line5Y = line4Y+verticalShortMargin;
-    [SPRTPrint drawLine:2 startX:col1x startY:line5Y endX:col3x endY:line5Y isFullline:false];
-    
-    // 第六条横线--------------------------------
-    int line6Y = line5Y+verticalShortMargin;
-    [SPRTPrint drawLine:2 startX:0 startY:line6Y endX:col3x endY:line6Y isFullline:false];
-    
-    int barCodeStrWidth = 300;
-    //第一条竖线 |||||||||||||||||||||||||||||
-    [SPRTPrint drawLine:2 startX:col1x startY:line1Y endX:col1x endY:line6Y isFullline:false];
-    
-    int aLet3StrWidth = ((maxX - 60) / 2) / 11 ;
-    int aLet4StrBoldWidth = ((maxX - 60) / 2) / 7;
-    int aLet5StrBoldWidth = ((maxX - 60) / 2) / 6;
-    int aLet3NumWidth = ((maxX - 60) / 2) / 22 ;
-    
-	
-    // 寄件网点；
-    NSString *sendSite = [self.billInfo objectForKey:kSendManAddress];
-    int sendArrSiteWidth = (maxX - col1x) / 2;
-    int sendSiteY = (topLogHeight+25);
-//    int sendSiteMargin = (sendArrSiteWidth - (int)sendSite.length * aLet3StrWidth)/2;
-    int sendSiteMargin = (sendArrSiteWidth - (int)sendSite.length * aLet4StrBoldWidth)/2;
-    int sendSiteX = col1x + sendSiteMargin;
-    if (sendSite != nil) {
-        [SPRTPrint drawText:sendSiteX textY:sendSiteY widthNum:sendArrSiteWidth heightNum:topLogHeight textStr:sendSite fontSizeNum:4 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    // 寄件网点编号
-    NSString *sendCode = [self.billInfo objectForKey:@"sendCode"];
-    if (sendCode != nil) {
-//        int sendCodeY = sendSiteY + 40;
-        int sendCodeY = sendSiteY + 50;
-        int sendCodeMargin = (sendArrSiteWidth - (int)sendCode.length * aLet3NumWidth)/2;
-        int sendCodeX = col1x + sendCodeMargin;
-        [SPRTPrint drawText:sendCodeX textY:sendCodeY widthNum:sendArrSiteWidth heightNum:topLogHeight textStr:sendCode fontSizeNum:3 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    //运单号
-    NSString *billCodeTxt = [self.billInfo objectForKey:kBillCodeKey];
-    if (billCodeTxt != nil) {
-        int billCodeMargin = (barCodeStrWidth - (int)billCodeTxt.length * aLet3NumWidth)/2;
-        int billCodeTxtX = col1x + billCodeMargin;
-        [SPRTPrint drawText:billCodeTxtX textY:(line2Y + 20) widthNum:barCodeStrWidth heightNum:verticalMargin textStr:billCodeTxt fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    }
-    
-    //第二条竖线|||||||||||||||||||||||||||||
-    int col2x = col3x / 2;
-    [SPRTPrint drawLine:2 startX:col2x startY:line4Y endX:col2x endY:line5Y isFullline:false];
-    
-    //第三条竖线|||||||||||||||||||||||||||||
-    [SPRTPrint drawLine:2 startX:col3x startY:line4Y endX:col3x endY:maxY isFullline:false];
-    // 详细地址内容
-    NSString *adrTxt = [self.billInfo objectForKey:kSendManAddress];
-    if (adrTxt != nil) {
-        int adrTxtW = maxX - col1x;
-        int margin = (adrTxtW - (int)adrTxt.length * aLet3StrWidth)/2;
-        int startX = col1x + margin;
-        [SPRTPrint drawText:startX textY:(line3Y + 15) widthNum:adrTxtW heightNum:verticalMargin textStr:adrTxt fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    }
-    
-    //第四条竖线|||||||||||||||||||||||||||||
-    int col4x = barCodeStrWidth + col1x;
-    [SPRTPrint drawLine:2 startX:col4x startY:line2Y endX:col4x endY:line3Y isFullline:false];
-    
-    //第五条竖线|||||||||||||||||||||||||||||
-    int siteWidth = (maxX - col1x) / 2;
-    int col5x = siteWidth + col1x;
-    [SPRTPrint drawLine:2 startX:col5x startY:line1Y endX:col5x endY:line2Y isFullline:false];
-    
-    // 目的网点；
-    NSString *arriveSite = [self.billInfo objectForKey:kSendManAddress];
-    int arrSiteY = (topLogHeight+25);
-    if (arriveSite != nil) {
-//        int arrSiteMargin = (siteWidth - (int)arriveSite.length * aLet3StrWidth)/2;
-        int arrSiteMargin = (siteWidth - (int)arriveSite.length * aLet4StrBoldWidth)/2;
-        int arrSiteX = col5x + arrSiteMargin;
-        [SPRTPrint drawText:arrSiteX textY:arrSiteY widthNum:sendArrSiteWidth heightNum:topLogHeight textStr:arriveSite fontSizeNum:4 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    // 目的网点编号
-    NSString *dispatchCode = [self.billInfo objectForKey:@"dispatchCode"];
-    if (dispatchCode != nil) {
-//        int arriveSiteCodeY = arrSiteY + 40;
-        int arriveSiteCodeY = arrSiteY + 50;
-        int arriveSiteCodeMargin = (siteWidth - (int)dispatchCode.length * aLet3NumWidth)/2;
-        int arriveSiteCodeX = col5x + arriveSiteCodeMargin;
-        [SPRTPrint drawText:arriveSiteCodeX textY:arriveSiteCodeY widthNum:sendArrSiteWidth heightNum:topLogHeight textStr:dispatchCode fontSizeNum:3 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    //派送方式
-    NSString *sendgoodsType = [self.billInfo objectForKey:@"sendgoodsType"];
-    if (sendgoodsType != nil) {
-        int width = col2x - col1x;
-        int margin = (width - (int)sendgoodsType.length * aLet3StrWidth)/2;
-        int x =  margin + col1x;
-        int y = line4Y + 10;
-        [SPRTPrint drawText:x textY:y widthNum:col2x heightNum:verticalShortMargin textStr:sendgoodsType fontSizeNum:3 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    //物品名称
-    NSString *goodsName = [self.billInfo objectForKey:@"goodsName"];
-    if (goodsName != nil) {
-        int width = col3x - col2x;
-        int margin = (width - (int)goodsName.length * aLet3StrWidth)/2;
-        int x =  margin + col2x;
-        int y = line4Y + 10;
-        [SPRTPrint drawText:x textY:y widthNum:width heightNum:verticalShortMargin textStr:goodsName fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    }
-    
-    //分件数/总件数:
-    int width = col3x - col1x;
-    int margin = (width - (int)indexStr.length * aLet3StrWidth)/2;
-    int x =  margin + col1x;
-    int y = line5Y + 10;
-    [SPRTPrint drawText:x textY:(y) widthNum:width heightNum:verticalShortMargin textStr:indexStr fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    
-    //打印日期
-    NSString *currentDateStr = [self currentDateStr];
-    if (currentDateStr != nil) {
-        int width = col3x;
-        int x =  50;
-        int y = line6Y + 15;
-        [SPRTPrint drawText:x textY:y widthNum:width heightNum:verticalShortMargin textStr:currentDateStr fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    }
-
-    //最顶部的竖线|||||||||||||||||||||||||||||
-    int topVerticalLinex = col5x - 100;
-//    [SPRTPrint drawLine:2 startX:topVerticalLinex startY:0 endX:topVerticalLinex endY:line1Y isFullline:false];
-    //目的网点所属中心
-    NSString *dispatchCenter = [self.billInfo objectForKey:@"dispatchCenter"];
-    if (dispatchCenter != nil) {
-        int dispatchW = maxX - topVerticalLinex;
-        int dispatchMargin = (dispatchW - (int)dispatchCenter.length * aLet5StrBoldWidth)/2;
-        int dispatchX = topVerticalLinex + dispatchMargin;
-        int dispatchY = 30;
-        [SPRTPrint drawText:dispatchX textY:dispatchY widthNum:dispatchW heightNum:line1Y textStr:dispatchCenter fontSizeNum:5 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-    
-    // 横着的条码图形
-    NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
-    int barCodeH = 80;
-    int barCodeX = col3x + 20;
-    int barCodeY = line4Y + 20;
-    if (barCode != nil) {
-        [SPRTPrint drawBarCode:(barCodeX) startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
-    }
-    
-    //横着的条码数字字符串
-    int barNumY = barCodeY + 80;
-    int barNumX = barCodeX + 85;
-    NSString *barCodeNumStr = [billCode stringByAppendingFormat:@" %@",subCode];
-     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCodeNumStr fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    
-    // 竖着的条码图形
-    int barCodeVerticalMargin = 20;
-    int verticalBarCodeH = col1x - barCodeVerticalMargin;
-    int barCodeVerticalX = (int)(barCodeVerticalMargin * 0.5);
-    int varCodeVerticalY = line6Y - 15;
-    if (barCode != nil) {
-        [SPRTPrint drawBarCode:(barCodeVerticalX) startY:varCodeVerticalY textStr:barCode typeNum:1 roateNum:1 lineWidthNum:2 heightNum:verticalBarCodeH];
-    }
-
-    //第六条竖线
-    int col6x = col5x + 200;
-    [SPRTPrint drawLine:2 startX:col6x startY:line2Y endX:col6x endY:line3Y isFullline:false];;
-    
-    //重量
-    id  weight = [self.billInfo objectForKey:kCalWeight];
-    NSString *weightTxt = [NSString stringWithFormat:@"%@KG",weight];
-    if(weightTxt != nil){
-        int weightW = col6x - col4x;
-        int weightMargin = (weightW - (int)weightTxt.length * aLet3NumWidth)/2;
-        int weightX = col4x + weightMargin;
-        [SPRTPrint drawText:weightX textY:(line2Y + 20) widthNum:weightW heightNum:verticalMargin textStr:weightTxt fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-    }
-    
-   //录单时间
-    NSString *billDateTxt = [self billDateWithData:self.billInfo];
-    if (billDateTxt != nil) {
-        int regDateTxtW = maxX - col6x;
-        [SPRTPrint drawText:(col6x+15) textY:(line2Y + 20) widthNum:regDateTxtW heightNum:verticalMargin textStr:billDateTxt fontSizeNum:2 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
-    }
-
-    
-
-    //顶部线框
-//    [SPRTPrint drawLine:2 startX:0 startY:0 endX:maxX endY:0 isFullline:false];
-    
-    //左部线框
-    [SPRTPrint drawLine:2 startX:0 startY:line6Y endX:0 endY:maxY isFullline:false];
-    
-    //右部线框
-    [SPRTPrint drawLine:2 startX:maxX startY:line1Y endX:maxX endY:maxY isFullline:false];
-    
-    //底部线框
-    [SPRTPrint drawLine:2 startX:0 startY:maxY endX:maxX endY:maxY isFullline:false];
-    
-    [SPRTPrint print:0 skipNum:1];
-}
 
 //录单时间
 - (NSString*)billDateWithData:(NSDictionary*)data
@@ -992,12 +849,20 @@ static NSString *const kServiceUUID = @"ff00";
 
 
 -(void) alertMessage:(NSString *)msg{
-    UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"提示" 
-                                                   message:msg
-                                                  delegate:self
-                                         cancelButtonTitle:@"关闭" 
-                                         otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"提示" 
+//                                                   message:msg
+//                                                  delegate:self
+//                                         cancelButtonTitle:@"关闭" 
+//                                         otherButtonTitles:nil];
+//    [alert show];
+	
+	UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
+	[alertControl addAction:[UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+		
+	}]];
+	
+	[self presentViewController:alertControl animated:YES completion:nil];
+	
 
 }
 @end
