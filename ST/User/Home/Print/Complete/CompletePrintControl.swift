@@ -167,7 +167,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			view.setupDashLine()
 		}
 		
-		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
 		self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
@@ -198,95 +197,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	
 	//MARK:- updateUI
-	func updateUIByBillInfo(detail: Dictionary<String,Any>){
-		//收
-		if let acceptMan = detail["ACCEPT_MAN"] as? String{
-			self.reciverField.text = acceptMan
-		}
-		if let acptPhone = detail["ACCEPT_MAN_PHONE"] as? String{
-			self.recePhoneField.text = acptPhone
-		}
-		if let acptAdr = detail["ACCEPT_MAN_COMPANY"] as? String{
-			self.receAdrDetail.text = acptAdr
-		}
-		
-		//寄
-		if let sendMan = detail["SEND_MAN"] as? String{
-			self.senderField.text = sendMan
-		}
-		
-		if let sendManPhone = detail["SEND_MAN_PHONE"] as? String{
-			self.sendPhoneField.text = sendManPhone
-		}
-		
-		if let sendProvince = detail["PROVINCE"] as? String{
-			self.sendProvinceBtn.setTitle(sendProvince, for: .normal)
-		}
-		
-		if let sendCity = detail["CITY"] as? String{
-			self.sendCityBtn.setTitle(sendCity, for: .normal)
-		}
-		
-		if let sendDistrict = detail["BOROUGH"] as? String{
-			self.sendDistBtn.setTitle(sendDistrict, for: .normal)
-		}
-		
-		if let sendAdr = detail["SEND_MAN_ADDRESS"] as? String{
-			self.sendAdrDetail.text = sendAdr
-		}
-		
-		if let payType = detail["PAYMENT_TYPE"] as? String{
-			self.payTypeField.text = payType
-		}
-		
-		if let goodsName = detail["GOODS_NAME"] as? String{
-			self.goodsNameField.text = goodsName
-		}
-		
-		if let deliveryType = detail["DISPATCH_MODE"] as? String{
-			self.deliverTypeBtn.setTitle(deliveryType, for: .normal)
-		}
-		
-		if let weight = detail["SETTLEMENT_WEIGHT"] as? String{
-			self.calWeightField.text = weight
-		}
-		
-		if let isOverLen = detail["BL_OVER_LONG"] as? Int{
-			if isOverLen == 1{
-				self.overLen.isSelected = true
-			}
-		}
-		
-		if let isOverWeight = detail["BL_OVER_WEIGHT"] as? Int{
-			if isOverWeight == 1{
-				self.overWeightBtn.isSelected = true
-				
-			}
-		}
-		
-		if let overWeightPiece = detail["OVER_WEIGHT_PIECE"] as? String{
-			self.chaoZhongJianShu.text = overWeightPiece
-		}
-		
-		if let isStore = detail["BL_INTO_WAREHOUSE"] as? Int{
-			if isStore == 1{
-				self.storeBtn.isSelected = true
-			}
-		}
-		
-		if let storeNum = detail["STORAGENO"] as? String{
-			self.storeBillField.text = storeNum
-		}
-		
-		if let chaoquFei = detail["OVER_AREA_FEE"] as? String{
-			self.chaoQuFei.text = chaoquFei
-		}
-		
-		if let shanglouFei = detail["UPSTAIRS_FEE"] as? String{
-			self.shangLouFei.text = shanglouFei
-		}
-		
-	}
 	
 	//show transports types action sheetpicker
 //	func showTranTypeSheet(types: Array<Dictionary<String,Any>>){
@@ -346,92 +256,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	}
 	
 	
-	//MARK:- selectors
-	/*@IBAction func tapSubmitBtn(_ sender: Any) {
-		
-		var Rec: Parameters = [:]
-		let registerDate = self.sendDateField.text!
-		if registerDate.isEmpty{
-			self.remindUser(msg: "请选择日期")
-			return
-		}else{
-			Rec["registerDate"] = registerDate
-			billInfo["registerDate"] = registerDate
-		}
-		
-		let SITE_NAME = self.sendSiteField.text!
-		if SITE_NAME.isEmpty{
-			self.remindUser(msg: "请选择网点名称")
-			return
-		}else{
-			Rec["sendSite"] = SITE_NAME
-			billInfo["sendSite"] = SITE_NAME
-		}
-		
-		let billCode = self.billNumField.text!
-		if billCode.isEmpty{
-			self.remindUser(msg: "请输入运单号")
-			return
-		}else{
-			if billCode.isValidateBillNum(){
-				Rec["billCode"] = billCode
-				billInfo["billCode"] = billCode
-			}else{
-				self.remindUser(msg: "运单号格式不正确")
-				return
-			}
-		}
-		
-		//        let acceptManAddress = self.receSiteTxtView.text!
-		//        if acceptManAddress.isEmpty{
-		//            self.remindUser(msg: "请输入收件地址")
-		//            return
-		//        }else{
-		//            Rec["acceptManAddress"] = acceptManAddress
-		//            billInfo["acceptManAddress"] = acceptManAddress
-		//        }
-		
-		let arriveSite = self.destSiteField.text!
-		if arriveSite.isEmpty{
-			self.remindUser(msg: "请输入目的网点")
-			return
-		}else{
-			Rec["arriveSite"] = arriveSite
-			billInfo["arriveSite"] = arriveSite
-		}
-		
-		//        let sendgoodsType = self.expressBtn.title(for: .normal)!
-		//        if sendgoodsType.isEmpty{
-		//            self.remindUser(msg: "请选择送货方式")
-		//            return
-		//        }else{
-		//            Rec["sendgoodsType"] = sendgoodsType
-		//        }
-		
-		let goodsName = self.goodsNameField.text!
-		if goodsName.isEmpty{
-			self.remindUser(msg: "请输入物品名称")
-			return
-		}else{
-			Rec["goodsName"] = goodsName
-			billInfo["goodsName"] = goodsName
-		}
-	
-		var params = [String: Any]()
-		params["rec"] = Rec.jsonDicStr()
-//		do{
-//			let recData = try JSONSerialization.data(withJSONObject: [Rec], options: .prettyPrinted)
-//			let recStr = String.init(data: recData, encoding: .utf8)
-//			if recStr != nil{
-//				params["rec"] = recStr
-//			}
-//		}catch{
-//		}
-		self.submitBillInfoWith(params: params)
-	}
-*/
-	
-	
 	@IBAction func wangdianBtnClicked(_ sender: Any) {
 		self.showWangdianPicker()
 	}
@@ -481,17 +305,17 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//寄件人区
 	@IBAction func sendDistrict(_ sender: UIButton) {
-//		var params:Parameters = [:]
+
 		guard let province = self.sendProvinceBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择寄件省")
 			return
 		}
-//		params[AdrKey.province.rawValue] = province
+
 		guard let city = self.sendCityBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择寄件市")
 			return
 		}
-//		params[AdrKey.city.rawValue] = city
+
 		var model = AdrModel()
 		model.province = province
 		model.city = city
@@ -511,12 +335,10 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//收件人市
 	@IBAction func receiveCity(_ sender: UIButton) {
-//		var params:Parameters = [:]
 		guard let province = self.recePronvinBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件省")
 			return
 		}
-//		params[AdrKey.province.rawValue] = province
 		var model = AdrModel()
 		model.province = province
 		self.fetchAddressInfo(model: model, view: sender, key: .city){
@@ -552,23 +374,13 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//保存
 	@objc func saveBill(){
-		self.showSubmitSuccView()
-		return
+//		self.showSubmitSuccView()
+//		return
 		
 		print("click right bar item save ....")
-		guard let paramsData = self.paramsSaveBill() else{
+		guard let params = self.paramsSaveBill() else{
 			return
 		}
-		var params: Parameters = [:]
-		do{
-			let recData = try JSONSerialization.data(withJSONObject: [paramsData], options: .prettyPrinted)
-			let recStr = String.init(data: recData, encoding: .utf8)
-			if recStr != nil{
-				params["rec"] = recStr
-			}
-		}catch{
-		}
-		
 		self.submitBillInfoWith(params: params)
 		
 	}
@@ -1200,14 +1012,102 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			}
 			}?.resume()
 	}
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
+
+
+
+
+/*func updateUIByBillInfo(detail: Dictionary<String,Any>){
+	//收
+	if let acceptMan = detail["ACCEPT_MAN"] as? String{
+		self.reciverField.text = acceptMan
+	}
+	if let acptPhone = detail["ACCEPT_MAN_PHONE"] as? String{
+		self.recePhoneField.text = acptPhone
+	}
+	if let acptAdr = detail["ACCEPT_MAN_COMPANY"] as? String{
+		self.receAdrDetail.text = acptAdr
+	}
+	
+	//寄
+	if let sendMan = detail["SEND_MAN"] as? String{
+		self.senderField.text = sendMan
+	}
+	
+	if let sendManPhone = detail["SEND_MAN_PHONE"] as? String{
+		self.sendPhoneField.text = sendManPhone
+	}
+	
+	if let sendProvince = detail["PROVINCE"] as? String{
+		self.sendProvinceBtn.setTitle(sendProvince, for: .normal)
+	}
+	
+	if let sendCity = detail["CITY"] as? String{
+		self.sendCityBtn.setTitle(sendCity, for: .normal)
+	}
+	
+	if let sendDistrict = detail["BOROUGH"] as? String{
+		self.sendDistBtn.setTitle(sendDistrict, for: .normal)
+	}
+	
+	if let sendAdr = detail["SEND_MAN_ADDRESS"] as? String{
+		self.sendAdrDetail.text = sendAdr
+	}
+	
+	if let payType = detail["PAYMENT_TYPE"] as? String{
+		self.payTypeField.text = payType
+	}
+	
+	if let goodsName = detail["GOODS_NAME"] as? String{
+		self.goodsNameField.text = goodsName
+	}
+	
+	if let deliveryType = detail["DISPATCH_MODE"] as? String{
+		self.deliverTypeBtn.setTitle(deliveryType, for: .normal)
+	}
+	
+	if let weight = detail["SETTLEMENT_WEIGHT"] as? String{
+		self.calWeightField.text = weight
+	}
+	
+	if let isOverLen = detail["BL_OVER_LONG"] as? Int{
+		if isOverLen == 1{
+			self.overLen.isSelected = true
+		}
+	}
+	
+	if let isOverWeight = detail["BL_OVER_WEIGHT"] as? Int{
+		if isOverWeight == 1{
+			self.overWeightBtn.isSelected = true
+			
+		}
+	}
+	
+	if let overWeightPiece = detail["OVER_WEIGHT_PIECE"] as? String{
+		self.chaoZhongJianShu.text = overWeightPiece
+	}
+	
+	if let isStore = detail["BL_INTO_WAREHOUSE"] as? Int{
+		if isStore == 1{
+			self.storeBtn.isSelected = true
+		}
+	}
+	
+	if let storeNum = detail["STORAGENO"] as? String{
+		self.storeBillField.text = storeNum
+	}
+	
+	if let chaoquFei = detail["OVER_AREA_FEE"] as? String{
+		self.chaoQuFei.text = chaoquFei
+	}
+	
+	if let shanglouFei = detail["UPSTAIRS_FEE"] as? String{
+		self.shangLouFei.text = shanglouFei
+	}
+	
+}*/
+

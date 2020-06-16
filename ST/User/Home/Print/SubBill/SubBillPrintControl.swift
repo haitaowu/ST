@@ -61,9 +61,7 @@ class SubBillPrintControl:UITableViewController,QrInterface,WangdianPickerInterf
     
     //MARK:- selectors
     @IBAction func fetchBillDetail(_ sender: Any) {
-//        self.showSubmitSuccView();
-//        return;
-        
+
         var params: Parameters = [:];
         
         let billCode = self.billNumField.text!
