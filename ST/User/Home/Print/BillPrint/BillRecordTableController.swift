@@ -209,24 +209,6 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
 			}
 		}?.resume()
 		
-		
-		//		let baseUrl = "AndroidServiceST-M8/"
-		//		let reqUrl = Consts.Server + baseUrl + "m8/getElectronic.do"
-//		let reqUrl = "http://58.215.182.252:8119/AndroidServiceST-M8/m8/getElectronic.do"
-//		STHelper.POST(url: reqUrl, params: nil) {
-//			[unowned self](result, data) in
-//			self.hideLoading()
-//			if (result == .reqSucc) {
-//				if let billCode = data as? String{
-//					self.billNumField.text = billCode
-//				}
-//			}else{
-//				guard let msg = data as? String else {
-//					return
-//				}
-//				self.remindUser(msg: msg)
-//			}
-//		}
 	}
 	
 	

@@ -119,7 +119,7 @@ class HomeViewController: UIViewController {
 	
 	
 	//MARK:- selectors
-	//打印运单界面
+	//打印运单界面（子单打印界面）
 	func openBillPrintView(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
 		let printerVc = storyboard.instantiateViewController(withIdentifier: "BillRecordTableController");
