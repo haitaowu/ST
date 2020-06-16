@@ -420,16 +420,16 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			billInfo["goodsName"] = goodsName
 		}
 	
-		var params: Parameters = [:]
-		do{
-			let recData = try JSONSerialization.data(withJSONObject: [Rec], options: .prettyPrinted)
-			let recStr = String.init(data: recData, encoding: .utf8)
-			if recStr != nil{
-				params["rec"] = recStr
-			}
-		}catch{
-		}
-		
+		var params = [String: Any]()
+		params["rec"] = Rec.jsonDicStr()
+//		do{
+//			let recData = try JSONSerialization.data(withJSONObject: [Rec], options: .prettyPrinted)
+//			let recStr = String.init(data: recData, encoding: .utf8)
+//			if recStr != nil{
+//				params["rec"] = recStr
+//			}
+//		}catch{
+//		}
 		self.submitBillInfoWith(params: params)
 	}
 	
@@ -1080,33 +1080,27 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//MARK:- request server
 	//提交录单数据
-	func submitBillInfoWith(params: Parameters) {
+	func submitBillInfoWith(params: [String: Any]) {
+		self.view.endEditing(true)
+		let req = DanPiaoQuanReq(params: params)
 		self.showLoading(msg: "提交中...")
-//		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/uploadPrintBillSubNew.do"
-		let reqUrl = "http://58.215.182.252:8610/AndroidServiceSTIOS/m8/uploadBill.do"
-		STHelper.POST(url: reqUrl, params: params) {
-			[unowned self](result, data) in
+		STNetworking<RespMsg>(stRequest: req) {
+			[unowned self] (resp) in
 			self.hideLoading()
-			if (result == .reqSucc) {
-				if let dataAry = data as? NSArray{
-					if let billData = dataAry.firstObject as? NSDictionary{
-						let transferCenter = billData["transferCenter"]
-						print("transferCenter = \(String(describing: transferCenter))")
-						self.billInfo["transferCenter"] = billData["transferCenter"]
-						self.showSubmitSuccView()
-					}
-				}
+			if resp.stauts == Status.Success.rawValue{
+				
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-				guard let msg = data as? String else {
-					return
-				}
+				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
-		}
+		}?.resume()
 	}
 	
 	//app获取电子面单接口
 	func fetchBillNum(){
+		self.view.endEditing(true)
 		self.showLoading(msg: "查询中...")
 		let req = BillNumReq()
 		STNetworking<String>(stRequest: req) {
@@ -1128,6 +1122,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//查询运输方式
 	func fetchTransportType(){
+		self.view.endEditing(true)
 		self.showLoading(msg: "查询运输类型...")
 		let req = TransportReq()
 		
@@ -1148,6 +1143,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//查询派送方式
 	func fetchDeliverType(){
+		self.view.endEditing(true)
 		self.showLoading(msg: "")
 
 		let req = ExpressReq()
@@ -1170,24 +1166,25 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
   //query jijian province city district
 	func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey, block: ((Bool) -> Void)?){
-    self.showLoading(msg: "数据加载中...")
-	let req = AddressReq(adrModel: model)
-	STNetworking<[AdrModel]>(stRequest: req) {
-		[unowned self](resp) in
-		self.hideLoading()
-		if resp.stauts == Status.Success.rawValue{
-			let adrs = resp.data
-			print("adrs array: \(adrs)")
-			block?(true)
-			self.showAdrActSheet(key: key, adrs: adrs, view: view)
-		}else if resp.stauts == Status.NetworkTimeout.rawValue{
-			self.remindUser(msg: "网络超时，请稍后尝试")
-		}else{
-			let msg = resp.msg
-			self.remindUser(msg: msg)
-		}
-	}?.resume()
-	
+		self.view.endEditing(true)
+		self.showLoading(msg: "数据加载中...")
+		let req = AddressReq(adrModel: model)
+		STNetworking<[AdrModel]>(stRequest: req) {
+			[unowned self](resp) in
+			self.hideLoading()
+			if resp.stauts == Status.Success.rawValue{
+				let adrs = resp.data
+				print("adrs array: \(adrs)")
+				block?(true)
+				self.showAdrActSheet(key: key, adrs: adrs, view: view)
+			}else if resp.stauts == Status.NetworkTimeout.rawValue{
+				self.remindUser(msg: "网络超时，请稍后尝试")
+			}else{
+				let msg = resp.msg
+				self.remindUser(msg: msg)
+			}
+			}?.resume()
+		
   }
 	
 	

@@ -83,6 +83,7 @@ struct ExpressReq: STRequest {
 }
 
 
+
 //ce shi wang dian suo shu feng bo zhong xin
 struct SiteRequest: STRequest{
 	let siteName: String
@@ -96,6 +97,7 @@ struct SiteRequest: STRequest{
 	
 }
 
+
 //dian zi mian dan 
 struct BillNumReq: STRequest{
 	var logicUrl: String{
@@ -103,3 +105,18 @@ struct BillNumReq: STRequest{
 	}
 }
 
+
+//ti jiao dan piao lu ru (quan)
+struct DanPiaoQuanReq: STRequest{
+	let params: [String: Any]
+	var logicUrl: String{
+		return "m8/uploadBill.do"
+	}
+	
+	var parameters: [AnyHashable : Any]{
+		let jsonStr = params.jsonDicStr()
+		return ["rec": jsonStr]
+	}
+	
+	
+}
