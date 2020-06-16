@@ -14,9 +14,12 @@ enum AdrKey: String{
 }
 
 
-class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInterface,UITextFieldDelegate {
+class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInterface,UITextFieldDelegate{
 	let kSectionSend = 1
 	let kSectionReceive = 2
+	
+	//yun dan hao de
+	let billFieldTag = 110
 	
 	//MARK:- IBOutlets
 	@IBOutlet var containerViewCollect: [HTDashView]!
@@ -137,6 +140,11 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//当前扫描的UITextField
 	var scanField:UITextField?
 	
+	//是否电子面单    0 为否  1 为 是
+//	var blElectron: Int = 0
+	
+	var billNumStr: String?
+	
 	let billInfo:NSMutableDictionary  = NSMutableDictionary()
 	
 	var billDetailInfo:Dictionary<String,Any>?
@@ -166,6 +174,9 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		for  view in self.containerViewCollect {
 			view.setupDashLine()
 		}
+		
+		self.billNumField.tag = billFieldTag
+		self.billNumField.delegate = self
 		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
@@ -381,9 +392,12 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		guard let params = self.paramsSaveBill() else{
 			return
 		}
-		self.submitBillInfoWith(params: params)
+		let paramsAry = [params]
+		guard let jsonString = paramsAry.toJSONString() else{return}
+		self.submitBillInfoWith(jsonString: jsonString)
 		
 	}
+	
 	
 	//目的网点所属中心
 	@IBAction func destSite(_ sender: UIButton) {
@@ -535,9 +549,21 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//MARK:- request params
 	func paramsSaveBill() -> Parameters?{
 		var params: Parameters = [:]
+		if self.billNumStr != nil{
+			params["blElectron"] = 1
+		}else{
+			params["blElectron"] = 0
+		}
+		
 		params["sendDate"] = self.sendDateField.text
 		if let billCode = self.billNumField.text,!billCode.isEmpty {
-			params["billCode"] = billCode
+			if billCode.isValidateBillNum(){
+                params["billCode"] = billCode
+            }else{
+                self.remindUser(msg: "运单号格式不正确");
+                return nil
+            }
+			
 		}else{
 			self.remindUser(msg: "请输入运单号")
 			return nil
@@ -879,14 +905,21 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 	}
 	
-	
+	//MARK:- UITextFieldDelegate
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		if textField.tag == billFieldTag {
+			self.billNumStr = nil
+		}
+		print("bill number textField changed....")
+		return true
+	}
 	
 	
 	//MARK:- request server
 	//提交录单数据
-	func submitBillInfoWith(params: [String: Any]) {
+	func submitBillInfoWith(jsonString: String) {
 		self.view.endEditing(true)
-		let req = DanPiaoQuanReq(params: params)
+		let req = DanPiaoQuanReq(paramString: jsonString)
 		self.showLoading(msg: "提交中...")
 		STNetworking<RespMsg>(stRequest: req) {
 			[unowned self] (resp) in
@@ -912,6 +945,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			[unowned self] (resp) in
 			self.hideLoading()
 			if resp.stauts == Status.Success.rawValue{
+				self.billNumStr = resp.data
 				self.billNumField.text = resp.data
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")

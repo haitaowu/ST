@@ -108,14 +108,14 @@ struct BillNumReq: STRequest{
 
 //ti jiao dan piao lu ru (quan)
 struct DanPiaoQuanReq: STRequest{
-	let params: [String: Any]
+//	let params: [String: Any]
+	let paramString: String
 	var logicUrl: String{
 		return "m8/uploadBill.do"
 	}
 	
 	var parameters: [AnyHashable : Any]{
-		let jsonStr = params.jsonDicStr()
-		return ["rec": jsonStr]
+		return ["rec": paramString]
 	}
 	
 	

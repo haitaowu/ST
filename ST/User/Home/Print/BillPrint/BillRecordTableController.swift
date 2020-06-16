@@ -1,6 +1,6 @@
 //
 //  BillPrintTableController.swift
-//  ST
+//  ST 单票录入 简
 //  Created by taotao on 20/03/2018.
 //  Copyright © 2018 dajiazhongyi. All rights reserved.
 //
