@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="eZf-qE-a14" customClass="HTAlertViewPrint" customModule="ST" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="eZf-qE-a14" customClass="HTAlertViewPrint" customModule="掌上速通" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -23,7 +21,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJg-f1-H5J">
-                    <rect key="frame" x="37" y="233" width="300" height="200"/>
+                    <rect key="frame" x="37.5" y="233.5" width="300" height="200"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ms9-J1-W56" userLabel="TitleView">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -34,8 +32,9 @@
                                     <color key="textColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SeparatorLinePixel" translatesAutoresizingMaskIntoConstraints="NO" id="QfI-pA-YFy" userLabel="horizontalLine">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QfI-pA-YFy" userLabel="horizontalLine">
                                     <rect key="frame" x="0.0" y="49.5" width="300" height="0.5"/>
+                                    <color key="backgroundColor" red="0.31373915079999998" green="0.67647606130000004" blue="0.6202784777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="HKL-8S-pUW"/>
                                     </constraints>
@@ -52,7 +51,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlf-f1-Ucl">
-                            <rect key="frame" x="0.0" y="75" width="300" height="50"/>
+                            <rect key="frame" x="0.0" y="58" width="300" height="83"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <state key="normal" title="打印">
@@ -65,15 +64,16 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUG-tN-pj2">
                             <rect key="frame" x="0.0" y="150" width="300" height="50"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SeparatorLinePixel" translatesAutoresizingMaskIntoConstraints="NO" id="OmT-E7-vSV" userLabel="horizontalLine">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OmT-E7-vSV" userLabel="horizontalLine">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="0.5"/>
+                                    <color key="backgroundColor" red="0.31373915079999998" green="0.67647606130000004" blue="0.6202784777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="yNZ-dn-lU1"/>
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSv-xT-0pR">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="49.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="300" height="49.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <state key="normal" title="取消">
                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
@@ -86,7 +86,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="0J2-1j-wuS"/>
                                 <constraint firstItem="OmT-E7-vSV" firstAttribute="leading" secondItem="xUG-tN-pj2" secondAttribute="leading" id="7HB-85-6KO"/>
-                                <constraint firstItem="NSv-xT-0pR" firstAttribute="top" secondItem="xUG-tN-pj2" secondAttribute="top" id="N7d-FE-RMC"/>
+                                <constraint firstItem="NSv-xT-0pR" firstAttribute="top" secondItem="OmT-E7-vSV" secondAttribute="bottom" id="OA3-ch-TX8"/>
                                 <constraint firstAttribute="trailing" secondItem="OmT-E7-vSV" secondAttribute="trailing" id="UWC-3U-dL1"/>
                                 <constraint firstItem="OmT-E7-vSV" firstAttribute="top" secondItem="xUG-tN-pj2" secondAttribute="top" id="cTe-4b-c7h"/>
                                 <constraint firstItem="NSv-xT-0pR" firstAttribute="leading" secondItem="xUG-tN-pj2" secondAttribute="leading" id="mbV-AR-81d"/>
@@ -122,10 +122,7 @@
                 <constraint firstItem="ZKv-Zu-VZt" firstAttribute="leading" secondItem="eZf-qE-a14" secondAttribute="leading" id="iuv-oc-00H"/>
                 <constraint firstAttribute="trailing" secondItem="ZKv-Zu-VZt" secondAttribute="trailing" id="nYA-rI-y3B"/>
             </constraints>
-            <point key="canvasLocation" x="110.5" y="327.5"/>
+            <point key="canvasLocation" x="109.59999999999999" y="326.98650674662673"/>
         </view>
     </objects>
-    <resources>
-        <image name="SeparatorLinePixel" width="16" height="16"/>
-    </resources>
 </document>

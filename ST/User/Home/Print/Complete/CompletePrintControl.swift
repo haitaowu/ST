@@ -180,7 +180,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.volumeField.delegate = self
 	}
 
-	
+	//alert to connection printer
 	func showSubmitSuccView() -> Void {
 		HTAlertViewPrint.ShowAlertViewWith(printBlock: {[unowned self] in
 			self.showConnPrinterView()
@@ -347,9 +347,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	
 	//MARK:- selectors
-	@IBAction func tapSubmitBtn(_ sender: Any) {
-		//        self.showSubmitSuccView()
-		//        return
+	/*@IBAction func tapSubmitBtn(_ sender: Any) {
 		
 		var Rec: Parameters = [:]
 		let registerDate = self.sendDateField.text!
@@ -431,6 +429,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 //		}
 		self.submitBillInfoWith(params: params)
 	}
+*/
 	
 	
 	@IBAction func wangdianBtnClicked(_ sender: Any) {
@@ -530,17 +529,14 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//收件人区
 	@IBAction func receiveDistrict(_ sender: UIButton) {
-//		var params:Parameters = [:]
 		guard let province = self.recePronvinBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件省")
 			return
 		}
-//		params[AdrKey.province.rawValue] = province
 		guard let city = self.receCityBtn.titleLabel?.text else{
 			self.remindUser(msg: "请选择收件市")
 			return
 		}
-//		params[AdrKey.city.rawValue] = city
 		var model = AdrModel()
 		model.province = province
 		model.city = city
@@ -556,6 +552,9 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//保存
 	@objc func saveBill(){
+		self.showSubmitSuccView()
+		return
+		
 		print("click right bar item save ....")
 		guard let paramsData = self.paramsSaveBill() else{
 			return
@@ -589,6 +588,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//包装类型
 	@IBAction func packageType(_ sender: UIButton) {
+		self.view.endEditing(true)
 		let types = ["箱装","袋装","托盘","散装","裸装","桶装","罐装","盘卷包装"]
 		ActionSheetStringPicker.show(withTitle: "包装类型", rows: types, initialSelection: 0, doneBlock: {
 			[unowned self] (picker, index, vals) in
@@ -612,6 +612,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
   
   //pay type action sheet
   @IBAction func payType(_ sender: UIButton) {
+	self.view.endEditing(true)
     let types = ["到付","现金","月结"]
     ActionSheetStringPicker.show(withTitle: "支付类型", rows: types, initialSelection: 0, doneBlock: {
       [unowned self] (picker, index, vals) in
@@ -729,14 +730,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			self.remindUser(msg: "请输入运单号")
 			return nil
 		}
-		
-//		if let billCode = self.billNumField.text {
-//			params["billCode"] = billCode
-//		}else{
-//			self.remindUser(msg: "请输入运单号")
-//			return nil
-//		}
-		
 		
 		if let sendMan = self.senderField.text,!sendMan.isEmpty {
 			params["sendMan"] = sendMan
@@ -1087,7 +1080,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			[unowned self] (resp) in
 			self.hideLoading()
 			if resp.stauts == Status.Success.rawValue{
-				
+				self.showSubmitSuccView()
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{

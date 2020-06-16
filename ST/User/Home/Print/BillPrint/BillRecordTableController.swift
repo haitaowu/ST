@@ -248,7 +248,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
                                 let transferCenter = billData["transferCenter"];
                                 print("transferCenter = \(String(describing: transferCenter))");
                                 self.billInfo["transferCenter"] = billData["transferCenter"];
-                                self.showSubmitSuccView();
+                                self.showSubmitSuccView()
                             }
                         }else{
                             let msg = json.value(forKey: "msg") as? String
