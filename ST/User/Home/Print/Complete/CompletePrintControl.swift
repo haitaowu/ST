@@ -191,7 +191,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	func showConnPrinterView() -> Void {
 		let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
-		//        connViewControl.billInfo = self.billInfo
 		let billCode = self.billNumField.text!
 		connViewControl.billSN = billCode
 		self.navigationController?.pushViewController(connViewControl, animated: true)
@@ -1097,6 +1096,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			}
 		}?.resume()
 	}
+	
 	
 	//app获取电子面单接口
 	func fetchBillNum(){

@@ -512,20 +512,20 @@ int cjFlag=1;           // qzfeng 2016/05/10
     NSString * state = nil;
 		switch ([central state])
 		{
-			case CBCentralManagerStateUnsupported:
+			case CBManagerStateUnsupported:
 				state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
 				break;
-			case CBCentralManagerStateUnauthorized:
+			case CBManagerStateUnauthorized:
 				state = @"The app is not authorized to use Bluetooth Low Energy.";
 				break;
-			case CBCentralManagerStatePoweredOff:
+			case CBManagerStatePoweredOff:
                 [SVProgressHUD showInfoWithStatus:@"请先打开蓝牙哦"];
 				state = @"Bluetooth is currently powered off.";
 				break;
-			case CBCentralManagerStatePoweredOn:
+			case CBManagerStatePoweredOn:
 				state = @"work";
 				break;
-			case CBCentralManagerStateUnknown:
+			case CBManagerStateUnknown:
 			default:
 			;
 		}
