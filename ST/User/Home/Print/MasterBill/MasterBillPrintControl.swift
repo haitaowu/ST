@@ -145,4 +145,6 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
         self.view.endEditing(true);
 		
     }
+	
+	
 }

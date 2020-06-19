@@ -20,6 +20,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//yun dan hao de
 	let billFieldTag = 110
+  
+  let jinEFieldFlag = 10
 	
 	//MARK:- IBOutlets
 	@IBOutlet var containerViewCollect: [HTDashView]!
@@ -177,6 +179,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		self.billNumField.tag = billFieldTag
 		self.billNumField.delegate = self
+    self.jinE.delegate = self
+    self.view.addDismissGesture()
 		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
@@ -459,47 +463,57 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//MARK:- UITExtField delegate
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		if textField.tag == 100 {
-			let weightStr = self.weightField.text!
-			let weightD = Double(weightStr) ?? 0.0
-			
-			let volWeightStr = self.volumeWeightField.text!
-			let volWeightD = Double(volWeightStr) ?? 0.0
-			
-			let weight = weightD > volWeightD ? weightD : volWeightD
-			if weight != 0.0{
-				let calWeightStr = String(weight)
-				self.calWeightField.text = calWeightStr
-			}else{
-				self.calWeightField.text = ""
-			}
-
-			
-		}else if textField.tag == 101 {
-			let weightStr = self.weightField.text!
-			let weightD = Double(weightStr) ?? 0.0
-			
-			let volStr = self.volumeField.text!
-			let vol = Double(volStr) ?? 0.0
-			let volWeight = vol * 200
-			
-			if volWeight > 0.0 {
-				let volWeigthStr = String(volWeight)
-				self.volumeWeightField.text = volWeigthStr
-			}else{
-				self.volumeWeightField.text = ""
-			}
-			
-			let weight = weightD > volWeight ? weightD : volWeight
-			if weight != 0.0{
-				let calWeightStr = String(weight)
-				self.calWeightField.text = calWeightStr
-			}else{
-				self.calWeightField.text = ""
-			}
-			
-			
-		}
+    if textField.tag == 100 {
+      let weightStr = self.weightField.text!
+      let weightD = Double(weightStr) ?? 0.0
+      
+      let volWeightStr = self.volumeWeightField.text!
+      let volWeightD = Double(volWeightStr) ?? 0.0
+      
+      let weight = weightD > volWeightD ? weightD : volWeightD
+      if weight != 0.0{
+        let calWeightStr = String(weight)
+        self.calWeightField.text = calWeightStr
+      }else{
+        self.calWeightField.text = ""
+      }
+      
+      
+    }else if textField.tag == 101 {
+      let weightStr = self.weightField.text!
+      let weightD = Double(weightStr) ?? 0.0
+      
+      let volStr = self.volumeField.text!
+      let vol = Double(volStr) ?? 0.0
+      let volWeight = vol * 200
+      
+      if volWeight > 0.0 {
+        let volWeigthStr = String(volWeight)
+        self.volumeWeightField.text = volWeigthStr
+      }else{
+        self.volumeWeightField.text = ""
+      }
+      
+      let weight = weightD > volWeight ? weightD : volWeight
+      if weight != 0.0{
+        let calWeightStr = String(weight)
+        self.calWeightField.text = calWeightStr
+      }else{
+        self.calWeightField.text = ""
+      }
+      
+      
+    }else if textField.tag == jinEFieldFlag{
+      let amountStr = textField.text!
+      guard  let amount = Float(amountStr) else{return}
+      if amount < 2000{
+        textField.text = ""
+      }else{
+        let insureRate = amount * 0.001
+        let insure = "保险费:" + String(insureRate)
+        self.baoxianFei.text = insure
+      }
+    }
 		
 	}
 	
@@ -542,7 +556,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	
 	//MARK:- UIScrollView delegate
 	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-		self.view.endEditing(true)
+//		self.view.endEditing(true)
 	}
 	
 	
@@ -557,13 +571,17 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		params["sendDate"] = self.sendDateField.text
 		if let billCode = self.billNumField.text,!billCode.isEmpty {
-			if billCode.isValidateBillNum(){
-                params["billCode"] = billCode
-            }else{
-                self.remindUser(msg: "运单号格式不正确");
-                return nil
-            }
-			
+			if self.billNumStr != nil{
+				params["billCode"] = billCode
+			}else{
+				
+				if billCode.isValidateBillNum(){
+					params["billCode"] = billCode
+				}else{
+					self.remindUser(msg: "运单号格式不正确");
+					return nil
+				}
+			}
 		}else{
 			self.remindUser(msg: "请输入运单号")
 			return nil
@@ -804,9 +822,12 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			return nil
 		}
 		
+
 		//保价金额--
 		if let insuredMoney = self.jinE.text,!insuredMoney.isEmpty {
-			params["insuredMoney"] = insuredMoney
+			params["insureValue"] = insuredMoney
+			let insurance = Float(insuredMoney)! * 0.0001
+			params["insurance"] = insurance
 		}else{
 			self.remindUser(msg: "请输入保价金额")
 			return nil
