@@ -599,27 +599,27 @@ static NSString *const kServiceUUID = @"ff00";
 	NSString *goods = @"";
 	NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
 	if (name != nil) {
-		goods = [goods stringByAppendingFormat:@"名称:%@",name];
+		goods = [goods stringByAppendingFormat:@"名称:%@、",name];
 	}
 	NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
 	if (pieces != nil) {
-		goods = [goods stringByAppendingFormat:@"件数:%@",pieces];
+		goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
 	}
 	NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
 	if (weight != nil) {
-		goods = [goods stringByAppendingFormat:@"重量:%@",weight];
+		goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
 	}
 	NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
 	if (tranType != nil) {
-		goods = [goods stringByAppendingFormat:@"送货方式:%@",tranType];
+		goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
 	}
 	NSString *sign = [billInfo objectForKey:@"BL_RETURN_BILL"];
 	if (sign != nil) {
-		goods = [goods stringByAppendingFormat:@"签回单标识:%@",sign];
+		goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
 	}
 	NSString *storage = [billInfo objectForKey:@"BL_INTO_WAREHOUSE"];
 	if (storage != nil) {
-		goods = [goods stringByAppendingFormat:@"进仓标识:%@",storage];
+		goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
 	}
 	
 	NSString *date = [billInfo objectForKey:@"SEND_DATE"];
@@ -636,38 +636,38 @@ static NSString *const kServiceUUID = @"ff00";
 	NSString *goods = @"";
 	NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
 	if (name != nil) {
-		goods = [goods stringByAppendingFormat:@"名称:%@",name];
+		goods = [goods stringByAppendingFormat:@"名称:%@、",name];
 	}
 	NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
 	if (pieces != nil) {
-		goods = [goods stringByAppendingFormat:@"件数:%@",pieces];
+		goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
 	}
 	NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
 	if (weight != nil) {
-		goods = [goods stringByAppendingFormat:@"重量:%@",weight];
+		goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
 	}
 	NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
 	if (tranType != nil) {
-		goods = [goods stringByAppendingFormat:@"送货方式:%@",tranType];
+		goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
 	}
 	
 	NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
 	if (weightCount != nil) {
-		goods = [goods stringByAppendingFormat:@"超重件数:%@",weightCount];
+		goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
 	}
 	
 	NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
 	if (overSize != nil) {
-		goods = [goods stringByAppendingFormat:@"超长标识:%@",overSize];
+		goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
 	}
 	
 	NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
 	if (rCode != nil) {
-		goods = [goods stringByAppendingFormat:@"回单编号:%@",rCode];
+		goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
 	}
 	NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
 	if (storageCode != nil) {
-		goods = [goods stringByAppendingFormat:@"进仓编号:%@",storageCode];
+		goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
 	}
 	
 	NSString *date = [billInfo objectForKey:@"SEND_DATE"];
@@ -683,13 +683,17 @@ static NSString *const kServiceUUID = @"ff00";
 - (NSString*)feesTxtBy:(id)billInfo
 {
 	NSString *fees = @"";
-	NSString *cash = [billInfo objectForKey:@"INSURE_VALUE"];
-	if (cash != nil) {
-		fees = [fees stringByAppendingFormat:@"现金:%@",cash];
+	NSString *payType = [billInfo objectForKey:@"PAYMENT_TYPE"];
+	if (payType != nil) {
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+		NSString *cash = [billInfo objectForKey:@"FREIGHT"];
+		if (payType != nil) {
+			fees = [fees stringByAppendingFormat:@"%@、",cash];
+		}
 	}
 	NSString *count = [billInfo objectForKey:@"INSURE_VALUE"];
 	if (count != nil) {
-		fees = [fees stringByAppendingFormat:@"保价金额:%@",count];
+		fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
 	}
 	NSString *pay = [billInfo objectForKey:@"FREIGHT"];
 	if (pay != nil) {
