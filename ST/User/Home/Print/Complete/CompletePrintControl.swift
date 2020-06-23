@@ -179,8 +179,8 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		
 		self.billNumField.tag = billFieldTag
 		self.billNumField.delegate = self
-    self.jinE.delegate = self
-    self.view.addDismissGesture()
+		self.jinE.delegate = self
+		self.view.addDismissGesture()
 		
 		self.addObserver(self, forKeyPath: "destSiteField.text", options: [.new,.old], context: nil)
 		
