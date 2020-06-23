@@ -562,44 +562,13 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-
-//录单时间
-- (NSString*)billDateWithData:(NSDictionary*)data
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-    NSString *billDateStr = [data objectForKey:kSendDate];
-    NSDate *billDate = [formatter dateFromString:billDateStr];
-    formatter.dateFormat = @"yyyy-MM-dd";
-    NSString *formatBillDateStr = [formatter stringFromDate:billDate];
-    formatBillDateStr = [NSString stringWithFormat:@"%@",formatBillDateStr];
-    return formatBillDateStr;
-}
-
-//打印时间
+//当前时间
 - (NSString*)currentDateStr
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
     NSString *todayStr = [formatter stringFromDate:[NSDate date]];
     return todayStr;
-}
-
-- (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo
-{
-    NSMutableArray *array = [NSMutableArray array];
-    NSString *subBillCodeStr = [billInfo objectForKey:@"billCodeSub"];
-    NSCharacterSet *semicolonCharSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
-    subBillCodeStr = [subBillCodeStr stringByTrimmingCharactersInSet:semicolonCharSet];
-    NSArray *subCodesArra = [subBillCodeStr componentsSeparatedByCharactersInSet:semicolonCharSet];
-    NSString *billCode = [billInfo objectForKey:@"billCode"];
-    for (NSString *codeStr in subCodesArra) {
-        NSString *subCodeStr = [codeStr stringByReplacingOccurrencesOfString:billCode withString:@""];
-        if (subCodeStr.length > 0) {
-            [array addObject:subCodeStr];
-        }
-    }
-    return array;
 }
 
 
@@ -644,7 +613,7 @@ static NSString *const kServiceUUID = @"ff00";
 	if (tranType != nil) {
 		goods = [goods stringByAppendingFormat:@"送货方式:%@",tranType];
 	}
-	NSString *sign = [billInfo objectForKey:@"sign"];
+	NSString *sign = [billInfo objectForKey:@"BL_RETURN_BILL"];
 	if (sign != nil) {
 		goods = [goods stringByAppendingFormat:@"签回单标识:%@",sign];
 	}

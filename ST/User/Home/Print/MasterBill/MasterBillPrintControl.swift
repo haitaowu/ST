@@ -23,7 +23,8 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
     @IBOutlet weak var countField: UITextField!
     @IBOutlet weak var fetchBillBtn: UIButton!
     
-	var billInfo: Dictionary<String, Any>? = nil
+	
+	var billInfo: Dictionary<String, Any>?
 	
     
     //MARK:- override mothods
