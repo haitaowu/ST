@@ -469,7 +469,16 @@ int cjFlag=1;           // qzfeng 2016/05/10
 {
     [SVProgressHUD showWithStatus:@"加载运单数据" maskType:SVProgressHUDMaskTypeBlack];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURL *url = [NSURL URLWithString:@"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do"];
+	//生产环境服务器
+#if DEBUG
+	NSString *urlStr = @"http://58.215.182.252:5889/AndroidService/m8/qryBillSub.do";
+#else
+	NSString *urlStr = @"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do";
+#endif
+
+	//测试环境的服务器
+    NSURL *url = [NSURL URLWithString:urlStr];
+	
     NSMutableURLRequest *mutRequest = [NSMutableURLRequest requestWithURL:url];
     mutRequest.HTTPMethod = @"POST";
 //    NSString *pieceNumber = self.billInfo[@"pieceNumber"];

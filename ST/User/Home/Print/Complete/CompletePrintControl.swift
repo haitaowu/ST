@@ -112,7 +112,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	//管理费重量
 	@IBOutlet weak var managerFeeField: UITextField!
 	//子单号
-	@IBOutlet weak var subBillField: UITextField!
+//	@IBOutlet weak var subBillField: UITextField!
 	
 	//支付类型
 	@IBOutlet weak var payTypeField: UITextField!
@@ -594,6 +594,13 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			return nil
 		}
 		
+		if let sendManPhone = self.sendPhoneField.text,!sendManPhone.isEmpty {
+			params["sendManPhone"] = sendManPhone
+		}else{
+			self.remindUser(msg: "请输入寄件人电话")
+			return nil
+		}
+		
 		//寄件省--
 		if let province = self.sendProvinceBtn.titleLabel?.text,!province.isEmpty {
 			params["province"] = province
@@ -618,10 +625,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			return nil
 		}
 		
-		//寄件地？？？
-//		if let sendAddress = self.sendAdrDetail.text {
-//			params["sendAddress"] = sendAddress
-//		}
 		
 		//寄件地址--？？
 		if let sendManAddress = self.sendAdrDetail.text,!sendManAddress.isEmpty {
@@ -631,18 +634,20 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			return nil
 		}
 		
-		if let sendManPhone = self.sendPhoneField.text,!sendManPhone.isEmpty {
-			params["sendManPhone"] = sendManPhone
-		}else{
-			self.remindUser(msg: "请输入寄件人电话")
-			return nil
-		}
 		
 		//收件人--
 		if let acceptMan = self.receiverField1.text, !acceptMan.isEmpty {
 			params["acceptMan"] = acceptMan
 		}else{
 			self.remindUser(msg: "请输入收件人")
+			return nil
+		}
+		
+		//收件电话--
+		if let acceptManPhone = self.recePhoneField.text,!acceptManPhone.isEmpty {
+			params["acceptManPhone"] = acceptManPhone
+		}else{
+			self.remindUser(msg: "请输入收件电话")
 			return nil
 		}
 		
@@ -678,13 +683,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			return nil
 		}
 		
-		//收件电话--
-		if let acceptManPhone = self.recePhoneField.text,!acceptManPhone.isEmpty {
-			params["acceptManPhone"] = acceptManPhone
-		}else{
-			self.remindUser(msg: "请输入收件电话")
-			return nil
-		}
+		
 		
 		//目的地--
 		if let destination = self.destSiteField.text, !destination.isEmpty {
@@ -721,19 +720,42 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		//货物名称--
 		if let goodsName = self.goodsNameField.text, !goodsName.isEmpty {
 			params["goodsName"] = goodsName
-		}else{
-			self.remindUser(msg: "请输入货物名称")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请输入货物名称")
+//			return nil
+//		}
 		
 		//包装类型--
 		if let packType = self.packageBtn.titleLabel?.text, !packType.isEmpty {
 			params["packType"] = packType
-		}else{
-			self.remindUser(msg: "请选择包装类型")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请选择包装类型")
+//			return nil
+//		}
+//
 		
+		
+		//运输方式--
+		if let classType = self.transportTypeBtn.titleLabel?.text, !classType.isEmpty {
+			params["classType"] = classType
+		}
+//		else{
+//			self.remindUser(msg: "请选择运输方式")
+//			return nil
+//		}
+//
+		
+		//派送方式--
+		if let dispatchMode = self.deliverTypeBtn.titleLabel?.text,!dispatchMode.isEmpty {
+			params["dispatchMode"] = dispatchMode
+		}
+//		else{
+//			self.remindUser(msg: "请选择派送方式")
+//			return nil
+//		}
+//
 		//结算重量--
 		if let settlementWeight = self.calWeightField.text, !settlementWeight.isEmpty {
 			params["settlementWeight"] = settlementWeight
@@ -750,31 +772,17 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		//体积--
 		if let volume = self.volumeField.text,!volume.isEmpty {
 			params["volume"] = volume
-		}else{
-			self.remindUser(msg: "请输入体积")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请输入体积")
+//			return nil
+//		}
 		
 		//体积重量--
 		if let volumeWeight = self.volumeWeightField.text, !volumeWeight.isEmpty {
 			params["volumeWeight"] = volumeWeight
 		}
-		
-		//派送方式--
-		if let dispatchMode = self.deliverTypeBtn.titleLabel?.text,!dispatchMode.isEmpty {
-			params["dispatchMode"] = dispatchMode
-		}else{
-			self.remindUser(msg: "请选择派送方式")
-			return nil
-		}
-		
-		//运输方式--
-		if let classType = self.transportTypeBtn.titleLabel?.text, !classType.isEmpty {
-			params["classType"] = classType
-		}else{
-			self.remindUser(msg: "请选择运输方式")
-			return nil
-		}
+//
 		
 		//件数--
 		if let pieceNumber = self.jianShuField.text, !pieceNumber.isEmpty {
@@ -793,34 +801,37 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}
 		
 		//子单号--
-		if let billCodeSub = self.subBillField.text, !billCodeSub.isEmpty {
-			params["billCodeSub"] = billCodeSub
-		}
+//		if let billCodeSub = self.subBillField.text, !billCodeSub.isEmpty {
+//			params["billCodeSub"] = billCodeSub
+//		}
 		
 		
 		//支付方式--
 		if let paymentType = self.payTypeField.text,!paymentType.isEmpty {
 			params["paymentType"] = paymentType
-		}else{
-			self.remindUser(msg: "请选择支付方式")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请选择支付方式")
+//			return nil
+//		}
 		
 		//到付款--
 		if let topayment = self.payMoneyField.text, !topayment.isEmpty {
 			params["topayment"] = topayment
-		}else{
-			self.remindUser(msg: "请输入到付款")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请输入到付款")
+//			return nil
+//		}
 		
 		//运费--
 		if let freight = self.yunFeiField.text, !freight.isEmpty {
 			params["freight"] = freight
-		}else{
-			self.remindUser(msg: "请输入运费")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请输入运费")
+//			return nil
+//		}
 		
 
 		//保价金额--
@@ -849,9 +860,10 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 			if let rBillcode = self.rebillField.text,!rBillcode.isEmpty {
 				params["rBillcode"] = rBillcode
 			}
-		}else{
-			params["blReturnBill"] = 0
 		}
+//		else{
+//			params["blReturnBill"] = 0
+//		}
 		
 		//超长标识--int ;
 		if self.overLen.isSelected {
@@ -893,10 +905,11 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		//送货费--
 		if let sendgoodsFee = self.songHuoFei.text,!sendgoodsFee.isEmpty {
 			params["sendgoodsFee"] = sendgoodsFee
-		}else{
-			self.remindUser(msg: "请输入送货费")
-			return nil
 		}
+//		else{
+//			self.remindUser(msg: "请输入送货费")
+//			return nil
+//		}
 		
 		//超区费--
 		if let overAreaFee = self.chaoQuFei.text,!overAreaFee.isEmpty {

@@ -30,6 +30,8 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     //MARK:- override mothods
     override func viewDidLoad() {
         self.setupUI();
+		
+		
     }
     
     //MARK:- update ui methods
@@ -43,7 +45,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
             self.destAdrField.text = arriveSite
         }
         
-        if let transferCenter = queryBillInfo["transferCenter"] as? String{
+        if let transferCenter = queryBillInfo["dispatchCenter"] as? String{
             self.transferCenterField.text = transferCenter
         }
         
@@ -74,19 +76,18 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     //MARK:- private methods
     func setupUI() {
         self.title = "单件补录";
-        
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
         self.detailAdrTxtView.placeholder = "输入地址";
-        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
+//        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated);
-        for  view in self.containerViewCollect {
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated);
+//        for  view in self.containerViewCollect {
 //            view.setupDashLine();
-        }
-    }
+//        }
+//    }
 
     
     //MARK:- selectors
@@ -117,12 +118,12 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
             self.remindUser(msg: "请输入运单号");
             return;
         }else{
-			if billCode.isValidateBillNum(){
-                rec["billCode"] = billCode
-            }else{
-                self.remindUser(msg: "运单号格式不正确");
-                return;
-            }
+//			if billCode.isValidateBillNum(){
+			rec["billCode"] = billCode
+//            }else{
+//                self.remindUser(msg: "运单号格式不正确");
+//                return;
+//            }
         }
         self.queryBillWith(params: rec);
     }

@@ -23,7 +23,7 @@ class SubBillPrintControl:UITableViewController,QrInterface,WangdianPickerInterf
     @IBOutlet weak var countField: UITextField!
     @IBOutlet weak var fetchBillBtn: UIButton!
 
-    let billInfo:NSMutableDictionary  = NSMutableDictionary();
+    var billInfo:Dictionary<String,Any>?
     
     //MARK:- override mothods
     override func viewDidLoad() {
@@ -57,6 +57,36 @@ class SubBillPrintControl:UITableViewController,QrInterface,WangdianPickerInterf
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
+	func updateUIBy(billInfo: Dictionary<String, Any>){
+		//1.主单号
+		if let billCode = billInfo["BILL_CODE"] as? String{
+			self.billNumField.text = billCode
+			self.masterBillNumField.text = billCode
+		}
+		
+		//2.目的网点 DESTINATION(目的地)
+		if let destination = billInfo["DESTINATION"] as? String{
+			self.destSiteField.text = destination
+		}
+		
+		//3.详细地址 ACCEPT_MAN_ADDRESS(收件人地址)
+		var address = ""
+		if let adrDetail = billInfo["ACCEPT_MAN_ADDRESS"] as? String{
+			address = address + adrDetail
+		}
+		self.addressField.text = address
+		//5.重量
+		if let weight = billInfo["SETTLEMENT_WEIGHT"]{
+			let weihtStr = "\(weight)"
+			
+			self.weightField.text = weihtStr
+		}
+		//6.件数
+		if let piece = billInfo["SETTLEMENT_WEIGHT"]{
+			let pieceStr = "\(piece)"
+			self.countField.text = pieceStr
+		}
+	}
    
     
     //MARK:- selectors
@@ -102,6 +132,8 @@ class SubBillPrintControl:UITableViewController,QrInterface,WangdianPickerInterf
         self.hideLoading()
         if (result == .reqSucc) {
           if let billInfo = data as? Dictionary<String,Any>{
+			self.billInfo = billInfo
+			self.updateUIBy(billInfo: billInfo)
           }
         }else{
           guard let msg = data as? String else {

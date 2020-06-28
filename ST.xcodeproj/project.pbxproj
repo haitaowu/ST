@@ -1860,7 +1860,7 @@
 				TargetAttributes = {
 					8968B2BE1DBE606E00F0606D = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = YTV9736654;
+						DevelopmentTeam = 9ZRTKDFG4T;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2427,7 +2427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YTV9736654;
+				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2503,7 +2503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = YTV9736654;
+				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

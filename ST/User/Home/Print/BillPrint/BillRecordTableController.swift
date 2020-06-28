@@ -34,7 +34,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
     
     //MARK:- private methods
     func setupUI() {
-        self.title = "单件录入";
+        self.title = "单票录入(简)";
         for  view in self.containerViewCollect {
             view.setupDashLine();
         }

@@ -84,7 +84,6 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
 			let pieceStr = "\(piece)"
 			self.countField.text = pieceStr
 		}
-		
 	}
     
     
@@ -99,12 +98,12 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
 			self.remindUser(msg: "请输入运单号");
 			return;
 		}else{
-			if billCode.isValidateBillNum(){
-				params["billCode"] = billCode
-			}else{
-				self.remindUser(msg: "运单号格式不正确");
-				return;
-			}
+//			if billCode.isValidateBillNum(){
+			params["billCode"] = billCode
+//			}else{
+//				self.remindUser(msg: "运单号格式不正确");
+//				return;
+//			}
 		}
 		self.fetchBillDetailInfo(params: params)
 	}

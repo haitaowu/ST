@@ -28,7 +28,7 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
 		self.setupCollectionView()
 		self.menuAry = [
 			[kName:"主单打印",kSubTitle:"",kStory:"BaseUI",kId:"MasterBillPrintControl",kBgColor:"color",kICon:"icon"],
-			[kName:"子单打印",kSubTitle:"",kStory:"BaseUI",kId:"BillRecordTableController",kBgColor:"color",kICon:"icon"],
+			[kName:"子单打印",kSubTitle:"",kStory:"BaseUI",kId:"LaterPinterBillTableController",kBgColor:"color",kICon:"icon"],
 		]
 	}
   
