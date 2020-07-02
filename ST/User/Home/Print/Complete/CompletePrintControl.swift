@@ -18,7 +18,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 	let kSectionSend = 1
 	let kSectionReceive = 2
 	
-	//yun dan hao de
+	//yun dan hao 
 	let billFieldTag = 110
   
   let jinEFieldFlag = 10
@@ -933,7 +933,6 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		}else{
 			params["blMessage"] = 0
 		}
-		
 		
 		return params
 		

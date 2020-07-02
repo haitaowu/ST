@@ -165,6 +165,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     func onReadQrCode(code: String) {
         self.billNumField.text = code
     }
+	
     
     //MARK:- UITableView dataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

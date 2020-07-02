@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class BillRecordTableController:UITableViewController,QrInterface,WangdianPickerInterface {
+class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInterface,WangdianPickerInterface {
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var sendSiteField: UITextField!
@@ -27,6 +27,10 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
     
     let billInfo:NSMutableDictionary  = NSMutableDictionary();
     
+	//yun dan hao de
+	let billFieldTag = 111
+	var billNumStr: String?
+	
     //MARK:- override mothods
     override func viewDidLoad() {
         self.setupUI();
@@ -38,6 +42,9 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
         for  view in self.containerViewCollect {
             view.setupDashLine();
         }
+		self.billNumField.tag = billFieldTag
+		self.billNumField.delegate = self
+		
 		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
@@ -89,19 +96,47 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
             billInfo["sendSite"] = SITE_NAME;
         }
         
-        let billCode = self.billNumField.text!
-        if billCode.isEmpty{
-            self.remindUser(msg: "请输入运单号");
-            return;
-        }else{
-			if billCode.isValidateBillNum(){
-                Rec["billCode"] = billCode
+		
+//        let billCode = self.billNumField.text!
+//        if billCode.isEmpty{
+//            self.remindUser(msg: "请输入运单号");
+//            return;
+//        }else{
+//			if billCode.isValidateBillNum(){
+//                Rec["billCode"] = billCode
+//                billInfo["billCode"] = billCode;
+//            }else{
+//                self.remindUser(msg: "运单号格式不正确");
+//                return;
+//            }
+//        }
+		
+		if self.billNumStr != nil{
+			Rec["blElectron"] = 1
+		}else{
+			Rec["blElectron"] = 0
+		}
+		
+		if let billCode = self.billNumField.text,!billCode.isEmpty {
+			if self.billNumStr != nil{
+//				params["billCode"] = billCode
+				Rec["billCode"] = billCode
                 billInfo["billCode"] = billCode;
-            }else{
-                self.remindUser(msg: "运单号格式不正确");
-                return;
-            }
-        }
+			}else{
+				if billCode.isValidateBillNum(){
+//					params["billCode"] = billCode
+					Rec["billCode"] = billCode
+					billInfo["billCode"] = billCode;
+				}else{
+					self.remindUser(msg: "运单号格式不正确");
+					return
+				}
+			}
+		}else{
+			self.remindUser(msg: "请输入运单号")
+			return
+		}
+		
         
         let acceptManAddress = self.receSiteTxtView.text!
         if acceptManAddress.isEmpty{
@@ -201,6 +236,7 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
 			self.hideLoading()
 			if resp.stauts == Status.Success.rawValue{
 				self.billNumField.text = resp.data
+				self.billNumStr = resp.data
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
@@ -255,6 +291,15 @@ class BillRecordTableController:UITableViewController,QrInterface,WangdianPicker
     func onReadQrCode(code: String) {
         self.billNumField.text = code
     }
+	
+	//MARK:- UITextFieldDelegate
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		if textField.tag == billFieldTag {
+			self.billNumStr = nil
+		}
+		print("bill number textField changed....")
+		return true
+	}
     
     //MARK:- UITableView dataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

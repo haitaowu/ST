@@ -35,8 +35,10 @@ int cjFlag=1;           // qzfeng 2016/05/10
 
 #define kBillCodeKey            @"billCode"
 #define kSendSiteKey            @"sendSite"
-#define kTransferCenterKey      @"transferCenter"
-#define kBillCodeKey            @"billCode"
+#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
+#define kDispatchCodeKey      	@"dispatchCode" //目的网点所属编号
+#define kSendgoodsTypeKey      	@"sendgoodsType" //派送方式
+#define kGoodsNameKey      		@"goodsName" //物品名称
 #define kAcceptAdrKey           @"acceptManAddress"
 #define kArriveSiteKey          @"arriveSite"
 #define kWeightKey              @"weight"
@@ -170,22 +172,49 @@ int cjFlag=1;           // qzfeng 2016/05/10
 {
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
-    int maxIndex = [piecesNum intValue] - 1;
-    NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
-    for(int index = 0; index < maxIndex ; index ++){
-        int64_t seconds = index * 2;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *subCode = nil;
-            if (index > (subCodesArra.count - 1)) {
-                subCode = [subCodesArra firstObject];
-            }else{
-                subCode = [subCodesArra objectAtIndex:index];
-            }
-            NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
-            [self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-        });
-    }
+//	int maxIndex = [piecesNum intValue] - 1;
+//	int maxIndex = [piecesNum intValue];
+	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	if ([subCodesArra count] > 0) {
+		for (int idx = 0; idx < [subCodesArra count]; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:idx];
+			int64_t seconds = idx * 2;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
+				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+			});
+		}
+	}else{
+		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+		NSString *subCode = @"";
+		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+	}
+	
+//
+//
+//	if ([subCodesArra count] > 0) {
+//		for(int index = 0; index < maxIndex ; index ++){
+//			int64_t seconds = index * 2;
+//			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//				NSString *subCode = nil;
+//				if (index > (subCodesArra.count - 1)) {
+//					subCode = [subCodesArra firstObject];
+//				}else{
+//					subCode = [subCodesArra objectAtIndex:index];
+//				}
+//				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
+//				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//			});
+//		}
+//	}else{
+//		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+//		NSString *subCode = @"";
+//		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//	}
+	
 }
+
+
 
 - (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
@@ -305,7 +334,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     // 目的网点编号
-    NSString *dispatchCode = [self.billInfo objectForKey:@"dispatchCode"];
+    NSString *dispatchCode = [self.billInfo objectForKey:kDispatchCodeKey];
     if (dispatchCode != nil) {
 //        int arriveSiteCodeY = arrSiteY + 40;
         int arriveSiteCodeY = arrSiteY + 50;
@@ -315,7 +344,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     //派送方式
-    NSString *sendgoodsType = [self.billInfo objectForKey:@"sendgoodsType"];
+    NSString *sendgoodsType = [self.billInfo objectForKey:kSendgoodsTypeKey];
     if (sendgoodsType != nil) {
         int width = col2x - col1x;
         int margin = (width - (int)sendgoodsType.length * aLet3StrWidth)/2;
@@ -325,7 +354,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     //物品名称
-    NSString *goodsName = [self.billInfo objectForKey:@"goodsName"];
+    NSString *goodsName = [self.billInfo objectForKey:kGoodsNameKey];
     if (goodsName != nil) {
         int width = col3x - col2x;
         int margin = (width - (int)goodsName.length * aLet3StrWidth)/2;
@@ -354,7 +383,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     int topVerticalLinex = col5x - 100;
 //    [SPRTPrint drawLine:2 startX:topVerticalLinex startY:0 endX:topVerticalLinex endY:line1Y isFullline:false];
     //目的网点所属中心
-    NSString *dispatchCenter = [self.billInfo objectForKey:@"dispatchCenter"];
+    NSString *dispatchCenter = [self.billInfo objectForKey:kDispatchCenterKey];
     if (dispatchCenter != nil) {
         int dispatchW = maxX - topVerticalLinex;
         int dispatchMargin = (dispatchW - (int)dispatchCenter.length * aLet5StrBoldWidth)/2;
@@ -471,9 +500,9 @@ int cjFlag=1;           // qzfeng 2016/05/10
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	//生产环境服务器
 #if DEBUG
-	NSString *urlStr = @"http://58.215.182.252:5889/AndroidService/m8/qryBillSub.do";
+	NSString *urlStr = @"http://58.215.182.252:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
 #else
-	NSString *urlStr = @"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do";
+	NSString *urlStr = @"http://58.215.182.251:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
 #endif
 
 	//测试环境的服务器

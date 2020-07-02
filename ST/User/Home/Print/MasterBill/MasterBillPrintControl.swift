@@ -80,7 +80,7 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
 			self.weightField.text = weihtStr
 		}
 		//6.件数
-		if let piece = billInfo["SETTLEMENT_WEIGHT"]{
+		if let piece = billInfo["PIECE_NUMBER"]{
 			let pieceStr = "\(piece)"
 			self.countField.text = pieceStr
 		}

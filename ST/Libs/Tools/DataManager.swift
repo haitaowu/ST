@@ -309,7 +309,8 @@ class DataManager{
 	
     
     func uploadQianshouImages(images:[String],complete:@escaping () -> Void){
-        let target = "AndroidService/pic/uploadSignPic.do"
+		//签收件界面的图片上传接口 测试的用 AndroidServiceSTIOS，正式的是 AndroidService/
+		let target = Consts.wtjUrl
         self.uploadImages(target: target, images: images, complete: complete)
     }
     
