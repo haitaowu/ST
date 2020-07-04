@@ -245,6 +245,7 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
 	
 	@IBAction func clickFetchBillNum(){
 		print("获取单号。。。")
+		self.view.endEditing(true)
 		self.requestBillNum()
 	}
     

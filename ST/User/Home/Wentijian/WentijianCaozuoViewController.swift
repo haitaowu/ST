@@ -23,7 +23,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
     var reasonModel = ProblemItemReasonsViewModel()
     var headers:[String] = ["运单号","类型"]
     var columnPercents:[CGFloat] = [0.5,0.5]
-    var proImg:UIImage?;
+    var proImg:UIImage?
     
     var selectedReason:ProblemItemReason?;
     
@@ -52,38 +52,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
         }
         return false
     }
-//    private func setupUploadNavItem(){
-//        let uploadBtn = UIBarButtonItem(image: UIImage(named: "upload"), style: UIBarButtonItemStyle.done, target: self, action: #selector(onUploadAction))
-//        self.navigationItem.rightBarButtonItem = uploadBtn
-//    }
-    
-//    @objc private func onUploadAction(){
-//        self.showLoading(msg: "上传中，清稍后")
-        
-//        DataManager.shared.uploadWentijian(m: STDb.shared.allWtj()){
-//        [unowned self]result in
-//        self.hideLoading()
-//        if result.0{
-//            STDb.shared.removeAllWtj()
-//            self.reloadData()
-//            self.remindUser(msg: "上传成功")
-//        }else{
-//            self.remindUser(msg: result.1)
-//        }
-//    }
-//        DataManager.shared.uploadWentijian(m: STDb.shared.allWtj()) { [unowned self] (succ, msg) in
-//            self.hideLoading()
-//            if succ{
-//                STDb.shared.removeAllWtj()
-//                self.reloadData()
-//                self.remindUser(msg: "上传成功")
-//            }else{
-//                self.remindUser(msg: msg)
-//            }
-//        }
-//    }
-    
-    
+
     
     func onWangdianPicked(item: SiteInfo) {
         self.tzzdField.text = item.siteName
@@ -113,23 +82,14 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
     //MARK:- UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) { 
-            
         }
     }
     
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-//let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        NSLog("picked info \(info)")
-
-//        let img = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage;
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.proImg = img;
             self.pickImageView.setBackgroundImage(img , for: .normal);
         }
-//        self.compressImage(img: img);
         picker.dismiss(animated: true) {
         }
     }
@@ -158,7 +118,22 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
 //        return dateStr;
 //    }
     
-    
+    ///selected reason should pick image
+	func shouldPickImg() -> Bool{
+		if let reason = self.selectedReason{
+            //地址不详-1  异常到件-2 客户要求重新派送-9
+            if (reason.problemCode == "1") || (reason.problemCode == "2") || (reason.problemCode == "9") || (reason.problemCode == "22x"){
+                return true
+            }else{
+                return false
+            }
+        }else{
+			return false
+        }
+	}
+	
+	
+	//ya suo tupian
     func compressImageStringFor(img :UIImage?) -> String? {
         guard let image = img else {
             return nil;
@@ -181,24 +156,33 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
     
    //通过相机选择图片
     func pickImageByCamera(){
-        let imgPicker = UIImagePickerController();
-        imgPicker.allowsEditing = true;
-        imgPicker.sourceType = .camera;
-        imgPicker.delegate = self;
-        self.present(imgPicker, animated: true) { 
-           NSLog("presentcamera ImagePicker completion ...")
-        }
-    }
+		if(UIImagePickerController.isSourceTypeAvailable(.camera)){
+			let imgPicker = UIImagePickerController.init();
+			imgPicker.allowsEditing = true;
+			imgPicker.sourceType = .camera
+			imgPicker.cameraFlashMode = .off
+			imgPicker.delegate = self;
+			self.present(imgPicker, animated: true) {
+				NSLog("presentcamera ImagePicker completion ...")
+			}
+		}else{
+			print("相机不可用")
+		}
+	}
     
    //通过相册选择图片
     func pickImageByPhotoLibrary(){
-        let imgPicker = UIImagePickerController();
-        imgPicker.allowsEditing = true;
-        imgPicker.sourceType = .photoLibrary;
-        imgPicker.delegate = self;
-        self.present(imgPicker, animated: true) {
-            NSLog("presentPhotoLibrary ImagePicker completion ...")
-        }
+		if(UIImagePickerController.isSourceTypeAvailable(.camera)){
+			let imgPicker = UIImagePickerController();
+			imgPicker.allowsEditing = true;
+			imgPicker.sourceType = .photoLibrary;
+			imgPicker.delegate = self;
+			self.present(imgPicker, animated: true) {
+				NSLog("presentPhotoLibrary ImagePicker completion ...")
+			}
+		}else{
+			print("相册不可用")
+		}
     }
     
     
@@ -225,7 +209,33 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
             self.remindUser(msg: "运单号不能为空")
             return;
         }
-        
+		
+		if self.shouldPickImg(){
+			let actionControl = UIAlertController(title: "选择方式", message: nil, preferredStyle: .actionSheet)
+			actionControl.addAction(UIAlertAction(title: "相机", style: UIAlertAction.Style.default, handler: {[unowned self] (action) in
+			  self.pickImageByCamera()
+			}))
+			
+			actionControl.addAction(UIAlertAction(title: "相册", style: UIAlertAction.Style.default, handler: { [unowned self] (action) in
+			  self.pickImageByPhotoLibrary()
+			}))
+			
+			actionControl.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel, handler: { (action) in
+			  
+			}))
+			
+			self.present(actionControl, animated: true, completion: {
+			})
+			
+//			let sheetView = UIActionSheet(title: "选择图片", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil);
+//			sheetView.addButton(withTitle: "相机");
+//			sheetView.addButton(withTitle: "相册");
+//			sheetView.show(in: self.view)
+		}else{
+			self.remindUser(msg: "选择的问题类型不能上传图片")
+		}
+		
+		/*
         if let reason = self.selectedReason{
             //地址不详-1  异常到件-2 客户要求重新派送-9
             if (reason.problemCode == "1") || (reason.problemCode == "2") || (reason.problemCode == "9") || (reason.problemCode == "22x"){
@@ -239,6 +249,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
         }else{
             self.remindUser(msg: "问题类型不能为空")
         }
+		*/
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
@@ -270,7 +281,6 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
         
         let pic = self.compressImageStringFor(img: self.proImg);
         var problemParams: Parameters = [:];
-//        let timeStr = self.timeStrWith(format:"hhmmss");
 		let timeStr = Date().dateStringFrom(dateFormat: "hhmmss")
         problemParams["ID"] =  timeStr
         problemParams["fileType"] =  "png"
@@ -294,6 +304,7 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
         DataManager.shared.saveWentijian(m: m)
         self.reloadData()
     }
+	
     
     //MARK:- request server
     func submitProblemData(parameters: Parameters){
@@ -336,12 +347,4 @@ class WentijianCaozuoViewController: UIViewController,STListViewDelegate,QrInter
     
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-//fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-//    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-//}
-//
-//// Helper function inserted by Swift 4.2 migrator.
-//fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-//    return input.rawValue
-//}
+
