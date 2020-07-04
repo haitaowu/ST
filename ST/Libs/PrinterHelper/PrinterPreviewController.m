@@ -502,7 +502,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
 #if DEBUG
 	NSString *urlStr = @"http://58.215.182.252:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
 #else
-	NSString *urlStr = @"http://58.215.182.251:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
+	NSString *urlStr = @"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do";
 #endif
 
 	//测试环境的服务器

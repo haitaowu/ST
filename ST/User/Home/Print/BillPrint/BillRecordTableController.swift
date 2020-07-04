@@ -23,8 +23,9 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var countField: UITextField!
     @IBOutlet weak var expressBtn: UIButton!
-	@IBOutlet weak var fetchBillBtn: UIButton!
-    
+    @IBOutlet weak var fetchBillBtn: UIButton!
+    @IBOutlet weak var payTypeBtn: UIButton!
+  
     let billInfo:NSMutableDictionary  = NSMutableDictionary();
     
 	//yun dan hao de
@@ -38,20 +39,21 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
     
     //MARK:- private methods
     func setupUI() {
-        self.title = "单票录入(简)";
-        for  view in self.containerViewCollect {
-            view.setupDashLine();
-        }
-		self.billNumField.tag = billFieldTag
-		self.billNumField.delegate = self
-		
-		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
-        self.submitBtn.layer.cornerRadius = 5;
-        self.submitBtn.layer.masksToBounds = true;
-        self.receSiteTxtView.placeholder = "输入地址";
-        self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
-        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
-    }
+      self.title = "单票录入(简)";
+      self.view.addDismissGesture()
+      for  view in self.containerViewCollect {
+        view.setupDashLine();
+      }
+      self.billNumField.tag = billFieldTag
+      self.billNumField.delegate = self
+      
+      fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
+      self.submitBtn.layer.cornerRadius = 5;
+      self.submitBtn.layer.masksToBounds = true;
+      self.receSiteTxtView.placeholder = "输入地址";
+      self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
+      self.sendSiteField.text = DataManager.shared.loginUser.siteName;
+  }
     
   
     
@@ -74,6 +76,7 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
     
     //MARK:- selectors
     @IBAction func tapSubmitBtn(_ sender: Any) {
+		self.view.endEditing(true)
 //        self.showSubmitSuccView();
 //        return;
         
@@ -163,7 +166,16 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
         }else{
             Rec["sendgoodsType"] = sendgoodsType
         }
+      
+      let payType = self.payTypeBtn.title(for: .normal)!
+      if payType.isEmpty{
+          self.remindUser(msg: "请选择支付类型");
+          return;
+      }else{
+          Rec["panyMentType"] = payType
+      }
         
+      
         let goodsName = self.goodsNameField.text!
         if goodsName.isEmpty{
             self.remindUser(msg: "请输入物品名称");
@@ -203,6 +215,7 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
         
         self.submitBillInfoWith(params: params);
     }
+  
     
     @IBAction func tapExpressBtn(_ sender: Any) {
         let array = ["派送","自提"];
@@ -210,6 +223,15 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
         HTAlertConfirmView .ShowAlertViewWithTitles(titles: array) {[unowned self] (title:String) ->Void in
             print("hello baby \(title)");
             self.expressBtn.setTitle(title, for: .normal)
+        }
+    }
+  
+  ///支付类型
+    @IBAction func tapPayTypeBtn(_ sender: Any) {
+        let array = ["到付","现付"];
+        self.view.endEditing(true);
+        HTAlertConfirmView .ShowAlertViewWithTitles(titles: array) {[unowned self] (title:String) ->Void in
+            self.payTypeBtn.setTitle(title, for: .normal)
         }
     }
     
@@ -315,6 +337,6 @@ class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInte
     
     //MARK:- UIScrollView delegate
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.view.endEditing(true);
+//        self.view.endEditing(true);
     }
 }
