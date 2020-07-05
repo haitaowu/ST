@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class LaterPinterBillTableController:UITableViewController,QrInterface {
+class SubBillQueryController:UITableViewController,QrInterface {
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var billNumField: UITextField!
@@ -75,7 +75,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     
     //MARK:- private methods
     func setupUI() {
-        self.title = "单件补录";
+        self.title = "子单打印";
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
         self.detailAdrTxtView.placeholder = "输入地址";

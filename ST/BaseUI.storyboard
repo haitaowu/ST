@@ -10,7 +10,7 @@
         <!--单票录入（简）-->
         <scene sceneID="fqd-FY-tsv">
             <objects>
-                <tableViewController storyboardIdentifier="BillRecordTableController" title="单票录入（简）" id="gWr-Re-T6w" customClass="BillRecordTableController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SimpleTicketControl" title="单票录入（简）" id="gWr-Re-T6w" customClass="SimpleTicketControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="CWi-U1-W6i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1381,7 +1381,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daU-SN-h3l" userLabel="ContainerView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="操作人：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4q-xI-TsH">
                                                             <rect key="frame" x="8" y="15" width="70" height="20"/>
@@ -1393,7 +1393,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hvF-4o-adx">
-                                                            <rect key="frame" x="78" y="0.0" width="297" height="50"/>
+                                                            <rect key="frame" x="78" y="0.0" width="522" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1426,7 +1426,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5hx-0S-9Ib" userLabel="ContainerView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到车时间：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KD0-Bp-MgS">
                                                             <rect key="frame" x="8" y="15" width="90" height="20"/>
@@ -1438,7 +1438,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kty-yd-scg">
-                                                            <rect key="frame" x="98" y="0.0" width="277" height="50"/>
+                                                            <rect key="frame" x="98" y="0.0" width="502" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1507,7 +1507,7 @@
         <!--单件补录-->
         <scene sceneID="fPf-3x-Dii">
             <objects>
-                <tableViewController storyboardIdentifier="LaterPinterBillTableController" title="单件补录" id="OiO-aY-bYT" customClass="LaterPinterBillTableController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SubBillQueryController" title="单件补录" id="OiO-aY-bYT" customClass="SubBillQueryController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rQ5-cB-ppw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2835,7 +2835,7 @@
         <!--单票录入(全)-->
         <scene sceneID="ypT-76-pI5">
             <objects>
-                <tableViewController storyboardIdentifier="CompletePrintControl" title="单票录入(全)" id="GAx-WS-NwS" customClass="CompletePrintControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CompleteTicketControl" title="单票录入(全)" id="GAx-WS-NwS" customClass="CompleteTicketControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GCf-sJ-et9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3802,10 +3802,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFX-hk-nRn" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aV-ao-xbk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收件区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPe-ZG-dLI">
                                                                     <rect key="frame" x="8" y="11" width="90" height="18"/>
@@ -3825,7 +3825,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jO-m1-F2Z">
-                                                                    <rect key="frame" x="110" y="0.0" width="260" height="40"/>
+                                                                    <rect key="frame" x="110" y="0.0" width="485" height="40"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <state key="normal">
@@ -3869,10 +3869,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Kk-wz-BJv" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="70"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="70"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB2-2D-4xn">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="70"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收件地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWj-9N-nJ1">
                                                                     <rect key="frame" x="8" y="8" width="70" height="18"/>
@@ -3892,7 +3892,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-hq-f5p" customClass="CustomTextView" customModule="掌上速通" customModuleProvider="target">
-                                                                    <rect key="frame" x="90" y="8" width="275" height="54"/>
+                                                                    <rect key="frame" x="90" y="8" width="500" height="54"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3935,10 +3935,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Te5-VS-yFr" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jm-WB-gTY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目的网点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIj-0i-TA7">
                                                                     <rect key="frame" x="8" y="11" width="70" height="18"/>
@@ -3958,12 +3958,12 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入目的网点" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KTG-Ef-02D">
-                                                                    <rect key="frame" x="90" y="3" width="275" height="34"/>
+                                                                    <rect key="frame" x="90" y="3" width="500" height="34"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFE-FX-ily">
-                                                                    <rect key="frame" x="90" y="3" width="275" height="34"/>
+                                                                    <rect key="frame" x="90" y="3" width="500" height="34"/>
                                                                     <connections>
                                                                         <action selector="wangdianBtnClicked:" destination="GAx-WS-NwS" eventType="touchUpInside" id="lo9-Se-SKb"/>
                                                                     </connections>
@@ -4002,17 +4002,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="bkr-Et-8t0">
-                                        <rect key="frame" x="0.0" y="992" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1040" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bkr-Et-8t0" id="vVA-b2-RlN">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5NA-YW-NrA" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9r-mv-Wmn">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目的网点所属中心" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2j-7R-Sft">
                                                                     <rect key="frame" x="8" y="9.5" width="150" height="21"/>
@@ -4075,17 +4075,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="ZfH-mh-4ez">
-                                        <rect key="frame" x="0.0" y="1042" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1090" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZfH-mh-4ez" id="HRI-du-Vzn">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOP-GZ-OFD" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S6r-Bw-zYO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="派件网点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dP-Hl-bTa">
                                                                     <rect key="frame" x="8" y="11" width="70" height="18"/>
@@ -4105,12 +4105,12 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="派件网点" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ssc-dh-Un7">
-                                                                    <rect key="frame" x="90" y="3" width="275" height="34"/>
+                                                                    <rect key="frame" x="90" y="3" width="500" height="34"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86x-HA-YoS">
-                                                                    <rect key="frame" x="90" y="3" width="275" height="34"/>
+                                                                    <rect key="frame" x="90" y="3" width="500" height="34"/>
                                                                     <connections>
                                                                         <action selector="wangdianBtnClicked:" destination="gWr-Re-T6w" eventType="touchUpInside" id="tZg-oW-0Q1"/>
                                                                     </connections>
@@ -4149,17 +4149,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="nzA-fB-oDL">
-                                        <rect key="frame" x="0.0" y="1092" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1140" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nzA-fB-oDL" id="ixx-zs-O5u">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VB-gC-4sd" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZe-Kg-Nse">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件网点所属中心" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJG-Er-TiG">
                                                                     <rect key="frame" x="8" y="9.5" width="150" height="21"/>
@@ -4226,17 +4226,17 @@
                             <tableViewSection id="TfB-h6-Zuq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="u4j-h3-tdh">
-                                        <rect key="frame" x="0.0" y="1178" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1226" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u4j-h3-tdh" id="fpw-Nf-Ph5">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rd4-Yz-fmJ" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrZ-K5-Y8W" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="货物名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPD-dV-JKW">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4256,7 +4256,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="货物名称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JXb-kr-IUf">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -4273,7 +4273,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5Q-I3-pfv" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="包装类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvX-av-jX3">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4293,7 +4293,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swY-BI-MxB">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <state key="normal">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -4337,17 +4337,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="T4r-Gr-5a7">
-                                        <rect key="frame" x="0.0" y="1228" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1276" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T4r-Gr-5a7" id="XhH-XL-hd8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxU-n3-chr" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="px3-2W-WBt" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运输方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV9-ja-vM9">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4367,7 +4367,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVq-AB-mkD">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <state key="normal" title="汽运">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -4389,7 +4389,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pi-lq-3KJ" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="送货方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJz-LF-IQK">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4409,7 +4409,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIl-8s-nSX">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <state key="normal" title="派送">
                                                                         <color key="titleColor" red="0.34901960780000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -4453,17 +4453,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="WX8-uj-BoX">
-                                        <rect key="frame" x="0.0" y="1278" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1326" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WX8-uj-BoX" id="29y-qx-iCu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axm-vq-2As" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27v-IA-gJY" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="实际重量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RF-DS-xEZ">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4483,7 +4483,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="实际重量" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdy-UN-YIX">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4500,7 +4500,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9c-Qu-Oyd" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结算重量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46J-Oy-MTy">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4520,7 +4520,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="结算重量" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DQj-eY-lry">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4559,17 +4559,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="D2f-G1-coN">
-                                        <rect key="frame" x="0.0" y="1328" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1376" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D2f-G1-coN" id="ufZ-YW-v4j">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bp1-4z-rej" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycl-Cg-Wcc" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体积" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFZ-W7-LTL">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4589,7 +4589,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="体积" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QtB-Ze-H2a">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4606,7 +4606,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZs-cM-L8v" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体积重量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHl-dN-enw">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4626,7 +4626,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="体积重量" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3a0-ma-Mzz">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4665,17 +4665,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="ptC-k0-Zqh">
-                                        <rect key="frame" x="0.0" y="1378" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1426" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ptC-k0-Zqh" id="rEG-rQ-qnp">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uu-P9-9Sc" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmL-uh-dNa" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="件数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwV-gk-HCf">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4695,7 +4695,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="件数" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L1T-nk-lDD">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4712,7 +4712,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JTi-Nb-Dwf" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="管理费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPe-Jq-vJe">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4732,7 +4732,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" placeholder="管理费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpZ-Wa-CCX">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4775,17 +4775,17 @@
                             <tableViewSection id="kXt-vU-h8J">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="UP0-qe-ssa">
-                                        <rect key="frame" x="0.0" y="1464" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1512" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UP0-qe-ssa" id="QX5-RA-l1M">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYH-uy-ohg" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxi-qe-7Mu" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5p-Aq-fRi">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -4805,12 +4805,12 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="现金" placeholder="类型" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fVw-zz-EYz">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-qw-EvE">
-                                                                    <rect key="frame" x="82" y="0.0" width="92" height="40"/>
+                                                                    <rect key="frame" x="82" y="0.0" width="205" height="40"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <state key="normal">
@@ -4833,7 +4833,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-MB-zpI" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到付款" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20o-QC-KVH">
                                                                     <rect key="frame" x="8" y="9.5" width="74" height="21"/>
@@ -4853,7 +4853,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="到付款" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mRd-ei-bri">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -4892,14 +4892,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="6yp-Sm-iDw">
-                                        <rect key="frame" x="0.0" y="1514" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1562" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yp-Sm-iDw" id="qrn-9i-GZ8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ExY-Yv-TmL" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VSv-9D-Tvf">
                                                             <rect key="frame" x="0.0" y="0.0" width="180" height="40"/>
@@ -4957,17 +4957,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="jdy-YF-G1f">
-                                        <rect key="frame" x="0.0" y="1564" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1612" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jdy-YF-G1f" id="ySq-7f-9tV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lV-Ab-G1a" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZ7-Eb-3Bz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="保险费率：0.1%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArG-2P-xYn">
                                                                     <rect key="frame" x="8" y="0.0" width="108" height="40"/>
@@ -4990,7 +4990,7 @@
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="保险费:2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TNa-zP-E7G" userLabel="保险费">
-                                                                    <rect key="frame" x="267" y="10" width="90" height="21"/>
+                                                                    <rect key="frame" x="492" y="10" width="90" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <nil key="textColor"/>
@@ -5021,17 +5021,17 @@
                             <tableViewSection id="DDk-zS-rZI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="hw8-LX-c3b">
-                                        <rect key="frame" x="0.0" y="1650" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="1698" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hw8-LX-c3b" id="e5A-aR-8oh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jv1-F5-Q0Y" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JX-r9-Vvv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csm-Co-BT4">
                                                                     <rect key="frame" x="8" y="4" width="63" height="32"/>
@@ -5058,13 +5058,13 @@
                                                                     </connections>
                                                                 </button>
                                                                 <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="回单" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6mx-OA-MNs">
-                                                                    <rect key="frame" x="180" y="0.0" width="147" height="40"/>
+                                                                    <rect key="frame" x="180" y="0.0" width="372" height="40"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3TM-AC-nbr">
-                                                                    <rect key="frame" x="333" y="4" width="32" height="32"/>
+                                                                    <rect key="frame" x="558" y="4" width="32" height="32"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <state key="normal" image="sao_yi_sao_icon"/>
                                                                     <connections>
@@ -5099,7 +5099,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="quO-M3-VRC" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVO-AL-5UH">
                                                             <rect key="frame" x="8" y="4" width="63" height="32"/>
@@ -5114,7 +5114,7 @@
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rct-v7-34e">
-                                                            <rect key="frame" x="80" y="0.0" width="285" height="40"/>
+                                                            <rect key="frame" x="80" y="0.0" width="510" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超重件数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N53-rD-NEb">
                                                                     <rect key="frame" x="0.0" y="11" width="74" height="18"/>
@@ -5134,7 +5134,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="超重件数" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yOn-tT-GHT">
-                                                                    <rect key="frame" x="83" y="0.0" width="202" height="40"/>
+                                                                    <rect key="frame" x="83" y="0.0" width="427" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -5176,7 +5176,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RI7-fS-deX" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5B-7Z-v1f">
                                                             <rect key="frame" x="8" y="4" width="78" height="32"/>
@@ -5191,7 +5191,7 @@
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="guH-nJ-svz">
-                                                            <rect key="frame" x="90" y="0.0" width="275" height="40"/>
+                                                            <rect key="frame" x="90" y="0.0" width="500" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进仓编号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOr-t3-lxh">
                                                                     <rect key="frame" x="0.0" y="11" width="74" height="18"/>
@@ -5211,7 +5211,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="进仓编号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3vp-5c-2hm">
-                                                                    <rect key="frame" x="83" y="0.0" width="192" height="40"/>
+                                                                    <rect key="frame" x="83" y="0.0" width="417" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
@@ -5253,10 +5253,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKD-6S-ZW8" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1T-da-R3d">
-                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="590" height="40"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2mc-uA-6KO">
                                                                     <rect key="frame" x="8" y="4" width="124" height="32"/>
@@ -5310,10 +5310,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dT9-9B-EcI" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ulu-UG-3kf" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超区费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLU-6X-NyC">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -5333,7 +5333,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="超区费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DEK-uo-XSs">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -5350,7 +5350,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V9C-CB-4gb" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上楼费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAc-sI-38z">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -5370,7 +5370,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="上楼费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N36-Rs-Uai">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -5416,10 +5416,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-wa-CRF" customClass="HTDashView" customModule="掌上速通" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="365" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="590" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUJ-b4-JqL" userLabel="goodsName">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="送货费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgj-GY-UUo">
                                                                     <rect key="frame" x="8" y="11" width="74" height="18"/>
@@ -5439,7 +5439,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="送货费" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="clG-HW-kTC">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -5456,7 +5456,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JiY-6j-NpG" userLabel="type">
-                                                            <rect key="frame" x="182.5" y="0.0" width="182.5" height="40"/>
+                                                            <rect key="frame" x="295" y="0.0" width="295" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其它费用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNt-D9-VRs">
                                                                     <rect key="frame" x="8" y="9.5" width="74" height="21"/>
@@ -5476,7 +5476,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="其它费用" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xap-Cr-1en">
-                                                                    <rect key="frame" x="91" y="0.0" width="91.5" height="40"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="204" height="40"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 </textField>
@@ -5587,7 +5587,7 @@
         <!--主单打印-->
         <scene sceneID="U21-dO-F6s">
             <objects>
-                <tableViewController storyboardIdentifier="MasterBillPrintControl" title="主单打印" id="SvR-h8-iif" customClass="MasterBillPrintControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MasterBillQueryController" title="主单打印" id="SvR-h8-iif" customClass="MasterBillQueryController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="QgA-eO-Us3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

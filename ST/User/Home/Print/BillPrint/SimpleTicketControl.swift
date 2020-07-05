@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class BillRecordTableController:UITableViewController,UITextFieldDelegate,QrInterface,WangdianPickerInterface {
+class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,WangdianPickerInterface {
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var sendSiteField: UITextField!

@@ -1,5 +1,5 @@
 //
-//  CompletePrintControl.swift
+//  CompleteTicketControl.swift
 //  ST
 //  Created by taotao on 20/03/2018.
 //  Copyright © 2018 dajiazhongyi. All rights reserved.
@@ -14,7 +14,7 @@ enum AdrKey: String{
 }
 
 
-class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInterface,UITextFieldDelegate{
+class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInterface,UITextFieldDelegate{
 	let kSectionSend = 1
 	let kSectionReceive = 2
 	
@@ -188,7 +188,7 @@ class CompletePrintControl:UITableViewController,QrInterface,WangdianPickerInter
 		self.sendSiteField.text = DataManager.shared.loginUser.siteName
 		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
 		self.tableView.register(MenuRSHeader.headerNib(), forHeaderFooterViewReuseIdentifier: MenuRSHeader.headerID())
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style:.plain, target: self, action: #selector(CompletePrintControl.saveBill))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style:.plain, target: self, action: #selector(CompleteTicketControl.saveBill))
 		
 		self.weightField.delegate = self
 		self.volumeField.delegate = self

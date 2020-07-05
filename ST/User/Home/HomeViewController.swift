@@ -122,7 +122,7 @@ class HomeViewController: UIViewController {
 	//打印运单界面（子单打印界面）
 	func openBillPrintView(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "BillRecordTableController");
+		let printerVc = storyboard.instantiateViewController(withIdentifier: "SimpleTicketControl");
 		printerVc.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(printerVc, animated: true)
 	}
@@ -130,7 +130,7 @@ class HomeViewController: UIViewController {
 	//补打印运单界面
 //	func openLateBillPrintView(){
 //		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-//		let printerVc = storyboard.instantiateViewController(withIdentifier: "LaterPinterBillTableController");
+//		let printerVc = storyboard.instantiateViewController(withIdentifier: "SubBillQueryController");
 //		printerVc.hidesBottomBarWhenPushed = true
 //		self.navigationController?.pushViewController(printerVc, animated: true)
 //	}
@@ -145,7 +145,7 @@ class HomeViewController: UIViewController {
 	//单票录入（全）界面
 	func openBillPrintComplete(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "CompletePrintControl");
+		let printerVc = storyboard.instantiateViewController(withIdentifier: "CompleteTicketControl");
 		printerVc.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(printerVc, animated: true)
 	}

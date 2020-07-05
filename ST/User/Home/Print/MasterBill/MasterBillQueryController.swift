@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInterface {
+class MasterBillQueryController:UITableViewController,QrInterface,WangdianPickerInterface {
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var billNumField: UITextField!
@@ -44,16 +44,17 @@ class MasterBillPrintControl:UITableViewController,QrInterface,WangdianPickerInt
 		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
 	}
 	
+	
 
 	///显示打印机连接界面
-    func showConnPrinterView() -> Void {
+	func showConnPrinterView() -> Void {
 		if let info = self.billInfo{
 			let connViewControl = MasterBillPrinter(nibName: "MasterBillPrinter", bundle: nil)
 			connViewControl.billInfo = info
 			self.navigationController?.pushViewController(connViewControl, animated: true);
 		}
-    }
-    
+	}
+	
 	
 	func updateUIBy(billInfo: Dictionary<String, Any>){
 		//1.主单号
