@@ -153,6 +153,7 @@
 		BE1A68C422EE87A7003691B1 /* STCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE1A68C322EE87A7003691B1 /* STCenter.storyboard */; };
 		BE1A68C622EEC9DB003691B1 /* CenSendSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1A68C522EEC9DB003691B1 /* CenSendSignController.swift */; };
 		BE1B8F3E22CB34AA003A6E6C /* DriverInfoTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B8F3D22CB34AA003A6E6C /* DriverInfoTableController.swift */; };
+		BE1E790524B4980F00A92C64 /* DeliverBillDetailControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1E790424B4980F00A92C64 /* DeliverBillDetailControl.swift */; };
 		BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2059021F493DB2001AD85D /* GRDB.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BE20849522B7CA9E00860F54 /* DriVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20849422B7CA9E00860F54 /* DriVideoView.swift */; };
 		BE20A98C1F66605100D2D753 /* NoticeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20A98A1F66605100D2D753 /* NoticeDetailController.swift */; };
@@ -521,6 +522,7 @@
 		BE1A68C322EE87A7003691B1 /* STCenter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = STCenter.storyboard; sourceTree = "<group>"; };
 		BE1A68C522EEC9DB003691B1 /* CenSendSignController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenSendSignController.swift; sourceTree = "<group>"; };
 		BE1B8F3D22CB34AA003A6E6C /* DriverInfoTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInfoTableController.swift; sourceTree = "<group>"; };
+		BE1E790424B4980F00A92C64 /* DeliverBillDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverBillDetailControl.swift; sourceTree = "<group>"; };
 		BE2059021F493DB2001AD85D /* GRDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GRDB.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/ST-hdqblyokvtquoqfltymenvpvvaho/Build/Products/Debug-iphonesimulator/GRDB.swift/GRDB.framework"; sourceTree = "<group>"; };
 		BE20849422B7CA9E00860F54 /* DriVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriVideoView.swift; sourceTree = "<group>"; };
 		BE20A98A1F66605100D2D753 /* NoticeDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailController.swift; sourceTree = "<group>"; };
@@ -1580,6 +1582,7 @@
 				BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */,
 				BEA1B78724B1966D00CDD64C /* ForecastCell.swift */,
 				BEA1B78824B1966D00CDD64C /* ForecastCell.xib */,
+				BE1E790424B4980F00A92C64 /* DeliverBillDetailControl.swift */,
 			);
 			path = Delivery;
 			sourceTree = "<group>";
@@ -2076,6 +2079,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE1E790524B4980F00A92C64 /* DeliverBillDetailControl.swift in Sources */,
 				894724271DD0763500EE2393 /* DbObject.swift in Sources */,
 				BE1B8F3E22CB34AA003A6E6C /* DriverInfoTableController.swift in Sources */,
 				BE9BFF1F22D6D96000C6BAAE /* UIView+Extension.swift in Sources */,

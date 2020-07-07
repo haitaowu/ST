@@ -19,6 +19,7 @@ class DeliverForeCastControl: UITableViewController{
 	//MARK: - overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		if deliType == .arrive{
 			self.title = "网点到件预报"
 		}else if deliType == .record{
@@ -31,13 +32,21 @@ class DeliverForeCastControl: UITableViewController{
 
 	
 	
+	//MARK: - UITableViewDelegate
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 0.001
+	}
+	
 	//MARK: - UITableViewDataSource
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 10
 	}
+	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return ForecastCell.cellHeight(data: nil)
 	}
+	
+	
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: ForecastCell.cellID())
@@ -46,6 +55,8 @@ class DeliverForeCastControl: UITableViewController{
 			fCell.printBlock = {
 				[unowned self] in
 				print("click print clock baby!!!")
+				let control = DeliverBillDetailControl.make()
+				self.navigationController?.pushViewController(control, animated: true)
 			}
 		}
 		return cell!

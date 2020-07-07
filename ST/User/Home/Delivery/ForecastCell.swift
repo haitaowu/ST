@@ -12,7 +12,10 @@ typealias PrintBillBlock = ()-> Void
 
 class ForecastCell: BaseCell {
   @IBOutlet weak var billNumber: UILabel!
-  
+  @IBOutlet weak var adrLabel: UILabel!
+  @IBOutlet weak var dateLabel: UILabel!
+  @IBOutlet weak var timeLabel: UILabel!
+
   var printBlock: PrintBillBlock?
 	
 	override func awakeFromNib() {
@@ -21,7 +24,7 @@ class ForecastCell: BaseCell {
 	}
 	
 	override class func cellHeight(data: Any?) -> CGFloat {
-		return 60
+		return 120
 	}
 	
 	func updateUI(){
