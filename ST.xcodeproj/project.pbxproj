@@ -275,6 +275,11 @@
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
 		BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */; };
 		BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */; };
+		BEA1B78324B1948600CDD64C /* DeliveryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */; };
+		BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */; };
+		BEA1B78624B1958800CDD64C /* DeliverForeCastControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */; };
+		BEA1B78924B1966D00CDD64C /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78724B1966D00CDD64C /* ForecastCell.swift */; };
+		BEA1B78A24B1966D00CDD64C /* ForecastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1B78824B1966D00CDD64C /* ForecastCell.xib */; };
 		BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */; };
 		BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */; };
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
@@ -644,6 +649,11 @@
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
 		BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSignFooter.swift; sourceTree = "<group>"; };
 		BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSignFooter.xib; sourceTree = "<group>"; };
+		BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryMenuController.swift; sourceTree = "<group>"; };
+		BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryMenuController.xib; sourceTree = "<group>"; };
+		BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverForeCastControl.swift; sourceTree = "<group>"; };
+		BEA1B78724B1966D00CDD64C /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
+		BEA1B78824B1966D00CDD64C /* ForecastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForecastCell.xib; sourceTree = "<group>"; };
 		BEA5B4C123A48E79000E1F9D /* TruckNumListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TruckNumListController.xib; sourceTree = "<group>"; };
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
@@ -1012,6 +1022,7 @@
 		899BD3631DC0FB57000C6687 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BEA1B77F24B1948600CDD64C /* Delivery */,
 				BEA67F03245D875E00A9099C /* Print */,
 				BE38BD23228C0B770007B6E0 /* Quyuchaxun */,
 				BE38BD15228C0B770007B6E0 /* ShoujianSaomiao */,
@@ -1562,6 +1573,26 @@
 			path = ST/Base/Category;
 			sourceTree = SOURCE_ROOT;
 		};
+		BEA1B77F24B1948600CDD64C /* Delivery */ = {
+			isa = PBXGroup;
+			children = (
+				BEA1B78024B1948600CDD64C /* Menu */,
+				BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */,
+				BEA1B78724B1966D00CDD64C /* ForecastCell.swift */,
+				BEA1B78824B1966D00CDD64C /* ForecastCell.xib */,
+			);
+			path = Delivery;
+			sourceTree = "<group>";
+		};
+		BEA1B78024B1948600CDD64C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */,
+				BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		BEA67BA622DC78FA007D8E4C /* Center */ = {
 			isa = PBXGroup;
 			children = (
@@ -1658,8 +1689,8 @@
 				BE0EA7B72466478B0078E9F9 /* MenuRSHeader.swift */,
 				BE0EA7B82466478B0078E9F9 /* MenuRSHeader.xib */,
 				BEA67F1B245D878700A9099C /* PrintMenuItem.xib */,
-				BEA67F1C245D878700A9099C /* PrintMenuController.xib */,
 				BEA67F1D245D878700A9099C /* PrintMenuItem.swift */,
+				BEA67F1C245D878700A9099C /* PrintMenuController.xib */,
 				BEA67F1E245D878700A9099C /* PrintMenuController.swift */,
 			);
 			path = Menu;
@@ -1948,8 +1979,10 @@
 				BE354DDA23A5D117008AE45E /* TruckRouteListController.xib in Resources */,
 				896674811DE14E4E000C970A /* YuangongPickerViewController.xib in Resources */,
 				BE623AA023BC553B009A1A20 /* DriDamQueryResController.xib in Resources */,
+				BEA1B78A24B1966D00CDD64C /* ForecastCell.xib in Resources */,
 				BE89707023273D7700096C78 /* CenterLoginController.xib in Resources */,
 				899BD36C1DC0FB8B000C6687 /* MessageViewController.xib in Resources */,
+				BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */,
 				BE38BD3B228C0B770007B6E0 /* ProfileLineInfoView.xib in Resources */,
 				BE38BD40228C0B770007B6E0 /* FajianSaomiaoViewController.xib in Resources */,
 				893497BB1DDACC5D00A505AF /* XiugaimimaViewController.xib in Resources */,
@@ -2114,10 +2147,12 @@
 				BE0EA7B92466478B0078E9F9 /* MenuRSHeader.swift in Sources */,
 				BE20A9971F6660EE00D2D753 /* NoticeCell.swift in Sources */,
 				BE0FC4F822BF404800271FED /* JXPhotoBrowserFadeDismissingAnimator.swift in Sources */,
+				BEA1B78624B1958800CDD64C /* DeliverForeCastControl.swift in Sources */,
 				BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */,
 				BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */,
 				BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */,
 				BE6B5CB7232DD6660076DB33 /* PwdBackCodeController.swift in Sources */,
+				BEA1B78924B1966D00CDD64C /* ForecastCell.swift in Sources */,
 				893497D31DDAD57E00A505AF /* WKWebview+Webview.swift in Sources */,
 				BE190AB72369540C0045F6C5 /* HTBrowserLoader.swift in Sources */,
 				BE17CD2A22AFC23E006D9EF0 /* BaseHeader.swift in Sources */,
@@ -2169,6 +2204,7 @@
 				892583D51DC8DA9700285DB5 /* UILayoutSupport+Extensions.swift in Sources */,
 				BECA053E23792FCA0053C60F /* SendCarInfoCell.swift in Sources */,
 				892583C41DC8DA9700285DB5 /* ConstraintMaker.swift in Sources */,
+				BEA1B78324B1948600CDD64C /* DeliveryMenuController.swift in Sources */,
 				BE0FC4FC22BF404800271FED /* JXPhotoBrowserTransitioningDelegate.swift in Sources */,
 				BE38BD2C228C0B770007B6E0 /* PaijianSaomiaoViewController.swift in Sources */,
 				BE86077F235ED49F008BB2B2 /* DriHMsgCell.swift in Sources */,

@@ -75,7 +75,7 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
   
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		var item:PrintMenuItem = collectionView.dequeueReusableCell(withReuseIdentifier: PrintMenuItem.reuseID(), for: indexPath) as! PrintMenuItem
+		let item:PrintMenuItem = collectionView.dequeueReusableCell(withReuseIdentifier: PrintMenuItem.reuseID(), for: indexPath) as! PrintMenuItem
 		if let model = self.menuAry?[indexPath.item]{
 			item.updateUI(model: model)
 		}

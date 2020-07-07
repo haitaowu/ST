@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
 			(title:"快件查询",icon:"home_menu_8",key:"kuaichaxun",handler:menuItemviewClicked),
 			(title:"区域查询",icon:"home_menu_9",key:"quyuchaxun",handler:menuItemviewClicked),
 			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
-			//			(title:"运单补打",icon:"home_menu_10",key:"latebill",handler:menuItemviewClicked),
+			(title:"派件打印",icon:"home_menu_10",key:"delivery",handler:menuItemviewClicked),
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]
@@ -111,6 +111,8 @@ class HomeViewController: UIViewController {
 			self.openPrintMenuView();
 		}else if type == "printComplete"{
 			self.openBillPrintComplete();
+		}else if type == "delivery"{
+			self.openDelivery();
 		}
 	}
 	
@@ -119,6 +121,14 @@ class HomeViewController: UIViewController {
 	
 	
 	//MARK:- selectors
+	///派件预报
+	func openDelivery(){
+		let deliveryControl = DeliveryMenuController.init(nibName: "DeliveryMenuController", bundle: nil)
+		deliveryControl.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(deliveryControl, animated: true)
+	}
+	
+	
 	//打印运单界面（子单打印界面）
 	func openBillPrintView(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
