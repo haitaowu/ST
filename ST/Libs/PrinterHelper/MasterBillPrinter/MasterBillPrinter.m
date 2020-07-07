@@ -151,15 +151,7 @@ static NSString *const kServiceUUID = @"ff00";
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		[self startPrintCustomerTable];
 	});
-	
-//
-//	return;
-//
-//    if (self.billInfo != nil) {
-//        self.thread = NULL;
-//    }else{
-//        [SVProgressHUD showInfoWithStatus:@"请重新加载运单数据"];
-//    }
+
 }
 
 #pragma mark - private methods
@@ -236,7 +228,6 @@ static NSString *const kServiceUUID = @"ff00";
     int barCodeX = codeX - 100;
 	int barCodeY = startY;
 	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
-	
 	
 	// 第二条横线--------------------------------
 	int start2Y = startY+headerHeight;
@@ -383,7 +374,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int signX = col3StartX;
 	int signY = feeTitleY;
 	[SPRTPrint drawText:signX textY:signY widthNum:signW heightNum:signH textStr:signTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
-	
+
 	//第五条竖线|||||||||||||||||||||||||||||
 	int col5StartX = maxX;
 	int colo5StartY = startY;
