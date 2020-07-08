@@ -34,6 +34,8 @@ target 'ST' do
 #    https://github.com/dzenbot/DZNEmptyDataSet
     pod 'DZNEmptyDataSet'
     
+    #  https://github.com/91renb/BRPickerView
+    pod 'BRPickerView'
     
     #百度地图SDK
 #    pod “BaiduMapKit”

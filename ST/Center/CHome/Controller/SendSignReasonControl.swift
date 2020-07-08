@@ -50,7 +50,7 @@ class SendSignReasonControl: UITableViewController{
   //提交
   @IBAction func clickConfirmItem(_ sender: Any) {
 		
-		let paramsSend = self.paramsSend()
+	let paramsSend = self.paramsSend()
     if let block = self.submitBlock,paramsSend != nil{
       block(true,paramsSend!)
     }

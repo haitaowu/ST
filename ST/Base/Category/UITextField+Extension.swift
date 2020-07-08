@@ -41,6 +41,19 @@ extension UITextField{
 		self.rightViewMode = .always
 	}
 	
+	func addRightBtn(imgName: String, margin: CGFloat, action: Selector, target:Any?) -> Void{
+		let typeImg = UIImage(named: imgName);
+		let rightViewF = CGRect(x: margin, y: 0, width: 44, height: 44)
+		let btn = UIButton.init(frame: rightViewF)
+		btn.setImage(typeImg, for: .normal)
+		btn.addTarget(action, action: action, for: .touchUpInside)
+		let width = margin * 2 + 44
+		let height: CGFloat = 44
+		let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+		view.addSubview(btn)
+		self.rightView = view
+		self.rightViewMode = .always
+	}
 
 	
 	

@@ -2216,10 +2216,62 @@
             </objects>
             <point key="canvasLocation" x="1390" y="577"/>
         </scene>
+        <!--Deliver Fore Cast Control-->
+        <scene sceneID="g2z-rM-JCi">
+            <objects>
+                <viewController storyboardIdentifier="DeliverForeCastControl" id="WGa-hm-QeA" customClass="DeliverForeCastControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5lc-fC-yJW"/>
+                        <viewControllerLayoutGuide type="bottom" id="o6K-Hh-3ZI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dvp-Wn-QwY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请选择日期" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2fk-29-Zhd">
+                                <rect key="frame" x="8" y="8" width="359" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9kP-97-iuc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="WGa-hm-QeA" id="PiK-cc-i3b"/>
+                                </connections>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nZH-dV-O5Q">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="WGa-hm-QeA" id="tD0-GC-hO6"/>
+                                    <outlet property="delegate" destination="WGa-hm-QeA" id="L6D-sY-589"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2fk-29-Zhd" secondAttribute="trailing" constant="8" id="1LM-ss-jV7"/>
+                            <constraint firstAttribute="trailing" secondItem="nZH-dV-O5Q" secondAttribute="trailing" id="AlM-Bn-m0N"/>
+                            <constraint firstItem="o6K-Hh-3ZI" firstAttribute="top" secondItem="nZH-dV-O5Q" secondAttribute="bottom" id="Rdv-ay-YsH"/>
+                            <constraint firstItem="2fk-29-Zhd" firstAttribute="top" secondItem="5lc-fC-yJW" secondAttribute="bottom" constant="8" id="XRg-FP-kk7"/>
+                            <constraint firstItem="nZH-dV-O5Q" firstAttribute="top" secondItem="2fk-29-Zhd" secondAttribute="bottom" constant="8" id="dqF-0t-4YT"/>
+                            <constraint firstItem="nZH-dV-O5Q" firstAttribute="leading" secondItem="Dvp-Wn-QwY" secondAttribute="leading" id="eBl-AR-xiB"/>
+                            <constraint firstItem="2fk-29-Zhd" firstAttribute="leading" secondItem="Dvp-Wn-QwY" secondAttribute="leading" constant="8" id="obN-4J-tet"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateField" destination="2fk-29-Zhd" id="ZnW-pp-beq"/>
+                        <outlet property="tableView" destination="nZH-dV-O5Q" id="Qzt-A0-7eu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hdf-mg-l6p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1234.4000000000001" y="1287.7061469265368"/>
+        </scene>
         <!--派件打印-->
         <scene sceneID="GZw-xR-Ecq">
             <objects>
-                <tableViewController storyboardIdentifier="DeliverForeCastControl" title="派件打印" id="Q8m-lg-IZB" customClass="DeliverForeCastControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="派件打印" id="Q8m-lg-IZB" customClass="DeliverForeCastControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="2hy-iM-xJy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

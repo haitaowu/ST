@@ -60,6 +60,9 @@ static NSString *const kServiceUUID = @"ff00";
 @property(nonatomic,strong) NSArray *billCodes;
 
 
+@property(nonatomic,assign) int barCodeWidth;
+
+
 @end
 
 @implementation MasterBillPrinter
@@ -69,6 +72,7 @@ static NSString *const kServiceUUID = @"ff00";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	self.barCodeWidth = 110;
 	 cmd=0;
 	 mtu = 20;
 	 credit = 0;
@@ -225,7 +229,7 @@ static NSString *const kServiceUUID = @"ff00";
 	// 横着的条码图形如果宽度不够就会导致打印出 bar Code data/parameter
     NSString *barCode = billCode;
     int barCodeH = 80;
-    int barCodeX = codeX - 100;
+	int barCodeX = codeX - self.barCodeWidth;
 	int barCodeY = startY;
 	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
 	
@@ -428,7 +432,7 @@ static NSString *const kServiceUUID = @"ff00";
 	// 横着的条码图形
     NSString *barCode = billCode;
     int barCodeH = 80;
-    int barCodeX = codeX - 100;
+	int barCodeX = codeX - self.barCodeWidth;
 	int barCodeY = startY;
 	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
 	
