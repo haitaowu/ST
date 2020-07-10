@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BluetoothListController" customModule="Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="Fvj-5Q-l00" id="6Im-Fm-WzW"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Tal-ZV-ZC4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Fvj-5Q-l00">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="4F9-k8-FzD"/>
+                        <outlet property="delegate" destination="-1" id="P0B-sG-yH7"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Fvj-5Q-l00" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0N5-ae-Ynh"/>
+                <constraint firstAttribute="bottom" secondItem="Fvj-5Q-l00" secondAttribute="bottom" id="0YT-sH-X1s"/>
+                <constraint firstAttribute="trailing" secondItem="Fvj-5Q-l00" secondAttribute="trailing" id="1F1-G3-oS3"/>
+                <constraint firstItem="Fvj-5Q-l00" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GyL-MA-jpd"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="119.86607142857142"/>
+        </view>
+    </objects>
+</document>
