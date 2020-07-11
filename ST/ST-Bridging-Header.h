@@ -11,5 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <BMKLocationkit/BMKLocationComponent.h>
+#import "ConnecterManager.h"
+
 
 

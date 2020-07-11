@@ -38,6 +38,6 @@ typedef void(^ConnectDeviceState)(ConnectState state);
 typedef void(^ReadData)(NSData * _Nullable data);
 /**发送数据进度  只适用于蓝牙发送数据*/
 typedef void(^WriteProgress)(NSUInteger total,NSUInteger progress);
-typedef void (^Error)(id error);
+typedef void (^ConnErrorBlock)(id _Nullable error);
 
 #endif /* ConnecterBlock_h */

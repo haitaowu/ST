@@ -8,10 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "ConnecterManager.h"
-#import "CtrlViewController.h"
+
+
+typedef enum: NSInteger{
+	NONPRINTER = 21,
+	SPRINTER = 22,
+	GPRINTER = 23
+} PrinterType;
+
+
+typedef void(^BleConnResultBlock)(ConnectState state,PrinterType type);
+
+
 
 @interface BluetoothListController : UIViewController
 
 @property(nonatomic,copy)ConnectDeviceState connectBlock;
+
+@property(nonatomic,copy)BleConnResultBlock connResultBlock;
+
+
 @end
 

@@ -254,6 +254,10 @@
 		BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */; };
 		BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBE232DD7FE0076DB33 /* STConst.swift */; };
 		BE723EC52329EFB1005FC86C /* STHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE723EC42329EFB1005FC86C /* STHelper.swift */; };
+		BE80E6B224B8B82B008EE9B4 /* BluetoothListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */; };
+		BE80E6B324B8B82B008EE9B4 /* GSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE80E6A724B8B82B008EE9B4 /* GSDK.a */; };
+		BE80E6B424B8B82B008EE9B4 /* BluetoothListController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */; };
+		BE80E6B524B8B82B008EE9B4 /* ConnecterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */; };
 		BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839094229FAC8A0050C9F3 /* VanRecordController.swift */; };
 		BE839097229FAC8A0050C9F3 /* VanRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE839095229FAC8A0050C9F3 /* VanRecordController.xib */; };
 		BE83909B229FB7410050C9F3 /* DriverPersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839099229FB7400050C9F3 /* DriverPersonController.swift */; };
@@ -629,6 +633,18 @@
 		BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteCenModel.swift; sourceTree = "<group>"; };
 		BE6B5CBE232DD7FE0076DB33 /* STConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STConst.swift; sourceTree = "<group>"; };
 		BE723EC42329EFB1005FC86C /* STHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHelper.swift; sourceTree = "<group>"; };
+		BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothListController.xib; sourceTree = "<group>"; };
+		BE80E6A624B8B82B008EE9B4 /* ConnecterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterManager.h; sourceTree = "<group>"; };
+		BE80E6A724B8B82B008EE9B4 /* GSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GSDK.a; sourceTree = "<group>"; };
+		BE80E6A824B8B82B008EE9B4 /* BluetoothListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothListController.h; sourceTree = "<group>"; };
+		BE80E6AA24B8B82B008EE9B4 /* EthernetConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetConnecter.h; sourceTree = "<group>"; };
+		BE80E6AB24B8B82B008EE9B4 /* EscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EscCommand.h; sourceTree = "<group>"; };
+		BE80E6AC24B8B82B008EE9B4 /* ConnecterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterBlock.h; sourceTree = "<group>"; };
+		BE80E6AD24B8B82B008EE9B4 /* TscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TscCommand.h; sourceTree = "<group>"; };
+		BE80E6AE24B8B82B008EE9B4 /* BLEConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnecter.h; sourceTree = "<group>"; };
+		BE80E6AF24B8B82B008EE9B4 /* Connecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connecter.h; sourceTree = "<group>"; };
+		BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothListController.m; sourceTree = "<group>"; };
+		BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnecterManager.m; sourceTree = "<group>"; };
 		BE839094229FAC8A0050C9F3 /* VanRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecordController.swift; sourceTree = "<group>"; };
 		BE839095229FAC8A0050C9F3 /* VanRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecordController.xib; sourceTree = "<group>"; };
 		BE839099229FB7400050C9F3 /* DriverPersonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverPersonController.swift; sourceTree = "<group>"; };
@@ -670,7 +686,7 @@
 		BEA67F1E245D878700A9099C /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
 		BEA76E90248DDBB800E341EA /* PrintModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
 		BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillQueryController.swift; sourceTree = "<group>"; };
-		BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; };
+		BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; tabWidth = 4; };
 		BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
 		BEABEAC42496187F005CA4CF /* MasterBillPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterBillPrinter.h; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
@@ -749,6 +765,7 @@
 				BEE7778123AB23CA002E6828 /* MediaPlayer.framework in Frameworks */,
 				BEE7777F23AB23C3002E6828 /* UserNotifications.framework in Frameworks */,
 				BEE7777D23AB23BD002E6828 /* libiconv.tbd in Frameworks */,
+				BE80E6B324B8B82B008EE9B4 /* GSDK.a in Frameworks */,
 				BEE7777B23AB23B5002E6828 /* AssetsLibrary.framework in Frameworks */,
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
 				BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */,
@@ -1363,6 +1380,7 @@
 		BE38BD61228C0CE20007B6E0 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				BE80E6A424B8B82B008EE9B4 /* GPrinterLib */,
 				BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */,
 				BE0FC4C622BF404800271FED /* JXPhotoBrowser */,
 				BEC8B43A22BCF9720095C045 /* TinyConsole */,
@@ -1499,6 +1517,33 @@
 				BE839098229FB7400050C9F3 /* DUser */,
 			);
 			path = Driver;
+			sourceTree = "<group>";
+		};
+		BE80E6A424B8B82B008EE9B4 /* GPrinterLib */ = {
+			isa = PBXGroup;
+			children = (
+				BE80E6A824B8B82B008EE9B4 /* BluetoothListController.h */,
+				BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */,
+				BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */,
+				BE80E6A624B8B82B008EE9B4 /* ConnecterManager.h */,
+				BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */,
+				BE80E6A924B8B82B008EE9B4 /* GSDK */,
+				BE80E6A724B8B82B008EE9B4 /* GSDK.a */,
+			);
+			path = GPrinterLib;
+			sourceTree = "<group>";
+		};
+		BE80E6A924B8B82B008EE9B4 /* GSDK */ = {
+			isa = PBXGroup;
+			children = (
+				BE80E6AA24B8B82B008EE9B4 /* EthernetConnecter.h */,
+				BE80E6AB24B8B82B008EE9B4 /* EscCommand.h */,
+				BE80E6AC24B8B82B008EE9B4 /* ConnecterBlock.h */,
+				BE80E6AD24B8B82B008EE9B4 /* TscCommand.h */,
+				BE80E6AE24B8B82B008EE9B4 /* BLEConnecter.h */,
+				BE80E6AF24B8B82B008EE9B4 /* Connecter.h */,
+			);
+			path = GSDK;
 			sourceTree = "<group>";
 		};
 		BE839093229FAC8A0050C9F3 /* VanRecord */ = {
@@ -1956,6 +2001,7 @@
 				BE28977223CADE50009FB9EE /* Localizable.strings in Resources */,
 				BEA67F1F245D878700A9099C /* PrintMenuItem.xib in Resources */,
 				BEA67F20245D878700A9099C /* PrintMenuController.xib in Resources */,
+				BE80E6B224B8B82B008EE9B4 /* BluetoothListController.xib in Resources */,
 				BE38BD54228C0B770007B6E0 /* QuyuChaxunViewController.xib in Resources */,
 				BE20A99E1F66712C00D2D753 /* testDoc.xlsx in Resources */,
 				BE38BD51228C0B770007B6E0 /* SettingViewController.xib in Resources */,
@@ -2221,11 +2267,13 @@
 				892583CC1DC8DA9700285DB5 /* ConstraintPriorityTarget.swift in Sources */,
 				893BC7851DF593CA00AE33AA /* UIImage+ext.swift in Sources */,
 				BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */,
+				BE80E6B424B8B82B008EE9B4 /* BluetoothListController.m in Sources */,
 				892583E11DC8DB0700285DB5 /* Converter.swift in Sources */,
 				BEC8B44222BCF9720095C045 /* TinyConsoleViewController.swift in Sources */,
 				892583B61DC8DA9700285DB5 /* Constraint.swift in Sources */,
 				BE3DCFD722D6E154003176E3 /* Date+Extension.swift in Sources */,
 				BE0FC4F422BF404800271FED /* UIViewController+JX.swift in Sources */,
+				BE80E6B524B8B82B008EE9B4 /* ConnecterManager.m in Sources */,
 				BEA67F21245D878700A9099C /* PrintMenuItem.swift in Sources */,
 				8918C9621DD1D07900DBD5C6 /* STDb.swift in Sources */,
 				BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */,
@@ -2468,7 +2516,10 @@
 				INFOPLIST_FILE = ST/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
+				);
 				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2544,7 +2595,10 @@
 				INFOPLIST_FILE = ST/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
+				);
 				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

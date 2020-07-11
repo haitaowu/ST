@@ -9,6 +9,8 @@
 #import "SPRTPrint.h"
 #import "UIImage+Extension.h"
 #import "SVProgressHUD.h"
+#import "BluetoothListController.h"
+#import "TscCommand.h"
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -20,6 +22,7 @@ static NSString *const kWriteCharacteristicUUID = @"ff02";
 static NSString *const kReadCharacteristicUUID = @"ff01";
 static NSString *const kServiceUUID = @"ff00";
 //
+
 
 
 
@@ -58,6 +61,8 @@ static NSString *const kServiceUUID = @"ff00";
 @property (weak, nonatomic) IBOutlet UIButton *printBtn;
 @property (weak, nonatomic) IBOutlet UIButton *reloadBtn;
 @property(nonatomic,strong) NSArray *billCodes;
+@property(nonatomic,assign) PrinterType printerType;
+@property (weak, nonatomic) IBOutlet UILabel *connState;
 
 
 @property(nonatomic,assign) int barCodeWidth;
@@ -72,12 +77,14 @@ static NSString *const kServiceUUID = @"ff00";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"打印运单";
 	self.barCodeWidth = 110;
-	 cmd=0;
-	 mtu = 20;
-	 credit = 0;
-	 response = 1;
-	 cjFlag=1;           // qzfeng 2016/05/10
+	self.printerType = NONPRINTER;
+	cmd=0;
+	mtu = 20;
+	credit = 0;
+	response = 1;
+	cjFlag=1;           // qzfeng 2016/05/10
 	self.reloadBtn.hidden = YES;
 	
 
@@ -88,20 +95,28 @@ static NSString *const kServiceUUID = @"ff00";
 //        self.reloadBtn.hidden = YES;
 //    }
 
+	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
+	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+	
+	
+	return;
     self.managerState = CBManagerStateUnknown;
 	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    self.title = @"打印运单";
-    
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startScanConnectPrinter];
+//    [self startScanConnectPrinter];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	NSLog(@"viewWill Disappear....");
 }
 
 - (void)viewDidUnload
@@ -130,9 +145,55 @@ static NSString *const kServiceUUID = @"ff00";
     [SVProgressHUD dismiss];
 }
 
+- (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
+    dispatch_async(dispatch_get_main_queue(), ^{
+		self.printerType = type;
+        switch (state) {
+            case CONNECT_STATE_CONNECTING:
+                self.connState.text = @"连接状态：连接中....";
+                break;
+            case CONNECT_STATE_CONNECTED:
+                [SVProgressHUD showSuccessWithStatus:@"连接成功"];
+				self.printBtn.enabled = YES;
+                self.connState.text = @"连接状态：已连接";
+                break;
+            case CONNECT_STATE_FAILT:
+                [SVProgressHUD showErrorWithStatus:@"连接失败"];
+                self.connState.text = @"连接状态：连接失败";
+                break;
+            case CONNECT_STATE_DISCONNECT:
+                [SVProgressHUD showInfoWithStatus:@"断开连接"];
+                self.connState.text = @"连接状态：断开连接";
+                break;
+            default:
+                self.connState.text = @"连接状态：连接超时";
+                break;
+        }
+    });
+}
+
 
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	BluetoothListController *listControl = [[BluetoothListController alloc] init];
+	__weak typeof(self) weakSelf = self;
+	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
+		if (CONNECT_STATE_CONNECTED == state) {
+		}
+		[self updateConnectState:state printerType:type];
+	};
+	
+//	listControl.connectBlock = ^(ConnectState state) {
+//		if (CONNECT_STATE_CONNECTED == state) {
+//			//			   [weakSelf.navigationController popViewControllerAnimated:YES];
+//		}
+//
+//		[self updateConnectState:state];
+//	};
+	[self.navigationController pushViewController:listControl animated:YES];
+
+
+	return;
     if (self.managerState == CBManagerStatePoweredOn) {
         [self startScanConnectPrinter];
         [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
@@ -145,17 +206,95 @@ static NSString *const kServiceUUID = @"ff00";
 //    [self reqPrintBillInfo];
 }
 
-- (IBAction)buttonPrintPNGorJPG:(id)sender {
-	[self updateOperBtnsWithDisConnState];
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[self updateOperBtnsWithConnedState];
-	});
+///start to print bill
+- (IBAction)startToPrint:(id)sender {
+//	[self updateOperBtnsWithDisConnState];
+//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//		[self updateOperBtnsWithConnedState];
+//	});
 	
-	[self startPrintSiteTable];
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[self startPrintCustomerTable];
-	});
+  if (self.printerType == SPRINTER) {
+    [self sendKeyChainToPrinter];
+    [self startPrintSiteTable];
+    //	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //		[self startPrintCustomerTable];
+    //	});
+  }else{
+    [Manager write:[self tscCommand]];
+  }
+}
 
+
+//GPRinter发件网点存根联标签打印命令
+-(NSData *)tscCommand{
+    int maxX = 800-10;
+    int maxY = 535;
+    int startX = 2;
+    int startY = 15;
+    int headerHeight = 180;
+    int rowHeight = 85;
+    int titleWidth = 80;
+    int lineWeight = 2;
+    TscCommand *command = [[TscCommand alloc]init];
+    [command addSize:maxX :maxY];
+    [command addGapWithM:2 withN:0];
+    [command addReference:0 :0];
+    [command addTear:@"ON"];
+    [command addQueryPrinterStatus:ON];
+    [command addCls];
+    //
+    [command addBox:startX :startY :maxX :maxY :lineWeight];
+    
+    // 框内第一条横线--------------------------------
+    int start1Y = startY + headerHeight;
+    [command addBar:startX :start1Y :maxX :lineWeight];
+    
+    
+    // 框内第二条横线--------------------------------
+    int start2Y = start1Y + rowHeight;
+    [command addBar:startX :start2Y :maxX :lineWeight];
+    
+    // 框内第三条横线--------------------------------
+    int start3Y = start2Y + rowHeight;
+    [command addBar:startX :start3Y :maxX :lineWeight];
+    
+    // 框内第四条横线--------------------------------
+    int start4Y = start3Y + rowHeight;
+    [command addBar:startX :start4Y :maxX :lineWeight];
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    int col1StartX = startX + titleWidth;
+    int col1Height = maxY - start1Y;
+    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
+    
+    //第二条竖线|||||||||||||||||||||||||||||
+    int siteTextW = 160;
+    int col2StartX = maxX - siteTextW;
+    int col2Height = rowHeight;
+    int col2Y = start2Y;
+    [command addBar:col2StartX :col2Y :lineWeight :col2Height];
+    
+    
+    //第三条竖线|||||||||||||||||||||||||||||
+    int col3StartX = col2StartX;
+    int col3Height = rowHeight;
+    int col3Y = start4Y;
+    [command addBar:col3StartX :col3Y :lineWeight :col3Height];
+    
+    /*
+  //打印文字
+    [command addTextwithX:0 withY:0 withFont:@"TSS24.BF2" withRotation:0 withXscal:1 withYscal:1 withText:@"Smarnet"];
+  //打印条形码，和数字
+    [command add1DBarcode:30 :30 :@"CODE128" :100 :1 :0 :2 :2 :@"1234567890"];
+  //打印二维码
+    [command addQRCode:20 :160 :@"L" :5 :@"A" :0 :@"www.smarnet.cc"];
+  //打印图片
+    UIImage *image = [UIImage imageNamed:@"gprinter.png"];
+    [command addBitmapwithX:0 withY:260 withMode:0 withWidth:400 withImage:image];
+     */
+    
+    [command addPrint:1 :1];
+    return [command getCommand];
 }
 
 #pragma mark - private methods
@@ -218,7 +357,8 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	
-	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
+//	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
+	NSString *billCode = @"8000056666671";
 	int codeW = typeW;
 	int codeH = 40;
 	int codeX = typeX;
@@ -232,7 +372,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int barCodeX = codeX - self.barCodeWidth;
 	int barCodeY = startY;
 	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
-	
+/*
 	// 第二条横线--------------------------------
 	int start2Y = startY+headerHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
@@ -371,7 +511,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int colo4EndY = maxY;
 	[SPRTPrint drawLine:2 startX:col4StartX startY:colo4StartY endX:col4StartX endY:colo4EndY isFullline:false];
 	
-	//收件客户签字
+	//寄件客户签字
 	NSString *signTitle = @"寄件客户签字:";
 	int signW = siteTextW;
 	int signH = rowHeight;
@@ -384,6 +524,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int colo5StartY = startY;
 	int colo5EndY = maxY;
 	[SPRTPrint drawLine:2 startX:col5StartX startY:colo5StartY endX:col5StartX endY:colo5EndY isFullline:false];
+	*/
 	
 	[SPRTPrint print:0 skipNum:1];
 }

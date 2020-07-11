@@ -7,8 +7,22 @@
 //
 
 #import "BluetoothListController.h"
+#import "SPRTPrint.h"
 
-@interface BluetoothListController ()<UITableViewDelegate,UITableViewDataSource>
+
+//for issc
+static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
+static NSString *const kReadCharacteristicUUID_cj = @"49535343-1E4D-4BD9-BA61-23C647249616";
+static NSString *const kServiceUUID_cj = @"49535343-FE7D-4AE5-8FA9-9FAFD205E455";
+//for ivt
+static NSString *const kFlowControlCharacteristicUUID = @"ff03";
+static NSString *const kWriteCharacteristicUUID = @"ff02";
+static NSString *const kReadCharacteristicUUID = @"ff01";
+static NSString *const kServiceUUID = @"ff00";
+
+
+
+@interface BluetoothListController ()<UITableViewDelegate,UITableViewDataSource,CBPeripheralDelegate>
 @property(nonatomic,strong)NSMutableArray *devices;
 @property(nonatomic,strong)NSMutableDictionary *dicts;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -71,10 +85,25 @@
     [Manager stopScan];
 }
 
+
 #pragma mark - bluetooth
 -(void)connectDevice:(CBPeripheral *)peripheral {
-    [Manager connectPeripheral:peripheral options:nil timeout:2 connectBlack:self.connectBlock];
+//    [Manager connectPeripheral:peripheral options:nil timeout:2 connectBlack:self.connectBlock];
+	__weak typeof(self) weakSelf = self;
+	NSDictionary *options  = nil;
+	if([self isSPrinter:peripheral]){
+		options = @{CBConnectPeripheralOptionNotifyOnConnectionKey : @YES};
+	}
+	[Manager connectPeripheral:peripheral options:options timeout:2 connectBlack:^(ConnectState state) {
+		if (state == CONNECT_STATE_CONNECTED) {
+			[weakSelf hasConnectedToPeripheral:peripheral];
+		}
+//		weakSelf.connectBlock(state);
+		PrinterType type = [weakSelf printerTypeOf:peripheral];
+		weakSelf.connResultBlock(state, type);
+	}];
 }
+
 
 -(void)startScanBlue {
     [Manager scanForPeripheralsWithServices:nil options:nil discover:^(CBPeripheral * _Nullable peripheral, NSDictionary<NSString *,id> * _Nullable advertisementData, NSNumber * _Nullable RSSI) {
@@ -87,6 +116,42 @@
             }
         }
     }];
+}
+
+
+#pragma mark - sprinter   peripheral
+- (void)hasConnectedToPeripheral:(CBPeripheral*)peripheral
+{
+	if([self isSPrinter:peripheral] == NO){
+		return ;
+	}
+	activeDevice = peripheral;
+	peripheral.delegate = self;
+	[peripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID]]];
+    
+    // qzfeng begin 2016/05/10
+    [peripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID_cj]]];
+
+}
+
+/// is sprinter printer???
+- (BOOL)isSPrinter:(CBPeripheral*)peripheral
+{
+	if ( [self printerTypeOf:peripheral] == SPRINTER ){
+		return YES;
+	}else{
+		return NO;
+	}
+}
+
+///printer type
+- (PrinterType)printerTypeOf:(CBPeripheral*)peripheral
+{
+	if ( [peripheral.name isEqualToString:@"L51 BT Printer"] ){
+		return SPRINTER;
+	}else{
+		return GPRINTER;
+	}
 }
 
 
@@ -114,6 +179,107 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
     [self connectDevice:peripheral];
+}
+
+
+#pragma mark - CBPeripheralDelegate
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:error
+{
+	if (error!=nil){
+		NSLog(@"didWriteValueForCharacteristic Write edata failed!");
+		return;
+	}
+	NSLog(@"Write edata success!");
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
+{
+    if (error==nil)
+    {
+        //在这个方法中我们要查找到我们需要的服务  然后调用discoverCharacteristics方法查找我们需要的特性
+        for (CBService *service in peripheral.services)
+        {
+            if ([service.UUID isEqual:[CBUUID UUIDWithString:kServiceUUID]])
+            {
+                cjFlag=0;           // qzfeng 2016/05/10
+                [peripheral discoverCharacteristics:nil forService:service];
+            }
+            else if ([service.UUID isEqual:[CBUUID UUIDWithString:kServiceUUID_cj]])
+            {
+                cjFlag=1;       // qzfeng 2016/05/10
+                [peripheral discoverCharacteristics:nil forService:service];
+            }
+            // qzfeng end 2016/05/10
+        }
+    }
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
+    if (error==nil) {
+        //在这个方法中我们要找到我们所需的服务的特性 然后调用setNotifyValue方法告知我们要监测这个服务特性的状态变化
+        for (CBCharacteristic *characteristic in service.characteristics)
+        {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID]])
+            {
+                   [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                    activeWriteCharacteristic = characteristic;
+            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadCharacteristicUUID]])
+            {
+                   [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                    activeReadCharacteristic = characteristic;
+            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kFlowControlCharacteristicUUID]]) {
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                activeFlowControlCharacteristic = characteristic;
+                credit = 0;
+                response = 1;
+            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID_cj]]) {
+            // qzfeng begin 2016/05/10
+				[peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                activeWriteCharacteristic = characteristic;
+            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadCharacteristicUUID_cj]]) {
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                activeReadCharacteristic = characteristic;
+            }
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+	NSLog(@"enter didUpdateNotificationStateForCharacteristic!");
+    if (error==nil){
+        [peripheral readValueForCharacteristic:characteristic];
+    }
+}
+
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    NSLog(@"enter didUpdateValueForCharacteristic!");
+    NSData *data = characteristic.value;
+    NSLog(@"read data=%@!",data);
+    if (characteristic == activeFlowControlCharacteristic) {
+        NSData * data = [characteristic value];
+        NSUInteger len = [data length];
+        int bytesRead = 0;
+        if (len > 0) {
+            unsigned char * measureData = (unsigned char *) [data bytes];
+            unsigned char field = * measureData;
+            measureData++;
+            bytesRead++;
+            if(field == 2){
+                unsigned char low  = * measureData;
+                measureData++;
+                mtu =  low + (* measureData << 8);
+            }
+            if(field == 1){
+                if(credit < 5) {
+                    credit += * measureData;
+                }
+            }
+        }
+    }
 }
 
 

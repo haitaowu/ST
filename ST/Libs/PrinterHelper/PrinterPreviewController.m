@@ -26,11 +26,11 @@ CBCharacteristic *activeReadCharacteristic;
 CBCharacteristic *activeFlowControlCharacteristic;
 
 int cmd=0;
-
 int mtu = 20;
 int credit = 0;
 int response = 1;
-int cjFlag=1;           // qzfeng 2016/05/10
+// qzfeng 2016/05/10
+int cjFlag=1;
 
 
 #define kBillCodeKey            @"billCode"
@@ -67,6 +67,11 @@ int cjFlag=1;           // qzfeng 2016/05/10
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	cmd=0;
+	mtu = 20;
+	credit = 0;
+	response = 1;
+	cjFlag=1;           // qzfeng 2016/05/10
     if (self.billSN != nil) {
         self.reloadBtn.hidden = NO;
         [self reqPrintBillInfo];

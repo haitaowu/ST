@@ -48,11 +48,11 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 
 	///显示打印机连接界面
 	func showConnPrinterView() -> Void {
-		if let info = self.billInfo{
+//		if let info = self.billInfo{
 			let connViewControl = MasterBillPrinter(nibName: "MasterBillPrinter", bundle: nil)
-			connViewControl.billInfo = info
+//			connViewControl.billInfo = info
 			self.navigationController?.pushViewController(connViewControl, animated: true);
-		}
+//		}
 	}
 	
 	
@@ -112,10 +112,10 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 	
     ///点击打印按钮
 	@IBAction func toPrinter(_ sender: Any) {
-		guard self.billInfo != nil else {
-			self.remindUser(msg: "请查询运单")
-			return
-		}
+//		guard self.billInfo != nil else {
+//			self.remindUser(msg: "请查询运单")
+//			return
+//		}
 		self.showConnPrinterView()
 	}
 	

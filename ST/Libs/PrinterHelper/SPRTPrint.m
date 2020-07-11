@@ -10,7 +10,8 @@
 
 
 
-@interface SPRTPrint ()
+@interface SPRTPrint (){
+}
 
 @end
 
