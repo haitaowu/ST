@@ -96,6 +96,15 @@ class SubBillQueryController:UITableViewController,QrInterface {
             self.remindUser(msg: "请输入运单号查询")
             return;
         }
+		let info: [String : Any] = ["BILL_CODE": "5700165655793",
+		"SEND_DATE": "2020-07-07 06:56:23",
+		"PIECE_NUMBER": 1,
+		"DESTINATION": "南宫市",
+		"REGISTER_SITE": "衢州",
+		"DISPATCH_SITE": "南宫市",
+		"VOLUME_WEIGHT": 400.0,
+		"SETTLEMENT_WEIGHT": 400.0,
+		]
         let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
         connViewControl.billInfo = self.billInfo;
 //        let billCode = self.billNumField.text!
