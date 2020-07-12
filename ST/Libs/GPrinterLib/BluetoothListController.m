@@ -8,6 +8,7 @@
 
 #import "BluetoothListController.h"
 #import "SPRTPrint.h"
+#import "SVProgressHUD.h"
 
 
 //for issc
@@ -177,8 +178,20 @@ static NSString *const kServiceUUID = @"ff00";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	CBPeripheral *selPeripheral = Manager.bleConnecter.connPeripheral;
+    int waitSecs = 0;
+    if (selPeripheral != nil) {
+        [Manager.bleConnecter closePeripheral:selPeripheral];
+        waitSecs = 3;
+    }
+    [SVProgressHUD show];
+    
     CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
-    [self connectDevice:peripheral];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(waitSecs * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self connectDevice:peripheral];
+        
+    });
 }
 
 

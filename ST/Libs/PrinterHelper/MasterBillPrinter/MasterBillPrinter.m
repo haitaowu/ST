@@ -116,6 +116,7 @@ static NSString *const kServiceUUID = @"ff00";
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+	[Manager close];
 	NSLog(@"viewWill Disappear....");
 }
 
@@ -152,19 +153,29 @@ static NSString *const kServiceUUID = @"ff00";
             case CONNECT_STATE_CONNECTING:
                 self.connState.text = @"连接状态：连接中....";
                 break;
-            case CONNECT_STATE_CONNECTED:
+			case CONNECT_STATE_CONNECTED:
+			{
                 [SVProgressHUD showSuccessWithStatus:@"连接成功"];
 				self.printBtn.enabled = YES;
-                self.connState.text = @"连接状态：已连接";
-                break;
+				NSString *name = Manager.bleConnecter.connPeripheral.name;
+				NSString *title = @"连接状态：";
+				title = [title stringByAppendingFormat:@"%@已连接",name];
+                self.connState.text = title;
+				break;
+			}
             case CONNECT_STATE_FAILT:
                 [SVProgressHUD showErrorWithStatus:@"连接失败"];
                 self.connState.text = @"连接状态：连接失败";
                 break;
             case CONNECT_STATE_DISCONNECT:
-                [SVProgressHUD showInfoWithStatus:@"断开连接"];
+			{
+//				NSString *name = Manager.bleConnecter.connPeripheral.name;
+//				NSString *title = [@"断开连接设备:" stringByAppendingFormat:@"%@",name];
+				NSString *title = @"已断开连接设备";
+                [SVProgressHUD showInfoWithStatus:title];
                 self.connState.text = @"连接状态：断开连接";
                 break;
+			}
             default:
                 self.connState.text = @"连接状态：连接超时";
                 break;
@@ -861,7 +872,8 @@ static NSString *const kServiceUUID = @"ff00";
     int titleWidth = 80;
     int lineWeight = 2;
     int deltaX = 10;
-    NSString *fontStr = @"TSS24.BF2";
+    NSString *titleFontStr = @"TSS24.BF2";
+    NSString *txtFontStr = @"TSS20.BF2";
     
     
     TscCommand *command = [[TscCommand alloc] init];
@@ -878,13 +890,13 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
     int sPrintDateH = 40;
     int sPrintDateX = startX + deltaX;
-    int sPrintDateY = startY + headerHeight - sPrintDateH;
+    int sPrintDateY = startY + headerHeight - sPrintDateH + 10;
     //打印时间
-    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
+    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
     
     //打印条形码，和数字
-    int barCodeWith = 200;
-    int barCodeX = maxX - barCodeWith - startX;
+    int barCodeWith = 280;
+	int barCodeX = maxX - barCodeWith - startX;
     int barCodeY = startY;
 	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
     [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
@@ -894,7 +906,7 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *typeTitle = @"寄件客户存根联:";
     int typeX = barCodeX;
     int typeY = sPrintDateY;
-    [command addTextwithX:typeX withY:typeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
+    [command addTextwithX:typeX withY:typeY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
     
     
     // 框内第一条横线--------------------------------
@@ -908,20 +920,20 @@ static NSString *const kServiceUUID = @"ff00";
     int sTitleX = startX + deltaX;
     int sTitleY = start1Y + deltaY;
     //打印寄方
-    [command addTextwithX:sTitleX withY:sTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+    [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
     //phone
     NSString *sPhone = [self strValueOf:self.billInfo key:@"SEND_MAN_PHONE"];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
     
     //address
     NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
 //    NSString *sAdress = @"江苏省无锡市小区";
     int sAdrX = sPhoneX;
     int sAdrY = sPhoneY + (rowHeight / 2);
-    [command addTextwithX:sAdrX withY:sAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
+    [command addTextwithX:sAdrX withY:sAdrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
     
     // 框内第二条横线--------------------------------
     int start2Y = start1Y + rowHeight;
@@ -931,20 +943,20 @@ static NSString *const kServiceUUID = @"ff00";
      NSString *receiverTitle = @"收方";
      int rTitleX = sTitleX;
      int rTitleY = start2Y + deltaX;
-     [command addTextwithX:rTitleX withY:rTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+     [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
      NSString *rPhone = [self strValueOf:self.billInfo key:@"ACCEPT_MAN_PHONE"];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
     
     //address
     NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
 //    NSString *rAddress = @"江苏省无锡市小区shoufang";
     int rAdrX = rPhoneX;
     int rAdrY = rPhoneY + (rowHeight / 2);
-    [command addTextwithX:rAdrX withY:rAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
+    [command addTextwithX:rAdrX withY:rAdrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
     
     // 框内第三条横线--------------------------------
     int start3Y = start2Y + rowHeight;
@@ -954,12 +966,12 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *goodsTitle = @"货物";
     int goodsTitleX = sTitleX;
     int goodsTitleY = start3Y + deltaY;
-    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
+    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
     
     
     NSString *goodsTitle2 = @"信息";
     int goodsTitle2Y = goodsTitleY + (rowHeight/2);
-    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
+    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
     NSString *goods = [self sendGoodsInfo:self.billInfo];
@@ -969,13 +981,13 @@ static NSString *const kServiceUUID = @"ff00";
     int letterMaxLen = 33;
     if (goods.length > letterMaxLen) {
         NSString *line1 = [goods substringToIndex:letterMaxLen];
-        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
+        [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
         
         NSString *line2 = [goods substringFromIndex:letterMaxLen];
         int goods2Y = goodsTitle2Y;
-        [command addTextwithX:goodsX withY:goods2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
+        [command addTextwithX:goodsX withY:goods2Y withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
     }else{
-        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
+        [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
     }
     
 
@@ -987,18 +999,18 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *feeTitle = @"收费";
     int feeTitleX = sTitleX;
     int feeTitleY = start4Y + deltaY;
-    [command addTextwithX:feeTitleX withY:feeTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
+    [command addTextwithX:feeTitleX withY:feeTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
     
     NSString *feeTitle2 = @"信息";
     int feeTitle2Y = feeTitleY + (rowHeight/2);
-    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
+    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
     
     //shou fei xin xi
     NSString *fee = [self feesTxtBy:self.billInfo];
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
-    [command addTextwithX:feeX withY:feeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    [command addTextwithX:feeX withY:feeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
     
     
     //第一条竖线|||||||||||||||||||||||||||||
@@ -1023,7 +1035,8 @@ static NSString *const kServiceUUID = @"ff00";
     int titleWidth = 80;
     int lineWeight = 2;
     int deltaX = 10;
-    NSString *fontStr = @"TSS24.BF2";
+    NSString *titleFontStr = @"TSS24.BF2";
+    NSString *txtFontStr = @"TSS20.BF2";
     
     
     TscCommand *command = [[TscCommand alloc] init];
@@ -1040,22 +1053,23 @@ static NSString *const kServiceUUID = @"ff00";
 	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
     int sPrintDateH = 40;
     int sPrintDateX = startX + deltaX;
-    int sPrintDateY = startY + headerHeight - sPrintDateH;
+    int sPrintDateY = startY + headerHeight - sPrintDateH + 10;
     //打印时间
-    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
+    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
     
     //打印条形码，和数字
-    int barCodeWith = 200;
+    int barCodeWith = 280;
     int barCodeX = maxX - barCodeWith - startX;
     int barCodeY = startY;
-    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :@"1234567890"];
+	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
+    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
     
     
     //发件网点存根联
     NSString *typeTitle = @"发件网点存根联:";
     int typeX = barCodeX;
     int typeY = sPrintDateY;
-    [command addTextwithX:typeX withY:typeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
+    [command addTextwithX:typeX withY:typeY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
     
     
     // 框内第一条横线--------------------------------
@@ -1069,20 +1083,20 @@ static NSString *const kServiceUUID = @"ff00";
     int sTitleX = startX + deltaX;
     int sTitleY = start1Y + deltaY;
     //打印寄方
-    [command addTextwithX:sTitleX withY:sTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+    [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
     //phone
     NSString *sPhone = [self strValueOf:self.billInfo key:@"SEND_MAN_PHONE"];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
     
     //address
     NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
 //    NSString *sAdress = @"江苏省无锡市小区";
     int sAdrX = sPhoneX;
     int sAdrY = sPhoneY + (rowHeight / 2);
-    [command addTextwithX:sAdrX withY:sAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
+    [command addTextwithX:sAdrX withY:sAdrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
     
     // 框内第二条横线--------------------------------
     int start2Y = start1Y + rowHeight;
@@ -1092,20 +1106,20 @@ static NSString *const kServiceUUID = @"ff00";
      NSString *receiverTitle = @"收方";
      int rTitleX = sTitleX;
      int rTitleY = start2Y + deltaX;
-     [command addTextwithX:rTitleX withY:rTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+     [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
      NSString *rPhone = [self strValueOf:self.billInfo key:@"ACCEPT_MAN_PHONE"];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
     
     //address
     NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
 //    NSString *rAddress = @"江苏省无锡市小区shoufang";
     int rAdrX = rPhoneX;
     int rAdrY = rPhoneY + (rowHeight / 2);
-    [command addTextwithX:rAdrX withY:rAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
+    [command addTextwithX:rAdrX withY:rAdrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
     
     // 框内第三条横线--------------------------------
     int start3Y = start2Y + rowHeight;
@@ -1115,12 +1129,12 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *goodsTitle = @"货物";
     int goodsTitleX = sTitleX;
     int goodsTitleY = start3Y + deltaY;
-    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
+    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
     
     
     NSString *goodsTitle2 = @"信息";
     int goodsTitle2Y = goodsTitleY + (rowHeight/2);
-    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
+    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
     NSString *goods = [self sendGoodsInfo:self.billInfo];
@@ -1130,13 +1144,13 @@ static NSString *const kServiceUUID = @"ff00";
     int letterMaxLen = 33;
     if (goods.length > letterMaxLen) {
         NSString *line1 = [goods substringToIndex:letterMaxLen];
-        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
+        [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
         
         NSString *line2 = [goods substringFromIndex:letterMaxLen];
         int goods2Y = goodsTitle2Y;
-        [command addTextwithX:goodsX withY:goods2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
+        [command addTextwithX:goodsX withY:goods2Y withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
     }else{
-        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
+        [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
     }
     
 
@@ -1149,18 +1163,18 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *feeTitle = @"收费";
     int feeTitleX = sTitleX;
     int feeTitleY = start4Y + deltaY;
-    [command addTextwithX:feeTitleX withY:feeTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
+    [command addTextwithX:feeTitleX withY:feeTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
     
     NSString *feeTitle2 = @"信息";
     int feeTitle2Y = feeTitleY + (rowHeight/2);
-    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
+    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
     
     //shou fei xin xi
     NSString *fee = [self feesTxtBy:self.billInfo];
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
-    [command addTextwithX:feeX withY:feeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    [command addTextwithX:feeX withY:feeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
     
     
     //第一条竖线|||||||||||||||||||||||||||||
@@ -1180,13 +1194,13 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *siteNameTitle = @"目的网点:";
     int siteX = col2StartX + 5;
     int siteY = col2Y + deltaY;
-     [command addTextwithX:siteX withY:siteY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:siteNameTitle];
+     [command addTextwithX:siteX withY:siteY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:siteNameTitle];
     
     NSString *destination = [self strValueOf:self.billInfo key:@"DESTINATION"];
 //    NSString *destination = @"目的网点B1";
     int siteInfoX = siteX;
     int siteInfoY = siteY + (rowHeight / 2);
-    [command addTextwithX:siteInfoX withY:siteInfoY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:destination];
+    [command addTextwithX:siteInfoX withY:siteInfoY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:destination];
     
     //第三条竖线|||||||||||||||||||||||||||||
     int col3StartX = col2StartX;
@@ -1198,7 +1212,7 @@ static NSString *const kServiceUUID = @"ff00";
     NSString *signTitle = @"寄件客户签字：";
     int signX = col3StartX + 5;
     int signY = col3Y + deltaY;
-    [command addTextwithX:signX withY:signY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:signTitle];
+    [command addTextwithX:signX withY:signY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:signTitle];
     
     [command addPrint:1 :1];
     return [command getCommand];

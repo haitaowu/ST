@@ -26,7 +26,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.25098039220000001" green="0.68627450980000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="连接打印机"/>
+                    <state key="normal" title="选择打印机"/>
                     <state key="disabled" title="已连接"/>
                     <connections>
                         <action selector="tapToConnectBtn:" destination="-1" eventType="touchUpInside" id="bCg-zn-zIY"/>
@@ -55,8 +55,8 @@
                         <action selector="tapReloadBillsData:" destination="-1" eventType="touchUpInside" id="Qax-GV-rUn"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="连接状态" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5Y-9x-6L0">
-                    <rect key="frame" x="87" y="100" width="200" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="连接状态" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5Y-9x-6L0">
+                    <rect key="frame" x="87" y="95" width="200" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
@@ -64,7 +64,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <point key="canvasLocation" x="140" y="153"/>
+            <point key="canvasLocation" x="140" y="152.47376311844079"/>
         </view>
     </objects>
 </document>
