@@ -213,89 +213,82 @@ static NSString *const kServiceUUID = @"ff00";
 //		[self updateOperBtnsWithConnedState];
 //	});
 	
-  if (self.printerType == SPRINTER) {
-    [self sendKeyChainToPrinter];
-    [self startPrintSiteTable];
-    //	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //		[self startPrintCustomerTable];
-    //	});
-  }else{
-    [Manager write:[self tscCommand]];
-  }
+	if (self.printerType == SPRINTER) {
+		[self sendKeyChainToPrinter];
+		[self startPrintSiteTable];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[self startPrintCustomerTable];
+		});
+	}else{
+		[Manager write:[self siteLabelCommand]];
+		[Manager write:[self senderLabelCommand]];
+	}
+	
 }
 
 
 //GPRinter发件网点存根联标签打印命令
--(NSData *)tscCommand{
-    int maxX = 800-10;
-    int maxY = 535;
-    int startX = 2;
-    int startY = 15;
-    int headerHeight = 180;
-    int rowHeight = 85;
-    int titleWidth = 80;
-    int lineWeight = 2;
-    TscCommand *command = [[TscCommand alloc]init];
-    [command addSize:maxX :maxY];
-    [command addGapWithM:2 withN:0];
-    [command addReference:0 :0];
-    [command addTear:@"ON"];
-    [command addQueryPrinterStatus:ON];
-    [command addCls];
-    //
-    [command addBox:startX :startY :maxX :maxY :lineWeight];
-    
-    // 框内第一条横线--------------------------------
-    int start1Y = startY + headerHeight;
-    [command addBar:startX :start1Y :maxX :lineWeight];
-    
-    
-    // 框内第二条横线--------------------------------
-    int start2Y = start1Y + rowHeight;
-    [command addBar:startX :start2Y :maxX :lineWeight];
-    
-    // 框内第三条横线--------------------------------
-    int start3Y = start2Y + rowHeight;
-    [command addBar:startX :start3Y :maxX :lineWeight];
-    
-    // 框内第四条横线--------------------------------
-    int start4Y = start3Y + rowHeight;
-    [command addBar:startX :start4Y :maxX :lineWeight];
-    
-    //第一条竖线|||||||||||||||||||||||||||||
-    int col1StartX = startX + titleWidth;
-    int col1Height = maxY - start1Y;
-    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
-    
-    //第二条竖线|||||||||||||||||||||||||||||
-    int siteTextW = 160;
-    int col2StartX = maxX - siteTextW;
-    int col2Height = rowHeight;
-    int col2Y = start2Y;
-    [command addBar:col2StartX :col2Y :lineWeight :col2Height];
-    
-    
-    //第三条竖线|||||||||||||||||||||||||||||
-    int col3StartX = col2StartX;
-    int col3Height = rowHeight;
-    int col3Y = start4Y;
-    [command addBar:col3StartX :col3Y :lineWeight :col3Height];
-    
-    /*
-  //打印文字
-    [command addTextwithX:0 withY:0 withFont:@"TSS24.BF2" withRotation:0 withXscal:1 withYscal:1 withText:@"Smarnet"];
-  //打印条形码，和数字
-    [command add1DBarcode:30 :30 :@"CODE128" :100 :1 :0 :2 :2 :@"1234567890"];
-  //打印二维码
-    [command addQRCode:20 :160 :@"L" :5 :@"A" :0 :@"www.smarnet.cc"];
-  //打印图片
-    UIImage *image = [UIImage imageNamed:@"gprinter.png"];
-    [command addBitmapwithX:0 withY:260 withMode:0 withWidth:400 withImage:image];
-     */
-    
-    [command addPrint:1 :1];
-    return [command getCommand];
-}
+//-(NSData *)tscCommand{
+//    int maxX = 800-10;
+//    int maxY = 535;
+//    int startX = 2;
+//    int startY = 15;
+//    int headerHeight = 180;
+//    int rowHeight = 85;
+//    int titleWidth = 80;
+//    int lineWeight = 2;
+//    TscCommand *command = [[TscCommand alloc]init];
+//    [command addSize:maxX :maxY];
+//    [command addGapWithM:2 withN:0];
+//    [command addReference:0 :0];
+//    [command addTear:@"ON"];
+//    [command addQueryPrinterStatus:ON];
+//    [command addCls];
+//    //
+//    [command addBox:startX :startY :maxX :maxY :lineWeight];
+//
+//    // 框内第一条横线--------------------------------
+//    int start1Y = startY + headerHeight;
+//    [command addBar:startX :start1Y :maxX :lineWeight];
+//
+//
+//    // 框内第二条横线--------------------------------
+//    int start2Y = start1Y + rowHeight;
+//    [command addBar:startX :start2Y :maxX :lineWeight];
+//
+//    // 框内第三条横线--------------------------------
+//    int start3Y = start2Y + rowHeight;
+//    [command addBar:startX :start3Y :maxX :lineWeight];
+//
+//    // 框内第四条横线--------------------------------
+//    int start4Y = start3Y + rowHeight;
+//    [command addBar:startX :start4Y :maxX :lineWeight];
+//
+//    //第一条竖线|||||||||||||||||||||||||||||
+//    int col1StartX = startX + titleWidth;
+//    int col1Height = maxY - start1Y;
+//    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
+//
+//    //第二条竖线|||||||||||||||||||||||||||||
+//    int siteTextW = 160;
+//    int col2StartX = maxX - siteTextW;
+//    int col2Height = rowHeight;
+//    int col2Y = start2Y;
+//    [command addBar:col2StartX :col2Y :lineWeight :col2Height];
+//
+//
+//    //第三条竖线|||||||||||||||||||||||||||||
+//    int col3StartX = col2StartX;
+//    int col3Height = rowHeight;
+//    int col3Y = start4Y;
+//    [command addBar:col3StartX :col3Y :lineWeight :col3Height];
+//
+//    [command addPrint:1 :1];
+//    return [command getCommand];
+//}
+
+
+
 
 #pragma mark - private methods
 //发送秘钥
@@ -324,6 +317,162 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
+
+//当前时间
+- (NSString*)currentDateStr
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
+    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
+    return todayStr;
+}
+
+
+// ji jian di zhi / shou jian ren dizhi
+- (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
+  NSArray* keys;
+  if ([adrType isEqualToString:@"1"]) {
+    //ji jian di zhi
+    keys = @[@"PROVINCE",@"CITY",@"BOROUGH",@"SEND_MAN_ADDRESS"];
+  }else{
+    //shou jian di zhi
+    keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",@"ACCEPT_MAN_ADDRESS"];
+  }
+  
+  NSString *adr = @"";
+  for (NSString* keyStr in keys) {
+    NSString *valueStr = [billInfo objectForKey:keyStr];
+    if (valueStr != nil) {
+      adr = [adr stringByAppendingFormat:@"%@",valueStr];
+    }
+  }
+  return adr;
+}
+
+///jian ke hu huo wu xin xi ji
+- (NSString*)goodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
+  if (name != nil) {
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
+  if (pieces != nil) {
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
+  if (tranType != nil) {
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  NSString *sign = [billInfo objectForKey:@"BL_RETURN_BILL"];
+  if (sign != nil) {
+    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
+  }
+  NSString *storage = [billInfo objectForKey:@"BL_INTO_WAREHOUSE"];
+  if (storage != nil) {
+    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
+  }
+  
+  NSString *date = [billInfo objectForKey:@"SEND_DATE"];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+
+///pai jian wang dian huo wu xin xi
+- (NSString*)sendGoodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
+  if (name != nil) {
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
+  if (pieces != nil) {
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
+  if (tranType != nil) {
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  
+  NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
+  if (weightCount != nil) {
+    goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
+  }
+  
+  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+  if (overSize != nil) {
+    goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
+  }
+  
+  NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
+  if (rCode != nil) {
+    goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
+  }
+  NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
+  if (storageCode != nil) {
+    goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
+  }
+  
+  NSString *date = [billInfo objectForKey:@"SEND_DATE"];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+
+
+///fei yong
+- (NSString*)feesTxtBy:(id)billInfo
+{
+  NSString *fees = @"";
+  NSString *payType = [billInfo objectForKey:@"PAYMENT_TYPE"];
+  if (payType != nil) {
+    fees = [fees stringByAppendingFormat:@"%@:",payType];
+    NSString *cash = [billInfo objectForKey:@"FREIGHT"];
+    if (payType != nil) {
+      fees = [fees stringByAppendingFormat:@"%@、",cash];
+    }
+  }
+  NSString *count = [billInfo objectForKey:@"INSURE_VALUE"];
+  if (count != nil) {
+    fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
+  }
+  NSString *pay = [billInfo objectForKey:@"FREIGHT"];
+  if (pay != nil) {
+    fees = [fees stringByAppendingFormat:@"运费:%@",pay];
+  }
+  return fees;
+}
+
+
+///string return value
+- (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr
+{
+  id value = [billInfo objectForKey:keyStr];
+  if (value == nil) {
+    return @"";
+  }else{
+    return [NSString stringWithFormat:@"%@",value];
+  }
+}
+
+
+
+#pragma mark- SPrinter
 ///打印发件网点存根联的表格
 - (void)startPrintSiteTable{
 	[SPRTPrint pageSetup:800 pageHeightNum:500];
@@ -357,8 +506,8 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	
-//	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
-	NSString *billCode = @"8000056666671";
+	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
+//	NSString *billCode = @"8000056666671";
 	int codeW = typeW;
 	int codeH = 40;
 	int codeX = typeX;
@@ -372,7 +521,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int barCodeX = codeX - self.barCodeWidth;
 	int barCodeY = startY;
 	[SPRTPrint drawBarCode:barCodeX startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
-/*
+	
 	// 第二条横线--------------------------------
 	int start2Y = startY+headerHeight;
 	[SPRTPrint drawLine:2 startX:startX startY:start2Y endX:maxX endY:start2Y isFullline:false];
@@ -524,10 +673,12 @@ static NSString *const kServiceUUID = @"ff00";
 	int colo5StartY = startY;
 	int colo5EndY = maxY;
 	[SPRTPrint drawLine:2 startX:col5StartX startY:colo5StartY endX:col5StartX endY:colo5EndY isFullline:false];
-	*/
+
 	
 	[SPRTPrint print:0 skipNum:1];
 }
+
+
 
 
 ///打印寄件客户存根联的表格
@@ -698,157 +849,363 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-//当前时间
-- (NSString*)currentDateStr
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
-    return todayStr;
+#pragma mark- GPPrinter
+//寄件客户存根联标签打印命令
+-(NSData *)senderLabelCommand{
+    int maxX = 800-10;
+    int maxY = 535;
+    int startX = 2;
+    int startY = 15;
+    int headerHeight = 180;
+    int rowHeight = 85;
+    int titleWidth = 80;
+    int lineWeight = 2;
+    int deltaX = 10;
+    NSString *fontStr = @"TSS24.BF2";
+    
+    
+    TscCommand *command = [[TscCommand alloc] init];
+    [command addSize:maxX :maxY];
+    [command addGapWithM:2 withN:0];
+    [command addReference:0 :0];
+    [command addTear:@"ON"];
+    [command addQueryPrinterStatus:ON];
+    [command addCls];
+    //
+    [command addBox:startX :startY :maxX :maxY :lineWeight];
+    
+    //打印时间
+    NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+    int sPrintDateH = 40;
+    int sPrintDateX = startX + deltaX;
+    int sPrintDateY = startY + headerHeight - sPrintDateH;
+    //打印时间
+    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
+    
+    //打印条形码，和数字
+    int barCodeWith = 200;
+    int barCodeX = maxX - barCodeWith - startX;
+    int barCodeY = startY;
+	NSString *billCode = [self strValueOf:self.billInfo key:@"BILL_CODE"];
+    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
+    
+    
+    //发件网点存根联
+    NSString *typeTitle = @"寄件客户存根联:";
+    int typeX = barCodeX;
+    int typeY = sPrintDateY;
+    [command addTextwithX:typeX withY:typeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
+    
+    
+    // 框内第一条横线--------------------------------
+    int start1Y = startY + headerHeight;
+    [command addBar:startX :start1Y :maxX :lineWeight];
+    
+
+    //寄方
+    NSString *senderTitle = @"寄方";
+    int deltaY = 10;
+    int sTitleX = startX + deltaX;
+    int sTitleY = start1Y + deltaY;
+    //打印寄方
+    [command addTextwithX:sTitleX withY:sTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+    //phone
+    NSString *sPhone = [self strValueOf:self.billInfo key:@"SEND_MAN_PHONE"];
+//    NSString *sPhone = @"18028324243";
+    int sPhoneX = titleWidth + deltaX;
+    int sPhoneY = sTitleY;
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    
+    //address
+    NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
+//    NSString *sAdress = @"江苏省无锡市小区";
+    int sAdrX = sPhoneX;
+    int sAdrY = sPhoneY + (rowHeight / 2);
+    [command addTextwithX:sAdrX withY:sAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
+    
+    // 框内第二条横线--------------------------------
+    int start2Y = start1Y + rowHeight;
+    [command addBar:startX :start2Y :maxX :lineWeight];
+     
+     //收方
+     NSString *receiverTitle = @"收方";
+     int rTitleX = sTitleX;
+     int rTitleY = start2Y + deltaX;
+     [command addTextwithX:rTitleX withY:rTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+     //phone
+     NSString *rPhone = [self strValueOf:self.billInfo key:@"ACCEPT_MAN_PHONE"];
+//     NSString *rPhone = @"18028324233";
+     int rPhoneX = titleWidth + deltaX;
+     int rPhoneY = rTitleY;
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+    
+    //address
+    NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
+//    NSString *rAddress = @"江苏省无锡市小区shoufang";
+    int rAdrX = rPhoneX;
+    int rAdrY = rPhoneY + (rowHeight / 2);
+    [command addTextwithX:rAdrX withY:rAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
+    
+    // 框内第三条横线--------------------------------
+    int start3Y = start2Y + rowHeight;
+    [command addBar:startX :start3Y :maxX :lineWeight];
+    
+    //货物信息
+    NSString *goodsTitle = @"货物";
+    int goodsTitleX = sTitleX;
+    int goodsTitleY = start3Y + deltaY;
+    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
+    
+    
+    NSString *goodsTitle2 = @"信息";
+    int goodsTitle2Y = goodsTitleY + (rowHeight/2);
+    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
+    
+    //hu wu xin xi
+    NSString *goods = [self sendGoodsInfo:self.billInfo];
+//    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
+    int goodsX = titleWidth + deltaX;
+    int goodsY = goodsTitleY;
+    int letterMaxLen = 33;
+    if (goods.length > letterMaxLen) {
+        NSString *line1 = [goods substringToIndex:letterMaxLen];
+        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
+        
+        NSString *line2 = [goods substringFromIndex:letterMaxLen];
+        int goods2Y = goodsTitle2Y;
+        [command addTextwithX:goodsX withY:goods2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
+    }else{
+        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
+    }
+    
+
+    // 框内第四条横线--------------------------------
+    int start4Y = start3Y + rowHeight;
+    [command addBar:startX :start4Y :maxX :lineWeight];
+    
+    //收费信息
+    NSString *feeTitle = @"收费";
+    int feeTitleX = sTitleX;
+    int feeTitleY = start4Y + deltaY;
+    [command addTextwithX:feeTitleX withY:feeTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
+    
+    NSString *feeTitle2 = @"信息";
+    int feeTitle2Y = feeTitleY + (rowHeight/2);
+    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
+    
+    //shou fei xin xi
+    NSString *fee = [self feesTxtBy:self.billInfo];
+//    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
+    int feeX = titleWidth + deltaX;
+    int feeY = feeTitleY;
+    [command addTextwithX:feeX withY:feeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    int col1StartX = startX + titleWidth;
+    int col1Height = maxY - start1Y;
+    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
+    
+    [command addPrint:1 :1];
+    return [command getCommand];
 }
 
 
-// ji jian di zhi / shou jian ren dizhi
-- (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
-	NSArray* keys;
-	if ([adrType isEqualToString:@"1"]) {
-		//ji jian di zhi
-		keys = @[@"PROVINCE",@"CITY",@"BOROUGH",@"SEND_MAN_ADDRESS"];
-	}else{
-		//shou jian di zhi
-		keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",@"ACCEPT_MAN_ADDRESS"];
-	}
-	
-	NSString *adr = @"";
-	for (NSString* keyStr in keys) {
-		NSString *valueStr = [billInfo objectForKey:keyStr];
-		if (valueStr != nil) {
-			adr = [adr stringByAppendingFormat:@"%@",valueStr];
-		}
-	}
-	return adr;
+
+//发件网点存根联标签打印命令
+-(NSData *)siteLabelCommand{
+    int maxX = 800-10;
+    int maxY = 535;
+    int startX = 2;
+    int startY = 15;
+    int headerHeight = 180;
+    int rowHeight = 85;
+    int titleWidth = 80;
+    int lineWeight = 2;
+    int deltaX = 10;
+    NSString *fontStr = @"TSS24.BF2";
+    
+    
+    TscCommand *command = [[TscCommand alloc] init];
+    [command addSize:maxX :maxY];
+    [command addGapWithM:2 withN:0];
+    [command addReference:0 :0];
+    [command addTear:@"ON"];
+    [command addQueryPrinterStatus:ON];
+    [command addCls];
+    //
+    [command addBox:startX :startY :maxX :maxY :lineWeight];
+    
+    //打印时间
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+    int sPrintDateH = 40;
+    int sPrintDateX = startX + deltaX;
+    int sPrintDateY = startY + headerHeight - sPrintDateH;
+    //打印时间
+    [command addTextwithX:sPrintDateX withY:sPrintDateY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPintDateTitle];
+    
+    //打印条形码，和数字
+    int barCodeWith = 200;
+    int barCodeX = maxX - barCodeWith - startX;
+    int barCodeY = startY;
+    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :@"1234567890"];
+    
+    
+    //发件网点存根联
+    NSString *typeTitle = @"发件网点存根联:";
+    int typeX = barCodeX;
+    int typeY = sPrintDateY;
+    [command addTextwithX:typeX withY:typeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
+    
+    
+    // 框内第一条横线--------------------------------
+    int start1Y = startY + headerHeight;
+    [command addBar:startX :start1Y :maxX :lineWeight];
+    
+
+    //寄方
+    NSString *senderTitle = @"寄方";
+    int deltaY = 10;
+    int sTitleX = startX + deltaX;
+    int sTitleY = start1Y + deltaY;
+    //打印寄方
+    [command addTextwithX:sTitleX withY:sTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+    //phone
+    NSString *sPhone = [self strValueOf:self.billInfo key:@"SEND_MAN_PHONE"];
+//    NSString *sPhone = @"18028324243";
+    int sPhoneX = titleWidth + deltaX;
+    int sPhoneY = sTitleY;
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    
+    //address
+    NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
+//    NSString *sAdress = @"江苏省无锡市小区";
+    int sAdrX = sPhoneX;
+    int sAdrY = sPhoneY + (rowHeight / 2);
+    [command addTextwithX:sAdrX withY:sAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:sAdress];
+    
+    // 框内第二条横线--------------------------------
+    int start2Y = start1Y + rowHeight;
+    [command addBar:startX :start2Y :maxX :lineWeight];
+     
+     //收方
+     NSString *receiverTitle = @"收方";
+     int rTitleX = sTitleX;
+     int rTitleY = start2Y + deltaX;
+     [command addTextwithX:rTitleX withY:rTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+     //phone
+     NSString *rPhone = [self strValueOf:self.billInfo key:@"ACCEPT_MAN_PHONE"];
+//     NSString *rPhone = @"18028324233";
+     int rPhoneX = titleWidth + deltaX;
+     int rPhoneY = rTitleY;
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+    
+    //address
+    NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
+//    NSString *rAddress = @"江苏省无锡市小区shoufang";
+    int rAdrX = rPhoneX;
+    int rAdrY = rPhoneY + (rowHeight / 2);
+    [command addTextwithX:rAdrX withY:rAdrY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:rAddress];
+    
+    // 框内第三条横线--------------------------------
+    int start3Y = start2Y + rowHeight;
+    [command addBar:startX :start3Y :maxX :lineWeight];
+    
+    //货物信息
+    NSString *goodsTitle = @"货物";
+    int goodsTitleX = sTitleX;
+    int goodsTitleY = start3Y + deltaY;
+    [command addTextwithX:goodsTitleX withY:goodsTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle];
+    
+    
+    NSString *goodsTitle2 = @"信息";
+    int goodsTitle2Y = goodsTitleY + (rowHeight/2);
+    [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
+    
+    //hu wu xin xi
+    NSString *goods = [self sendGoodsInfo:self.billInfo];
+//    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
+    int goodsX = titleWidth + deltaX;
+    int goodsY = goodsTitleY;
+    int letterMaxLen = 33;
+    if (goods.length > letterMaxLen) {
+        NSString *line1 = [goods substringToIndex:letterMaxLen];
+        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
+        
+        NSString *line2 = [goods substringFromIndex:letterMaxLen];
+        int goods2Y = goodsTitle2Y;
+        [command addTextwithX:goodsX withY:goods2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:line2];
+    }else{
+        [command addTextwithX:goodsX withY:goodsY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:goods];
+    }
+    
+
+    
+    // 框内第四条横线--------------------------------
+    int start4Y = start3Y + rowHeight;
+    [command addBar:startX :start4Y :maxX :lineWeight];
+    
+    //收费信息
+    NSString *feeTitle = @"收费";
+    int feeTitleX = sTitleX;
+    int feeTitleY = start4Y + deltaY;
+    [command addTextwithX:feeTitleX withY:feeTitleY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle];
+    
+    NSString *feeTitle2 = @"信息";
+    int feeTitle2Y = feeTitleY + (rowHeight/2);
+    [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
+    
+    //shou fei xin xi
+    NSString *fee = [self feesTxtBy:self.billInfo];
+//    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
+    int feeX = titleWidth + deltaX;
+    int feeY = feeTitleY;
+    [command addTextwithX:feeX withY:feeY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    int col1StartX = startX + titleWidth;
+    int col1Height = maxY - start1Y;
+    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
+    
+    
+    //第二条竖线|||||||||||||||||||||||||||||
+    int siteTextW = 160;
+    int col2StartX = maxX - siteTextW;
+    int col2Height = rowHeight;
+    int col2Y = start2Y;
+    [command addBar:col2StartX :col2Y :lineWeight :col2Height];
+    
+    //目的网点
+    NSString *siteNameTitle = @"目的网点:";
+    int siteX = col2StartX + 5;
+    int siteY = col2Y + deltaY;
+     [command addTextwithX:siteX withY:siteY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:siteNameTitle];
+    
+    NSString *destination = [self strValueOf:self.billInfo key:@"DESTINATION"];
+//    NSString *destination = @"目的网点B1";
+    int siteInfoX = siteX;
+    int siteInfoY = siteY + (rowHeight / 2);
+    [command addTextwithX:siteInfoX withY:siteInfoY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:destination];
+    
+    //第三条竖线|||||||||||||||||||||||||||||
+    int col3StartX = col2StartX;
+    int col3Height = rowHeight;
+    int col3Y = start4Y;
+    [command addBar:col3StartX :col3Y :lineWeight :col3Height];
+    
+    //寄件客户签字
+    NSString *signTitle = @"寄件客户签字：";
+    int signX = col3StartX + 5;
+    int signY = col3Y + deltaY;
+    [command addTextwithX:signX withY:signY withFont:fontStr withRotation:0 withXscal:1 withYscal:1 withText:signTitle];
+    
+    [command addPrint:1 :1];
+    return [command getCommand];
 }
 
-///jian ke hu huo wu xin xi ji
-- (NSString*)goodsInfo:(id)billInfo
-{
-	NSString *goods = @"";
-	NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
-	if (name != nil) {
-		goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-	}
-	NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
-	if (pieces != nil) {
-		goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-	}
-	NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
-	if (weight != nil) {
-		goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-	}
-	NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
-	if (tranType != nil) {
-		goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-	}
-	NSString *sign = [billInfo objectForKey:@"BL_RETURN_BILL"];
-	if (sign != nil) {
-		goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
-	}
-	NSString *storage = [billInfo objectForKey:@"BL_INTO_WAREHOUSE"];
-	if (storage != nil) {
-		goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
-	}
-	
-	NSString *date = [billInfo objectForKey:@"SEND_DATE"];
-	if (date != nil) {
-		goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-	}
-
-	return goods;
-}
-
-///pai jian wang dian huo wu xin xi
-- (NSString*)sendGoodsInfo:(id)billInfo
-{
-	NSString *goods = @"";
-	NSString *name = [billInfo objectForKey:@"GOODS_NAME"];
-	if (name != nil) {
-		goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-	}
-	NSString *pieces = [billInfo objectForKey:@"PIECE_NUMBER"];
-	if (pieces != nil) {
-		goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-	}
-	NSString *weight = [billInfo objectForKey:@"SETTLEMENT_WEIGHT"];
-	if (weight != nil) {
-		goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-	}
-	NSString *tranType = [billInfo objectForKey:@"DISPATCH_MODE"];
-	if (tranType != nil) {
-		goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-	}
-	
-	NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
-	if (weightCount != nil) {
-		goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
-	}
-	
-	NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-	if (overSize != nil) {
-		goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
-	}
-	
-	NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
-	if (rCode != nil) {
-		goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
-	}
-	NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
-	if (storageCode != nil) {
-		goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
-	}
-	
-	NSString *date = [billInfo objectForKey:@"SEND_DATE"];
-	if (date != nil) {
-		goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-	}
-
-	return goods;
-}
 
 
-///fei yong
-- (NSString*)feesTxtBy:(id)billInfo
-{
-	NSString *fees = @"";
-	NSString *payType = [billInfo objectForKey:@"PAYMENT_TYPE"];
-	if (payType != nil) {
-		fees = [fees stringByAppendingFormat:@"%@:",payType];
-		NSString *cash = [billInfo objectForKey:@"FREIGHT"];
-		if (payType != nil) {
-			fees = [fees stringByAppendingFormat:@"%@、",cash];
-		}
-	}
-	NSString *count = [billInfo objectForKey:@"INSURE_VALUE"];
-	if (count != nil) {
-		fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
-	}
-	NSString *pay = [billInfo objectForKey:@"FREIGHT"];
-	if (pay != nil) {
-		fees = [fees stringByAppendingFormat:@"运费:%@",pay];
-	}
-	return fees;
-}
-
-
-///string return value
-- (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr
-{
-	id value = [billInfo objectForKey:keyStr];
-	if (value == nil) {
-		return @"";
-	}else{
-		return [NSString stringWithFormat:@"%@",value];
-	}
-}
 
 
 #pragma  mark -- CBCentralManagerDelegate
@@ -1054,7 +1411,9 @@ static NSString *const kServiceUUID = @"ff00";
 	}]];
 	
 	[self presentViewController:alertControl animated:YES completion:nil];
-	
-
 }
+
+
+
+
 @end
