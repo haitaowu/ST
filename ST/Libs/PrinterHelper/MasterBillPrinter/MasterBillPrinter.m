@@ -146,6 +146,7 @@ static NSString *const kServiceUUID = @"ff00";
     [SVProgressHUD dismiss];
 }
 
+
 - (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
     dispatch_async(dispatch_get_main_queue(), ^{
 		self.printerType = type;

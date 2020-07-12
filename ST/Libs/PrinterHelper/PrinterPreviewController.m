@@ -9,6 +9,9 @@
 #import "SPRTPrint.h"
 #import "UIImage+Extension.h"
 #import "SVProgressHUD.h"
+#import "BluetoothListController.h"
+#import "TscCommand.h"
+
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -34,11 +37,13 @@ int cjFlag=1;
 
 
 #define kBillCodeKey            @"billCode"
+#define kSubCodeKey            	@"billCodeSub"
 #define kSendSiteKey            @"sendSite"
 #define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
 #define kDispatchCodeKey      	@"dispatchCode" //目的网点所属编号
 #define kSendgoodsTypeKey      	@"sendgoodsType" //派送方式
 #define kGoodsNameKey      		@"goodsName" //物品名称
+#define kSendCodeKey      		@"sendCode" //寄件网点编号
 #define kAcceptAdrKey           @"acceptManAddress"
 #define kArriveSiteKey          @"arriveSite"
 #define kWeightKey              @"weight"
@@ -57,6 +62,8 @@ int cjFlag=1;
 @property (weak, nonatomic) IBOutlet UIButton *printBtn;
 @property (weak, nonatomic) IBOutlet UIButton *reloadBtn;
 @property(nonatomic,strong) NSArray *billCodes;
+@property(nonatomic,assign) PrinterType printerType;
+@property (weak, nonatomic) IBOutlet UILabel *connState;
 
 
 @end
@@ -67,11 +74,16 @@ int cjFlag=1;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  self.title = @"打印";
 	cmd=0;
 	mtu = 20;
 	credit = 0;
 	response = 1;
 	cjFlag=1;           // qzfeng 2016/05/10
+  
+  [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
+  [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+  
     if (self.billSN != nil) {
         self.reloadBtn.hidden = NO;
         [self reqPrintBillInfo];
@@ -79,9 +91,9 @@ int cjFlag=1;
         self.reloadBtn.hidden = YES;
     }
     
-//    if ([[self.billInfo allKeys] count] > 0) {
-//        [self reqPrintBillsData];
-//    }
+	
+	
+	return;
     
     self.managerState = CBManagerStateUnknown;
 	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -95,7 +107,7 @@ int cjFlag=1;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startScanConnectPrinter];
+//    [self startScanConnectPrinter];
 }
 
 - (void)viewDidUnload
@@ -103,6 +115,15 @@ int cjFlag=1;
     [self setDeviceListTableView:nil];
     [super viewDidUnload];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[Manager close];
+	NSLog(@"viewWill Disappear....");
+}
+
+
 
 - (void)startScanConnectPrinter{
     if (self.centralManager.isScanning == YES) {
@@ -124,8 +145,59 @@ int cjFlag=1;
     [SVProgressHUD dismiss];
 }
 
+
+
+- (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
+    dispatch_async(dispatch_get_main_queue(), ^{
+		self.printerType = type;
+        switch (state) {
+            case CONNECT_STATE_CONNECTING:
+                self.connState.text = @"连接状态：连接中....";
+                break;
+			case CONNECT_STATE_CONNECTED:
+			{
+                [SVProgressHUD showSuccessWithStatus:@"连接成功"];
+				self.printBtn.enabled = YES;
+				NSString *name = Manager.bleConnecter.connPeripheral.name;
+				NSString *title = @"连接状态：";
+				title = [title stringByAppendingFormat:@"%@已连接",name];
+                self.connState.text = title;
+				break;
+			}
+            case CONNECT_STATE_FAILT:
+                [SVProgressHUD showErrorWithStatus:@"连接失败"];
+                self.connState.text = @"连接状态：连接失败";
+                break;
+            case CONNECT_STATE_DISCONNECT:
+			{
+//				NSString *name = Manager.bleConnecter.connPeripheral.name;
+//				NSString *title = [@"断开连接设备:" stringByAppendingFormat:@"%@",name];
+				NSString *title = @"已断开连接设备";
+                [SVProgressHUD showInfoWithStatus:title];
+                self.connState.text = @"连接状态：断开连接";
+                break;
+			}
+            default:
+                self.connState.text = @"连接状态：连接超时";
+                break;
+        }
+    });
+}
+
+
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	BluetoothListController *listControl = [[BluetoothListController alloc] init];
+	__weak typeof(self) weakSelf = self;
+	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
+		if (CONNECT_STATE_CONNECTED == state) {
+		}
+		[self updateConnectState:state printerType:type];
+	};
+  [self.navigationController pushViewController:listControl animated:YES];
+	
+	
+	return;
     if (self.managerState == CBManagerStatePoweredOn) {
         [self startScanConnectPrinter];
         [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
@@ -134,13 +206,25 @@ int cjFlag=1;
     }
 }
 
+
 - (IBAction)tapReloadBillsData:(id)sender {
     [self reqPrintBillInfo];
 }
 
 - (IBAction)buttonPrintPNGorJPG:(id)sender {
+	if (self.printerType == SPRINTER) {
+		[self sendKeyChainToPrinter];
+		[self startSPrintByBillInfo:self.billInfo];
+	}else{
+		[self startGPrintByBillInfo:self.billInfo];
+	}
+	
+	
+	
+	return;
+	
     if (self.billInfo != nil) {
-        [self startPrintWithBillData:self.billInfo];
+        [self startSPrintByBillInfo:self.billInfo];
         self.thread = NULL;
     }else{
         [SVProgressHUD showInfoWithStatus:@"请重新加载运单数据"];
@@ -173,12 +257,84 @@ int cjFlag=1;
     self.printBtn.enabled = NO;
 }
 
-- (void)startPrintWithBillData:(NSDictionary*)billData
+
+///GPrinter print
+- (void)startGPrintByBillInfo:(NSDictionary*)billData
+{
+	NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
+	NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
+	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	if ([subCodesArra count] > 0) {
+		for (int idx = 0; idx < [subCodesArra count]; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:idx];
+			int64_t seconds = idx * 2;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
+				NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+				[Manager write:printData];
+			});
+		}
+	}else{
+		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+		NSString *subCode = @"";
+		NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+		[Manager write:printData];
+	}
+}
+
+
+
+- (NSData *)GPrinterData:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
+{
+	int maxX = 800-10;
+    int maxY = 535;
+    int startX = 2;
+    int startY = 15;
+    int headerHeight = 180;
+    int rowHeight = 85;
+    int titleWidth = 80;
+    int lineWeight = 2;
+    int deltaX = 10;
+    NSString *titleFontStr = @"TSS24.BF2";
+    NSString *txtFontStr = @"TSS20.BF2";
+    
+    
+    TscCommand *command = [[TscCommand alloc] init];
+    [command addSize:maxX :maxY];
+    [command addGapWithM:2 withN:0];
+    [command addReference:0 :0];
+    [command addTear:@"ON"];
+    [command addQueryPrinterStatus:ON];
+    [command addCls];
+	
+	//打印条形码，和数字
+	   int barCodeWith = 280;
+	   int barCodeX = maxX - barCodeWith - startX;
+	   int barCodeY = startY;
+	   [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
+	   
+	int sPrintDateH = 40;
+	int sPrintDateX = startX + deltaX;
+	   int sPrintDateY = startY + headerHeight - sPrintDateH + 10;
+	
+	
+	   //发件网点存根联
+	   NSString *typeTitle = @"寄件客户存根联:";
+	   int typeX = barCodeX;
+	   int typeY = sPrintDateY;
+	   [command addTextwithX:typeX withY:typeY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:typeTitle];
+	
+	
+	[command addPrint:1 :1];
+	return [command getCommand];
+}
+
+
+///sprinter printer
+- (void)startSPrintByBillInfo:(NSDictionary*)billData
 {
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
-//	int maxIndex = [piecesNum intValue] - 1;
-//	int maxIndex = [piecesNum intValue];
 	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
 	if ([subCodesArra count] > 0) {
 		for (int idx = 0; idx < [subCodesArra count]; idx++) {
@@ -195,8 +351,7 @@ int cjFlag=1;
 		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
 	}
 	
-//
-//
+	
 //	if ([subCodesArra count] > 0) {
 //		for(int index = 0; index < maxIndex ; index ++){
 //			int64_t seconds = index * 2;
@@ -287,7 +442,7 @@ int cjFlag=1;
     }
     
     // 寄件网点编号
-    NSString *sendCode = [self.billInfo objectForKey:@"sendCode"];
+	NSString *sendCode = [self.billInfo objectForKey:kSendCodeKey];
     if (sendCode != nil) {
 //        int sendCodeY = sendSiteY + 40;
         int sendCodeY = sendSiteY + 50;
@@ -484,11 +639,11 @@ int cjFlag=1;
 - (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo
 {
     NSMutableArray *array = [NSMutableArray array];
-    NSString *subBillCodeStr = [billInfo objectForKey:@"billCodeSub"];
+    NSString *subBillCodeStr = [billInfo objectForKey:kSubCodeKey];
     NSCharacterSet *semicolonCharSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
     subBillCodeStr = [subBillCodeStr stringByTrimmingCharactersInSet:semicolonCharSet];
     NSArray *subCodesArra = [subBillCodeStr componentsSeparatedByCharactersInSet:semicolonCharSet];
-    NSString *billCode = [billInfo objectForKey:@"billCode"];
+	NSString *billCode = [billInfo objectForKey:kBillCodeKey];
     for (NSString *codeStr in subCodesArra) {
         NSString *subCodeStr = [codeStr stringByReplacingOccurrencesOfString:billCode withString:@""];
         if (subCodeStr.length > 0) {
