@@ -978,7 +978,7 @@ static NSString *const kServiceUUID = @"ff00";
 //    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;
-    int letterMaxLen = 33;
+    int letterMaxLen = 38;
     if (goods.length > letterMaxLen) {
         NSString *line1 = [goods substringToIndex:letterMaxLen];
         [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];
@@ -1142,7 +1142,7 @@ static NSString *const kServiceUUID = @"ff00";
 //    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;
-    int letterMaxLen = 33;
+    int letterMaxLen = 38;
     if (goods.length > letterMaxLen) {
         NSString *line1 = [goods substringToIndex:letterMaxLen];
         [command addTextwithX:goodsX withY:goodsY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:line1];

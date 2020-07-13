@@ -132,11 +132,10 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: ForecastCell.cellID())
-		if let fCell = cell as? ForecastCell{
-			let billInfo = self.billsAry?[indexPath.row]
-			fCell.updateUI(bill: billInfo!)
+		if let fCell = cell as? ForecastCell,let billInfo = self.billsAry?[indexPath.row]{
+			fCell.updateUI(bill: billInfo)
 			fCell.printBlock = {
-				 [unowned self] (billInfo) in
+				[unowned self] (billInfo) in
 				print("click print clock baby!!!")
 				let control = DeliverBillDetailControl.make()
 				let detail = control as! DeliverBillDetailControl

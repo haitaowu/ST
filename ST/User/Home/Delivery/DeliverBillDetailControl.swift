@@ -97,6 +97,7 @@ class DeliverBillDetailControl: UITableViewController{
 	//MARK:- SELECTORS
 	@IBAction func toPrint(_ sender: Any) {
 		let control  = DeliverBillPrinterController(nibName: "DeliverBillPrinterController", bundle: nil)
+		control.billInfo = self.billInfo
 		self.navigationController?.pushViewController(control, animated: true)
 	}
 	
