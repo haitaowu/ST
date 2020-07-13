@@ -96,8 +96,10 @@ class DeliverBillDetailControl: UITableViewController{
 	
 	//MARK:- SELECTORS
 	@IBAction func toPrint(_ sender: Any) {
-//		let control:  = DeliverBillPrinterController(nibName: "DeliverBillPrinterController", bundle: nil)
+		let control  = DeliverBillPrinterController(nibName: "DeliverBillPrinterController", bundle: nil)
+		self.navigationController?.pushViewController(control, animated: true)
 	}
+	
 	
 	//MARK: - UITableViewDelegate
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

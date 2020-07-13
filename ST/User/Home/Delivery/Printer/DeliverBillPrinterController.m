@@ -74,15 +74,15 @@ static NSString *const kServiceUUID = @"ff00";
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    self.title = @"打印派单";
-	self.barCodeWidth = 110;
-	self.printerType = NONPRINTER;
-	cmd=0;
-	mtu = 20;
-	credit = 0;
-	response = 1;
-	cjFlag=1;           // qzfeng 2016/05/10
+  [super viewDidLoad];
+  self.title = @"打印派单";
+  self.barCodeWidth = 110;
+  self.printerType = NONPRINTER;
+  cmd=0;
+  mtu = 20;
+  credit = 0;
+  response = 1;
+  cjFlag=1;           // qzfeng 2016/05/10
 
 	
 	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
@@ -98,11 +98,6 @@ static NSString *const kServiceUUID = @"ff00";
 	NSLog(@"viewWill Disappear....");
 }
 
-- (void)viewDidUnload
-{
-    [self setTableView:nil];
-    [super viewDidUnload];
-}
 
 /*
 - (void)startScanConnectPrinter{
@@ -174,6 +169,8 @@ static NSString *const kServiceUUID = @"ff00";
 		}
 		[self updateConnectState:state printerType:type];
 	};
+  [self.navigationController pushViewController:listControl animated:YES];
+  
 }
 
 ///start to print bill
