@@ -1,16 +1,18 @@
 //
-//  MasterBillPrinter.m
+//  DeliverBillPrinterController.m
 //  BTDemo
 // 发件网点、寄件客户存根打印
 //  Created by ligl on 15-07-21.
 //
 
-#import "MasterBillPrinter.h"
+#import "DeliverBillPrinterController.h"
 #import "SPRTPrint.h"
 #import "UIImage+Extension.h"
 #import "SVProgressHUD.h"
 #import "BluetoothListController.h"
 #import "TscCommand.h"
+#import "NSDate+Category.h"
+
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -49,17 +51,14 @@ static NSString *const kServiceUUID = @"ff00";
 
 
 
-@interface MasterBillPrinter (){
-	
+@interface DeliverBillPrinterController (){
 }
 
 @property(strong,nonatomic)CBCentralManager *centralManager;
 @property(strong,nonatomic)CBPeripheral *selectedPeripheral;
-@property(nonatomic,strong) NSThread *thread;
 @property(nonatomic,assign) NSInteger managerState;
 @property (weak, nonatomic) IBOutlet UIButton *connStateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *printBtn;
-@property (weak, nonatomic) IBOutlet UIButton *reloadBtn;
 @property(nonatomic,assign) PrinterType printerType;
 @property (weak, nonatomic) IBOutlet UILabel *connState;
 
@@ -69,14 +68,14 @@ static NSString *const kServiceUUID = @"ff00";
 
 @end
 
-@implementation MasterBillPrinter
+@implementation DeliverBillPrinterController
 
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"打印运单";
+    self.title = @"打印派单";
 	self.barCodeWidth = 110;
 	self.printerType = NONPRINTER;
 	cmd=0;
@@ -84,33 +83,13 @@ static NSString *const kServiceUUID = @"ff00";
 	credit = 0;
 	response = 1;
 	cjFlag=1;           // qzfeng 2016/05/10
-	self.reloadBtn.hidden = YES;
+
 	
-
-//    if (self.billSN != nil) {
-//        self.reloadBtn.hidden = NO;
-//        [self reqPrintBillInfo];
-//    }else{
-//        self.reloadBtn.hidden = YES;
-//    }
-
 	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
 	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-	
-	
-	return;
-    self.managerState = CBManagerStateUnknown;
-	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    [self startScanConnectPrinter];
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -121,10 +100,11 @@ static NSString *const kServiceUUID = @"ff00";
 
 - (void)viewDidUnload
 {
-    [self setDeviceListTableView:nil];
+    [self setTableView:nil];
     [super viewDidUnload];
 }
 
+/*
 - (void)startScanConnectPrinter{
     if (self.centralManager.isScanning == YES) {
         return;
@@ -133,6 +113,7 @@ static NSString *const kServiceUUID = @"ff00";
     [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
     [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
 }
+*/
 
 - (void) stopScanPeripheral
 {
@@ -193,37 +174,10 @@ static NSString *const kServiceUUID = @"ff00";
 		}
 		[self updateConnectState:state printerType:type];
 	};
-	
-//	listControl.connectBlock = ^(ConnectState state) {
-//		if (CONNECT_STATE_CONNECTED == state) {
-//			//			   [weakSelf.navigationController popViewControllerAnimated:YES];
-//		}
-//
-//		[self updateConnectState:state];
-//	};
-	[self.navigationController pushViewController:listControl animated:YES];
-
-
-	return;
-    if (self.managerState == CBManagerStatePoweredOn) {
-        [self startScanConnectPrinter];
-        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
-    }else{
-        NSLog(@"打印机当前状态不可用");
-    }
-}
-
-- (IBAction)tapReloadBillsData:(id)sender {
-//    [self reqPrintBillInfo];
 }
 
 ///start to print bill
 - (IBAction)startToPrint:(id)sender {
-//	[self updateOperBtnsWithDisConnState];
-//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//		[self updateOperBtnsWithConnedState];
-//	});
-	
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
 		[self startPrintSiteTable];
@@ -234,70 +188,7 @@ static NSString *const kServiceUUID = @"ff00";
 		[Manager write:[self siteLabelCommand]];
 		[Manager write:[self senderLabelCommand]];
 	}
-	
 }
-
-
-//GPRinter发件网点存根联标签打印命令
-//-(NSData *)tscCommand{
-//    int maxX = 800-10;
-//    int maxY = 535;
-//    int startX = 2;
-//    int startY = 15;
-//    int headerHeight = 180;
-//    int rowHeight = 85;
-//    int titleWidth = 80;
-//    int lineWeight = 2;
-//    TscCommand *command = [[TscCommand alloc]init];
-//    [command addSize:maxX :maxY];
-//    [command addGapWithM:2 withN:0];
-//    [command addReference:0 :0];
-//    [command addTear:@"ON"];
-//    [command addQueryPrinterStatus:ON];
-//    [command addCls];
-//    //
-//    [command addBox:startX :startY :maxX :maxY :lineWeight];
-//
-//    // 框内第一条横线--------------------------------
-//    int start1Y = startY + headerHeight;
-//    [command addBar:startX :start1Y :maxX :lineWeight];
-//
-//
-//    // 框内第二条横线--------------------------------
-//    int start2Y = start1Y + rowHeight;
-//    [command addBar:startX :start2Y :maxX :lineWeight];
-//
-//    // 框内第三条横线--------------------------------
-//    int start3Y = start2Y + rowHeight;
-//    [command addBar:startX :start3Y :maxX :lineWeight];
-//
-//    // 框内第四条横线--------------------------------
-//    int start4Y = start3Y + rowHeight;
-//    [command addBar:startX :start4Y :maxX :lineWeight];
-//
-//    //第一条竖线|||||||||||||||||||||||||||||
-//    int col1StartX = startX + titleWidth;
-//    int col1Height = maxY - start1Y;
-//    [command addBar:col1StartX :start1Y :lineWeight :col1Height];
-//
-//    //第二条竖线|||||||||||||||||||||||||||||
-//    int siteTextW = 160;
-//    int col2StartX = maxX - siteTextW;
-//    int col2Height = rowHeight;
-//    int col2Y = start2Y;
-//    [command addBar:col2StartX :col2Y :lineWeight :col2Height];
-//
-//
-//    //第三条竖线|||||||||||||||||||||||||||||
-//    int col3StartX = col2StartX;
-//    int col3Height = rowHeight;
-//    int col3Y = start4Y;
-//    [command addBar:col3StartX :col3Y :lineWeight :col3Height];
-//
-//    [command addPrint:1 :1];
-//    return [command getCommand];
-//}
-
 
 
 
@@ -325,17 +216,6 @@ static NSString *const kServiceUUID = @"ff00";
 {
     self.connStateBtn.enabled = YES;
     self.printBtn.enabled = NO;
-}
-
-
-
-//当前时间
-- (NSString*)currentDateStr
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
-    return todayStr;
 }
 
 
@@ -501,7 +381,7 @@ static NSString *const kServiceUUID = @"ff00";
 	 [SPRTPrint drawLine:2 startX:startX startY:startY endX:maxX endY:startY isFullline:false];
 	
 	//打印时间
-	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[NSDate currentDateStrBy:nil]];
 	int sPrintDateW = 450;
 	int sPrintDateH = 40;
 	int sPrintDateX = startX + deltaX;
@@ -709,7 +589,7 @@ static NSString *const kServiceUUID = @"ff00";
 	 [SPRTPrint drawLine:2 startX:startX startY:startY endX:maxX endY:startY isFullline:false];
 	
 	//打印时间
-	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[NSDate currentDateStrBy:nil]];
 	int sPrintDateW = 450;
 	int sPrintDateH = 40;
 	int sPrintDateX = startX + deltaX;
@@ -887,7 +767,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addBox:startX :startY :maxX :maxY :lineWeight];
     
     //打印时间
-    NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+    NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[NSDate currentDateStrBy:nil]];
     int sPrintDateH = 40;
     int sPrintDateX = startX + deltaX;
     int sPrintDateY = startY + headerHeight - sPrintDateH + 10;
@@ -1051,7 +931,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addBox:startX :startY :maxX :maxY :lineWeight];
     
     //打印时间
-	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[self currentDateStr]];
+	NSString *sPintDateTitle = [@"打印时间:" stringByAppendingString:[NSDate currentDateStrBy:nil]];
     int sPrintDateH = 40;
     int sPrintDateX = startX + deltaX;
     int sPrintDateY = startY + headerHeight - sPrintDateH + 10;
@@ -1217,215 +1097,6 @@ static NSString *const kServiceUUID = @"ff00";
     
     [command addPrint:1 :1];
     return [command getCommand];
-}
-
-
-
-
-
-#pragma  mark -- CBCentralManagerDelegate
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    NSString * state = nil;
-		switch ([central state])
-		{
-			case CBManagerStateUnsupported:
-				state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
-				break;
-			case CBManagerStateUnauthorized:
-				state = @"The app is not authorized to use Bluetooth Low Energy.";
-				break;
-			case CBManagerStatePoweredOff:
-                [SVProgressHUD showInfoWithStatus:@"请先打开蓝牙哦"];
-				state = @"Bluetooth is currently powered off.";
-				break;
-			case CBManagerStatePoweredOn:
-				state = @"work";
-				break;
-			case CBManagerStateUnknown:
-			default:
-			;
-		}
-    self.managerState = [central state];
-		NSLog(@"Central manager state: %@", state); 
-}
-
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    if (peripheral)
-    {
-        NSLog(@"foundDevice. name[%s],RSSI[%d]\n",peripheral.name.UTF8String,peripheral.RSSI.intValue);
-        if ( [peripheral.name isEqualToString:@"L51 BT Printer"] )
-        {
-            self.selectedPeripheral = peripheral;
-            [self.centralManager connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnConnectionKey : @YES}];
-            [self stopScanPeripheral];
-            NSLog(@"start to connect to L51 BT Printer ");
-        }
-    }
-}
-
-
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    NSLog(@"has connected");
-        //[mutableData setLength:0];
-    self.selectedPeripheral.delegate = self;
-    //此时设备已经连接上了  你要做的就是找到该设备上的指定服务 调用完该方法后会调用代理CBPeripheralDelegate（现在开始调用另一个代理的方法了）的
-    //- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-    [self.selectedPeripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID]]];
-    
-    // qzfeng begin 2016/05/10
-    [self.selectedPeripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID_cj]]];
-    // qzfeng end 2016/05/10
-    if (self.selectedPeripheral.state == CBPeripheralStateConnected) {
-        activeDevice = peripheral;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self sendKeyChainToPrinter];
-//            [self updateOperBtnsWithConnedState];
-        });
-    }
-}
-
-
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
-    NSLog(@"Peripheral Disconnected");
-    [self alertMessage:@"连接断开！"];
-    [self updateOperBtnsWithDisConnState];
-}
-
-
-- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    //此时连接发生错误
-    NSLog(@"connected periphheral failed");
-    [self alertMessage:@"连接失败！"];
-    [self updateOperBtnsWithDisConnState];
-}
-
-
-#pragma mark -- CBPeripheralDelegate
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:error
-{
-		if (error==nil) 
-		{
-			NSLog(@"Write edata failed!");
-			return;
-		}
-		NSLog(@"Write edata success!");
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-{
-    if (error==nil) 
-    {
-        //在这个方法中我们要查找到我们需要的服务  然后调用discoverCharacteristics方法查找我们需要的特性
-        //该discoverCharacteristics方法调用完后会调用代理CBPeripheralDelegate的
-        //- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-        for (CBService *service in peripheral.services) 
-        {
-            if ([service.UUID isEqual:[CBUUID UUIDWithString:kServiceUUID]]) 
-            {
-                cjFlag=0;           // qzfeng 2016/05/10
-                //[peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:kCharacteristicUUID]] forService:service];
-                [peripheral discoverCharacteristics:nil forService:service];
-            }
-            else if ([service.UUID isEqual:[CBUUID UUIDWithString:kServiceUUID_cj]])
-            {
-                cjFlag=1;       // qzfeng 2016/05/10
-                [peripheral discoverCharacteristics:nil forService:service];
-            }
-            // qzfeng end 2016/05/10
-        }
-    }
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
-    if (error==nil) {
-        //在这个方法中我们要找到我们所需的服务的特性 然后调用setNotifyValue方法告知我们要监测这个服务特性的状态变化
-        //当setNotifyValue方法调用后调用代理CBPeripheralDelegate的- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-        for (CBCharacteristic *characteristic in service.characteristics) 
-        {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID]]) 
-            {
-                   [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                    activeWriteCharacteristic = characteristic;
-            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadCharacteristicUUID]])
-            {
-                   [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                    activeReadCharacteristic = characteristic;
-            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kFlowControlCharacteristicUUID]]) {
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                activeFlowControlCharacteristic = characteristic;
-                credit = 0;
-                response = 1;
-            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID_cj]]) {
-            // qzfeng begin 2016/05/10
-            
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                activeWriteCharacteristic = characteristic;
-            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadCharacteristicUUID_cj]]) {
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                activeReadCharacteristic = characteristic;
-            }
-        }
-    }
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
-		NSLog(@"enter didUpdateNotificationStateForCharacteristic!");
-    if (error==nil) 
-    {
-        //调用下面的方法后 会调用到代理的- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-        [peripheral readValueForCharacteristic:characteristic];
-		[self updateOperBtnsWithConnedState];
-    }
-}
-
-
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
-    NSLog(@"enter didUpdateValueForCharacteristic!");
-    NSData *data = characteristic.value; 
-    NSLog(@"read data=%@!",data);
-    if (characteristic == activeFlowControlCharacteristic) {
-        NSData * data = [characteristic value];
-        NSUInteger len = [data length];
-        int bytesRead = 0;
-        if (len > 0) {
-            unsigned char * measureData = (unsigned char *) [data bytes];
-            unsigned char field = * measureData;
-            measureData++;
-            bytesRead++;
-            if(field == 2){
-                unsigned char low  = * measureData;
-                measureData++;
-                mtu =  low + (* measureData << 8);
-            }
-            if(field == 1){
-                if(credit < 5) {
-                    credit += * measureData;
-                }
-            }
-        }
-    }
-}
-
-
--(void) alertMessage:(NSString *)msg{
-//    UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"提示" 
-//                                                   message:msg
-//                                                  delegate:self
-//                                         cancelButtonTitle:@"关闭" 
-//                                         otherButtonTitles:nil];
-//    [alert show];
-	
-	UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
-	[alertControl addAction:[UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		
-	}]];
-	
-	[self presentViewController:alertControl animated:YES completion:nil];
 }
 
 

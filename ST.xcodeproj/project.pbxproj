@@ -298,6 +298,9 @@
 		BEA67F22245D878700A9099C /* PrintMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1E245D878700A9099C /* PrintMenuController.swift */; };
 		BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA76E90248DDBB800E341EA /* PrintModels.swift */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
+		BEAB37B624BC588600C09775 /* DeliverBillPrinterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAB37B324BC588600C09775 /* DeliverBillPrinterController.xib */; };
+		BEAB37B724BC588600C09775 /* DeliverBillPrinterController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAB37B424BC588600C09775 /* DeliverBillPrinterController.m */; };
+		BEAB37BD24BC59B400C09775 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAB37BC24BC59B400C09775 /* NSDate+Category.m */; };
 		BEABEAB72495E42A005CA4CF /* MasterBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */; };
 		BEABEAC52496187F005CA4CF /* MasterBillPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */; };
 		BEABEAC62496187F005CA4CF /* MasterBillPrinter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */; };
@@ -549,7 +552,7 @@
 		BE38BCF0228C0B770007B6E0 /* FinancialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialController.swift; sourceTree = "<group>"; };
 		BE38BCF2228C0B770007B6E0 /* SPRTPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRTPrint.h; sourceTree = "<group>"; };
 		BE38BCF3228C0B770007B6E0 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
-		BE38BCF4228C0B770007B6E0 /* PrinterPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterPreviewController.m; sourceTree = "<group>"; };
+		BE38BCF4228C0B770007B6E0 /* PrinterPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterPreviewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		BE38BCF5228C0B770007B6E0 /* PrinterPreviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrinterPreviewController.xib; sourceTree = "<group>"; };
 		BE38BCF6228C0B770007B6E0 /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		BE38BCF7228C0B770007B6E0 /* SPRTPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRTPrint.m; sourceTree = "<group>"; };
@@ -684,6 +687,11 @@
 		BEA67F1D245D878700A9099C /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
 		BEA67F1E245D878700A9099C /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
 		BEA76E90248DDBB800E341EA /* PrintModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
+		BEAB37B324BC588600C09775 /* DeliverBillPrinterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliverBillPrinterController.xib; sourceTree = "<group>"; };
+		BEAB37B424BC588600C09775 /* DeliverBillPrinterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliverBillPrinterController.m; sourceTree = "<group>"; };
+		BEAB37B524BC588600C09775 /* DeliverBillPrinterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliverBillPrinterController.h; sourceTree = "<group>"; };
+		BEAB37BB24BC59B400C09775 /* NSDate+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		BEAB37BC24BC59B400C09775 /* NSDate+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
 		BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillQueryController.swift; sourceTree = "<group>"; };
 		BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; tabWidth = 4; };
 		BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
@@ -1632,6 +1640,7 @@
 		BEA1B77F24B1948600CDD64C /* Delivery */ = {
 			isa = PBXGroup;
 			children = (
+				BEAB37B224BC588600C09775 /* Printer */,
 				BEA1B78024B1948600CDD64C /* Menu */,
 				BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */,
 				BEA1B78724B1966D00CDD64C /* ForecastCell.swift */,
@@ -1711,6 +1720,8 @@
 				BEA76E8F248DDB9E00E341EA /* Model */,
 				BEA67F1A245D878700A9099C /* Menu */,
 				BEA67F04245D875E00A9099C /* Complete */,
+				BEAB37BB24BC59B400C09775 /* NSDate+Category.h */,
+				BEAB37BC24BC59B400C09775 /* NSDate+Category.m */,
 			);
 			path = Print;
 			sourceTree = "<group>";
@@ -1755,6 +1766,16 @@
 				BE8C067022B6118800A9901A /* View */,
 			);
 			path = DHome;
+			sourceTree = "<group>";
+		};
+		BEAB37B224BC588600C09775 /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				BEAB37B524BC588600C09775 /* DeliverBillPrinterController.h */,
+				BEAB37B424BC588600C09775 /* DeliverBillPrinterController.m */,
+				BEAB37B324BC588600C09775 /* DeliverBillPrinterController.xib */,
+			);
+			path = Printer;
 			sourceTree = "<group>";
 		};
 		BEABEAB52495E42A005CA4CF /* MasterBill */ = {
@@ -1981,6 +2002,7 @@
 				BE85CC8E22CC928B009D00AC /* DriDamgeQueryController.xib in Resources */,
 				BE2BEA46242466CA007C1F26 /* AnnouceQueryController.xib in Resources */,
 				BEE7471C22C5128C002B241E /* DNumFooter.xib in Resources */,
+				BEAB37B624BC588600C09775 /* DeliverBillPrinterController.xib in Resources */,
 				BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */,
 				BE20A9981F6660EE00D2D753 /* NoticeCell.xib in Resources */,
 				899BD3621DC0FB32000C6687 /* LoginViewController.xib in Resources */,
@@ -2195,6 +2217,7 @@
 				893497BA1DDACC5D00A505AF /* XiugaimimaViewController.swift in Sources */,
 				89F61E3D1DCE22900065C9CA /* Employee.swift in Sources */,
 				BE354DDB23A5D117008AE45E /* TruckRouteListController.swift in Sources */,
+				BEAB37BD24BC59B400C09775 /* NSDate+Category.m in Sources */,
 				BE623AA323BC6163009A1A20 /* VanRecordResController.swift in Sources */,
 				BE0EA7B92466478B0078E9F9 /* MenuRSHeader.swift in Sources */,
 				BE20A9971F6660EE00D2D753 /* NoticeCell.swift in Sources */,
@@ -2210,6 +2233,7 @@
 				BE17CD2A22AFC23E006D9EF0 /* BaseHeader.swift in Sources */,
 				BE38BD3F228C0B770007B6E0 /* FajianSaomiaoViewController.swift in Sources */,
 				BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */,
+				BEAB37B724BC588600C09775 /* DeliverBillPrinterController.m in Sources */,
 				BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */,
 				BE38BD50228C0B770007B6E0 /* SystemSettingEntryType1.swift in Sources */,
 				892583B81DC8DA9700285DB5 /* ConstraintConfig.swift in Sources */,

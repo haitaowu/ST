@@ -79,7 +79,6 @@ struct ExpressReq: STRequest {
 	var logicUrl: String{
 		return "m8/gettabDispatchMode.do"
 	}
-	
 }
 
 

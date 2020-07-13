@@ -94,7 +94,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
     @IBAction func tapPrinterBtn(_ sender: Any) {
 		let info: NSDictionary = [
 			"billCode": "5700165655793",
-			"billCodeSub": "5700165655793",
+			"billCodeSub": "01",
 		"sendSite": "南宫市",
 		"dispatchCenter": "目的网点所属中心",
 		"dispatchCode": "目的网点所属编号",
