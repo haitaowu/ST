@@ -83,13 +83,13 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-Sx-cDo">
-                                <rect key="frame" x="274" y="37" width="60" height="30"/>
+                                <rect key="frame" x="274" y="30" width="60" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Drd-Q4-B3W"/>
+                                    <constraint firstAttribute="height" constant="44" id="Drd-Q4-B3W"/>
                                     <constraint firstAttribute="width" constant="60" id="HIg-Wo-78t"/>
                                 </constraints>
                                 <state key="normal" title="查看">
-                                    <color key="titleColor" red="0.31373915079999998" green="0.67647606130000004" blue="0.6202784777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.25098039220000001" green="0.68627450980000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="printBill:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="y8I-H9-9YO"/>

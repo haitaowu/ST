@@ -15,6 +15,7 @@ class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewData
 //	@IBOutlet weak var dateField: UITextField!
 	@IBOutlet weak var startDateField: UITextField!
 	@IBOutlet weak var endDateField: UITextField!
+	@IBOutlet weak var searchBtn: UIButton!
 	
 	var datePicker: BRDatePickerView?
 	var billsAry: Array<[String: Any]>?
@@ -97,8 +98,10 @@ class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewData
 	//MARK:-  setupUI
 	//init tableView
 	private func basicInitTable(){
-    self.tableView.emptyDataSetSource = self
-    self.tableView.emptyDataSetDelegate = self
+		self.searchBtn.addBorder(width: 1, color: UIColor.appBlue)
+		self.searchBtn.addCorner(radius: 5)
+		self.tableView.emptyDataSetSource = self
+		self.tableView.emptyDataSetDelegate = self
 		self.tableView.es.addPullToRefresh {
 			[unowned self] in
 			let params = self.reqParams()
@@ -108,14 +111,14 @@ class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewData
 		self.tableView.es.startPullToRefresh()
 	}
 	
-  //MARK:- table data
-  func hasBillsData() -> Bool{
-    if self.billsAry?.count ?? 0 > 0 {
-      return true
-    }else{
-      return false
-    }
-  }
+	//MARK:- table data
+	func hasBillsData() -> Bool{
+		if self.billsAry?.count ?? 0 > 0 {
+			return true
+		}else{
+			return false
+		}
+	}
 	
 	
 	//MARK:- UITextFieldDelegate
