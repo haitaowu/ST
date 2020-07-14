@@ -22,7 +22,7 @@
 #define kAcceptMan	            @"acceptMan"	//收件人
 #define kAcceptManPhone         @"acceptManPhone" //收件人电话
 #define kAcceptManAddress  	    @"acceptManAddress" //收件人地址
-#define kDestination            @"DESTINATION"  //目的地
+#define kDestination            @"sendSite"  //寄件网点
 
 #define kGoodsName	            @"goodsName"   //货物名称
 #define kGoodsPiece		        @"pieceNumber" //件数
@@ -1051,7 +1051,7 @@
     int siteY = col2Y + deltaY;
      [command addTextwithX:siteX withY:siteY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:siteNameTitle];
     
-    NSString *destination = [self strValueOf:self.billInfo key:@"DESTINATION"];
+    NSString *destination = [self strValueOf:self.billInfo key:kDestination];
 //    NSString *destination = @"寄件网点B1";
     int siteInfoX = siteX;
     int siteInfoY = siteY + (rowHeight / 2);

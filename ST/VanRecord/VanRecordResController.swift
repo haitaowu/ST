@@ -114,20 +114,6 @@ class VanRecordResController: BaseController ,UITableViewDelegate,UITableViewDat
 	}
 	
 	//MARK:- empty data
-	///empty attributestring title
-	func attri(title: String) -> NSAttributedString {
-		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
-		let attrStr = NSAttributedString(string: title, attributes: attributes)
-		return attrStr
-	}
-	
-	///emptyata button title
-	func emptyBtnTitle() -> NSAttributedString {
-		let title = "点我刷新试试"
-		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
-		let attriStr = NSAttributedString(string: title,attributes: attris)
-		return attriStr
-	}
 	
 	///是否第一次加载到车数据
 	func firstLoadData()->Bool{

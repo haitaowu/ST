@@ -51,18 +51,18 @@ class CenAnnouceController: BaseController,UITableViewDelegate,UITableViewDataSo
   
   //init tableView
   private func basicInitTable(){
-		self.tableView.emptyDataSetSource = self
-		self.tableView.emptyDataSetDelegate = self
-    let nibNotiCell = AnnounceCell.cellNib();
-    self.tableView.register(nibNotiCell, forCellReuseIdentifier: AnnounceCell.cellID())
-    self.tableView.es.addPullToRefresh {
-      [unowned self] in
-      let request = self.reqParams()
-      guard let req = request else{return}
-      self.fetchAnnoDatas(req: req)
-    }
-    self.tableView.es.startPullToRefresh()
-  }
+	self.tableView.emptyDataSetSource = self
+	self.tableView.emptyDataSetDelegate = self
+	let nibNotiCell = AnnounceCell.cellNib();
+	self.tableView.register(nibNotiCell, forCellReuseIdentifier: AnnounceCell.cellID())
+	self.tableView.es.addPullToRefresh {
+		[unowned self] in
+		let request = self.reqParams()
+		guard let req = request else{return}
+		self.fetchAnnoDatas(req: req)
+	}
+	self.tableView.es.startPullToRefresh()
+	}
   
   //init base ui
   private func basicInitUI(){
@@ -194,20 +194,7 @@ class CenAnnouceController: BaseController,UITableViewDelegate,UITableViewDataSo
   
 	
 	//MARK:- empty data
-	///empty attributestring title
-	func attri(title: String) -> NSAttributedString {
-		let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appLineColor]
-		let attrStr = NSAttributedString(string: title, attributes: attributes)
-		return attrStr
-	}
 	
-	///emptyata button title
-	func emptyBtnTitle() -> NSAttributedString {
-		let title = "点我刷新试试"
-		let attris = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.appBlue]
-		let attriStr = NSAttributedString(string: title,attributes: attris)
-		return attriStr
-	}
 	
 	///是否第一次加载数据
 	func firstLoadData()->Bool{
@@ -240,7 +227,7 @@ class CenAnnouceController: BaseController,UITableViewDelegate,UITableViewDataSo
 	override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
 		if self.hasAnnData() == false{
 			let title = "暂无公告"
-			return self.attri(title: title)
+			return super.attri(title: title)
 		}else{
 			return nil
 		}
@@ -248,7 +235,7 @@ class CenAnnouceController: BaseController,UITableViewDelegate,UITableViewDataSo
 	
 	override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
 		if self.hasAnnData() == false{
-			return self.emptyBtnTitle()
+			return super.emptyBtnTitle()
 		}else{
 			return nil
 		}

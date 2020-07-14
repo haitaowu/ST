@@ -10,7 +10,7 @@ import UIKit
 import BRPickerView
 
 
-class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDataSource{
+class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewDataSource{
 	@IBOutlet weak var tableView: UITableView!
 //	@IBOutlet weak var dateField: UITextField!
 	@IBOutlet weak var startDateField: UITextField!
@@ -97,6 +97,8 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 	//MARK:-  setupUI
 	//init tableView
 	private func basicInitTable(){
+    self.tableView.emptyDataSetSource = self
+    self.tableView.emptyDataSetDelegate = self
 		self.tableView.es.addPullToRefresh {
 			[unowned self] in
 			let params = self.reqParams()
@@ -106,6 +108,14 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 		self.tableView.es.startPullToRefresh()
 	}
 	
+  //MARK:- table data
+  func hasBillsData() -> Bool{
+    if self.billsAry?.count ?? 0 > 0 {
+      return true
+    }else{
+      return false
+    }
+  }
 	
 	
 	//MARK:- UITextFieldDelegate
@@ -149,7 +159,27 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 		return cell!
 	}
 	
-	
+  //MARK:- override for DZNEmptyDataSetSource delegate
+  override func titleForEmpty(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+    if self.hasBillsData() == false{
+      let title = "暂无公告"
+		return self.attri(title: title)
+    }else{
+      return nil
+    }
+  }
+  
+  override func titleForEmptyBtn(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+    if self.hasBillsData() == false{
+      return self.emptyBtnTitle()
+    }else{
+      return nil
+    }
+  }
+  
+  override func reloadViewData(scrollView: UIScrollView!) {
+    self.tableView.es.startPullToRefresh()
+  }
 	
 	
 	//MARK:-  request servers
