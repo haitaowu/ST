@@ -48,68 +48,11 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 
 	///显示打印机连接界面
 	func showConnPrinterView() -> Void {
-//		if let info = self.billInfo{
+		if let info = self.billInfo{
 			let connViewControl = MasterBillPrinter(nibName: "MasterBillPrinter", bundle: nil)
-		let info: [String : Any] = ["BILL_CODE": "5700165655793",
-		"SEND_DATE": "2020-07-07 06:56:23",
-		"PIECE_NUMBER": 1,
-		"DESTINATION": "南宫市",
-		"REGISTER_SITE": "衢州",
-		"DISPATCH_SITE": "南宫市",
-		"VOLUME_WEIGHT": 400.0,
-		"SETTLEMENT_WEIGHT": 400.0,
-		"FREIGHT": 2.0,
-		"TOPAYMENT": 2.0,
-		"PAYMENT_TYPE": "现金",
-		"CUSTOMER_NAME": "",
-		"SEND_MAN": "寄件人",
-		"SEND_MAN_PHONE": "1876466949",
-		"SEND_MAN_ADDRESS": "寄件地址",
-		"ACCEPT_MAN": "收件人",
-		"ACCEPT_MAN_PHONE": "158764648848",
-		"ACCEPT_MAN_ADDRESS": "寄件地址",
-		"DISPATCH_MODE": "派送",
-		"REGISTER_MAN": "衢州",
-		"SEND_FINANCE_CENTER": "华东财务中心",
-		"DISPATCH_FINANCE_CENTER": "华北财务中心",
-		"BL_RETURN_BILL": 0,
-		"GOODS_NAME": "名称",
-		"INSURANCE": 2.000200033187866,
-		"R_BILLCODE": "",
-		"BILL_CODE_SUB1": ";57001656557930001;",
-		"OTHER_FEE": 2.0,
-		"ID_CODE": "",
-		"BL_MESSAGE": 0,
-		"PACK_TYPE": "袋装",
-		"PROVINCE": "江苏省",
-		"CITY": "无锡市",
-		"BOROUGH": "梅村",
-		"PROVINCE_NAME": "上海",
-		"CITY_NAME": "上海市",
-		"COUNTY_NAME": "奉贤区",
-		"BILL_WEIGHT": 2.0,
-		"CLASS_TYPE": "汽运",
-		"VOLUME": 2.0,
-		"INSURED_MONEY": 0.0,
-		"SENDGOODS_FEE": 31.0,
-		"INSURE_VALUE": 20002.0,
-		"BL_OVER_LONG": 0,
-		"BL_OVER_WEIGHT": 0,
-		"OVER_WEIGHT_PIECE": 0,
-		"DESTINATION_CENTER": "石家庄分拨中心",
-		"SCAN_SITE3": "金华分拨中心",
-		"BL_MESSAGE1": 0,
-		"BL_INTO_WAREHOUSE": 0,
-		"OVER_AREA_FEE": 1.0,
-		"UPSTAIRS_FEE": 2.0,
-		"MANAGE_FEE": 2.0,
-		"STORAGENO": "",
-		"BILL_CODE_SUB": ";57001656557930001;",
-		"TRANSFER_CENTER": "",
-		"BL_ELECTRON": 1]
 			connViewControl.billInfo = info
 			self.navigationController?.pushViewController(connViewControl, animated: true);
-//		}
+		}
 	}
 	
 	
@@ -169,10 +112,10 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 	
     ///点击打印按钮
 	@IBAction func toPrinter(_ sender: Any) {
-//		guard self.billInfo != nil else {
-//			self.remindUser(msg: "请查询运单")
-//			return
-//		}
+		guard self.billInfo != nil else {
+			self.remindUser(msg: "请查询运单")
+			return
+		}
 		self.showConnPrinterView()
 	}
 	
@@ -233,3 +176,64 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
     
 	
 }
+
+
+/*
+let info: [String : Any] = ["BILL_CODE": "5700165655793",
+"SEND_DATE": "2020-07-07 06:56:23",
+"PIECE_NUMBER": 1,
+"DESTINATION": "南宫市",
+"REGISTER_SITE": "衢州",
+"DISPATCH_SITE": "南宫市",
+"VOLUME_WEIGHT": 400.0,
+"SETTLEMENT_WEIGHT": 400.0,
+"FREIGHT": 2.0,
+"TOPAYMENT": 2.0,
+"PAYMENT_TYPE": "现金",
+"CUSTOMER_NAME": "",
+"SEND_MAN": "寄件人",
+"SEND_MAN_PHONE": "1876466949",
+"SEND_MAN_ADDRESS": "寄件地址",
+"ACCEPT_MAN": "收件人",
+"ACCEPT_MAN_PHONE": "158764648848",
+"ACCEPT_MAN_ADDRESS": "寄件地址",
+"DISPATCH_MODE": "派送",
+"REGISTER_MAN": "衢州",
+"SEND_FINANCE_CENTER": "华东财务中心",
+"DISPATCH_FINANCE_CENTER": "华北财务中心",
+"BL_RETURN_BILL": 0,
+"GOODS_NAME": "名称",
+"INSURANCE": 2.000200033187866,
+"R_BILLCODE": "",
+"BILL_CODE_SUB1": ";57001656557930001;",
+"OTHER_FEE": 2.0,
+"ID_CODE": "",
+"BL_MESSAGE": 0,
+"PACK_TYPE": "袋装",
+"PROVINCE": "江苏省",
+"CITY": "无锡市",
+"BOROUGH": "梅村",
+"PROVINCE_NAME": "上海",
+"CITY_NAME": "上海市",
+"COUNTY_NAME": "奉贤区",
+"BILL_WEIGHT": 2.0,
+"CLASS_TYPE": "汽运",
+"VOLUME": 2.0,
+"INSURED_MONEY": 0.0,
+"SENDGOODS_FEE": 31.0,
+"INSURE_VALUE": 20002.0,
+"BL_OVER_LONG": 0,
+"BL_OVER_WEIGHT": 0,
+"OVER_WEIGHT_PIECE": 0,
+"DESTINATION_CENTER": "石家庄分拨中心",
+"SCAN_SITE3": "金华分拨中心",
+"BL_MESSAGE1": 0,
+"BL_INTO_WAREHOUSE": 0,
+"OVER_AREA_FEE": 1.0,
+"UPSTAIRS_FEE": 2.0,
+"MANAGE_FEE": 2.0,
+"STORAGENO": "",
+"BILL_CODE_SUB": ";57001656557930001;",
+"TRANSFER_CENTER": "",
+"BL_ELECTRON": 1]
+*/

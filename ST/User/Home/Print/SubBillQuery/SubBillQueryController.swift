@@ -92,24 +92,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
     
     //MARK:- selectors
     @IBAction func tapPrinterBtn(_ sender: Any) {
-		let info: NSDictionary = [
-			"billCode": "5700165655793",
-			"billCodeSub": "01",
-		"sendSite": "南宫市",
-		"dispatchCenter": "目的网点所属中心",
-		"dispatchCode": "目的网点所属编号",
-		"sendgoodsType": "派送方式",
-		"goodsName": "物品名称",
-		"sendCode": "342423422",
-		"acceptManAddress": "南宫市",
-		"arriveSite": "南宫市",
-		"registerDate": "2020-07-07 06:56:23",
-		"weight": 21,
-		"pieceNumber": 1,
-		]
-		self.billInfo = info
-		
-		
+
         if billInfo.allKeys.count <= 0 {
             self.remindUser(msg: "请输入运单号查询")
             return;
@@ -205,3 +188,25 @@ class SubBillQueryController:UITableViewController,QrInterface {
         self.view.endEditing(true);
     }
 }
+
+
+/*
+let info: NSDictionary = [
+	"billCode": "5700165655793",
+	"billCodeSub": "01",
+"sendSite": "南宫市",
+"dispatchCenter": "目的网点所属中心",
+"dispatchCode": "目的网点所属编号",
+"sendgoodsType": "派送方式",
+"goodsName": "物品名称",
+"sendCode": "342423422",
+"acceptManAddress": "南宫市",
+"arriveSite": "南宫市",
+"registerDate": "2020-07-07 06:56:23",
+"weight": 21,
+"pieceNumber": 1,
+]
+self.billInfo = info
+
+
+*/

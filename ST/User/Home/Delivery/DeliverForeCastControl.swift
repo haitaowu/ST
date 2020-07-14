@@ -10,16 +10,15 @@ import UIKit
 import BRPickerView
 
 
-class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
+class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDataSource{
 	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var dateField: UITextField!
+//	@IBOutlet weak var dateField: UITextField!
 	@IBOutlet weak var startDateField: UITextField!
 	@IBOutlet weak var endDateField: UITextField!
 	
 	var datePicker: BRDatePickerView?
 	var billsAry: Array<[String: Any]>?
-	var startDate: String?
-	var endDate: String?
+
 	
 	enum DeliveryType: String {
 		case send = "1",arrive = "2" ,record = "3"
@@ -33,7 +32,7 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 		super.viewDidLoad()
 		self.basicInitTable()
 		
-		self.dateField.addRightBtn(imgName: "date",margin: 8,  action: #selector(showDatePicker), target: self)
+//		self.dateField.addRightBtn(imgName: "date",margin: 8,  action: #selector(showDatePicker), target: self)
 		if deliType == .arrive{
 			self.title = "网点到件预报"
 		}else if deliType == .record{
@@ -57,12 +56,13 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 		let today = Date()
 		let datePicker = BRDatePickerView(pickerMode: .YMD)
 		self.datePicker = datePicker
-		let resetBtn = UIButton(frame: CGRect(x: 80, y: 0, width: 40, height: 44))
-		resetBtn.addTarget(self, action: #selector(resetDate), for: .touchUpInside)
-		resetBtn.setTitle("重置", for: .normal)
-		resetBtn.setTitleColor(UIColor.appBlue, for: .normal)
-		resetBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-		datePicker.addSubView(toTitleBar: resetBtn)
+    
+//		let resetBtn = UIButton(frame: CGRect(x: 80, y: 0, width: 40, height: 44))
+//		resetBtn.addTarget(self, action: #selector(resetDate), for: .touchUpInside)
+//		resetBtn.setTitle("重置", for: .normal)
+//		resetBtn.setTitleColor(UIColor.appBlue, for: .normal)
+//		resetBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//		datePicker.addSubView(toTitleBar: resetBtn)
 		
 		
 		datePicker.title = "请选择日期"
@@ -78,19 +78,22 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 	}
 	
 	@objc func resetDate(){
-		self.dateField.text = ""
+//		self.dateField.text = ""
 		self.datePicker?.dismiss()
 	}
 	
 	@IBAction func showStartDatePicker(sender: UIButton){
-		
+    self.showDatePicker(by: sender)
 	}
 	
 	@IBAction func showEndDatePicker(sender: UIButton){
-		
+    self.showDatePicker(by: sender)
 	}
 	
-	
+  @IBAction func toSearch(_ sender: Any) {
+    self.tableView.es.startPullToRefresh()
+  }
+  
 	//MARK:-  setupUI
 	//init tableView
 	private func basicInitTable(){
@@ -154,13 +157,15 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 		var params:[String: Any] = [:]
 		var startDateTime: String = ""
 		var endDateTime: String = ""
-		if let startStr = self.startDate,let endStr = self.endDate{
-			startDateTime = startStr
-			endDateTime = endStr
+    let startStr = self.startDateField.text!
+    let endStr = self.endDateField.text!
+    if ((startStr.isEmpty == false) && (endStr.isEmpty == false)){
+			startDateTime = startStr + "00:00:00"
+			endDateTime = endStr + " 23:59:59"
 		}else{
+		//			startDateTime  =  "2020-07-01 00:00:00"
 			let todayStr = Date().dateStringFrom()
-//			startDateTime  = todayStr + " 00:00:00"
-			startDateTime  =  "2020-07-01 00:00:00"
+			startDateTime  = todayStr + " 00:00:00"
 			endDateTime = todayStr + " 23:59:59"
 		}
 		params["startTime"] = startDateTime
@@ -179,14 +184,17 @@ class DeliverForeCastControl: UIViewController,UITableViewDelegate,UITableViewDa
 			if (result == .reqSucc) {
 				if let bills = data as? Array<[String: Any]>{
 					self.billsAry = bills
-					self.tableView.reloadData()
+				}else{
+					self.billsAry = []
 				}
 			}else{
+				self.billsAry = []
 				guard let msg = data as? String else {
 					return
 				}
 				self.remindUser(msg: msg)
 			}
+			self.tableView.reloadData()
 		}
 	}
 	
