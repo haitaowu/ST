@@ -93,14 +93,31 @@ class SubBillQueryController:UITableViewController,QrInterface {
     //MARK:- selectors
     @IBAction func tapPrinterBtn(_ sender: Any) {
 
-        if billInfo.allKeys.count <= 0 {
-            self.remindUser(msg: "请输入运单号查询")
-            return;
-        }
+//        if billInfo.allKeys.count <= 0 {
+//            self.remindUser(msg: "请输入运单号查询")
+//            return;
+//        }
 		
+		let info: NSDictionary = [
+			"billCode": "5700165655793",
+			"billCodeSub": "5700165655793",
+		"sendSite": "南宫市",
+		"dispatchCenter": "目的网点所属中心",
+		"dispatchCode": "3424234",
+		"sendgoodsType": "派送方式",
+		"goodsName": "物品名称",
+		"sendCode": "342423422",
+		"acceptManAddress": "南宫市",
+		"arriveSite": "南宫市",
+		"registerDate": "2020-07-07 06:56:23",
+		"weight": 21,
+		"pieceNumber": 1,
+		]
+		self.billInfo = info
 		
         let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
         connViewControl.billInfo = self.billInfo;
+		
 		
 //        let billCode = self.billNumField.text!
 //        connViewControl.billSN = billCode;
@@ -207,6 +224,5 @@ let info: NSDictionary = [
 "pieceNumber": 1,
 ]
 self.billInfo = info
-
 
 */

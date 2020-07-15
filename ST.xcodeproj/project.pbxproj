@@ -229,6 +229,8 @@
 		BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */; };
 		BE5ACCC722EC18CC003A46BB /* OptRecMultipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */; };
 		BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC622EC18CC003A46BB /* OptRecMultipCell.xib */; };
+		BE5EDF9624BF14300005282F /* MasterBillPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */; };
+		BE5EDF9724BF14300005282F /* MasterBillPrinter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */; };
 		BE5FD58423729F79004CF114 /* CenAnnouceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */; };
 		BE5FD58523729F79004CF114 /* CenAnnounceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */; };
 		BE5FD58623729F79004CF114 /* CenAnnouceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */; };
@@ -302,8 +304,6 @@
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
 		BEAB37BD24BC59B400C09775 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAB37BC24BC59B400C09775 /* NSDate+Category.m */; };
 		BEABEAB72495E42A005CA4CF /* MasterBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */; };
-		BEABEAC52496187F005CA4CF /* MasterBillPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */; };
-		BEABEAC62496187F005CA4CF /* MasterBillPrinter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
 		BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2C242DC58300169C2C /* BaseFooter.swift */; };
@@ -612,6 +612,9 @@
 		BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecSingleCell.xib; sourceTree = "<group>"; };
 		BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecMultipCell.swift; sourceTree = "<group>"; };
 		BE5ACCC622EC18CC003A46BB /* OptRecMultipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecMultipCell.xib; sourceTree = "<group>"; };
+		BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; };
+		BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
+		BE5EDF9524BF142F0005282F /* MasterBillPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterBillPrinter.h; sourceTree = "<group>"; };
 		BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenAnnouceController.swift; sourceTree = "<group>"; };
 		BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenAnnounceDetailController.swift; sourceTree = "<group>"; };
 		BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenAnnouceController.xib; sourceTree = "<group>"; };
@@ -693,9 +696,6 @@
 		BEAB37BB24BC59B400C09775 /* NSDate+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
 		BEAB37BC24BC59B400C09775 /* NSDate+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
 		BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillQueryController.swift; sourceTree = "<group>"; };
-		BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; tabWidth = 4; };
-		BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
-		BEABEAC42496187F005CA4CF /* MasterBillPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterBillPrinter.h; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
@@ -1449,6 +1449,16 @@
 			path = Printer;
 			sourceTree = "<group>";
 		};
+		BE5EDF9224BF142F0005282F /* MasterBillPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				BE5EDF9524BF142F0005282F /* MasterBillPrinter.h */,
+				BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */,
+				BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */,
+			);
+			path = MasterBillPrinter;
+			sourceTree = "<group>";
+		};
 		BE5FD57B23729F79004CF114 /* Announce */ = {
 			isa = PBXGroup;
 			children = (
@@ -1723,9 +1733,9 @@
 		BEA67F03245D875E00A9099C /* Print */ = {
 			isa = PBXGroup;
 			children = (
+				BE5EDF9224BF142F0005282F /* MasterBillPrinter */,
 				BECCE81F24BB1C7F00728034 /* SubBillQuery */,
 				BE4F222124B8451B0084F323 /* Simple */,
-				BEABEAC12496187F005CA4CF /* MasterBillPrinter */,
 				BEABEAB52495E42A005CA4CF /* MasterBill */,
 				BEA76E8F248DDB9E00E341EA /* Model */,
 				BEA67F1A245D878700A9099C /* Menu */,
@@ -1785,17 +1795,6 @@
 			);
 			path = MasterBill;
 			sourceTree = "<group>";
-		};
-		BEABEAC12496187F005CA4CF /* MasterBillPrinter */ = {
-			isa = PBXGroup;
-			children = (
-				BEABEAC42496187F005CA4CF /* MasterBillPrinter.h */,
-				BEABEAC22496187F005CA4CF /* MasterBillPrinter.m */,
-				BEABEAC32496187F005CA4CF /* MasterBillPrinter.xib */,
-			);
-			name = MasterBillPrinter;
-			path = ST/Libs/PrinterHelper/MasterBillPrinter;
-			sourceTree = SOURCE_ROOT;
 		};
 		BEAD75121F6411180045E58C /* ProductPicker */ = {
 			isa = PBXGroup;
@@ -1985,7 +1984,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE5FD58923729F79004CF114 /* AnnounceCell.xib in Resources */,
-				BEABEAC62496187F005CA4CF /* MasterBillPrinter.xib in Resources */,
 				BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */,
 				BE839097229FAC8A0050C9F3 /* VanRecordController.xib in Resources */,
 				BECA053F23792FCA0053C60F /* SendCarInfoCell.xib in Resources */,
@@ -2056,6 +2054,7 @@
 				BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */,
 				BE38BD3B228C0B770007B6E0 /* ProfileLineInfoView.xib in Resources */,
 				BE38BD40228C0B770007B6E0 /* FajianSaomiaoViewController.xib in Resources */,
+				BE5EDF9724BF14300005282F /* MasterBillPrinter.xib in Resources */,
 				893497BB1DDACC5D00A505AF /* XiugaimimaViewController.xib in Resources */,
 				89F100711DD364ED00798405 /* HomeViewController.xib in Resources */,
 				BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */,
@@ -2158,12 +2157,12 @@
 				BE0FC4F122BF404800271FED /* JXPhotoLoader.swift in Sources */,
 				892583E01DC8DB0700285DB5 /* SimpleNetworking.swift in Sources */,
 				BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */,
-				BEABEAC52496187F005CA4CF /* MasterBillPrinter.m in Sources */,
 				892583B71DC8DA9700285DB5 /* ConstraintAttributes.swift in Sources */,
 				892583E71DC8DB0700285DB5 /* Networking.swift in Sources */,
 				BE86077C235ECFFD008BB2B2 /* DriHomeVModel.swift in Sources */,
 				BE83909B229FB7410050C9F3 /* DriverPersonController.swift in Sources */,
 				BE5FD58523729F79004CF114 /* CenAnnounceDetailController.swift in Sources */,
+				BE5EDF9624BF14300005282F /* MasterBillPrinter.m in Sources */,
 				BE38BD31228C0B770007B6E0 /* PrinterPreviewController.m in Sources */,
 				892583D41DC8DA9700285DB5 /* LayoutConstraintItem.swift in Sources */,
 				BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */,
