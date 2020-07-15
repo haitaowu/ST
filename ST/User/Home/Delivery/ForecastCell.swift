@@ -14,7 +14,7 @@ class ForecastCell: BaseCell {
   @IBOutlet weak var billNumber: UILabel!
   @IBOutlet weak var adrLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
-  @IBOutlet weak var timeLabel: UILabel!
+//  @IBOutlet weak var timeLabel: UILabel!
 	
 	var billInfo:[String: Any]?
 
@@ -37,7 +37,7 @@ class ForecastCell: BaseCell {
 			self.adrLabel.text = adr
 		}
 		
-		if let billNum = info["bill"] as? String{
+		if let billNum = info["billCode"] as? String{
 			self.billNumber.text = billNum
 		}
 		

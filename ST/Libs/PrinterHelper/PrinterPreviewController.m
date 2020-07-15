@@ -378,7 +378,9 @@ int cjFlag=1;
 	
 	int barCode0X = startX + col1X;
     int barCode0Y = startY + topLogHeight;
-	NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+//	NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+//	主单号+序列号
+	NSString *barCode = subCode;
     [command add1DBarcode:barCode0X :barCode0Y :@"CODE128" :80 :0 :90 :2 :4 :barCode];
 	
 	//mu di wang dian suo shu zhong xin
@@ -724,7 +726,8 @@ int cjFlag=1;
     }
     
     // 横着的条码图形
-    NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+//    NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+	NSString *barCode = subCode;
     int barCodeH = 80;
     int barCodeX = col3x + 20;
     int barCodeY = line4Y + 20;
@@ -735,8 +738,7 @@ int cjFlag=1;
     //横着的条码数字字符串
     int barNumY = barCodeY + 80;
     int barNumX = barCodeX + 85;
-    NSString *barCodeNumStr = [billCode stringByAppendingFormat:@" %@",subCode];
-     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCodeNumStr fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCode fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
     
     // 竖着的条码图形
     int barCodeVerticalMargin = 20;

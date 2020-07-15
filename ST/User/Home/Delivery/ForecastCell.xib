@@ -24,7 +24,7 @@
                                 <rect key="frame" x="16" y="8" width="278" height="88"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IfI-dA-OMS">
-                                        <rect key="frame" x="0.0" y="0.0" width="202.5" height="29.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="196.5" height="29.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="扫描地点：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ey6-2d-c6w">
                                                 <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
@@ -33,15 +33,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫描地点sfsdf" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLm-1V-Jl4">
-                                                <rect key="frame" x="95" y="4.5" width="107.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="95" y="5" width="101.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nsL-KU-ffQ">
-                                        <rect key="frame" x="0.0" y="29.5" width="225.5" height="29"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="218.5" height="29"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预报单号：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIT-jo-WV8">
                                                 <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
@@ -50,15 +50,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1234234248234" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOn-Lb-jyZ">
-                                                <rect key="frame" x="95" y="4.5" width="130.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="95" y="5" width="123.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" red="1" green="0.30227249859999999" blue="0.31023430819999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oRq-w3-BxI">
-                                        <rect key="frame" x="0.0" y="58.5" width="261.5" height="29.5"/>
+                                        <rect key="frame" x="0.0" y="58.5" width="182" height="29.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫描时间：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJa-Kk-wnG">
                                                 <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
@@ -67,14 +67,8 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="2020-01-01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HH-7s-gI8">
-                                                <rect key="frame" x="95" y="4.5" width="91.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="17:30:32" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jC0-oy-EeL">
-                                                <rect key="frame" x="194.5" y="4.5" width="67" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="95" y="5" width="87" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -118,7 +112,6 @@
                 <outlet property="adrLabel" destination="dLm-1V-Jl4" id="n1V-c0-Bns"/>
                 <outlet property="billNumber" destination="AOn-Lb-jyZ" id="7gb-4J-elh"/>
                 <outlet property="dateLabel" destination="1HH-7s-gI8" id="Pp5-jM-B2b"/>
-                <outlet property="timeLabel" destination="jC0-oy-EeL" id="Ntl-VY-q2q"/>
             </connections>
             <point key="canvasLocation" x="89.855072463768124" y="110.82589285714285"/>
         </tableViewCell>
