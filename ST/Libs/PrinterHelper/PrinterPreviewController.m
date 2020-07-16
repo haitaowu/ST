@@ -392,7 +392,7 @@ int cjFlag=1;
 	NSString *dispatchCenter = [self.billInfo objectForKey:kDispatchCenterKey];
     if (dispatchCenter != nil) {
 		int centerX = (maxX / 2);
-		int centerY = 20;
+		int centerY = 40;
 		[command addTextwithX:centerX withY:centerY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:dispatchCenter];
     }
 	

@@ -58,7 +58,7 @@ class DeliverBillDetailControl: UITableViewController{
 			self.piecesField.text = pieceStr
 		}
 		
-		if let feeWeight = billInfo["feeWeight"]{
+		if let feeWeight = billInfo["settlementWeight"]{
 			let feeWeightStr = "\(feeWeight)"
 			self.weightField.text = feeWeightStr
 		}

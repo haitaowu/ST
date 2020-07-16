@@ -2526,7 +2526,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "service@sut56.com";
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2543,7 +2543,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.4.2;
+				MARKETING_VERSION = 2.5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2605,7 +2605,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "service@sut56.com";
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9ZRTKDFG4T;
 				ENABLE_BITCODE = NO;
@@ -2622,7 +2622,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.4.2;
+				MARKETING_VERSION = 2.5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
