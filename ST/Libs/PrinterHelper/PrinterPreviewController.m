@@ -192,6 +192,10 @@ int cjFlag=1;
 	__weak typeof(self) weakSelf = self;
 	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
 		if (CONNECT_STATE_CONNECTED == state) {
+			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
+			if (control != weakSelf) {
+				[weakSelf.navigationController popViewControllerAnimated:YES];
+			}
 		}
 		[self updateConnectState:state printerType:type];
 	};
@@ -381,7 +385,7 @@ int cjFlag=1;
 	NSString *barCode = subCode;
 	int barCodeWidth = 240;
 	int barCode0X = col1X - startX - 3;
-    int barCode0Y = startY + topLogHeight + 40;
+    int barCode0Y = startY + topLogHeight + 20;
     [command add1DBarcode:barCode0X :barCode0Y :@"CODE128" :80 :0 :90 :2 :4 :barCode];
 	
 	//mu di wang dian suo shu zhong xin

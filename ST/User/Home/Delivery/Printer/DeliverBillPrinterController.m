@@ -135,9 +135,10 @@
 	__weak typeof(self) weakSelf = self;
 	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
 		if (CONNECT_STATE_CONNECTED == state) {
-      if (type == weakSelf.printerType) {
-//        [weakSelf.navigationController popViewControllerAnimated:YES];
-      }
+			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
+			if (control != weakSelf) {
+				[weakSelf.navigationController popViewControllerAnimated:YES];
+			}
 		}
 		[self updateConnectState:state printerType:type];
 	};
