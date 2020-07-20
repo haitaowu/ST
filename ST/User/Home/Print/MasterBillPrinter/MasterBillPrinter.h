@@ -10,7 +10,7 @@
 
 
 
-@interface MasterBillPrinter : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface MasterBillPrinter : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *deviceListTableView;
 

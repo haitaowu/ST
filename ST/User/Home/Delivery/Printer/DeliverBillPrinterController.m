@@ -304,24 +304,28 @@
 ///fei yong
 - (NSString*)feesTxtBy:(id)billInfo
 {
-  NSString *fees = @"";
-  NSString *payType = [billInfo objectForKey:kPaiedMoney];
-  if (payType != nil) {
-    fees = [fees stringByAppendingFormat:@"%@:",payType];
-    NSString *cash = [billInfo objectForKey:kFreight];
-    if (payType != nil) {
-      fees = [fees stringByAppendingFormat:@"%@、",cash];
-    }
-  }
-  NSString *count = [billInfo objectForKey:kInsureVal];
-  if (count != nil) {
-    fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
-  }
-  NSString *pay = [billInfo objectForKey:kFreight];
-  if (pay != nil) {
-    fees = [fees stringByAppendingFormat:@"运费:%@",pay];
-  }
-  return fees;
+	NSString *fees = @"";
+	NSString *payType = [billInfo objectForKey:kPaiedMoney];
+	
+	if ([payType containsString:@"到付"]) {
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+		NSString *cash = [billInfo objectForKey:kFreight];
+		if (cash != nil) {
+			fees = [fees stringByAppendingFormat:@"%@、",cash];
+		}
+	}else{
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+	}
+	
+	NSString *count = [billInfo objectForKey:kInsureVal];
+	if (count != nil) {
+		fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
+	}
+//	NSString *pay = [billInfo objectForKey:kFreight];
+//	if (pay != nil) {
+//		fees = [fees stringByAppendingFormat:@"运费:%@",pay];
+//	}
+	return fees;
 }
 
 
@@ -474,7 +478,7 @@
 	int feeH = rowHeight;
 	int feeX = titleWidth + deltaX;
 	int feeY = feeTitleY;
-	[SPRTPrint drawText:feeX textY:feeY widthNum:feeW heightNum:feeH textStr:fee fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:feeX textY:feeY widthNum:feeW heightNum:feeH textStr:fee fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//收费信息 end==========================================
 	
 
@@ -675,7 +679,7 @@
 	int payH = rowHeight;
 	int payX = titleWidth + deltaX;
 	int payY = payTitleY;
-	[SPRTPrint drawText:payX textY:payY widthNum:payW heightNum:payH textStr:pay fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:payX textY:payY widthNum:payW heightNum:payH textStr:pay fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//付费信息 end==========================================
 	
 	
@@ -865,7 +869,7 @@
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
-    [command addTextwithX:feeX withY:feeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    [command addTextwithX:feeX withY:feeY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
     
     
     //第一条竖线|||||||||||||||||||||||||||||
@@ -1029,7 +1033,7 @@
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
-    [command addTextwithX:feeX withY:feeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
+    [command addTextwithX:feeX withY:feeY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:fee];
     
     
     //第一条竖线|||||||||||||||||||||||||||||
