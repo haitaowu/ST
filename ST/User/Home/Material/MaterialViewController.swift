@@ -38,14 +38,15 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
     }
     
     //MARK:- private
-    func timeStrWith(format:String) -> String{
-        let dateFormat = DateFormatter.init();
-        dateFormat.dateFormat = format;
-        let date:Date = Date();
-        let dateStr = dateFormat.string(from: date);
-        return dateStr;
-    }
+//    func timeStrWith(format:String) -> String{
+//        let dateFormat = DateFormatter.init();
+//        dateFormat.dateFormat = format;
+//        let date:Date = Date();
+//        let dateStr = dateFormat.string(from: date);
+//        return dateStr;
+//    }
     
+	
     func pickSite() {
         self.showWangdianPicker();
     }
@@ -80,8 +81,6 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
         }
     }
     
-    
-   
 
     //tap gesture
     @IBAction func tapOnView(_ sender: Any) {
@@ -122,7 +121,8 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
             return;
         }
         
-        let timeStr = self.timeStrWith(format:"yyyy-MM-dd hh:mm:ss");
+//        let timeStr = self.timeStrWith(format:"yyyy-MM-dd hh:mm:ss");
+		let timeStr = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
         var rec: Parameters = [:];
         rec["USER_SITE"] =  siteStr
         rec["APPLY_DATE"] =  timeStr
@@ -194,7 +194,7 @@ class MaterialViewController: UIViewController,UITextFieldDelegate,WangdianPicke
     //MARK:- request server
     //查询品名的价格
     func requestProductPrice(parameters: Parameters){
-        let reqUrl = Consts.Server+Consts.BaseUrl+"/searchGoodPrice.do"
+        let reqUrl = Consts.Server+Consts.BaseUrl+"m8/searchGoodPrice.do"
         NSLog("parameters = \(parameters)");
         Alamofire.request(reqUrl, method: .post, parameters: parameters).responseJSON { response in
             print("Request: \(String(describing: response.request))")   // original url request

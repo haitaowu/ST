@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class LaterPinterBillTableController:UITableViewController,QrInterface {
+class SubBillQueryController:UITableViewController,QrInterface {
    //MARK:- IBOutlets
     @IBOutlet var containerViewCollect: [HTDashView]!
     @IBOutlet weak var billNumField: UITextField!
@@ -30,6 +30,8 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     //MARK:- override mothods
     override func viewDidLoad() {
         self.setupUI();
+		
+		
     }
     
     //MARK:- update ui methods
@@ -43,7 +45,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
             self.destAdrField.text = arriveSite
         }
         
-        if let transferCenter = queryBillInfo["transferCenter"] as? String{
+        if let transferCenter = queryBillInfo["dispatchCenter"] as? String{
             self.transferCenterField.text = transferCenter
         }
         
@@ -73,37 +75,50 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     
     //MARK:- private methods
     func setupUI() {
-        self.title = "单件补录";
-        
+        self.title = "子单打印";
         self.submitBtn.layer.cornerRadius = 5;
         self.submitBtn.layer.masksToBounds = true;
         self.detailAdrTxtView.placeholder = "输入地址";
-        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
+//        self.sendSiteField.text = DataManager.shared.loginUser.siteName;
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated);
-        for  view in self.containerViewCollect {
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated);
+//        for  view in self.containerViewCollect {
 //            view.setupDashLine();
-        }
-    }
+//        }
+//    }
 
-    //验证运单号是否正确
-    func isValidateBillNum(billNumStr:String) -> Bool {
-        let regexStr = "^(((66|77|88|99)[0-9]{7})|((8)[0-9]{12})|((2)[0-9]{10}))$";
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regexStr);
-        let isValid = predicate.evaluate(with: billNumStr);
-        return isValid;
-    }
     
     //MARK:- selectors
     @IBAction func tapPrinterBtn(_ sender: Any) {
+
         if billInfo.allKeys.count <= 0 {
             self.remindUser(msg: "请输入运单号查询")
             return;
         }
+		
+//		let info: NSDictionary = [
+//			"billCode": "5700165655793",
+//			"billCodeSub": "5700165655793",
+//		"sendSite": "南宫市",
+//		"dispatchCenter": "目的网点所属中心",
+//		"dispatchCode": "3424234",
+//		"sendgoodsType": "派送方式",
+//		"goodsName": "物品名称",
+//		"sendCode": "342423422",
+//		"acceptManAddress": "南宫市",
+//		"arriveSite": "南宫市",
+//		"registerDate": "2020-07-07 06:56:23",
+//		"weight": 21,
+//		"pieceNumber": 1,
+//		]
+//		self.billInfo = info
+		
         let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
         connViewControl.billInfo = self.billInfo;
+		
+		
 //        let billCode = self.billNumField.text!
 //        connViewControl.billSN = billCode;
         self.navigationController?.pushViewController(connViewControl, animated: true);
@@ -124,13 +139,12 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
             self.remindUser(msg: "请输入运单号");
             return;
         }else{
-            let isValidate = self.isValidateBillNum(billNumStr: billCode)
-            if isValidate == true {
-                rec["billCode"] = billCode
-            }else{
-                self.remindUser(msg: "运单号格式不正确");
-                return;
-            }
+//			if billCode.isValidateBillNum(){
+			rec["billCode"] = billCode
+//            }else{
+//                self.remindUser(msg: "运单号格式不正确");
+//                return;
+//            }
         }
         self.queryBillWith(params: rec);
     }
@@ -139,7 +153,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     //根据运单号查询运单详情
     func queryBillWith(params:Parameters) {
         self.showLoading(msg: "查询单中...");
-        let reqUrl = Consts.Server + Consts.BaseUrl + "/qryBillSub.do"
+        let reqUrl = Consts.Server + Consts.BaseUrl + "m8/qryBillSub.do"
         Alamofire.request(reqUrl, method: .post, parameters: params).responseJSON {[unowned self] response in
             print("Request: \(String(describing: response.request))")   // original url request
             print("Response: \(String(describing: response.response))") // http url response
@@ -172,6 +186,7 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
     func onReadQrCode(code: String) {
         self.billNumField.text = code
     }
+	
     
     //MARK:- UITableView dataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,3 +205,24 @@ class LaterPinterBillTableController:UITableViewController,QrInterface {
         self.view.endEditing(true);
     }
 }
+
+
+/*
+let info: NSDictionary = [
+	"billCode": "5700165655793",
+	"billCodeSub": "01",
+"sendSite": "南宫市",
+"dispatchCenter": "目的网点所属中心",
+"dispatchCode": "目的网点所属编号",
+"sendgoodsType": "派送方式",
+"goodsName": "物品名称",
+"sendCode": "342423422",
+"acceptManAddress": "南宫市",
+"arriveSite": "南宫市",
+"registerDate": "2020-07-07 06:56:23",
+"weight": 21,
+"pieceNumber": 1,
+]
+self.billInfo = info
+
+*/

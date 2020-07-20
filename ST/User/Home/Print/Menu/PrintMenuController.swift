@@ -27,9 +27,8 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
 		self.title = "标签补打"
 		self.setupCollectionView()
 		self.menuAry = [
-			[kName:"主单打印",kSubTitle:"简",kStory:"BaseUI",kId:"SimplePrintControl",kBgColor:"color",kICon:"icon"],
-			[kName:"主单打印",kSubTitle:"全",kStory:"BaseUI",kId:"CompletePrintControl",kBgColor:"color",kICon:"icon"],
-			[kName:"子单打印",kSubTitle:"",kStory:"BaseUI",kId:"LaterPinterBillTableController",kBgColor:"color",kICon:"icon"]
+			[kName:"主单打印",kSubTitle:"",kStory:"BaseUI",kId:"MasterBillQueryController",kBgColor:"color",kICon:"icon"],
+			[kName:"子单打印",kSubTitle:"",kStory:"BaseUI",kId:"SubBillQueryController",kBgColor:"color",kICon:"icon"],
 		]
 	}
   
@@ -76,7 +75,7 @@ class PrintMenuController:UIViewController,UICollectionViewDataSource,UICollecti
   
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		var item:PrintMenuItem = collectionView.dequeueReusableCell(withReuseIdentifier: PrintMenuItem.reuseID(), for: indexPath) as! PrintMenuItem
+		let item:PrintMenuItem = collectionView.dequeueReusableCell(withReuseIdentifier: PrintMenuItem.reuseID(), for: indexPath) as! PrintMenuItem
 		if let model = self.menuAry?[indexPath.item]{
 			item.updateUI(model: model)
 		}

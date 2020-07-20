@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="118" id="KGk-i7-Jjw" customClass="ForecastCell" customModule="掌上速通" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTl-xG-vpB">
+                        <rect key="frame" x="0.0" y="8" width="342" height="104"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Pdi-xh-OEO">
+                                <rect key="frame" x="16" y="8" width="278" height="88"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IfI-dA-OMS">
+                                        <rect key="frame" x="0.0" y="0.0" width="196.5" height="29.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="扫描地点：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ey6-2d-c6w">
+                                                <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫描地点sfsdf" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLm-1V-Jl4">
+                                                <rect key="frame" x="95" y="5" width="101.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nsL-KU-ffQ">
+                                        <rect key="frame" x="0.0" y="29.5" width="218.5" height="29"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预报单号：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIT-jo-WV8">
+                                                <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1234234248234" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOn-Lb-jyZ">
+                                                <rect key="frame" x="95" y="5" width="123.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" red="1" green="0.30227249859999999" blue="0.31023430819999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oRq-w3-BxI">
+                                        <rect key="frame" x="0.0" y="58.5" width="182" height="29.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫描时间：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJa-Kk-wnG">
+                                                <rect key="frame" x="0.0" y="4.5" width="87" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="2020-01-01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HH-7s-gI8">
+                                                <rect key="frame" x="95" y="5" width="87" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-Sx-cDo">
+                                <rect key="frame" x="274" y="30" width="60" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Drd-Q4-B3W"/>
+                                    <constraint firstAttribute="width" constant="60" id="HIg-Wo-78t"/>
+                                </constraints>
+                                <state key="normal" title="查看">
+                                    <color key="titleColor" red="0.25098039220000001" green="0.68627450980000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="printBill:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="y8I-H9-9YO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Pdi-xh-OEO" secondAttribute="bottom" constant="8" id="OcA-Xr-ILd"/>
+                            <constraint firstItem="Pdi-xh-OEO" firstAttribute="top" secondItem="uTl-xG-vpB" secondAttribute="top" constant="8" id="VMo-Cd-ma3"/>
+                            <constraint firstItem="3OP-Sx-cDo" firstAttribute="leading" secondItem="Pdi-xh-OEO" secondAttribute="trailing" constant="-20" id="Zga-om-9sH"/>
+                            <constraint firstItem="Pdi-xh-OEO" firstAttribute="leading" secondItem="uTl-xG-vpB" secondAttribute="leading" constant="16" id="m3L-Vb-1s5"/>
+                            <constraint firstItem="3OP-Sx-cDo" firstAttribute="centerY" secondItem="uTl-xG-vpB" secondAttribute="centerY" id="pwC-Io-ZYL"/>
+                            <constraint firstAttribute="trailing" secondItem="3OP-Sx-cDo" secondAttribute="trailing" constant="8" id="srh-00-V4r"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uTl-xG-vpB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7Wb-HP-9TL"/>
+                    <constraint firstAttribute="trailing" secondItem="uTl-xG-vpB" secondAttribute="trailing" id="Grg-OH-QKq"/>
+                    <constraint firstItem="uTl-xG-vpB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="KD9-Sm-Tix"/>
+                    <constraint firstAttribute="bottom" secondItem="uTl-xG-vpB" secondAttribute="bottom" constant="8" id="Qta-OC-XPt"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="adrLabel" destination="dLm-1V-Jl4" id="n1V-c0-Bns"/>
+                <outlet property="billNumber" destination="AOn-Lb-jyZ" id="7gb-4J-elh"/>
+                <outlet property="dateLabel" destination="1HH-7s-gI8" id="Pp5-jM-B2b"/>
+            </connections>
+            <point key="canvasLocation" x="89.855072463768124" y="110.82589285714285"/>
+        </tableViewCell>
+    </objects>
+</document>

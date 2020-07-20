@@ -220,6 +220,7 @@ struct WentijianSaveRequest:STUploadRequest {
 	}
 }
 
+
 //MARK:- 区域
 struct QuyuModel:SimpleCodable {
 	var siteName:String = ""

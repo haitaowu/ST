@@ -9,21 +9,13 @@
 #import "SPRTPrint.h"
 
 
-extern CBPeripheral *activeDevice;
-extern CBCharacteristic *activeWriteCharacteristic;
-extern CBCharacteristic *activeReadCharacteristic;
-extern CBCharacteristic *activeFlowControlCharacteristic;
-extern int mtu;
-extern int credit;
-extern int response;
 
-extern int cmd;
-
-extern int cjFlag;          // qzfeng 2016/05/10
-
-@interface SPRTPrint ()
+@interface SPRTPrint (){
+}
 
 @end
+
+
 @implementation SPRTPrint
 
 + (void) write:(NSData *)data withResponse:(BOOL)withResponse {

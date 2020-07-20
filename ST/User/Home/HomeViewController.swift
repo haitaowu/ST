@@ -36,9 +36,8 @@ class HomeViewController: UIViewController {
 		self.topContainer.topBorderWidth = 0.5
 		self.topContainer.bottomBorderWidth = 0.5
 		self.menuItems = [
-			(title:"单件录入(简)",icon:"home_menu_1",key:"danjian",handler:menuItemviewClicked),
-//			(title:"单件录入(全)",icon:"home_menu_1",key:"printComplete",handler:menuItemviewClicked),
-			(title:"运单补打",icon:"home_menu_10",key:"latebill",handler:menuItemviewClicked),
+			(title:"单票录入(简)",icon:"home_menu_1",key:"danjian",handler:menuItemviewClicked),
+			(title:"单票录入(全)",icon:"home_menu_1",key:"printComplete",handler:menuItemviewClicked),
 			(title:"收件扫描",icon:"home_menu_2",key:"shoujian",handler:menuItemviewClicked),
 			(title:"发件扫描",icon:"home_menu_3",key:"fajian",handler:menuItemviewClicked),
 			(title:"到件扫描",icon:"home_menu_4",key:"daojian",handler:menuItemviewClicked),
@@ -47,7 +46,8 @@ class HomeViewController: UIViewController {
 			(title:"问题件操作",icon:"home_menu_7",key:"wentijian",handler:menuItemviewClicked),
 			(title:"快件查询",icon:"home_menu_8",key:"kuaichaxun",handler:menuItemviewClicked),
 			(title:"区域查询",icon:"home_menu_9",key:"quyuchaxun",handler:menuItemviewClicked),
-//			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
+			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
+			(title:"派件打印",icon:"home_menu_10",key:"delivery",handler:menuItemviewClicked),
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]
@@ -105,33 +105,45 @@ class HomeViewController: UIViewController {
 			self.openFinancialView();
 		}else if type == "danjian"{
 			self.openBillPrintView();
-		}else if type == "latebill"{
-			self.openLateBillPrintView();
+//		}else if type == "latebill"{
+//			self.openLateBillPrintView();
 		}else if type == "print"{
 			self.openPrintMenuView();
 		}else if type == "printComplete"{
 			self.openBillPrintComplete();
+		}else if type == "delivery"{
+			self.openDelivery();
 		}
 	}
 	
 	
 	
+	
+	
 	//MARK:- selectors
-	//打印运单界面
+	///派件预报
+	func openDelivery(){
+		let deliveryControl = DeliveryMenuController.init(nibName: "DeliveryMenuController", bundle: nil)
+		deliveryControl.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(deliveryControl, animated: true)
+	}
+	
+	
+	//打印运单界面（子单打印界面）
 	func openBillPrintView(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "BillRecordTableController");
+		let printerVc = storyboard.instantiateViewController(withIdentifier: "SimpleTicketControl");
 		printerVc.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(printerVc, animated: true)
 	}
 	
 	//补打印运单界面
-	func openLateBillPrintView(){
-		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "LaterPinterBillTableController");
-		printerVc.hidesBottomBarWhenPushed = true
-		self.navigationController?.pushViewController(printerVc, animated: true)
-	}
+//	func openLateBillPrintView(){
+//		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
+//		let printerVc = storyboard.instantiateViewController(withIdentifier: "SubBillQueryController");
+//		printerVc.hidesBottomBarWhenPushed = true
+//		self.navigationController?.pushViewController(printerVc, animated: true)
+//	}
 	
 	//运单打印菜单选择界面
 	func openPrintMenuView(){
@@ -140,10 +152,10 @@ class HomeViewController: UIViewController {
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
 	
-	//单件录入（全）界面
+	//单票录入（全）界面
 	func openBillPrintComplete(){
 		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-		let printerVc = storyboard.instantiateViewController(withIdentifier: "CompletePrintControl");
+		let printerVc = storyboard.instantiateViewController(withIdentifier: "CompleteTicketControl");
 		printerVc.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(printerVc, animated: true)
 	}

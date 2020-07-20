@@ -9,6 +9,10 @@
 #import "SPRTPrint.h"
 #import "UIImage+Extension.h"
 #import "SVProgressHUD.h"
+#import "BluetoothListController.h"
+#import "TscCommand.h"
+#import "NSDate+Category.h"
+
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -26,17 +30,21 @@ CBCharacteristic *activeReadCharacteristic;
 CBCharacteristic *activeFlowControlCharacteristic;
 
 int cmd=0;
-
 int mtu = 20;
 int credit = 0;
 int response = 1;
-int cjFlag=1;           // qzfeng 2016/05/10
+// qzfeng 2016/05/10
+int cjFlag=1;
 
 
 #define kBillCodeKey            @"billCode"
+#define kSubCodeKey            	@"billCodeSub"
 #define kSendSiteKey            @"sendSite"
-#define kTransferCenterKey      @"transferCenter"
-#define kBillCodeKey            @"billCode"
+#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
+#define kDispatchCodeKey      	@"dispatchCode" //目的网点所属编号
+#define kSendgoodsTypeKey      	@"sendgoodsType" //派送方式
+#define kGoodsNameKey      		@"goodsName" //物品名称
+#define kSendCodeKey      		@"sendCode" //寄件网点编号
 #define kAcceptAdrKey           @"acceptManAddress"
 #define kArriveSiteKey          @"arriveSite"
 #define kWeightKey              @"weight"
@@ -55,6 +63,8 @@ int cjFlag=1;           // qzfeng 2016/05/10
 @property (weak, nonatomic) IBOutlet UIButton *printBtn;
 @property (weak, nonatomic) IBOutlet UIButton *reloadBtn;
 @property(nonatomic,strong) NSArray *billCodes;
+@property(nonatomic,assign) PrinterType printerType;
+@property (weak, nonatomic) IBOutlet UILabel *connState;
 
 
 @end
@@ -65,6 +75,16 @@ int cjFlag=1;           // qzfeng 2016/05/10
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  self.title = @"打印";
+	cmd=0;
+	mtu = 20;
+	credit = 0;
+	response = 1;
+	cjFlag=1;           // qzfeng 2016/05/10
+  
+  [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
+  [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+  
     if (self.billSN != nil) {
         self.reloadBtn.hidden = NO;
         [self reqPrintBillInfo];
@@ -72,9 +92,9 @@ int cjFlag=1;           // qzfeng 2016/05/10
         self.reloadBtn.hidden = YES;
     }
     
-//    if ([[self.billInfo allKeys] count] > 0) {
-//        [self reqPrintBillsData];
-//    }
+	
+	
+	return;
     
     self.managerState = CBManagerStateUnknown;
 	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -88,7 +108,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startScanConnectPrinter];
+//    [self startScanConnectPrinter];
 }
 
 - (void)viewDidUnload
@@ -96,6 +116,15 @@ int cjFlag=1;           // qzfeng 2016/05/10
     [self setDeviceListTableView:nil];
     [super viewDidUnload];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[Manager close];
+	NSLog(@"viewWill Disappear....");
+}
+
+
 
 - (void)startScanConnectPrinter{
     if (self.centralManager.isScanning == YES) {
@@ -117,8 +146,63 @@ int cjFlag=1;           // qzfeng 2016/05/10
     [SVProgressHUD dismiss];
 }
 
+
+
+- (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
+    dispatch_async(dispatch_get_main_queue(), ^{
+		self.printerType = type;
+        switch (state) {
+            case CONNECT_STATE_CONNECTING:
+                self.connState.text = @"连接状态：连接中....";
+                break;
+			case CONNECT_STATE_CONNECTED:
+			{
+                [SVProgressHUD showSuccessWithStatus:@"连接成功"];
+				self.printBtn.enabled = YES;
+				NSString *name = Manager.bleConnecter.connPeripheral.name;
+				NSString *title = @"连接状态：";
+				title = [title stringByAppendingFormat:@"%@已连接",name];
+                self.connState.text = title;
+				break;
+			}
+            case CONNECT_STATE_FAILT:
+                [SVProgressHUD showErrorWithStatus:@"连接失败"];
+                self.connState.text = @"连接状态：连接失败";
+                break;
+            case CONNECT_STATE_DISCONNECT:
+			{
+//				NSString *name = Manager.bleConnecter.connPeripheral.name;
+//				NSString *title = [@"断开连接设备:" stringByAppendingFormat:@"%@",name];
+				NSString *title = @"已断开连接设备";
+                [SVProgressHUD showInfoWithStatus:title];
+                self.connState.text = @"连接状态：断开连接";
+                break;
+			}
+            default:
+                self.connState.text = @"连接状态：连接超时";
+                break;
+        }
+    });
+}
+
+
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	BluetoothListController *listControl = [[BluetoothListController alloc] init];
+	__weak typeof(self) weakSelf = self;
+	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
+		if (CONNECT_STATE_CONNECTED == state) {
+			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
+			if (control != weakSelf) {
+				[weakSelf.navigationController popViewControllerAnimated:YES];
+			}
+		}
+		[self updateConnectState:state printerType:type];
+	};
+  [self.navigationController pushViewController:listControl animated:YES];
+	
+	
+	return;
     if (self.managerState == CBManagerStatePoweredOn) {
         [self startScanConnectPrinter];
         [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
@@ -127,13 +211,25 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
 }
 
+
 - (IBAction)tapReloadBillsData:(id)sender {
     [self reqPrintBillInfo];
 }
 
 - (IBAction)buttonPrintPNGorJPG:(id)sender {
+	if (self.printerType == SPRINTER) {
+		[self sendKeyChainToPrinter];
+		[self startSPrintByBillInfo:self.billInfo];
+	}else{
+		[self startGPrintByBillInfo:self.billInfo];
+	}
+	
+	
+	
+	return;
+	
     if (self.billInfo != nil) {
-        [self startPrintWithBillData:self.billInfo];
+        [self startSPrintByBillInfo:self.billInfo];
         self.thread = NULL;
     }else{
         [SVProgressHUD showInfoWithStatus:@"请重新加载运单数据"];
@@ -141,7 +237,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
 }
 
 #pragma mark - private methods
-//发送秘钥
+//发送密钥
 - (void)sendKeyChainToPrinter {
     Byte byte[] = {0x1B,0xFB,0x73,0x75,0x74,0x35,0x36,0x69,0x74,0x7A,0x78,0x00};
     NSData *data = [[NSData alloc] initWithBytes:byte length:12];
@@ -166,27 +262,314 @@ int cjFlag=1;           // qzfeng 2016/05/10
     self.printBtn.enabled = NO;
 }
 
-- (void)startPrintWithBillData:(NSDictionary*)billData
+
+///GPrinter print
+- (void)startGPrintByBillInfo:(NSDictionary*)billData
+{
+	NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
+	NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
+	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	if ([subCodesArra count] > 0) {
+		for (int idx = 0; idx < [subCodesArra count]; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:idx];
+//			int64_t seconds = idx * 2;
+//			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
+				NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+				[Manager write:printData];
+//			});
+		}
+	}else{
+		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+		NSString *subCode = @"";
+		NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+		[Manager write:printData];
+	}
+}
+
+
+
+///sprinter printer
+- (void)startSPrintByBillInfo:(NSDictionary*)billData
 {
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
-    int maxIndex = [piecesNum intValue] - 1;
-    NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
-    for(int index = 0; index < maxIndex ; index ++){
-        int64_t seconds = index * 2;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *subCode = nil;
-            if (index > (subCodesArra.count - 1)) {
-                subCode = [subCodesArra firstObject];
-            }else{
-                subCode = [subCodesArra objectAtIndex:index];
-            }
-            NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
-            [self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-        });
-    }
+	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	if ([subCodesArra count] > 0) {
+		for (int idx = 0; idx < [subCodesArra count]; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:idx];
+			int64_t seconds = idx * 2;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
+				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+			});
+		}
+	}else{
+		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+		NSString *subCode = @"";
+		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+	}
+	
+	
+//	if ([subCodesArra count] > 0) {
+//		for(int index = 0; index < maxIndex ; index ++){
+//			int64_t seconds = index * 2;
+//			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//				NSString *subCode = nil;
+//				if (index > (subCodesArra.count - 1)) {
+//					subCode = [subCodesArra firstObject];
+//				}else{
+//					subCode = [subCodesArra objectAtIndex:index];
+//				}
+//				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
+//				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//			});
+//		}
+//	}else{
+//		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
+//		NSString *subCode = @"";
+//		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//	}
+	
 }
 
+
+
+#pragma mark - GPRrinter
+- (NSData *)GPrinterData:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
+{
+	int maxX = 800 - 10;
+    int maxY = 535;
+	int topLogHeight = 160;
+	int verticalBarCodeWidth = 90;
+	int col1X = verticalBarCodeWidth;
+    int lineWeight = 2;
+	int startX = 2;
+	int startY = 3;
+	int deltaX = 10;
+	int deltaY = 10 + 5;
+	int sitesHeight = 110;
+	int rowHeight = 60;
+	
+	
+	
+    NSString *titleFontStr = @"TSS32.BF2";
+    NSString *txtFontStr = @"TSS24.BF2";
+    
+    
+    TscCommand *command = [[TscCommand alloc] init];
+    [command addSize:maxX :maxY];
+	[command addGapWithM:2 withN:0];
+	[command addReference:0 :0];
+	[command addTear:@"ON"];
+	[command addQueryPrinterStatus:ON];
+	[command addCls];
+	
+	// 左上角寄件网点 到 右下角地址的框 --->
+	int box1SX = col1X;
+	int box1SY = topLogHeight;
+	int box1EX = maxX;
+	int box1EY = box1SY + sitesHeight + rowHeight * 2;
+	[command addBox:box1SX :box1SY :box1EX :box1EY :lineWeight];
+	
+	//寄件/目的网点之间的竖线
+	int sitesW = (maxX - box1SX) / 2;
+	int sitesLineX = box1SX + sitesW;
+	int sitesLineY = box1SY;
+	
+	[command addBar:sitesLineX :sitesLineY :lineWeight :sitesHeight];
+	//end <---
+	
+	//tiao xing ma
+	//	NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+	NSString *barCode = subCode;
+	int barCodeWidth = 240;
+	int barCode0X = col1X - startX - 3;
+    int barCode0Y = startY + topLogHeight + 20;
+    [command add1DBarcode:barCode0X :barCode0Y :@"CODE128" :80 :0 :90 :2 :4 :barCode];
+	
+	//mu di wang dian suo shu zhong xin
+	NSString *dispatchCenter = [self.billInfo objectForKey:kDispatchCenterKey];
+    if (dispatchCenter != nil) {
+		int centerX = (maxX / 2);
+		int centerY = 40;
+		[command addTextwithX:centerX withY:centerY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:dispatchCenter];
+    }
+	
+	//ji jian wang dian
+	NSString *sendSite = [self.billInfo objectForKey:kSendSiteKey];
+	if (sendSite != nil) {
+		int sendX = box1SX + deltaX;
+		int sendY = box1SY + deltaY;
+		[command addTextwithX:sendX withY:sendY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:sendSite];
+	}
+	
+	//ji jian wang dian bian hao
+	NSString *sendCode = [self.billInfo objectForKey:kSendCodeKey];
+    if (sendCode != nil) {
+		int sCodeX = box1SX + deltaX + 10;
+		int sCodeY = box1SY + (sitesHeight / 2) + 25;
+		[command addTextwithX:sCodeX withY:sCodeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendCode];
+	}
+	
+	//mu di wang dian
+	NSString *arriveSite = [self.billInfo objectForKey:kArriveSiteKey];
+    if (arriveSite != nil) {
+		int sCodeX = sitesLineX + deltaX ;
+		int sCodeY = box1SY + deltaY;
+		[command addTextwithX:sCodeX withY:sCodeY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:arriveSite];
+	}
+	
+	//mu di wang dian bian hao
+	NSString *dispatchCode = [self.billInfo objectForKey:kDispatchCodeKey];
+    if (dispatchCode != nil) {
+		int aCodeX = sitesLineX + deltaX + 10;
+		int aCodeY = box1SY + (sitesHeight / 2) + 25;
+		[command addTextwithX:aCodeX withY:aCodeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:dispatchCode];
+	}
+	
+	// 左上角运单号 到 右下角YYY-MM-dd的框 --->
+	int box2X = col1X;
+	int box2Y = box1SY + sitesHeight;
+	int box2EX = box1EX;
+	int box2EY = box2Y + rowHeight;
+	[command addBox:box2X :box2Y :box2EX :box2EY :lineWeight];
+	
+	//左上角运单号 到 右下角YYY-MM-dd的框内的两条竖线
+	int billCodeBorderW = 320;
+	int lin1X = box1SX + billCodeBorderW;
+	int line1Y = box1SY + sitesHeight;
+	[command addBar:lin1X :line1Y :lineWeight :rowHeight];
+	
+	int weightW = (maxX - box1SX - billCodeBorderW) / 2;
+	int line2X = lin1X + weightW;
+	int line2Y = line1Y;
+	[command addBar:line2X :line2Y :lineWeight :rowHeight];
+	
+	//yun dan hao
+	NSString *billCodeTxt = [self.billInfo objectForKey:kBillCodeKey];
+	if (billCodeTxt != nil) {
+		int billX = box2X + deltaX;
+		int billY = box2Y + deltaY + 5;
+		[command addTextwithX:billX withY:billY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:billCodeTxt];
+	}
+	
+	//weight
+	id  weight = [self.billInfo objectForKey:kWeightKey];
+	int weightX = lin1X + deltaX;
+	if(weight != nil){
+		int weightY = box2Y + deltaY + 5;
+		NSString *weightTxt = [NSString stringWithFormat:@"%@KG",weight];
+		[command addTextwithX:weightX withY:weightY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:weightTxt];
+	}
+	
+	//lu dan ri qi
+	NSString *billDateTxt = [self billDateWithData:self.billInfo];
+	if (billDateTxt != nil) {
+		int dateX = line2X + deltaX;
+		int dateY = box2Y + deltaY + 5;
+		[command addTextwithX:dateX withY:dateY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:billDateTxt];
+	}
+	
+	NSString *adrTxt = [self.billInfo objectForKey:kAcceptAdrKey];
+    if (adrTxt != nil) {
+		int adrX = box1SX + deltaX;
+		int adrY = box2EY + deltaY + 5;
+       [command addTextwithX:adrX withY:adrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:adrTxt];
+    }
+	//end <---
+	
+	
+	int secRowHeight = (maxY - box1EY) / 3;
+	
+	// 左上角:派送方式 -> 右下角计数的框 --->
+	int barCodeBoxderW = 400;
+	int box3SX = col1X;
+	int box3SY = box1EY;
+	int box3EX = maxX - barCodeBoxderW;
+	int box3EY = box1EY + secRowHeight * 2;
+	[command addBox:box3SX :box3SY :box3EX :box3EY :lineWeight];
+	
+	//竖线||||||||||||||||||||||||||||
+	int line3Width = (box3EX - box3SX) / 2;
+	int line3X = box3SX + line3Width;
+	int line3Y = box3SY;
+	[command addBar:line3X :line3Y :lineWeight :secRowHeight];
+	
+	//heng xian -----------
+	int line4X = box3SX;
+	int line4Y = box3SY + secRowHeight;
+	int line4W = box3EX - box3SX;
+	[command addBar:line4X :line4Y :line4W :lineWeight];
+
+	// pai song fang shi
+	NSString *sendgoodsType = [self.billInfo objectForKey:kSendgoodsTypeKey];
+    if (sendgoodsType != nil) {
+		int typeX = box1SX + deltaX;
+		int typeY = box3SY + deltaY;
+		[command addTextwithX:typeX withY:typeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendgoodsType];
+	}
+	
+	//wu ping ming cheng
+	NSString *goodsName = [self.billInfo objectForKey:kGoodsNameKey];
+	if (goodsName != nil) {
+		int nameX = line3X + deltaX;
+		int nameY = box3SY + deltaY;
+		[command addTextwithX:nameX withY:nameY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsName];
+	}
+	
+	//jian shu
+	int indexX = box1SX + deltaX;
+	int indexY = line4Y + deltaY;
+	[command addTextwithX:indexX withY:indexY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:indexStr];
+	//end <---
+	
+	
+	// 左下角日期的框 --->
+	int leftDX = startX;
+	int letDY = box3EY;
+	int leftEX = box3EX;
+	int leftEY = maxY;
+	[command addBox:leftDX :letDY :leftEX :leftEY :lineWeight];
+	
+	
+	//da yin ri qi
+	NSString *currentDateStr = [self currentDateStr];
+	if (currentDateStr != nil) {
+		int pDateX = leftDX + deltaX;
+		int pDateY = letDY + deltaY;
+		[command addTextwithX:pDateX withY:pDateY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:currentDateStr];
+	}
+	
+	//end <---
+	
+	//you xia jiao tiao xing ma de kuang
+	int barCodeBorderX = leftEX;
+	int barCodeBorderY = box1EY;
+	int barCodeBorderEX = box1EX;
+	int barCodeBorderEY = leftEY;
+	[command addBox:barCodeBorderX :barCodeBorderY :barCodeBorderEX :barCodeBorderEY :lineWeight];
+	
+	//you xia jiao tiao xing ma
+	int barLeftSpace = (barCodeBoxderW - barCodeWidth) / 2;
+	int barCodeX = barCodeBorderX + barLeftSpace;
+    int barCodeY = barCodeBorderY + deltaY + 10;
+	int barCodeHeight = 80;
+    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :barCodeHeight :0 :0 :2 :4 :barCode];
+	
+	int barCodeNumWidth = 140;
+	int barNumLeftSpace = (barCodeBoxderW - barCodeNumWidth) / 2;
+	int barNumCodeX = barCodeBorderX + barNumLeftSpace;
+	int barNumCodeY = barCodeY + barCodeHeight + 3;
+	[command addTextwithX:barNumCodeX withY:barNumCodeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:barCode];
+	
+	[command addPrint:1 :1];
+	return [command getCommand];
+}
+
+
+
+#pragma mark - SPrinter printer
 - (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
     [SPRTPrint pageSetup:800 pageHeightNum:500];
@@ -253,7 +636,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     // 寄件网点编号
-    NSString *sendCode = [self.billInfo objectForKey:@"sendCode"];
+	NSString *sendCode = [self.billInfo objectForKey:kSendCodeKey];
     if (sendCode != nil) {
 //        int sendCodeY = sendSiteY + 40;
         int sendCodeY = sendSiteY + 50;
@@ -305,7 +688,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     // 目的网点编号
-    NSString *dispatchCode = [self.billInfo objectForKey:@"dispatchCode"];
+    NSString *dispatchCode = [self.billInfo objectForKey:kDispatchCodeKey];
     if (dispatchCode != nil) {
 //        int arriveSiteCodeY = arrSiteY + 40;
         int arriveSiteCodeY = arrSiteY + 50;
@@ -315,7 +698,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     //派送方式
-    NSString *sendgoodsType = [self.billInfo objectForKey:@"sendgoodsType"];
+    NSString *sendgoodsType = [self.billInfo objectForKey:kSendgoodsTypeKey];
     if (sendgoodsType != nil) {
         int width = col2x - col1x;
         int margin = (width - (int)sendgoodsType.length * aLet3StrWidth)/2;
@@ -325,7 +708,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     //物品名称
-    NSString *goodsName = [self.billInfo objectForKey:@"goodsName"];
+    NSString *goodsName = [self.billInfo objectForKey:kGoodsNameKey];
     if (goodsName != nil) {
         int width = col3x - col2x;
         int margin = (width - (int)goodsName.length * aLet3StrWidth)/2;
@@ -354,7 +737,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     int topVerticalLinex = col5x - 100;
 //    [SPRTPrint drawLine:2 startX:topVerticalLinex startY:0 endX:topVerticalLinex endY:line1Y isFullline:false];
     //目的网点所属中心
-    NSString *dispatchCenter = [self.billInfo objectForKey:@"dispatchCenter"];
+    NSString *dispatchCenter = [self.billInfo objectForKey:kDispatchCenterKey];
     if (dispatchCenter != nil) {
         int dispatchW = maxX - topVerticalLinex;
         int dispatchMargin = (dispatchW - (int)dispatchCenter.length * aLet5StrBoldWidth)/2;
@@ -364,7 +747,8 @@ int cjFlag=1;           // qzfeng 2016/05/10
     }
     
     // 横着的条码图形
-    NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+//    NSString *barCode = [billCode stringByAppendingFormat:@"%@",subCode];
+	NSString *barCode = subCode;
     int barCodeH = 80;
     int barCodeX = col3x + 20;
     int barCodeY = line4Y + 20;
@@ -375,8 +759,7 @@ int cjFlag=1;           // qzfeng 2016/05/10
     //横着的条码数字字符串
     int barNumY = barCodeY + 80;
     int barNumX = barCodeX + 85;
-    NSString *barCodeNumStr = [billCode stringByAppendingFormat:@" %@",subCode];
-     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCodeNumStr fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCode fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
     
     // 竖着的条码图形
     int barCodeVerticalMargin = 20;
@@ -441,35 +824,47 @@ int cjFlag=1;           // qzfeng 2016/05/10
 //打印时间
 - (NSString*)currentDateStr
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
-    return todayStr;
+	return [NSDate currentDateStrBy:nil];
+//	
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
+//    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
+//    return todayStr;
 }
 
 - (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo
 {
     NSMutableArray *array = [NSMutableArray array];
-    NSString *subBillCodeStr = [billInfo objectForKey:@"billCodeSub"];
+    NSString *subBillCodeStr = [billInfo objectForKey:kSubCodeKey];
     NSCharacterSet *semicolonCharSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
     subBillCodeStr = [subBillCodeStr stringByTrimmingCharactersInSet:semicolonCharSet];
     NSArray *subCodesArra = [subBillCodeStr componentsSeparatedByCharactersInSet:semicolonCharSet];
-    NSString *billCode = [billInfo objectForKey:@"billCode"];
+//	NSString *billCode = [billInfo objectForKey:kBillCodeKey];
     for (NSString *codeStr in subCodesArra) {
-        NSString *subCodeStr = [codeStr stringByReplacingOccurrencesOfString:billCode withString:@""];
-        if (subCodeStr.length > 0) {
-            [array addObject:subCodeStr];
+//        NSString *subCodeStr = [codeStr stringByReplacingOccurrencesOfString:billCode withString:@""];
+        if (codeStr.length > 0) {
+            [array addObject:codeStr];
         }
     }
     return array;
 }
+
 
 #pragma mark - request server
 - (void)reqPrintBillInfo
 {
     [SVProgressHUD showWithStatus:@"加载运单数据" maskType:SVProgressHUDMaskTypeBlack];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURL *url = [NSURL URLWithString:@"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do"];
+	//生产环境服务器
+#if DEBUG
+	NSString *urlStr = @"http://58.215.182.252:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
+#else
+	NSString *urlStr = @"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do";
+#endif
+
+	//测试环境的服务器
+    NSURL *url = [NSURL URLWithString:urlStr];
+	
     NSMutableURLRequest *mutRequest = [NSMutableURLRequest requestWithURL:url];
     mutRequest.HTTPMethod = @"POST";
 //    NSString *pieceNumber = self.billInfo[@"pieceNumber"];
@@ -512,20 +907,20 @@ int cjFlag=1;           // qzfeng 2016/05/10
     NSString * state = nil;
 		switch ([central state])
 		{
-			case CBCentralManagerStateUnsupported:
+			case CBManagerStateUnsupported:
 				state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
 				break;
-			case CBCentralManagerStateUnauthorized:
+			case CBManagerStateUnauthorized:
 				state = @"The app is not authorized to use Bluetooth Low Energy.";
 				break;
-			case CBCentralManagerStatePoweredOff:
+			case CBManagerStatePoweredOff:
                 [SVProgressHUD showInfoWithStatus:@"请先打开蓝牙哦"];
 				state = @"Bluetooth is currently powered off.";
 				break;
-			case CBCentralManagerStatePoweredOn:
+			case CBManagerStatePoweredOn:
 				state = @"work";
 				break;
-			case CBCentralManagerStateUnknown:
+			case CBManagerStateUnknown:
 			default:
 			;
 		}

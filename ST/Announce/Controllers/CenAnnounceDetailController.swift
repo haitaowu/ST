@@ -58,7 +58,7 @@ class CenAnnounceDetailController: UIViewController{
     self.authorLabel.text = self.model?.person ?? ""
     
     if let content = self.model?.content,let kWebView = self.wkWebView{
-      let string = content.decode64String()
+      let string = content.decodeZip64String()
       kWebView.loadHTMLString(string, baseURL: nil)
     }
   }

@@ -8,6 +8,8 @@
 #import <CoreBluetooth/CBService.h>
 #import <UIKit/UIKit.h>
 
+
+
 @interface PrinterPreviewController : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *deviceListTableView;

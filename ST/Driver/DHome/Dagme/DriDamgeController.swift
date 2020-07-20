@@ -291,19 +291,19 @@ class DriDamgeController: UITableViewController,UIImagePickerControllerDelegate,
 		print("didFinishPickingMediaWithInfo")
 		if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
 			print("loaded image already")
-      if self.cameraType == 0{
-        self.realImgesAry?.insert(img, at: 0)
-        if let imgsAry = self.realImgesAry{
-          self.updateRealViewBy(imgsAry: imgsAry)
-        }
-      }else{
-        self.damImgesAry?.insert(img, at: 0)
-        if let imgsAry = self.damImgesAry{
-          self.updateDamgeViewBy(imgsAry: imgsAry)
-        }
-      }
+			if self.cameraType == 0{
+				self.realImgesAry?.insert(img, at: 0)
+				if let imgsAry = self.realImgesAry{
+					self.updateRealViewBy(imgsAry: imgsAry)
+				}
+			}else{
+				self.damImgesAry?.insert(img, at: 0)
+				if let imgsAry = self.damImgesAry{
+					self.updateDamgeViewBy(imgsAry: imgsAry)
+				}
+			}
 		}
-    
+		
 		picker.dismiss(animated: true) {
 		}
 	}
