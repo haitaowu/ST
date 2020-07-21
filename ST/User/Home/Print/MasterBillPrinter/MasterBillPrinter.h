@@ -12,9 +12,9 @@
 
 @interface MasterBillPrinter : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *deviceListTableView;
+//@property (weak, nonatomic) IBOutlet UITableView *deviceListTableView;
 
-- (void) stopScanPeripheral;
+//- (void) stopScanPeripheral;
 @property(nonatomic,strong) id billInfo;
 @property(nonatomic,copy) NSString *billSN;
 

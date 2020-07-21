@@ -122,11 +122,11 @@ static NSString *const kServiceUUID = @"ff00";
 	NSLog(@"viewWill Disappear....");
 }
 
-- (void)viewDidUnload
-{
-    [self setDeviceListTableView:nil];
-    [super viewDidUnload];
-}
+//- (void)viewDidUnload
+//{
+//    [self setDeviceListTableView:nil];
+//    [super viewDidUnload];
+//}
 
 /*
 - (void)startScanConnectPrinter{
@@ -294,7 +294,7 @@ static NSString *const kServiceUUID = @"ff00";
   NSArray* keys;
   if ([adrType isEqualToString:@"1"]) {
     //ji jian di zhi
-    keys = @[@"PROVINCE",@"CITY",@"BOROUGH",@"SEND_MAN_ADDRESS"];
+    keys = @[@"PROVINCE",@"CITY",@"BOROUGH",kSendManAddress];
   }else{
     //shou jian di zhi
     keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",kAcceptManAddress];
@@ -403,7 +403,7 @@ static NSString *const kServiceUUID = @"ff00";
 	NSString *payType = [billInfo objectForKey:kPaymentType];
 	if ([payType containsString:@"到付"]) {
 		fees = [fees stringByAppendingFormat:@"%@:",payType];
-		NSString *cash = [billInfo objectForKey:kFreight];
+		NSString *cash = [billInfo objectForKey:kPaiedMoney];
 		if (cash != nil) {
 			fees = [fees stringByAppendingFormat:@"%@、",cash];
 		}
@@ -516,8 +516,8 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:sAdrX textY:sAdrY widthNum:sAdrW heightNum:sAdrH textStr:sAdress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//寄方 end==========================================
-	
-	
+	//目的网点的宽度
+	int siteTextW = 160;
 	//收方start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	NSString *receiverTitle = @"收方";
 	int rTitleX = startX + deltaX;
@@ -534,11 +534,11 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
-	int rAdrW = rPhoneW;
+	int rAdrW = rPhoneW - siteTextW;
 	int rAdrH = rPhoneH;
 	int rAdrX = rPhoneX;
 	int rAdrY = rPhoneY + rPhoneH;
-	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:rAdrX textY:rAdrY widthNum:rAdrW heightNum:rAdrH textStr:rAddress fontSizeNum:1 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	//收方 end==========================================
 	
@@ -604,7 +604,6 @@ static NSString *const kServiceUUID = @"ff00";
 	
 	
 	//第三条竖线|||||||||||||||||||||||||||||
-	int siteTextW = 160;
 	int col3StartX = maxX - siteTextW;
 	int colo3StartY = colo2StartY + rowHeight;
 	int colo3EndY = colo3StartY + rowHeight;
