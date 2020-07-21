@@ -186,7 +186,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		
 		self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
 		self.sendSiteField.text = DataManager.shared.loginUser.siteName
-		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
+		fetchBillBtn.addCorner(radius: 5, color: UIColor.appBlue, borderWidth: 1)
 		self.tableView.register(MenuRSHeader.headerNib(), forHeaderFooterViewReuseIdentifier: MenuRSHeader.headerID())
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style:.plain, target: self, action: #selector(CompleteTicketControl.saveBill))
 		
@@ -270,7 +270,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		}, origin: self.view)
 	}
 	
-	
+  //MARKK: -  SELECTORS
 	@IBAction func wangdianBtnClicked(_ sender: Any) {
 		self.showWangdianPicker()
 	}
@@ -452,8 +452,21 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
       }, cancel: {(picker) in
     }, origin: self.view)
   }
-	
-	
+  
+	///shou jian dizhi
+  @IBAction func queryDestAdr(_ sender: Any) {
+    var params: Parameters = [:]
+    print("query destiantaion address...")
+    self.showLoading(msg: "匹配地址信息...")
+    STHelper.POST(url: "", params: nil) {
+      [unowned self] (result, resp) in
+      self.hideLoading()
+      if result == .reqSucc{
+//        self.receAdrDetail.text = ""
+      }
+    }
+  }
+  
 	
 	//MARK:- WangdianPickerInterface
 	func onWangdianPicked(item:SiteInfo){

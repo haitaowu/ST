@@ -47,7 +47,7 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
       self.billNumField.tag = billFieldTag
       self.billNumField.delegate = self
       
-      fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
+      fetchBillBtn.addCorner(radius: 5, color: UIColor.appBlue, borderWidth: 1)
       self.submitBtn.layer.cornerRadius = 5;
       self.submitBtn.layer.masksToBounds = true;
       self.receSiteTxtView.placeholder = "输入地址";
@@ -248,6 +248,21 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
 		self.view.endEditing(true)
 		self.requestBillNum()
 	}
+  
+  ///shou jian dizhi
+    @IBAction func queryDestAdr(_ sender: Any) {
+      var params: Parameters = [:]
+      
+      print("query destiantaion address...")
+      self.showLoading(msg: "匹配地址信息...")
+      STHelper.POST(url: "", params: nil) {
+        [unowned self] (result, resp) in
+        self.hideLoading()
+        if result == .reqSucc{
+          self.receSiteTxtView.text = ""
+        }
+      }
+    }
     
     //MARK:- request server
 	//app获取电子面单接口

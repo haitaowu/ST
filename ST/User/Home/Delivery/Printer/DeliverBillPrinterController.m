@@ -36,9 +36,11 @@
 #define kRbillCode				@"rbillCode" //回单编号
 #define kStorageno				@"storageno" //进仓编号
 
-#define kPaiedMoney			    @"paymentType" //到付款
+#define kPaymentType		    @"paymentType" //支付方式
+#define kPaiedMoney			    @"topayment" //到付款
 #define kInsureVal			    @"insureValue" //保价金额
 #define kFreight			    @"freight" //运费
+
 
 
 
@@ -305,11 +307,11 @@
 - (NSString*)feesTxtBy:(id)billInfo
 {
 	NSString *fees = @"";
-	NSString *payType = [billInfo objectForKey:kPaiedMoney];
+	NSString *payType = [billInfo objectForKey:kPaymentType];
 	
 	if ([payType containsString:@"到付"]) {
 		fees = [fees stringByAppendingFormat:@"%@:",payType];
-		NSString *cash = [billInfo objectForKey:kFreight];
+		NSString *cash = [billInfo objectForKey:kPaiedMoney];
 		if (cash != nil) {
 			fees = [fees stringByAppendingFormat:@"%@、",cash];
 		}
