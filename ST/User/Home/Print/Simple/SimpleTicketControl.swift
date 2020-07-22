@@ -7,6 +7,8 @@
 
 import UIKit
 import Alamofire
+import ActionSheetPicker_3_0
+
 
 
 class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,WangdianPickerInterface {
@@ -25,6 +27,12 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
     @IBOutlet weak var expressBtn: UIButton!
     @IBOutlet weak var fetchBillBtn: UIButton!
     @IBOutlet weak var payTypeBtn: UIButton!
+  //省
+  @IBOutlet weak var recePronvinBtn: UIButton!
+  //市
+  @IBOutlet weak var receCityBtn: UIButton!
+  //区
+  @IBOutlet weak var receDistBtn: UIButton!
   
     let billInfo:NSMutableDictionary  = NSMutableDictionary();
     
@@ -72,6 +80,26 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
+	
+	func showAdrActSheet(key: AdrKey, adrs: [AdrModel], view: UIButton){
+		guard adrs.count > 0 else{
+			self.remindUser(msg: "未查询到城市信息")
+			return
+		}
+		var adrAry: [String] = []
+		for adr in adrs{
+			let name = adr[key]
+			adrAry.append(name)
+		}
+		
+		ActionSheetStringPicker.show(withTitle: "", rows: adrAry, initialSelection: 0, doneBlock: {
+			[unowned self](picker, index, val) in
+			if let title = val as? String{
+				view.setTitle(title, for: .normal)
+			}
+			}, cancel: { (picker) in
+		}, origin: self.view)
+	}
     
     
     //MARK:- selectors
@@ -249,22 +277,116 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
 		self.requestBillNum()
 	}
   
-  ///shou jian dizhi
-    @IBAction func queryDestAdr(_ sender: Any) {
-      var params: Parameters = [:]
-      
-      print("query destiantaion address...")
-      self.showLoading(msg: "匹配地址信息...")
-      STHelper.POST(url: "", params: nil) {
-        [unowned self] (result, resp) in
-        self.hideLoading()
-        if result == .reqSucc{
-          self.receSiteTxtView.text = ""
-        }
+  //收件人省
+  @IBAction func receiveProvince(_ sender: UIButton) {
+    self.fetchAddressInfo(model: AdrModel(), view: sender, key: .province){
+      [unowned self] result in
+      if result{
+        self.receCityBtn.setTitle("", for: .normal)
+        self.receDistBtn.setTitle("", for: .normal)
       }
     }
+  }
+  
+  //收件人市
+  @IBAction func receiveCity(_ sender: UIButton) {
+    guard let province = self.recePronvinBtn.titleLabel?.text else{
+      self.remindUser(msg: "请选择收件省")
+      return
+    }
+    var model = AdrModel()
+    model.province = province
+    self.fetchAddressInfo(model: model, view: sender, key: .city){
+      [unowned self] result in
+      if result{
+        self.receDistBtn.setTitle("", for: .normal)
+      }
+    }
+  }
+  
+  //收件人区
+  @IBAction func receiveDistrict(_ sender: UIButton) {
+    guard let province = self.recePronvinBtn.titleLabel?.text else{
+      self.remindUser(msg: "请选择收件省")
+      return
+    }
+    guard let city = self.receCityBtn.titleLabel?.text else{
+      self.remindUser(msg: "请选择收件市")
+      return
+    }
+    var model = AdrModel()
+    model.province = province
+    model.city = city
+    self.fetchAddressInfo(model: model, view: sender, key: .town, block: nil)
+  }
+  
+  
+  ///shou jian dizhi
+	@IBAction func queryDestAdr(_ sender: Any) {
+		var params: Parameters = [:]
+		guard let province = self.recePronvinBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件省")
+			return
+		}
+		guard let city = self.receCityBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件市")
+			return
+		}
+		guard let district = self.receDistBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件区")
+			return
+		}
+		
+		let address = self.receSiteTxtView.text!
+		guard address.isEmpty != true else{
+			self.remindUser(msg: "请输入收件地址")
+			return
+		}
+		
+		let addrStr = province + city + district + address
+		params["address"] = addrStr
+		print("query destiantaion address...")
+		self.fetchSJAddress(params: params)
+	}
     
     //MARK:- request server
+	///shou jidan di zhi
+	func fetchSJAddress(params: Parameters?){
+	  self.showLoading(msg: "匹配地址信息...")
+	  STHelper.FetchAddress(params: params) {
+		  [unowned self] (result, dataAry) in
+		  self.hideLoading()
+		  if(result == .reqSucc){
+			  if let data = dataAry as? Array<Dictionary<String,Any>>,let areaName = data.first?["areaName"] as? String{
+				  self.destAdrField.text = areaName
+			  }
+		  }
+	  }
+	}
+		
+	//query jijian province city district
+	  func fetchAddressInfo(model: AdrModel, view: UIButton, key: AdrKey, block: ((Bool) -> Void)?){
+		  self.view.endEditing(true)
+		  self.showLoading(msg: "数据加载中...")
+		  let req = AddressReq(adrModel: model)
+		  STNetworking<[AdrModel]>(stRequest: req) {
+			  [unowned self](resp) in
+			  self.hideLoading()
+			  if resp.stauts == Status.Success.rawValue{
+				  let adrs = resp.data
+				  print("adrs array: \(adrs)")
+				  block?(true)
+				  self.showAdrActSheet(key: key, adrs: adrs, view: view)
+			  }else if resp.stauts == Status.NetworkTimeout.rawValue{
+				  self.remindUser(msg: "网络超时，请稍后尝试")
+			  }else{
+				  let msg = resp.msg
+				  self.remindUser(msg: msg)
+			  }
+			  }?.resume()
+		  
+	}
+	
 	//app获取电子面单接口
 	func requestBillNum(){
 		self.showLoading(msg: "查询中...")

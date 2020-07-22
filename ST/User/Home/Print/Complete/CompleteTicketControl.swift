@@ -989,7 +989,8 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 			}
 		}
 	}
-//
+	
+
 //
 //    let url = "http://58.215.182.249:8015/SuTongSeperatesInterface/queryAddressDetailByAddress"
 //    Alamofire.request(url, method: .post, parameters: params ).responseJSON {
