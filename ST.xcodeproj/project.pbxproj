@@ -2543,7 +2543,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2622,7 +2622,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
