@@ -986,11 +986,14 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		if(result == .reqSucc){
 			if let data = dataAry as? Array<Dictionary<String,Any>>,let areaName = data.first?["areaName"] as? String{
 				self.destSiteField.text = areaName
+				self.paiSiteField.text = areaName
 			}
 		}
 	}
 	
 
+	
+	
 //
 //    let url = "http://58.215.182.249:8015/SuTongSeperatesInterface/queryAddressDetailByAddress"
 //    Alamofire.request(url, method: .post, parameters: params ).responseJSON {
