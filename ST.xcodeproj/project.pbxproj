@@ -2584,6 +2584,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
+				PRODUCT_MODULE_NAME = ST;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2663,6 +2664,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
+				PRODUCT_MODULE_NAME = ST;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ST/ST-Bridging-Header.h";
