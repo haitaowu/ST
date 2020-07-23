@@ -65,6 +65,27 @@ class STHelper: NSObject {
     }
 	
 	
+	///地址匹配
+	static func FetchAddress(params: Parameters?, block: @escaping ReqResBlock){
+		let url = "http://58.215.182.249:8015/SuTongSeperatesInterface/queryAddressDetailByAddress"
+		Alamofire.request(url, method: .post, parameters: params ).responseJSON {
+		  response in
+		  if let json = response.result.value as? NSDictionary{
+			if let stauts = json.value(forKey: "success"),let statusNum = stauts as? Int{
+			  if statusNum == 1,let data = json.value(forKey: "data") as? Array<Dictionary<String,Any>> {
+				block(.reqSucc,data)
+			  }else{
+				block(.reqFail,"没有查询到结果")
+			  }
+			}else{
+			  block(.reqFail,"没有查询到结果")
+			}
+		  }else{
+			block(.reqFail,"没有查询到结果")
+		  }
+		}
+		
+	}
 	
 }
 
