@@ -186,7 +186,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		
 		self.sendDateField.text = Date().dateStringFrom(dateFormat: "yyyy-MM-dd hh:mm:ss")
 		self.sendSiteField.text = DataManager.shared.loginUser.siteName
-		fetchBillBtn.addCorner(radius: 5, color: UIColor.red, borderWidth: 1)
+		fetchBillBtn.addCorner(radius: 5, color: UIColor.appBlue, borderWidth: 1)
 		self.tableView.register(MenuRSHeader.headerNib(), forHeaderFooterViewReuseIdentifier: MenuRSHeader.headerID())
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style:.plain, target: self, action: #selector(CompleteTicketControl.saveBill))
 		
@@ -270,7 +270,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		}, origin: self.view)
 	}
 	
-	
+  //MARK: -  SELECTORS
 	@IBAction func wangdianBtnClicked(_ sender: Any) {
 		self.showWangdianPicker()
 	}
@@ -452,8 +452,36 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
       }, cancel: {(picker) in
     }, origin: self.view)
   }
+  
+	///shou jian dizhi
+	@IBAction func queryDestAdr(_ sender: Any) {
+		var params: Parameters = [:]
+		guard let province = self.recePronvinBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件省")
+			return
+		}
+		guard let city = self.receCityBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件市")
+			return
+		}
+		guard let district = self.receDistBtn.titleLabel?.text else{
+			self.remindUser(msg: "请选择收件区")
+			return
+		}
+		
+		let address = self.receAdrDetail.text!
+		guard address.isEmpty != true else{
+			self.remindUser(msg: "请输入收件地址")
+			return
+		}
+		
+		let addrStr = province + city + district + address
+		params["address"] = addrStr
+		print("query destiantaion address...")
+		self.fetchSJAddress(params: params)
+	}
 	
-	
+  
 	
 	//MARK:- WangdianPickerInterface
 	func onWangdianPicked(item:SiteInfo){
@@ -949,6 +977,50 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 	
 	
 	//MARK:- request server
+	///shou jidan di zhi
+  func fetchSJAddress(params: Parameters?){
+    self.showLoading(msg: "匹配地址信息...")
+	STHelper.FetchAddress(params: params) {
+		[unowned self] (result, dataAry) in
+		self.hideLoading()
+		if(result == .reqSucc){
+			if let data = dataAry as? Array<Dictionary<String,Any>>,let areaName = data.first?["areaName"] as? String{
+				self.destSiteField.text = areaName
+				self.paiSiteField.text = areaName
+			}
+		}
+	}
+	
+
+	
+	
+//
+//    let url = "http://58.215.182.249:8015/SuTongSeperatesInterface/queryAddressDetailByAddress"
+//    Alamofire.request(url, method: .post, parameters: params ).responseJSON {
+//      [unowned self] response in
+//      if let json = response.result.value as? NSDictionary{
+//        if let stauts = json.value(forKey: "success"),let statusNum = stauts as? Int{
+//          if statusNum == 1{
+//            guard let data = json.value(forKey: "data") as? Array<Dictionary<String,Any>> else {
+//              return
+//            }
+//            if let areaName = data.first?["areaName"] as? String{
+//              self.destSiteField.text = areaName
+//            }
+//          }else{
+//          }
+//        }else{
+//
+//        }
+//      }else{
+//
+//      }
+//    }
+//
+    
+  }
+  
+	
 	//提交录单数据
 	func submitBillInfoWith(jsonString: String) {
 		self.view.endEditing(true)
@@ -988,7 +1060,6 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 			}
 		}?.resume()
 	}
-	
 	
 	
 	

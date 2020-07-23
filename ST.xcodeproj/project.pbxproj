@@ -687,7 +687,7 @@
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
-		BEA67F05245D875E00A9099C /* CompleteTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteTicketControl.swift; sourceTree = "<group>"; };
+		BEA67F05245D875E00A9099C /* CompleteTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CompleteTicketControl.swift; sourceTree = "<group>"; tabWidth = 4; };
 		BEA67F1B245D878700A9099C /* PrintMenuItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuItem.xib; sourceTree = "<group>"; };
 		BEA67F1C245D878700A9099C /* PrintMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuController.xib; sourceTree = "<group>"; };
 		BEA67F1D245D878700A9099C /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
@@ -2543,7 +2543,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2622,7 +2622,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
