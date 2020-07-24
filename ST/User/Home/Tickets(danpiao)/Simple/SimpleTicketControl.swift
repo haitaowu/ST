@@ -74,7 +74,7 @@ class SimpleTicketControl:UITableViewController,UITextFieldDelegate,QrInterface,
     }
     
     func showConnPrinterView() -> Void {
-        let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
+        let connViewControl = TicketPrintPreController(nibName: "TicketPrintPreController", bundle: nil)
         let billCode = self.billNumField.text!
         connViewControl.billSN = billCode;
         self.navigationController?.pushViewController(connViewControl, animated: true);

@@ -1,5 +1,5 @@
 //
-//  PrinterPreviewController.h
+//  TicketPrintPreController.h
 //  BTDemo
 //
 //  Created by ligl on 15-07-21.
@@ -10,11 +10,14 @@
 
 
 
-@interface PrinterPreviewController : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface TicketPrintPreController : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *deviceListTableView;
+
 - (void) stopScanPeripheral;
+
 @property(nonatomic,strong) id billInfo;
 @property(nonatomic,copy) NSString *billSN;
+
 
 @end

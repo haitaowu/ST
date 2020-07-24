@@ -4,7 +4,7 @@
 
 #import <CommonCrypto/CommonCrypto.h>
 #import "CustomTextView.h"
-#import "PrinterPreviewController.h"
+#import "TicketPrintPreController.h"
 #import "MasterBillPrinter.h"
 #import "DeliverBillPrinterController.h"
 #import "UIScrollView+EmptyDataSet.h"

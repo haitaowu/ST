@@ -1,11 +1,11 @@
 //
-//  PrinterPreviewController.m
+//  TicketPrintPreController.m
 //  BTDemo
 //
 //  Created by ligl on 15-07-21.
 //
 
-#import "PrinterPreviewController.h"
+#import "TicketPrintPreController.h"
 #import "SPRTPrint.h"
 #import "UIImage+Extension.h"
 #import "SVProgressHUD.h"
@@ -53,7 +53,7 @@ int cjFlag=1;
 
 
 
-@interface PrinterPreviewController ()
+@interface TicketPrintPreController ()
 
 @property(strong,nonatomic)CBCentralManager *centralManager;
 @property(strong,nonatomic)CBPeripheral *selectedPeripheral;
@@ -69,7 +69,7 @@ int cjFlag=1;
 
 @end
 
-@implementation PrinterPreviewController
+@implementation TicketPrintPreController
 
 
 - (void)viewDidLoad

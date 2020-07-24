@@ -115,7 +115,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
 //		]
 //		self.billInfo = info
 		
-        let connViewControl = PrinterPreviewController(nibName: "PrinterPreviewController", bundle: nil)
+        let connViewControl = TicketPrintPreController(nibName: "TicketPrintPreController", bundle: nil)
         connViewControl.billInfo = self.billInfo;
 		
 		

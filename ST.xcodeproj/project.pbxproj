@@ -301,8 +301,6 @@
 		BEB5AEB124CA75BE00A91E8B /* CompleteTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEA924CA75BE00A91E8B /* CompleteTicketControl.swift */; };
 		BEB5AEB224CA75BE00A91E8B /* SimpleTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEAB24CA75BE00A91E8B /* SimpleTicketControl.swift */; };
 		BEB5AEB324CA75BE00A91E8B /* HTDashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEAC24CA75BE00A91E8B /* HTDashView.swift */; };
-		BEB5AEB424CA75BE00A91E8B /* PrinterPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEAE24CA75BE00A91E8B /* PrinterPreviewController.m */; };
-		BEB5AEB524CA75BE00A91E8B /* PrinterPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AEAF24CA75BE00A91E8B /* PrinterPreviewController.xib */; };
 		BEB5AEC924CA75F600A91E8B /* BluetoothListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AEB824CA75F600A91E8B /* BluetoothListController.xib */; };
 		BEB5AECA24CA75F600A91E8B /* BluetoothListController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEBA24CA75F600A91E8B /* BluetoothListController.m */; };
 		BEB5AECB24CA75F600A91E8B /* SPRTPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEBD24CA75F600A91E8B /* SPRTPrint.m */; };
@@ -311,6 +309,8 @@
 		BEB5AED024CA7A0C00A91E8B /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AECF24CA7A0C00A91E8B /* PrintModels.swift */; };
 		BEB5AED624CA7A6100A91E8B /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AED224CA7A6100A91E8B /* NSDate+Category.m */; };
 		BEB5AED724CA7A6100A91E8B /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AED324CA7A6100A91E8B /* UIImage+Extension.m */; };
+		BEB5AEDB24CA7B6600A91E8B /* TicketPrintPreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AED824CA7B6600A91E8B /* TicketPrintPreController.m */; };
+		BEB5AEDC24CA7B6600A91E8B /* TicketPrintPreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AED924CA7B6600A91E8B /* TicketPrintPreController.xib */; };
 		BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5E6912333678F0087CD0B /* DriverModel.swift */; };
 		BEC8B44122BCF9720095C045 /* TinyConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43B22BCF9720095C045 /* TinyConsole.swift */; };
 		BEC8B44222BCF9720095C045 /* TinyConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43C22BCF9720095C045 /* TinyConsoleViewController.swift */; };
@@ -681,9 +681,6 @@
 		BEB5AEA924CA75BE00A91E8B /* CompleteTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteTicketControl.swift; sourceTree = "<group>"; };
 		BEB5AEAB24CA75BE00A91E8B /* SimpleTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTicketControl.swift; sourceTree = "<group>"; };
 		BEB5AEAC24CA75BE00A91E8B /* HTDashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTDashView.swift; sourceTree = "<group>"; };
-		BEB5AEAE24CA75BE00A91E8B /* PrinterPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterPreviewController.m; sourceTree = "<group>"; };
-		BEB5AEAF24CA75BE00A91E8B /* PrinterPreviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrinterPreviewController.xib; sourceTree = "<group>"; };
-		BEB5AEB024CA75BE00A91E8B /* PrinterPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterPreviewController.h; sourceTree = "<group>"; };
 		BEB5AEB824CA75F600A91E8B /* BluetoothListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothListController.xib; sourceTree = "<group>"; };
 		BEB5AEB924CA75F600A91E8B /* BluetoothListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothListController.h; sourceTree = "<group>"; };
 		BEB5AEBA24CA75F600A91E8B /* BluetoothListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothListController.m; sourceTree = "<group>"; };
@@ -703,6 +700,9 @@
 		BEB5AED324CA7A6100A91E8B /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		BEB5AED424CA7A6100A91E8B /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
 		BEB5AED524CA7A6100A91E8B /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		BEB5AED824CA7B6600A91E8B /* TicketPrintPreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketPrintPreController.m; sourceTree = "<group>"; };
+		BEB5AED924CA7B6600A91E8B /* TicketPrintPreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketPrintPreController.xib; sourceTree = "<group>"; };
+		BEB5AEDA24CA7B6600A91E8B /* TicketPrintPreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketPrintPreController.h; sourceTree = "<group>"; };
 		BEC5E6912333678F0087CD0B /* DriverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		BEC8B43B22BCF9720095C045 /* TinyConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsole.swift; sourceTree = "<group>"; };
 		BEC8B43C22BCF9720095C045 /* TinyConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsoleViewController.swift; sourceTree = "<group>"; };
@@ -1773,9 +1773,9 @@
 		BEB5AEAD24CA75BE00A91E8B /* TickPrinterPreview */ = {
 			isa = PBXGroup;
 			children = (
-				BEB5AEAE24CA75BE00A91E8B /* PrinterPreviewController.m */,
-				BEB5AEAF24CA75BE00A91E8B /* PrinterPreviewController.xib */,
-				BEB5AEB024CA75BE00A91E8B /* PrinterPreviewController.h */,
+				BEB5AEDA24CA7B6600A91E8B /* TicketPrintPreController.h */,
+				BEB5AED824CA7B6600A91E8B /* TicketPrintPreController.m */,
+				BEB5AED924CA7B6600A91E8B /* TicketPrintPreController.xib */,
 			);
 			path = TickPrinterPreview;
 			sourceTree = "<group>";
@@ -2089,7 +2089,6 @@
 				899BD36C1DC0FB8B000C6687 /* MessageViewController.xib in Resources */,
 				BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */,
 				BE38BD3B228C0B770007B6E0 /* ProfileLineInfoView.xib in Resources */,
-				BEB5AEB524CA75BE00A91E8B /* PrinterPreviewController.xib in Resources */,
 				BE38BD40228C0B770007B6E0 /* FajianSaomiaoViewController.xib in Resources */,
 				893497BB1DDACC5D00A505AF /* XiugaimimaViewController.xib in Resources */,
 				BEB5AEA224CA75B700A91E8B /* MenuRSHeader.xib in Resources */,
@@ -2102,6 +2101,7 @@
 				BEB5AEA124CA75B700A91E8B /* PrintMenuController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
 				BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */,
+				BEB5AEDC24CA7B6600A91E8B /* TicketPrintPreController.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
 				BEB5AE9F24CA75B700A91E8B /* MasterBillPrinter.xib in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
@@ -2342,6 +2342,7 @@
 				BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */,
 				89F61E371DCE1D850065C9CA /* DataManager.swift in Sources */,
 				BE17CD2722AFBEB6006D9EF0 /* BaseCell.swift in Sources */,
+				BEB5AEDB24CA7B6600A91E8B /* TicketPrintPreController.m in Sources */,
 				BE623A9F23BC553B009A1A20 /* DriDamQueryResController.swift in Sources */,
 				BE3DFA542330B4260032527E /* Dictionary+Extension.swift in Sources */,
 				BE38BD5F228C0BAF0007B6E0 /* WangdianPickerViewController.swift in Sources */,
@@ -2361,7 +2362,6 @@
 				892583C71DC8DA9700285DB5 /* ConstraintMakerFinalizable.swift in Sources */,
 				BE0FC4ED22BF404800271FED /* JXPhotoBrowserProgressView.swift in Sources */,
 				892583CF1DC8DA9700285DB5 /* ConstraintView+Extensions.swift in Sources */,
-				BEB5AEB424CA75BE00A91E8B /* PrinterPreviewController.m in Sources */,
 				BE0FC50022BF404800271FED /* JXPhotoBrowserBaseCell.swift in Sources */,
 				899BD37A1DC0FCAF000C6687 /* StackView.swift in Sources */,
 				89F61E351DCE1C1F0065C9CA /* City.swift in Sources */,
