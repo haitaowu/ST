@@ -124,10 +124,12 @@ class SubBillQueryController:UITableViewController,QrInterface {
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
+	
     @IBAction func scanBtnClicked(_ sender: Any) {
         self.openQrReader()
     }
     
+	
     //点击查询运单详情按钮
     @IBAction func tapQuery(_ sender: Any) {
         self.view .endEditing(true)
