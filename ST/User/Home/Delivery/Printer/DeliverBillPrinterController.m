@@ -432,13 +432,16 @@
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//accept man
+	NSString *rAcceptMan = [self strValueOf:self.billInfo key:kAcceptMan];
 	//phone
 	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
-	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
 	int rAdrW = rPhoneW;
@@ -636,13 +639,18 @@
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//accept man
+	NSString *rAcceptMan = [self strValueOf:self.billInfo key:kAcceptMan];
 	//phone
 	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
+	//phone
+//	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
-	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];;
 	int rAdrW = rPhoneW;
