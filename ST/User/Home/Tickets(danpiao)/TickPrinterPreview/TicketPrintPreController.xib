@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="connState" destination="DR9-bY-hTx" id="04G-RN-TVu"/>
                 <outlet property="connStateBtn" destination="CGW-yk-9Iu" id="fNi-yt-csB"/>
+                <outlet property="pagePicker" destination="G2Z-D6-r3k" id="DmF-WX-4Qn"/>
                 <outlet property="printBtn" destination="D51-6o-YF2" id="1rS-lW-PCf"/>
                 <outlet property="reloadBtn" destination="2si-4r-4Fx" id="Rl4-fZ-qt4"/>
                 <outlet property="view" destination="iN0-l3-epB" id="uWZ-K9-Wbj"/>
@@ -62,9 +63,40 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="起始页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoS-Nk-XPR">
+                    <rect key="frame" x="59" y="528.5" width="52" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2Z-D6-r3k">
+                    <rect key="frame" x="111" y="431" width="153" height="216"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="153" id="E3I-vJ-4uP"/>
+                        <constraint firstAttribute="height" constant="216" id="RZ0-Gd-BgH"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="eeo-Nd-k17"/>
+                        <outlet property="delegate" destination="-1" id="w42-CG-vj7"/>
+                    </connections>
+                </pickerView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结束页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2E-Fh-aWq">
+                    <rect key="frame" x="264" y="528.5" width="52" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <point key="canvasLocation" x="140" y="153"/>
+            <constraints>
+                <constraint firstItem="G2Z-D6-r3k" firstAttribute="leading" secondItem="XoS-Nk-XPR" secondAttribute="trailing" id="IsM-N5-f0y"/>
+                <constraint firstItem="X2E-Fh-aWq" firstAttribute="centerY" secondItem="G2Z-D6-r3k" secondAttribute="centerY" id="LkJ-SO-8xd"/>
+                <constraint firstItem="G2Z-D6-r3k" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UBb-Wh-bR6"/>
+                <constraint firstAttribute="bottom" secondItem="G2Z-D6-r3k" secondAttribute="bottom" constant="20" id="e7K-Rc-6dQ"/>
+                <constraint firstItem="XoS-Nk-XPR" firstAttribute="centerY" secondItem="G2Z-D6-r3k" secondAttribute="centerY" id="euL-fG-cQw"/>
+                <constraint firstItem="X2E-Fh-aWq" firstAttribute="leading" secondItem="G2Z-D6-r3k" secondAttribute="trailing" id="oEt-ap-95m"/>
+            </constraints>
+            <point key="canvasLocation" x="140" y="152.47376311844079"/>
         </view>
     </objects>
 </document>

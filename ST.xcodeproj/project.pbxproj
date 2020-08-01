@@ -217,6 +217,8 @@
 		BE4D0FF82373B46B00B7BA17 /* RecViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D0FF72373B46B00B7BA17 /* RecViewModel.swift */; };
 		BE57CD6224BCAD5F00386DE2 /* DeliverBillPrinterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE57CD5D24BCAD5F00386DE2 /* DeliverBillPrinterController.xib */; };
 		BE57CD6424BCAD5F00386DE2 /* DeliverBillPrinterController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */; };
+		BE593B9324CAD69500855D20 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE593B9224CAD69500855D20 /* BMKLocationKit.framework */; };
+		BE593B9624CAD78900855D20 /* PrinterSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE593B9524CAD78900855D20 /* PrinterSDK.framework */; };
 		BE5ACCC322EC1145003A46BB /* OptRecSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */; };
 		BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */; };
 		BE5ACCC722EC18CC003A46BB /* OptRecMultipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */; };
@@ -237,7 +239,6 @@
 		BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */; };
 		BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */; };
 		BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */; };
-		BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */; };
 		BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAC232DD6640076DB33 /* UserModel.swift */; };
 		BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */; };
 		BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */; };
@@ -597,6 +598,8 @@
 		BE57CD5D24BCAD5F00386DE2 /* DeliverBillPrinterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliverBillPrinterController.xib; sourceTree = "<group>"; };
 		BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliverBillPrinterController.m; sourceTree = "<group>"; };
 		BE57CD6124BCAD5F00386DE2 /* DeliverBillPrinterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliverBillPrinterController.h; sourceTree = "<group>"; };
+		BE593B9224CAD69500855D20 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
+		BE593B9524CAD78900855D20 /* PrinterSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrinterSDK.framework; sourceTree = "<group>"; };
 		BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecSingleCell.swift; sourceTree = "<group>"; };
 		BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecSingleCell.xib; sourceTree = "<group>"; };
 		BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecMultipCell.swift; sourceTree = "<group>"; };
@@ -617,7 +620,6 @@
 		BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryController.xib; sourceTree = "<group>"; };
 		BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryCell.xib; sourceTree = "<group>"; };
 		BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavQueryCell.swift; sourceTree = "<group>"; };
-		BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BE6B5CAC232DD6640076DB33 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdResetSuccController.swift; sourceTree = "<group>"; };
 		BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdResetSuccController.xib; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */,
 				BEE777A323AB48E8002E6828 /* MobileCoreServices.framework in Frameworks */,
 				BEE777A123AB48C7002E6828 /* CoreTelephony.framework in Frameworks */,
+				BE593B9324CAD69500855D20 /* BMKLocationKit.framework in Frameworks */,
 				BEE7779F23AB48A2002E6828 /* CoreMotion.framework in Frameworks */,
 				8968B34F1DBF4F2100F0606D /* libsqlite3.0.tbd in Frameworks */,
 				BEE7778523AB23E3002E6828 /* CoreLocation.framework in Frameworks */,
@@ -773,12 +776,12 @@
 				BEE7778123AB23CA002E6828 /* MediaPlayer.framework in Frameworks */,
 				BEE7777F23AB23C3002E6828 /* UserNotifications.framework in Frameworks */,
 				BEE7777D23AB23BD002E6828 /* libiconv.tbd in Frameworks */,
+				BE593B9624CAD78900855D20 /* PrinterSDK.framework in Frameworks */,
 				BEB5AECC24CA75F600A91E8B /* GSDK.a in Frameworks */,
 				BEE7777B23AB23B5002E6828 /* AssetsLibrary.framework in Frameworks */,
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
 				BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */,
 				BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */,
-				BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */,
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
@@ -1376,8 +1379,8 @@
 		BE38BD61228C0CE20007B6E0 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				BE593B9224CAD69500855D20 /* BMKLocationKit.framework */,
 				BEB5AEB624CA75F600A91E8B /* PrinterLibs */,
-				BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */,
 				BE0FC4C622BF404800271FED /* JXPhotoBrowser */,
 				BEC8B43A22BCF9720095C045 /* TinyConsole */,
 				893497C61DDACE8800A505AF /* Webview */,
@@ -1425,6 +1428,14 @@
 				BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */,
 			);
 			path = Printer;
+			sourceTree = "<group>";
+		};
+		BE593B9424CAD78900855D20 /* HPrinterLib */ = {
+			isa = PBXGroup;
+			children = (
+				BE593B9524CAD78900855D20 /* PrinterSDK.framework */,
+			);
+			path = HPrinterLib;
 			sourceTree = "<group>";
 		};
 		BE5FD57B23729F79004CF114 /* Announce */ = {
@@ -1783,6 +1794,7 @@
 		BEB5AEB624CA75F600A91E8B /* PrinterLibs */ = {
 			isa = PBXGroup;
 			children = (
+				BE593B9424CAD78900855D20 /* HPrinterLib */,
 				BEB5AEB724CA75F600A91E8B /* PrinterHelper */,
 				BEB5AEBB24CA75F600A91E8B /* SPrinterLib */,
 				BEB5AEBE24CA75F600A91E8B /* GPrinterLib */,
@@ -2573,6 +2585,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/HPrinterLib",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2654,6 +2667,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/HPrinterLib",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;

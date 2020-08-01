@@ -9,10 +9,12 @@
 #import "BluetoothListController.h"
 #import "SPRTPrint.h"
 #import "SVProgressHUD.h"
-#import "ST-Swift.h"
+//#import "ST-Swift.h"
+#import <PrinterSDK/PrinterSDK.h>
 
 
 
+#define BleManager  [PTDispatcher share]
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -34,6 +36,7 @@ static NSString *const kServiceUUID = @"ff00";
 
 @implementation BluetoothListController
 
+
 #pragma mark - lazy properties
 -(NSMutableArray *)devices {
     if (!_devices) {
@@ -54,11 +57,27 @@ static NSString *const kServiceUUID = @"ff00";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"蓝牙列表";
-	
+}
+
+/**
+ *开始查询蓝牙peripheral
+ */
+- (void)startToFindBle{
+	[BleManager scanBluetooth];
+	__weak typeof(self) weakSelf = self;
+	[BleManager whenFindAllBluetooth:^(NSMutableArray<PTPrinter *> *blesAry) {
+		weakSelf.devices = blesAry;
+		[weakSelf.tableView reloadData];
+	}];
 }
 
 
+
 -(void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+//	[self startToFindBle];
+	
+	
     if (Manager.bleConnecter == nil) {
         [Manager didUpdateState:^(NSInteger state) {
             switch (state) {
@@ -88,7 +107,9 @@ static NSString *const kServiceUUID = @"ff00";
 
 -(void)viewDidDisappear:(BOOL)animated{
     [Manager stopScan];
+	[BleManager stopScanBluetooth];
 }
+
 
 
 #pragma mark - bluetooth
@@ -130,14 +151,15 @@ static NSString *const kServiceUUID = @"ff00";
 	if([self isSPrinter:peripheral] == NO){
 		return ;
 	}
+	
 	activeDevice = peripheral;
 	peripheral.delegate = self;
 	[peripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID]]];
-    
     // qzfeng begin 2016/05/10
     [peripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID_cj]]];
 
 }
+
 
 /// is sprinter printer???
 - (BOOL)isSPrinter:(CBPeripheral*)peripheral
@@ -175,6 +197,10 @@ static NSString *const kServiceUUID = @"ff00";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
+//    cell.textLabel.text = peripheral.name;
+//	PTPrinter *printer = self.devices[indexPath.row];
+//	CBPeripheral *peripheral = printer.peripheral;
+	
     cell.textLabel.text = peripheral.name;
     cell.detailTextLabel.text = peripheral.identifier.UUIDString;
     return cell;
@@ -183,6 +209,7 @@ static NSString *const kServiceUUID = @"ff00";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
 	CBPeripheral *selPeripheral = Manager.bleConnecter.connPeripheral;
     int waitSecs = 0;
     if (selPeripheral != nil) {
@@ -191,10 +218,12 @@ static NSString *const kServiceUUID = @"ff00";
     }
     [SVProgressHUD show];
     
+	//	PTPrinter *printer = self.devices[indexPath.row];
+	//	CBPeripheral *peripheral = printer.peripheral;
+	
     CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(waitSecs * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self connectDevice:peripheral];
-        
     });
 }
 

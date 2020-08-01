@@ -53,7 +53,7 @@ int cjFlag=1;
 
 
 
-@interface TicketPrintPreController ()
+@interface TicketPrintPreController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property(strong,nonatomic)CBCentralManager *centralManager;
 @property(strong,nonatomic)CBPeripheral *selectedPeripheral;
@@ -65,6 +65,10 @@ int cjFlag=1;
 @property(nonatomic,strong) NSArray *billCodes;
 @property(nonatomic,assign) PrinterType printerType;
 @property (weak, nonatomic) IBOutlet UILabel *connState;
+@property (weak, nonatomic) IBOutlet UIPickerView *pagePicker;
+@property(nonatomic,strong) NSMutableArray *pagesAry;
+@property(nonatomic,strong) NSArray *endPagesAry;
+@property(nonatomic,assign) NSRange pageRange;
 
 
 @end
@@ -76,6 +80,14 @@ int cjFlag=1;
 {
     [super viewDidLoad];
   self.title = @"打印";
+    int num = [[self.billInfo objectForKey:@"pieceNumber"] intValue];
+    self.pagesAry = [NSMutableArray arrayWithCapacity:num];
+    for(int idx = 0 ; idx < num ; idx++){
+        int row = idx + 1;
+        [self.pagesAry addObject:@(row)];
+    }
+    [self.pagePicker reloadAllComponents];
+	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
 	cmd=0;
 	mtu = 20;
 	credit = 0;
@@ -130,9 +142,11 @@ int cjFlag=1;
     if (self.centralManager.isScanning == YES) {
         return;
     }
+	/*
     [self.centralManager scanForPeripheralsWithServices:nil options:nil];
     [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
     [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
+	 */
 }
 
 - (void) stopScanPeripheral
@@ -202,13 +216,13 @@ int cjFlag=1;
   [self.navigationController pushViewController:listControl animated:YES];
 	
 	
-	return;
-    if (self.managerState == CBManagerStatePoweredOn) {
-        [self startScanConnectPrinter];
-        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
-    }else{
-        NSLog(@"打印机当前状态不可用");
-    }
+//	return;
+//    if (self.managerState == CBManagerStatePoweredOn) {
+//        [self startScanConnectPrinter];
+//        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
+//    }else{
+//        NSLog(@"打印机当前状态不可用");
+//    }
 }
 
 
@@ -227,13 +241,14 @@ int cjFlag=1;
 	
 	
 	return;
-	
+	/*
     if (self.billInfo != nil) {
         [self startSPrintByBillInfo:self.billInfo];
         self.thread = NULL;
     }else{
         [SVProgressHUD showInfoWithStatus:@"请重新加载运单数据"];
     }
+	 */
 }
 
 #pragma mark - private methods
@@ -268,16 +283,18 @@ int cjFlag=1;
 {
 	NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
 	NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
+	NSInteger startPage = [self.pagePicker selectedRowInComponent:0];
+	NSInteger startNum = [self.pagesAry[startPage] integerValue];
+	NSInteger endPage = [self.pagePicker selectedRowInComponent:1];
+	NSInteger ednNum = [self.endPagesAry[endPage] integerValue];
+	
 	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
 	if ([subCodesArra count] > 0) {
-		for (int idx = 0; idx < [subCodesArra count]; idx++) {
-			NSString *subCode = [subCodesArra objectAtIndex:idx];
-//			int64_t seconds = idx * 2;
-//			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
-				NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
-				[Manager write:printData];
-//			});
+		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
+			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",idx,piecesNum];
+			NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+			[Manager write:printData];
 		}
 	}else{
 		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
@@ -295,42 +312,22 @@ int cjFlag=1;
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
 	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	NSInteger startPage = [self.pagePicker selectedRowInComponent:0];
+	NSInteger startNum = [self.pagesAry[startPage] integerValue];
+	NSInteger endPage = [self.pagePicker selectedRowInComponent:1];
+	NSInteger ednNum = [self.endPagesAry[endPage] integerValue];
+	
 	if ([subCodesArra count] > 0) {
-		for (int idx = 0; idx < [subCodesArra count]; idx++) {
-			NSString *subCode = [subCodesArra objectAtIndex:idx];
-			int64_t seconds = idx * 2;
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(idx+1),piecesNum];
-				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-			});
+		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
+			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
+			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",idx,piecesNum];
+			[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
 		}
 	}else{
 		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
 		NSString *subCode = @"";
 		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
 	}
-	
-	
-//	if ([subCodesArra count] > 0) {
-//		for(int index = 0; index < maxIndex ; index ++){
-//			int64_t seconds = index * 2;
-//			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//				NSString *subCode = nil;
-//				if (index > (subCodesArra.count - 1)) {
-//					subCode = [subCodesArra firstObject];
-//				}else{
-//					subCode = [subCodesArra objectAtIndex:index];
-//				}
-//				NSString *indexStr = [NSString stringWithFormat:@"%d/%@",(index+2),piecesNum];
-//				[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-//			});
-//		}
-//	}else{
-//		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
-//		NSString *subCode = @"";
-//		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-//	}
-	
 }
 
 
@@ -825,11 +822,6 @@ int cjFlag=1;
 - (NSString*)currentDateStr
 {
 	return [NSDate currentDateStrBy:nil];
-//	
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-//    NSString *todayStr = [formatter stringFromDate:[NSDate date]];
-//    return todayStr;
 }
 
 - (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo
@@ -847,6 +839,47 @@ int cjFlag=1;
         }
     }
     return array;
+}
+
+#pragma mark -  UIPickerViewDataSource,
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (component == 0) {
+        return [self.pagesAry count];
+    }else{
+        NSInteger selectedRow = [pickerView selectedRowInComponent:0];
+        NSInteger loc = selectedRow;
+        NSInteger len = self.pagesAry.count - loc;
+        NSRange range = NSMakeRange(loc, len);
+		self.endPagesAry = [self.pagesAry subarrayWithRange:range];
+		self.pageRange = range;
+        return [self.endPagesAry count];
+    }
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 2;
+}
+
+
+#pragma mark - UIPickerViewDelegate
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if (component == 0) {
+        [pickerView reloadComponent:1];
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+	NSNumber *page;
+	if (component == 0) {
+		page = self.pagesAry[row];
+	}else{
+		page = self.endPagesAry[row];
+	}
+    return [NSString stringWithFormat:@"%@",page];
 }
 
 

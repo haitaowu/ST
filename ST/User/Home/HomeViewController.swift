@@ -51,6 +51,7 @@ class HomeViewController: UIViewController {
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]
+
 		self.gridView.numOfColsPerRow = 3
 		self.gridView.preferRowHeight = UIScreen.main.bounds.width / 3 - 10
 		
