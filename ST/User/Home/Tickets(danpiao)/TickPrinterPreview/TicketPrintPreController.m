@@ -79,15 +79,8 @@ int cjFlag=1;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  self.title = @"打印";
-    int num = [[self.billInfo objectForKey:@"pieceNumber"] intValue];
-    self.pagesAry = [NSMutableArray arrayWithCapacity:num];
-    for(int idx = 0 ; idx < num ; idx++){
-        int row = idx + 1;
-        [self.pagesAry addObject:@(row)];
-    }
-    [self.pagePicker reloadAllComponents];
-	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
+	self.title = @"打印";
+    
 	cmd=0;
 	mtu = 20;
 	credit = 0;
@@ -101,13 +94,14 @@ int cjFlag=1;
         self.reloadBtn.hidden = NO;
         [self reqPrintBillInfo];
     }else{
+		[self reloadPagePickerView];
         self.reloadBtn.hidden = YES;
     }
     
 	
 	
 	return;
-    
+   /*
     self.managerState = CBManagerStateUnknown;
 	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
@@ -115,6 +109,7 @@ int cjFlag=1;
     
     [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
     [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+	*/
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -136,6 +131,18 @@ int cjFlag=1;
 	NSLog(@"viewWill Disappear....");
 }
 
+
+- (void)reloadPagePickerView
+{
+	int num = [[self.billInfo objectForKey:@"pieceNumber"] intValue];
+    self.pagesAry = [NSMutableArray arrayWithCapacity:num];
+    for(int idx = 0 ; idx < num ; idx++){
+        int row = idx + 1;
+        [self.pagesAry addObject:@(row)];
+    }
+    [self.pagePicker reloadAllComponents];
+	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
+}
 
 
 - (void)startScanConnectPrinter{
@@ -292,7 +299,7 @@ int cjFlag=1;
 	if ([subCodesArra count] > 0) {
 		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
-			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",idx,piecesNum];
+			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",(long)idx,piecesNum];
 			NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
 			[Manager write:printData];
 		}
@@ -320,7 +327,7 @@ int cjFlag=1;
 	if ([subCodesArra count] > 0) {
 		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
-			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",idx,piecesNum];
+			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",(long)idx,piecesNum];
 			[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
 		}
 	}else{
@@ -896,8 +903,8 @@ int cjFlag=1;
 #endif
 
 	//测试环境的服务器
+	__weak typeof(self) weakSelf = self;
     NSURL *url = [NSURL URLWithString:urlStr];
-	
     NSMutableURLRequest *mutRequest = [NSMutableURLRequest requestWithURL:url];
     mutRequest.HTTPMethod = @"POST";
 //    NSString *pieceNumber = self.billInfo[@"pieceNumber"];
@@ -925,7 +932,8 @@ int cjFlag=1;
                 if ([billInfos count] > 0) {
                     NSLog(@"billInfo = %@",billInfos);
 //                    self.billCodes = billCodes;
-                    self.billInfo = [billInfos firstObject];
+                    weakSelf.billInfo = [billInfos firstObject];
+					[weakSelf reloadPagePickerView];
                 }
             }
         }

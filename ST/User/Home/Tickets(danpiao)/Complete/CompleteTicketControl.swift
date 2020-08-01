@@ -177,6 +177,8 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 			view.setupDashLine()
 		}
 		
+		self.payMoneyField.isEnabled = false
+		
 		self.billNumField.tag = billFieldTag
 		self.billNumField.delegate = self
 		self.jinE.delegate = self
@@ -447,10 +449,17 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
     ActionSheetStringPicker.show(withTitle: "支付类型", rows: types, initialSelection: 0, doneBlock: {
       [unowned self] (picker, index, vals) in
       if let typeStr = vals as? String{
+		if typeStr.contains("到付") {
+			self.payMoneyField.isEnabled = true
+		}else{
+			self.payMoneyField.isEnabled = false
+			self.payMoneyField.text = ""
+		}
         self.payTypeField.text = typeStr
       }
       }, cancel: {(picker) in
     }, origin: self.view)
+	
   }
   
 	///shou jian dizhi
