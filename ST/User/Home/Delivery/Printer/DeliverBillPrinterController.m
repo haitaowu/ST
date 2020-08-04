@@ -814,11 +814,13 @@
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
-     NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rAcceptMan = [self strValueOf:self.billInfo key:kAcceptMan];
+	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rTxt];
     
     //address
     NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
@@ -978,11 +980,13 @@
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
+	NSString *rAcceptMan = [self strValueOf:self.billInfo key:kAcceptMan];
      NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rTxt];
     
     //address
     NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];

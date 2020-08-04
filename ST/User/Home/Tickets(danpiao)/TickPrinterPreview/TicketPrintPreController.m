@@ -895,14 +895,14 @@ int cjFlag=1;
 {
     [SVProgressHUD showWithStatus:@"加载运单数据" maskType:SVProgressHUDMaskTypeBlack];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-	//生产环境服务器
 #if DEBUG
+	//测试环境的服务器
 	NSString *urlStr = @"http://58.215.182.252:8610/AndroidServiceSTIOS/m8/qryBillSub.do";
 #else
+	//生产环境服务器
 	NSString *urlStr = @"http://58.215.182.251:5889/AndroidService/m8/qryBillSub.do";
 #endif
 
-	//测试环境的服务器
 	__weak typeof(self) weakSelf = self;
     NSURL *url = [NSURL URLWithString:urlStr];
     NSMutableURLRequest *mutRequest = [NSMutableURLRequest requestWithURL:url];
@@ -916,27 +916,27 @@ int cjFlag=1;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:mutRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 //        id thread = [NSThread currentThread];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-        if (error) {
-            NSLog(@"respose error = %@",error);
-        }else{
-            NSError *jsonError = nil;
-            NSDictionary *respDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
-            if (jsonError) {
-                NSLog(@"jsonError = %@",jsonError);
-            }else{
-                NSLog(@"response dict = %@",respDict);
-                id billInfos = [respDict objectForKey:@"data"];
-                if ([billInfos count] > 0) {
-                    NSLog(@"billInfo = %@",billInfos);
-//                    self.billCodes = billCodes;
-                    weakSelf.billInfo = [billInfos firstObject];
-					[weakSelf reloadPagePickerView];
-                }
-            }
-        }
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[SVProgressHUD dismiss];
+			if (error) {
+				NSLog(@"respose error = %@",error);
+			}else{
+				NSError *jsonError = nil;
+				NSDictionary *respDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+				if (jsonError) {
+					NSLog(@"jsonError = %@",jsonError);
+				}else{
+					NSLog(@"response dict = %@",respDict);
+					id billInfos = [respDict objectForKey:@"data"];
+					if ([billInfos count] > 0) {
+						NSLog(@"billInfo = %@",billInfos);
+						//                    self.billCodes = billCodes;
+						weakSelf.billInfo = [billInfos firstObject];
+						[weakSelf reloadPagePickerView];
+					}
+				}
+			}
+		});
     }];
     
     [dataTask resume];
