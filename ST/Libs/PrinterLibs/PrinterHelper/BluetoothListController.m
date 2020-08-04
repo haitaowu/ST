@@ -14,7 +14,7 @@
 
 
 
-#define BleManager  [PTDispatcher share]
+//#define BleManager  [PTDispatcher share]
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -62,6 +62,7 @@ static NSString *const kServiceUUID = @"ff00";
 /**
  *开始查询蓝牙peripheral
  */
+/*
 - (void)startToFindBle{
 	[BleManager scanBluetooth];
 	__weak typeof(self) weakSelf = self;
@@ -71,12 +72,13 @@ static NSString *const kServiceUUID = @"ff00";
 		[weakSelf.tableView reloadData];
 	}];
 }
+*/
 
 
 
 -(void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	[self startToFindBle];
+//	[self startToFindBle];
 	
     if (Manager.bleConnecter == nil) {
         [Manager didUpdateState:^(NSInteger state) {
@@ -107,7 +109,7 @@ static NSString *const kServiceUUID = @"ff00";
 
 -(void)viewDidDisappear:(BOOL)animated{
     [Manager stopScan];
-	[BleManager stopScanBluetooth];
+//	[BleManager stopScanBluetooth];
 }
 
 
@@ -137,9 +139,9 @@ static NSString *const kServiceUUID = @"ff00";
             NSLog(@"name -> %@",peripheral.name);
             NSUInteger oldCounts = [self.dicts count];
             [self.dicts setObject:peripheral forKey:peripheral.identifier.UUIDString];
-//            if (oldCounts < [self.dicts count]) {
-//                [_tableView reloadData];
-//            }
+            if (oldCounts < [self.dicts count]) {
+                [_tableView reloadData];
+            }
         }
     }];
 }
@@ -190,16 +192,16 @@ static NSString *const kServiceUUID = @"ff00";
 
 #pragma mark - UITableView datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [_devices count];
-//    return [[self.dicts allKeys]count];
+//    return [_devices count];
+    return [[self.dicts allKeys]count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-//    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
+    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
 	
-	PTPrinter *printer = self.devices[indexPath.row];
-	CBPeripheral *peripheral = printer.peripheral;
+//	PTPrinter *printer = self.devices[indexPath.row];
+//	CBPeripheral *peripheral = printer.peripheral;
 	
     cell.textLabel.text = peripheral.name;
     cell.detailTextLabel.text = peripheral.identifier.UUIDString;
@@ -218,10 +220,10 @@ static NSString *const kServiceUUID = @"ff00";
     }
     [SVProgressHUD show];
     
-		PTPrinter *printer = self.devices[indexPath.row];
-		CBPeripheral *peripheral = printer.peripheral;
+//		PTPrinter *printer = self.devices[indexPath.row];
+//		CBPeripheral *peripheral = printer.peripheral;
 	
-//    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
+    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(waitSecs * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self connectDevice:peripheral];
     });
