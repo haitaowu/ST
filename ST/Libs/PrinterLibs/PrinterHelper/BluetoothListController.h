@@ -13,7 +13,8 @@
 typedef enum: NSInteger{
 	NONPRINTER = 21,
 	SPRINTER = 22,
-	GPRINTER = 23
+	GPRINTER = 23,
+	HPRINTER = 24
 } PrinterType;
 
 
@@ -22,6 +23,8 @@ typedef void(^BleConnResultBlock)(ConnectState state,PrinterType type);
 
 
 @interface BluetoothListController : UIViewController
+
+@property(nonatomic,assign)PrinterType printerType;
 
 @property(nonatomic,copy)ConnectDeviceState connectBlock;
 

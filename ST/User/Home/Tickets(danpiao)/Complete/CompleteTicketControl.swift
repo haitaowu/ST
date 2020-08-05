@@ -201,7 +201,6 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 		HTAlertViewPrint.ShowAlertViewWith(printBlock: {[unowned self] in
 			self.showConnPrinterView()
 		}) {
-			
 		}
 	}
 	

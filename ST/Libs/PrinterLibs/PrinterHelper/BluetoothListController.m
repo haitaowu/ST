@@ -9,12 +9,12 @@
 #import "BluetoothListController.h"
 #import "SPRTPrint.h"
 #import "SVProgressHUD.h"
-//#import "ST-Swift.h"
 #import <PrinterSDK/PrinterSDK.h>
 
 
 
-//#define BleManager  [PTDispatcher share]
+
+#define BleManager  [PTDispatcher share]
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -60,63 +60,99 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 /**
- *开始查询蓝牙peripheral
+ *开始搜索蓝牙
  */
-/*
-- (void)startToFindBle{
+- (void)startToScanBlesByType{
+	if(self.printerType == HPRINTER){
+		[self startScanHPrinterBle];
+	}else{
+		if (Manager.bleConnecter == nil) {
+			[Manager didUpdateState:^(NSInteger state) {
+				switch (state) {
+					case CBCentralManagerStateUnsupported:
+						NSLog(@"The platform/hardware doesn't support Bluetooth Low Energy.");
+						break;
+					case CBCentralManagerStateUnauthorized:
+						NSLog(@"The app is not authorized to use Bluetooth Low Energy.");
+						break;
+					case CBCentralManagerStatePoweredOff:
+						NSLog(@"Bluetooth is currently powered off.");
+						break;
+					case CBCentralManagerStatePoweredOn:
+						[self startScanBlues];
+						NSLog(@"Bluetooth power on");
+						break;
+					case CBCentralManagerStateUnknown:
+					default:
+						break;
+				}
+			}];
+		} else {
+			[self startScanBlues];
+		}
+	}
+}
+
+/**
+ *han yin 查询蓝牙
+ */
+- (void)startScanHPrinterBle{
 	[BleManager scanBluetooth];
 	__weak typeof(self) weakSelf = self;
 	[BleManager whenFindAllBluetooth:^(NSMutableArray<PTPrinter *> *blesAry) {
 		NSLog(@"BleManager bluetoothCount -> %ld",blesAry.count);
-		weakSelf.devices = blesAry;
+		NSMutableArray *dataAry = [NSMutableArray array];
+		for (PTPrinter *printer in blesAry) {
+			if ([printer.name containsString:@"HM-"]) {
+				[dataAry addObject:printer];
+			}
+		}
+		weakSelf.devices = dataAry;
 		[weakSelf.tableView reloadData];
 	}];
 }
-*/
 
+
+
+/**
+ *sprinter和jia bo da yin ji
+ */
+-(void)startScanBlues {
+    [Manager scanForPeripheralsWithServices:nil options:nil discover:^(CBPeripheral * _Nullable peripheral, NSDictionary<NSString *,id> * _Nullable advertisementData, NSNumber * _Nullable RSSI) {
+        if (peripheral.name != nil) {
+            NSLog(@"name -> %@",peripheral.name);
+            NSUInteger oldCounts = [self.dicts count];
+			if (([peripheral.name containsString:@"L51 BT"])||([peripheral.name containsString:@"Printer_"])) {
+				[self.dicts setObject:peripheral forKey:peripheral.identifier.UUIDString];
+			}
+            if (oldCounts < [self.dicts count]) {
+                [_tableView reloadData];
+            }
+        }
+    }];
+}
 
 
 -(void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-//	[self startToFindBle];
-	
-    if (Manager.bleConnecter == nil) {
-        [Manager didUpdateState:^(NSInteger state) {
-            switch (state) {
-                case CBCentralManagerStateUnsupported:
-                    NSLog(@"The platform/hardware doesn't support Bluetooth Low Energy.");
-                    break;
-                case CBCentralManagerStateUnauthorized:
-                    NSLog(@"The app is not authorized to use Bluetooth Low Energy.");
-                    break;
-                case CBCentralManagerStatePoweredOff:
-                    NSLog(@"Bluetooth is currently powered off.");
-                    break;
-                case CBCentralManagerStatePoweredOn:
-                    [self startScanBlue];
-                    NSLog(@"Bluetooth power on");
-                    break;
-                case CBCentralManagerStateUnknown:
-                default:
-                    break;
-            }
-        }];
-    } else {
-        [self startScanBlue];
-    }
+	[self startToScanBlesByType];
 }
+
 
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [Manager stopScan];
-//	[BleManager stopScanBluetooth];
+	if (self.printerType == HPRINTER) {
+		[BleManager stopScanBluetooth];
+	}else{
+		[Manager stopScan];
+	}
 }
+
 
 
 
 #pragma mark - bluetooth
 -(void)connectDevice:(CBPeripheral *)peripheral {
-//    [Manager connectPeripheral:peripheral options:nil timeout:2 connectBlack:self.connectBlock];
 	__weak typeof(self) weakSelf = self;
 	NSDictionary *options  = nil;
 	if([self isSPrinter:peripheral]){
@@ -126,11 +162,10 @@ static NSString *const kServiceUUID = @"ff00";
 		if (state == CONNECT_STATE_CONNECTED) {
 			[weakSelf hasConnectedToPeripheral:peripheral];
 		}
-//		weakSelf.connectBlock(state);
-		PrinterType type = [weakSelf printerTypeOf:peripheral];
-		weakSelf.connResultBlock(state, type);
+		weakSelf.connResultBlock(state, _printerType);
 	}];
 }
+
 
 
 -(void)startScanBlue {
@@ -145,6 +180,7 @@ static NSString *const kServiceUUID = @"ff00";
         }
     }];
 }
+
 
 
 #pragma mark - sprinter   peripheral
@@ -166,20 +202,10 @@ static NSString *const kServiceUUID = @"ff00";
 /// is sprinter printer???
 - (BOOL)isSPrinter:(CBPeripheral*)peripheral
 {
-	if ( [self printerTypeOf:peripheral] == SPRINTER ){
+	if ( self.printerType == SPRINTER ){
 		return YES;
 	}else{
 		return NO;
-	}
-}
-
-///printer type
-- (PrinterType)printerTypeOf:(CBPeripheral*)peripheral
-{
-	if ( [peripheral.name isEqualToString:@"L51 BT Printer"] ){
-		return SPRINTER;
-	}else{
-		return GPRINTER;
 	}
 }
 
@@ -192,17 +218,24 @@ static NSString *const kServiceUUID = @"ff00";
 
 #pragma mark - UITableView datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return [_devices count];
-    return [[self.dicts allKeys]count];
+
+	if (self.printerType == HPRINTER) {
+		return [_devices count];
+	}else{
+		return [[self.dicts allKeys]count];
+	}
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
-	
-//	PTPrinter *printer = self.devices[indexPath.row];
-//	CBPeripheral *peripheral = printer.peripheral;
-	
+	CBPeripheral *peripheral;
+	if (self.printerType == HPRINTER) {
+		PTPrinter *printer = self.devices[indexPath.row];
+		peripheral = printer.peripheral;
+	}else{
+		peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
+	}
+
     cell.textLabel.text = peripheral.name;
     cell.detailTextLabel.text = peripheral.identifier.UUIDString;
     return cell;
@@ -211,22 +244,62 @@ static NSString *const kServiceUUID = @"ff00";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	
-	CBPeripheral *selPeripheral = Manager.bleConnecter.connPeripheral;
-    int waitSecs = 0;
-    if (selPeripheral != nil) {
-        [Manager.bleConnecter closePeripheral:selPeripheral];
-        waitSecs = 3;
-    }
-    [SVProgressHUD show];
-    
-//		PTPrinter *printer = self.devices[indexPath.row];
-//		CBPeripheral *peripheral = printer.peripheral;
-	
-    CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(waitSecs * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self connectDevice:peripheral];
-    });
+
+	if (self.printerType == HPRINTER) {
+		PTPrinter *printer = self.devices[indexPath.row];
+		[SVProgressHUD showSuccessWithStatus:@"连接中"];
+		__weak typeof(self) weakSelf = self;
+		[BleManager connectPrinter:printer];
+		[BleManager whenConnectSuccess:^{
+			[SVProgressHUD dismiss];
+			NSLog(@"connect to hm success");
+			ConnectState state = CONNECT_STATE_CONNECTED;
+			weakSelf.connResultBlock(state, _printerType);
+		}];
+		
+		/*
+		NOT_FOUND_DEVICE,//未找到设备
+		   CONNECT_STATE_DISCONNECT,//断开连接
+		   CONNECT_STATE_CONNECTING,//连接中
+		   CONNECT_STATE_CONNECTED,//连接上
+		   CONNECT_STATE_TIMEOUT,//连接超时
+		   CONNECT_STATE_FAILT//连接失败
+		 */
+		
+		[BleManager whenUnconnect:^(NSNumber *number, BOOL isActive) {
+			[SVProgressHUD dismiss];
+			ConnectState state = CONNECT_STATE_DISCONNECT;
+			weakSelf.connResultBlock(state, _printerType);
+		}];
+		
+		[BleManager whenConnectFailureWithErrorBlock:^(PTConnectError error) {
+			[SVProgressHUD dismiss];
+			NSLog(@"connect to hm whenSendFailure:%@",error);
+			ConnectState state;
+			switch (error) {
+				case PTConnectErrorBleTimeout:
+					state = CONNECT_STATE_TIMEOUT;
+					break;
+				default:
+					state = CONNECT_STATE_FAILT;
+					break;
+			}
+			weakSelf.connResultBlock(state, _printerType);
+		}];
+		
+	}else{
+		CBPeripheral *selPeripheral = Manager.bleConnecter.connPeripheral;
+		int waitSecs = 0;
+		if (selPeripheral != nil) {
+			[Manager.bleConnecter closePeripheral:selPeripheral];
+			waitSecs = 3;
+		}
+		[SVProgressHUD show];
+		CBPeripheral *peripheral = [self.dicts objectForKey:[self.dicts allKeys][indexPath.row]];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(waitSecs * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[self connectDevice:peripheral];
+		});
+	}
 }
 
 

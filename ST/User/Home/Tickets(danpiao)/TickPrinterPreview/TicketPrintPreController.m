@@ -12,6 +12,7 @@
 #import "BluetoothListController.h"
 #import "TscCommand.h"
 #import "NSDate+Category.h"
+#import <BRPickerView/BRPickerView.h>
 
 
 //for issc
@@ -209,27 +210,47 @@ int cjFlag=1;
 
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
-	BluetoothListController *listControl = [[BluetoothListController alloc] init];
+	NSArray *dataAry = @[@"斯普瑞特",@"佳博",@"汉印"];
 	__weak typeof(self) weakSelf = self;
-	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
-		if (CONNECT_STATE_CONNECTED == state) {
-			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
-			if (control != weakSelf) {
-				[weakSelf.navigationController popViewControllerAnimated:YES];
-			}
+	[BRStringPickerView showPickerWithTitle:@"" dataSourceArr:dataAry selectIndex:0 resultBlock:^(BRResultModel * _Nullable resultModel) {
+		PrinterType type;
+		switch (resultModel.index) {
+			case 0:
+				type = SPRINTER;
+				break;
+			case 1:
+				type = GPRINTER;
+				break;
+			case 2:
+				type = HPRINTER;
+				break;
+			default:
+				type = SPRINTER;
+				break;
 		}
-		[self updateConnectState:state printerType:type];
-	};
-  [self.navigationController pushViewController:listControl animated:YES];
+		[weakSelf showPrinterListViewBy:type];
+	}];
 	
-	
-//	return;
-//    if (self.managerState == CBManagerStatePoweredOn) {
-//        [self startScanConnectPrinter];
-//        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
-//    }else{
-//        NSLog(@"打印机当前状态不可用");
-//    }
+}
+
+/**
+ *gen ju da yin lei xing ji xuan ze
+ */
+- (void)showPrinterListViewBy:(PrinterType)printerType
+{
+	BluetoothListController *listControl = [[BluetoothListController alloc] init];
+	  __weak typeof(self) weakSelf = self;
+	listControl.printerType = printerType;
+	  listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
+		  if (CONNECT_STATE_CONNECTED == state) {
+			  UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
+			  if (control != weakSelf) {
+				  [weakSelf.navigationController popViewControllerAnimated:YES];
+			  }
+		  }
+		  [self updateConnectState:state printerType:type];
+	  };
+	[self.navigationController pushViewController:listControl animated:YES];
 }
 
 
@@ -241,22 +262,13 @@ int cjFlag=1;
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
 		[self startSPrintByBillInfo:self.billInfo];
-	}else{
+	}else if (self.printerType == GPRINTER) {
 		[self startGPrintByBillInfo:self.billInfo];
+	}else{
+		NSLog(@"hello HPrinter to print");
 	}
-	
-	
-	
-	return;
-	/*
-    if (self.billInfo != nil) {
-        [self startSPrintByBillInfo:self.billInfo];
-        self.thread = NULL;
-    }else{
-        [SVProgressHUD showInfoWithStatus:@"请重新加载运单数据"];
-    }
-	 */
 }
+
 
 #pragma mark - private methods
 //发送密钥
@@ -269,6 +281,7 @@ int cjFlag=1;
         NSLog(@"Send Password Success!");
     }
 }
+
 
 //打印机已经连接成功
 - (void)updateOperBtnsWithConnedState
