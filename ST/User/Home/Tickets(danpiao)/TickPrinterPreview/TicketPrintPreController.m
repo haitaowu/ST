@@ -13,6 +13,7 @@
 #import "TscCommand.h"
 #import "NSDate+Category.h"
 #import <BRPickerView/BRPickerView.h>
+#import "HPrinterHelper.h"
 
 
 //for issc
@@ -30,27 +31,29 @@ CBCharacteristic *activeWriteCharacteristic;
 CBCharacteristic *activeReadCharacteristic;
 CBCharacteristic *activeFlowControlCharacteristic;
 
+
+
+#define kBillCodeKey            @"billCode"
+#define kSubCodeKey                @"billCodeSub"
+#define kSendSiteKey            @"sendSite"
+#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
+#define kDispatchCodeKey          @"dispatchCode" //目的网点所属编号
+#define kSendgoodsTypeKey          @"sendgoodsType" //派送方式
+#define kGoodsNameKey              @"goodsName" //物品名称
+#define kSendCodeKey              @"sendCode" //寄件网点编号
+#define kAcceptAdrKey           @"acceptManAddress"
+#define kArriveSiteKey          @"arriveSite"
+#define kWeightKey              @"weight"
+#define kPieceNumKey            @"pieceNumber"
+#define kRegisterDateKey        @"registerDate"
+
+
 int cmd=0;
 int mtu = 20;
 int credit = 0;
 int response = 1;
 // qzfeng 2016/05/10
 int cjFlag=1;
-
-
-#define kBillCodeKey            @"billCode"
-#define kSubCodeKey            	@"billCodeSub"
-#define kSendSiteKey            @"sendSite"
-#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
-#define kDispatchCodeKey      	@"dispatchCode" //目的网点所属编号
-#define kSendgoodsTypeKey      	@"sendgoodsType" //派送方式
-#define kGoodsNameKey      		@"goodsName" //物品名称
-#define kSendCodeKey      		@"sendCode" //寄件网点编号
-#define kAcceptAdrKey           @"acceptManAddress"
-#define kArriveSiteKey          @"arriveSite"
-#define kWeightKey              @"weight"
-#define kPieceNumKey            @"pieceNumber"
-#define kRegisterDateKey        @"registerDate"
 
 
 
@@ -129,6 +132,7 @@ int cjFlag=1;
 {
 	[super viewWillDisappear:animated];
 	[Manager close];
+	[[HPrinterHelper sharedInstance] disconnectCurrentPrinter];
 	NSLog(@"viewWill Disappear....");
 }
 
@@ -181,7 +185,13 @@ int cjFlag=1;
 			{
                 [SVProgressHUD showSuccessWithStatus:@"连接成功"];
 				self.printBtn.enabled = YES;
-				NSString *name = Manager.bleConnecter.connPeripheral.name;
+				NSString *name;
+				if (self.printerType == HPRINTER) {
+					name = [HPrinterHelper sharedInstance].currentPrinter.peripheral.name;
+				}else{
+					name = Manager.bleConnecter.connPeripheral.name;
+				}
+				 
 				NSString *title = @"连接状态：";
 				title = [title stringByAppendingFormat:@"%@已连接",name];
                 self.connState.text = title;
@@ -230,8 +240,8 @@ int cjFlag=1;
 		}
 		[weakSelf showPrinterListViewBy:type];
 	}];
-	
 }
+
 
 /**
  *gen ju da yin lei xing ji xuan ze
@@ -265,6 +275,11 @@ int cjFlag=1;
 	}else if (self.printerType == GPRINTER) {
 		[self startGPrintByBillInfo:self.billInfo];
 	}else{
+		NSInteger startIdx = [self.pagePicker selectedRowInComponent:0];
+		NSInteger startPage = [self.pagesAry[startIdx] integerValue];
+		NSInteger endIdx = [self.pagePicker selectedRowInComponent:1];
+		NSInteger ednPage = [self.endPagesAry[endIdx] integerValue];
+		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage];
 		NSLog(@"hello HPrinter to print");
 	}
 }
@@ -860,6 +875,8 @@ int cjFlag=1;
     }
     return array;
 }
+
+
 
 #pragma mark -  UIPickerViewDataSource,
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58560C5F27F0154BF017FA85 /* Pods_ST.framework */; };
 		8912B0D11DD0BF9E0021B160 /* STListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D01DD0BF9E0021B160 /* STListView.swift */; };
 		8912B0D31DD0C81A0021B160 /* StBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D21DD0C81A0021B160 /* StBottomButton.swift */; };
 		8912B0D61DD0D12A0021B160 /* STListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D41DD0D12A0021B160 /* STListViewCell.swift */; };
@@ -218,7 +217,6 @@
 		BE57CD6224BCAD5F00386DE2 /* DeliverBillPrinterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE57CD5D24BCAD5F00386DE2 /* DeliverBillPrinterController.xib */; };
 		BE57CD6424BCAD5F00386DE2 /* DeliverBillPrinterController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */; };
 		BE593B9324CAD69500855D20 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE593B9224CAD69500855D20 /* BMKLocationKit.framework */; };
-		BE593B9624CAD78900855D20 /* PrinterSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE593B9524CAD78900855D20 /* PrinterSDK.framework */; };
 		BE5ACCC322EC1145003A46BB /* OptRecSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */; };
 		BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */; };
 		BE5ACCC722EC18CC003A46BB /* OptRecMultipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */; };
@@ -249,6 +247,7 @@
 		BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */; };
 		BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBE232DD7FE0076DB33 /* STConst.swift */; };
 		BE723EC52329EFB1005FC86C /* STHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE723EC42329EFB1005FC86C /* STHelper.swift */; };
+		BE73DACE24DE8BAD00925B3E /* PrinterSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */; };
 		BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839094229FAC8A0050C9F3 /* VanRecordController.swift */; };
 		BE839097229FAC8A0050C9F3 /* VanRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE839095229FAC8A0050C9F3 /* VanRecordController.xib */; };
 		BE83909B229FB7410050C9F3 /* DriverPersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839099229FB7400050C9F3 /* DriverPersonController.swift */; };
@@ -273,6 +272,8 @@
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
 		BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */; };
 		BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */; };
+		BEA1847224DE91B800F0EAB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AA23AB4945002E6828 /* SystemConfiguration.framework */; };
+		BEA1847524DE94C800F0EAB3 /* HPrinterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */; };
 		BEA1B78324B1948600CDD64C /* DeliveryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */; };
 		BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */; };
 		BEA1B78624B1958800CDD64C /* DeliverForeCastControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */; };
@@ -354,7 +355,6 @@
 		BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A423AB4905002E6828 /* OpenGLES.framework */; };
 		BEE777A723AB491A002E6828 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A623AB491A002E6828 /* QuartzCore.framework */; };
 		BEE777A923AB4933002E6828 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A823AB4933002E6828 /* Security.framework */; };
-		BEE777AB23AB4945002E6828 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AA23AB4945002E6828 /* SystemConfiguration.framework */; };
 		BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AC23AB49B4002E6828 /* libz.tbd */; };
 		BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF205EC22E994760050E2A7 /* OperationHeader.xib */; };
 		BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF205ED22E994760050E2A7 /* OperationHeader.swift */; };
@@ -599,7 +599,6 @@
 		BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliverBillPrinterController.m; sourceTree = "<group>"; };
 		BE57CD6124BCAD5F00386DE2 /* DeliverBillPrinterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliverBillPrinterController.h; sourceTree = "<group>"; };
 		BE593B9224CAD69500855D20 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
-		BE593B9524CAD78900855D20 /* PrinterSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrinterSDK.framework; sourceTree = "<group>"; };
 		BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecSingleCell.swift; sourceTree = "<group>"; };
 		BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecSingleCell.xib; sourceTree = "<group>"; };
 		BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecMultipCell.swift; sourceTree = "<group>"; };
@@ -630,6 +629,7 @@
 		BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteCenModel.swift; sourceTree = "<group>"; };
 		BE6B5CBE232DD7FE0076DB33 /* STConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STConst.swift; sourceTree = "<group>"; };
 		BE723EC42329EFB1005FC86C /* STHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHelper.swift; sourceTree = "<group>"; };
+		BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrinterSDK.framework; sourceTree = "<group>"; };
 		BE839094229FAC8A0050C9F3 /* VanRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecordController.swift; sourceTree = "<group>"; };
 		BE839095229FAC8A0050C9F3 /* VanRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecordController.xib; sourceTree = "<group>"; };
 		BE839099229FB7400050C9F3 /* DriverPersonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverPersonController.swift; sourceTree = "<group>"; };
@@ -654,6 +654,8 @@
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
 		BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSignFooter.swift; sourceTree = "<group>"; };
 		BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSignFooter.xib; sourceTree = "<group>"; };
+		BEA1847324DE94C800F0EAB3 /* HPrinterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPrinterHelper.h; sourceTree = "<group>"; };
+		BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPrinterHelper.m; sourceTree = "<group>"; };
 		BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryMenuController.swift; sourceTree = "<group>"; };
 		BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryMenuController.xib; sourceTree = "<group>"; };
 		BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverForeCastControl.swift; sourceTree = "<group>"; };
@@ -761,8 +763,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA1847224DE91B800F0EAB3 /* SystemConfiguration.framework in Frameworks */,
 				BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */,
-				BEE777AB23AB4945002E6828 /* SystemConfiguration.framework in Frameworks */,
 				BEE777A923AB4933002E6828 /* Security.framework in Frameworks */,
 				BEE777A723AB491A002E6828 /* QuartzCore.framework in Frameworks */,
 				BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */,
@@ -776,7 +778,7 @@
 				BEE7778123AB23CA002E6828 /* MediaPlayer.framework in Frameworks */,
 				BEE7777F23AB23C3002E6828 /* UserNotifications.framework in Frameworks */,
 				BEE7777D23AB23BD002E6828 /* libiconv.tbd in Frameworks */,
-				BE593B9624CAD78900855D20 /* PrinterSDK.framework in Frameworks */,
+				BE73DACE24DE8BAD00925B3E /* PrinterSDK.framework in Frameworks */,
 				BEB5AECC24CA75F600A91E8B /* GSDK.a in Frameworks */,
 				BEE7777B23AB23B5002E6828 /* AssetsLibrary.framework in Frameworks */,
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
@@ -785,7 +787,6 @@
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
-				4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,7 +1434,9 @@
 		BE593B9424CAD78900855D20 /* HPrinterLib */ = {
 			isa = PBXGroup;
 			children = (
-				BE593B9524CAD78900855D20 /* PrinterSDK.framework */,
+				BEA1847324DE94C800F0EAB3 /* HPrinterHelper.h */,
+				BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */,
+				BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */,
 			);
 			path = HPrinterLib;
 			sourceTree = "<group>";
@@ -2348,6 +2351,7 @@
 				8918C9621DD1D07900DBD5C6 /* STDb.swift in Sources */,
 				BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */,
 				8912B0D31DD0C81A0021B160 /* StBottomButton.swift in Sources */,
+				BEA1847524DE94C800F0EAB3 /* HPrinterHelper.m in Sources */,
 				8912B0DC1DD0E09C0021B160 /* QRCodeReaderView.swift in Sources */,
 				89F3ECCF1DC43DD600DDA832 /* UIView+border.swift in Sources */,
 				892583BA1DC8DA9700285DB5 /* ConstraintDescription.swift in Sources */,

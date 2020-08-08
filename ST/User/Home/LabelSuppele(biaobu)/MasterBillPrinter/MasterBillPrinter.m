@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "BluetoothListController.h"
 #import "TscCommand.h"
+#import <BRPickerView/BRPickerView.h>
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -192,8 +193,37 @@ static NSString *const kServiceUUID = @"ff00";
 
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	NSArray *dataAry = @[@"斯普瑞特",@"佳博",@"汉印"];
+	__weak typeof(self) weakSelf = self;
+	[BRStringPickerView showPickerWithTitle:@"选择" dataSourceArr:dataAry selectIndex:0 resultBlock:^(BRResultModel * _Nullable resultModel) {
+		PrinterType type;
+		switch (resultModel.index) {
+			case 0:
+				type = SPRINTER;
+				break;
+			case 1:
+				type = GPRINTER;
+				break;
+			case 2:
+				type = HPRINTER;
+				break;
+			default:
+				type = SPRINTER;
+				break;
+		}
+		[weakSelf showPrinterListViewBy:type];
+	}];
+}
+
+
+/**
+ *gen ju da yin lei xing ji xuan ze
+ */
+- (void)showPrinterListViewBy:(PrinterType)printerType
+{
 	BluetoothListController *listControl = [[BluetoothListController alloc] init];
 	__weak typeof(self) weakSelf = self;
+	listControl.printerType = printerType;
 	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
 		if (CONNECT_STATE_CONNECTED == state) {
 			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
@@ -203,25 +233,9 @@ static NSString *const kServiceUUID = @"ff00";
 		}
 		[self updateConnectState:state printerType:type];
 	};
-	
-//	listControl.connectBlock = ^(ConnectState state) {
-//		if (CONNECT_STATE_CONNECTED == state) {
-//			//			   [weakSelf.navigationController popViewControllerAnimated:YES];
-//		}
-//
-//		[self updateConnectState:state];
-//	};
 	[self.navigationController pushViewController:listControl animated:YES];
-
-
-//	return;
-//    if (self.managerState == CBManagerStatePoweredOn) {
-//        [self startScanConnectPrinter];
-//        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
-//    }else{
-//        NSLog(@"打印机当前状态不可用");
-//    }
 }
+
 
 - (IBAction)tapReloadBillsData:(id)sender {
 //    [self reqPrintBillInfo];

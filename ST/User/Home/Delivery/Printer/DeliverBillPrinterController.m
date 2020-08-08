@@ -12,6 +12,7 @@
 #import "BluetoothListController.h"
 #import "TscCommand.h"
 #import "NSDate+Category.h"
+#import <BRPickerView/BRPickerView.h>
 
 
 
@@ -133,8 +134,37 @@
 
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	NSArray *dataAry = @[@"斯普瑞特",@"佳博",@"汉印"];
+	__weak typeof(self) weakSelf = self;
+	[BRStringPickerView showPickerWithTitle:@"选择" dataSourceArr:dataAry selectIndex:0 resultBlock:^(BRResultModel * _Nullable resultModel) {
+		PrinterType type;
+		switch (resultModel.index) {
+			case 0:
+				type = SPRINTER;
+				break;
+			case 1:
+				type = GPRINTER;
+				break;
+			case 2:
+				type = HPRINTER;
+				break;
+			default:
+				type = SPRINTER;
+				break;
+		}
+		[weakSelf showPrinterListViewBy:type];
+	}];
+}
+
+
+/**
+ *gen ju da yin lei xing ji xuan ze
+ */
+- (void)showPrinterListViewBy:(PrinterType)printerType
+{
 	BluetoothListController *listControl = [[BluetoothListController alloc] init];
 	__weak typeof(self) weakSelf = self;
+	listControl.printerType = printerType;
 	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
 		if (CONNECT_STATE_CONNECTED == state) {
 			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
@@ -144,8 +174,7 @@
 		}
 		[self updateConnectState:state printerType:type];
 	};
-  [self.navigationController pushViewController:listControl animated:YES];
-  
+	[self.navigationController pushViewController:listControl animated:YES];
 }
 
 
