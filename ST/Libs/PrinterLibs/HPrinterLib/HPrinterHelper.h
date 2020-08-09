@@ -24,6 +24,33 @@
 #define kPieceNumKey            @"pieceNumber"
 #define kRegisterDateKey        @"registerDate"
 
+//派件
+#define kSendMan            	@"sendMan"
+#define kSendManPhone           @"sendManPhone"
+#define kSendManAddress	        @"sendManAddress" //寄件人地址
+#define kAcceptMan	            @"acceptMan"	//收件人
+#define kAcceptManPhone         @"acceptManPhone" //收件人电话
+#define kAcceptManAddress  	    @"acceptManAddress" //收件人地址
+#define kDestination            @"sendSite"  //寄件网点
+
+#define kGoodsName	            @"goodsName"   //货物名称
+#define kGoodsPiece		        @"pieceNumber" //件数
+#define kCalWeight		        @"settlementWeight" //结算重量
+#define kExpressType		    @"dispatchMode" //送货方式
+#define kSendDate			    @"sendDate" //寄件时间
+#define kBlReturnBill			@"blReturnBill" //签回单标识
+#define kInStorage				@"blIntoWarehouse" //进仓标识
+#define kOverWeightPiece		@"overWeightPiece" //超重件数
+#define kBlOverLong				@"blOverLong" //超长标识
+#define kRbillCode				@"rbillCode" //回单编号
+#define kStorageno				@"storageno" //进仓编号
+
+#define kPaymentType		    @"paymentType" //支付方式
+#define kPaiedMoney			    @"topayment" //到付款
+#define kInsureVal			    @"insureValue" //保价金额
+#define kFreight			    @"freight" //运费
+
+
 
 //主单打印 key
 
@@ -99,6 +126,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///zhu dan fei yong
 + (NSString*)feesTxtBy:(id)billInfo;
+
+
+// paijian di zhi / shou jian ren dizhi
++ (NSString*)paiAddressDetail:(NSDictionary*)billInfo type:(NSString*)adrType;
+
+///jian ke hu huo wu xin xi ji
++ (NSString*)paiGoodsInfo:(id)billInfo;
+
+///pai jian wang dian huo wu xin xi
++ (NSString*)paiSendGoodsInfo:(id)billInfo;
+
+
+///fei yong
++ (NSString*)paiFeesTxtBy:(id)billInfo;
+
+/**
+ *pai jian wang dian jijian shoujian ren
+ */
+- (void)printPaiBillWith:(id)data;
 
 
 @end
