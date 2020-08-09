@@ -9,6 +9,22 @@
 #import <PrinterSDK/PrinterSDK.h>
 
 
+
+#define kBillCodeKey            @"billCode"
+#define kSubCodeKey                @"billCodeSub"
+#define kSendSiteKey            @"sendSite"
+#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
+#define kDispatchCodeKey          @"dispatchCode" //目的网点所属编号
+#define kSendgoodsTypeKey          @"sendgoodsType" //派送方式
+#define kGoodsNameKey              @"goodsName" //物品名称
+#define kSendCodeKey              @"sendCode" //寄件网点编号
+#define kAcceptAdrKey           @"acceptManAddress"
+#define kArriveSiteKey          @"arriveSite"
+#define kWeightKey              @"weight"
+#define kPieceNumKey            @"pieceNumber"
+#define kRegisterDateKey        @"registerDate"
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HPrinterHelper : NSObject<NSCopying,NSMutableCopying>

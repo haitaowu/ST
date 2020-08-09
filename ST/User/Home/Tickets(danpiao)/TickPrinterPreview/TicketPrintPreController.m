@@ -33,20 +33,6 @@ CBCharacteristic *activeFlowControlCharacteristic;
 
 
 
-#define kBillCodeKey            @"billCode"
-#define kSubCodeKey                @"billCodeSub"
-#define kSendSiteKey            @"sendSite"
-#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
-#define kDispatchCodeKey          @"dispatchCode" //目的网点所属编号
-#define kSendgoodsTypeKey          @"sendgoodsType" //派送方式
-#define kGoodsNameKey              @"goodsName" //物品名称
-#define kSendCodeKey              @"sendCode" //寄件网点编号
-#define kAcceptAdrKey           @"acceptManAddress"
-#define kArriveSiteKey          @"arriveSite"
-#define kWeightKey              @"weight"
-#define kPieceNumKey            @"pieceNumber"
-#define kRegisterDateKey        @"registerDate"
-
 
 int cmd=0;
 int mtu = 20;
@@ -148,6 +134,7 @@ int cjFlag=1;
     [self.pagePicker reloadAllComponents];
 	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
 }
+
 
 
 - (void)startScanConnectPrinter{
@@ -323,7 +310,7 @@ int cjFlag=1;
 	NSInteger endPage = [self.pagePicker selectedRowInComponent:1];
 	NSInteger ednNum = [self.endPagesAry[endPage] integerValue];
 	
-	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	NSArray *subCodesArra = [HPrinterHelper subBillCodesWithBillData:billData];
 	if ([subCodesArra count] > 0) {
 		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
@@ -346,7 +333,7 @@ int cjFlag=1;
 {
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
-	NSArray *subCodesArra = [self subBillCodesWithBillData:billData];
+	NSArray *subCodesArra = [HPrinterHelper subBillCodesWithBillData:billData];
 	NSInteger startPage = [self.pagePicker selectedRowInComponent:0];
 	NSInteger startNum = [self.pagesAry[startPage] integerValue];
 	NSInteger endPage = [self.pagePicker selectedRowInComponent:1];
@@ -859,22 +846,7 @@ int cjFlag=1;
 	return [NSDate currentDateStrBy:nil];
 }
 
-- (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo
-{
-    NSMutableArray *array = [NSMutableArray array];
-    NSString *subBillCodeStr = [billInfo objectForKey:kSubCodeKey];
-    NSCharacterSet *semicolonCharSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
-    subBillCodeStr = [subBillCodeStr stringByTrimmingCharactersInSet:semicolonCharSet];
-    NSArray *subCodesArra = [subBillCodeStr componentsSeparatedByCharactersInSet:semicolonCharSet];
-//	NSString *billCode = [billInfo objectForKey:kBillCodeKey];
-    for (NSString *codeStr in subCodesArra) {
-//        NSString *subCodeStr = [codeStr stringByReplacingOccurrencesOfString:billCode withString:@""];
-        if (codeStr.length > 0) {
-            [array addObject:codeStr];
-        }
-    }
-    return array;
-}
+
 
 
 

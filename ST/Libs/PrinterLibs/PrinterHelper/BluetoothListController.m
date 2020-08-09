@@ -118,14 +118,17 @@ static NSString *const kServiceUUID = @"ff00";
  *sprinter和jia bo da yin ji
  */
 -(void)startScanBlues {
+	__weak typeof (self) weakSelf = self;
     [Manager scanForPeripheralsWithServices:nil options:nil discover:^(CBPeripheral * _Nullable peripheral, NSDictionary<NSString *,id> * _Nullable advertisementData, NSNumber * _Nullable RSSI) {
         if (peripheral.name != nil) {
             NSLog(@"name -> %@",peripheral.name);
             NSUInteger oldCounts = [self.dicts count];
-			if (([peripheral.name containsString:@"L51 BT"])||([peripheral.name containsString:@"Printer_"])) {
-				[self.dicts setObject:peripheral forKey:peripheral.identifier.UUIDString];
+			if((weakSelf.printerType == GPRINTER) && [peripheral.name containsString:@"Printer_"]){
+				[weakSelf.dicts setObject:peripheral forKey:peripheral.identifier.UUIDString];
+			}else if ((weakSelf.printerType == SPRINTER) && [peripheral.name containsString:@"L51 BT"]) {
+				[weakSelf.dicts setObject:peripheral forKey:peripheral.identifier.UUIDString];
 			}
-            if (oldCounts < [self.dicts count]) {
+            if (oldCounts < [weakSelf.dicts count]) {
                 [_tableView reloadData];
             }
         }

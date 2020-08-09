@@ -6,21 +6,8 @@
 //
 
 #import "HPrinterHelper.h"
+#import "NSDate+Category.h"
 
-
-#define kBillCodeKey            @"billCode"
-#define kSubCodeKey                @"billCodeSub"
-#define kSendSiteKey            @"sendSite"
-#define kDispatchCenterKey      @"dispatchCenter" //目的网点所属中心
-#define kDispatchCodeKey          @"dispatchCode" //目的网点所属编号
-#define kSendgoodsTypeKey          @"sendgoodsType" //派送方式
-#define kGoodsNameKey              @"goodsName" //物品名称
-#define kSendCodeKey              @"sendCode" //寄件网点编号
-#define kAcceptAdrKey           @"acceptManAddress"
-#define kArriveSiteKey          @"arriveSite"
-#define kWeightKey              @"weight"
-#define kPieceNumKey            @"pieceNumber"
-#define kRegisterDateKey        @"registerDate"
 
 
 
@@ -139,7 +126,7 @@ static HPrinterHelper *instance;
     NSInteger deltaX = 5;
     NSInteger deltaY = 5*3;
     NSInteger startY = 10;
-    NSInteger offsetX = 0;
+    NSInteger offsetX = 15;
     NSInteger pageWidth = 790;
     NSInteger pageHeight = 550;
     NSInteger maxBoxWidth = pageWidth - startX * 2;
@@ -365,7 +352,7 @@ static HPrinterHelper *instance;
    
     
     //da yin ri qi
-    NSString *currentDateStr = @"2020-08-08";
+    NSString *currentDateStr = [NSDate currentDateStrBy:nil];
     NSInteger pDateX = leftDX;
     NSInteger pDateY = letDY;
     NSInteger pDateSafeHeight = secRowHeight;
