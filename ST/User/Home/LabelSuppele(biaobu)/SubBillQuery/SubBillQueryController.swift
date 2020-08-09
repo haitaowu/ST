@@ -92,6 +92,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
     
     //MARK:- selectors
     @IBAction func tapPrinterBtn(_ sender: Any) {
+		#if DEBUG
 		let info: NSDictionary = [
 			"billCode": "5700165655793",
 			"billCodeSub": "1700165655793;2700165655793;3700165655793",
@@ -108,7 +109,8 @@ class SubBillQueryController:UITableViewController,QrInterface {
 		"pieceNumber": 3,
 		]
 		self.billInfo = info
-
+		#endif
+		
         if billInfo.allKeys.count <= 0 {
             self.remindUser(msg: "请输入运单号查询")
             return;

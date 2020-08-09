@@ -9,7 +9,7 @@
 #import <PrinterSDK/PrinterSDK.h>
 
 
-
+//子单打印的key
 #define kBillCodeKey            @"billCode"
 #define kSubCodeKey                @"billCodeSub"
 #define kSendSiteKey            @"sendSite"
@@ -24,6 +24,30 @@
 #define kPieceNumKey            @"pieceNumber"
 #define kRegisterDateKey        @"registerDate"
 
+
+//主单打印 key
+
+#define kMBillCodeKey            @"BILL_CODE"
+#define kMSendMan                @"SEND_MAN"
+#define kMSendManPhone           @"SEND_MAN_PHONE"
+#define kMSendManAddress            @"SEND_MAN_ADDRESS"
+#define kMAcceptMan                @"ACCEPT_MAN"    //收件人
+#define kMAcceptManPhone         @"ACCEPT_MAN_PHONE" //收件人电话
+#define kMAcceptManAddress          @"ACCEPT_MAN_ADDRESS" //收件人地址
+#define kMDestination            @"DESTINATION"  //目的地
+
+#define kMGoodsName                @"GOODS_NAME"   //货物名称
+#define kMGoodsPiece                @"PIECE_NUMBER" //件数
+#define kMCalWeight                @"SETTLEMENT_WEIGHT" //结算重量
+#define kMExpressType            @"DISPATCH_MODE" //送货方式
+#define kMSendDate                @"SEND_DATE" //寄件时间
+
+#define kMPaiedMoney                @"TOPAYMENT" //到付款
+#define kMInsureVal                @"INSURE_VALUE" //保价金额
+#define kMFreight                @"FREIGHT" //运费
+#define kMPaymentType             @"PAYMENT_TYPE" //zhi fu fang shi
+#define kMReturnBill             @"BL_RETURN_BILL" //hui dan biaoshi
+#define kMInstoreage                @"BL_INTO_WAREHOUSE" // jin cang biao shi
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,6 +80,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)subBillCodesWithBillData:(NSDictionary*)billInfo;
 
 
+/**
+ *fa jian wang dian jijian kehu
+ */
+- (void)printMasterBillWith:(id)data;
+
++ (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr;
+
+// ji jian di zhi / shou jian ren dizhi
++ (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType;
+
+///ji jian ke hu huo wu xin xi
++ (NSString*)goodsInfo:(id)billInfo;
+
+///pai jian wang dian huo wu xin xi
++ (NSString*)sendGoodsInfo:(id)billInfo;
+
+
+///zhu dan fei yong
++ (NSString*)feesTxtBy:(id)billInfo;
 
 
 @end

@@ -117,8 +117,11 @@ int cjFlag=1;
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[Manager close];
-	[[HPrinterHelper sharedInstance] disconnectCurrentPrinter];
+	if(self.printerType == HPRINTER){
+		[[HPrinterHelper sharedInstance] disconnectCurrentPrinter];
+	}else{
+		[Manager close];
+	}
 	NSLog(@"viewWill Disappear....");
 }
 
