@@ -107,6 +107,7 @@
 		89F61E3D1DCE22900065C9CA /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E3C1DCE22900065C9CA /* Employee.swift */; };
 		89F61E3F1DCE23B80065C9CA /* ProblemItemReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E3E1DCE23B80065C9CA /* ProblemItemReason.swift */; };
 		89F61E411DCE24A70065C9CA /* SiteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E401DCE24A70065C9CA /* SiteInfo.swift */; };
+		99F0673F7CF2A819335FC432 /* Pods_ST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58560C5F27F0154BF017FA85 /* Pods_ST.framework */; };
 		BE0718B22094BEE3007A33A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */; };
 		BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */; };
 		BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */; };
@@ -787,6 +788,7 @@
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
+				99F0673F7CF2A819335FC432 /* Pods_ST.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1808,8 +1810,8 @@
 		BEB5AEBB24CA75F600A91E8B /* SPrinterLib */ = {
 			isa = PBXGroup;
 			children = (
-				BEB5AEBC24CA75F600A91E8B /* SPRTPrint.h */,
 				BEB5AEBD24CA75F600A91E8B /* SPRTPrint.m */,
+				BEB5AEBC24CA75F600A91E8B /* SPRTPrint.h */,
 			);
 			path = SPrinterLib;
 			sourceTree = "<group>";
