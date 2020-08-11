@@ -11,6 +11,9 @@
 #import "SVProgressHUD.h"
 #import "BluetoothListController.h"
 #import "TscCommand.h"
+#import <BRPickerView/BRPickerView.h>
+#import "HPrinterHelper.h"
+
 
 //for issc
 static NSString *const kWriteCharacteristicUUID_cj = @"49535343-8841-43F4-A8D4-ECBE34729BB3";
@@ -25,29 +28,29 @@ static NSString *const kServiceUUID = @"ff00";
 
 
 
-
-
-#define kBillCodeKey            @"BILL_CODE"
-#define kSendMan            	@"SEND_MAN"
-#define kSendManPhone           @"SEND_MAN_PHONE"
-#define kSendManAddress	        @"SEND_MAN_ADDRESS"
-#define kAcceptMan	            @"ACCEPT_MAN"	//收件人
-#define kAcceptManPhone         @"ACCEPT_MAN_PHONE" //收件人电话
-#define kAcceptManAddress  	    @"ACCEPT_MAN_ADDRESS" //收件人地址
-#define kDestination            @"DESTINATION"  //目的地
-
-#define kGoodsName	            @"GOODS_NAME"   //货物名称
-#define kGoodsPiece		        @"PIECE_NUMBER" //件数
-#define kCalWeight		        @"SETTLEMENT_WEIGHT" //结算重量
-#define kExpressType		    @"DISPATCH_MODE" //送货方式
-#define kSendDate			    @"SEND_DATE" //寄件时间
-
-#define kPaiedMoney			    @"TOPAYMENT" //到付款
-#define kInsureVal			    @"INSURE_VALUE" //保价金额
-#define kFreight			    @"FREIGHT" //运费
-#define kPaymentType 			@"PAYMENT_TYPE" //zhi fu fang shi
-#define kReturnBill 			@"BL_RETURN_BILL" //hui dan biaoshi
-#define kInstoreage				@"BL_INTO_WAREHOUSE" // jin cang biao shi
+//
+//
+//#define kBillCodeKey            @"BILL_CODE"
+//#define kSendMan            	@"SEND_MAN"
+//#define kSendManPhone           @"SEND_MAN_PHONE"
+//#define kSendManAddress	        @"SEND_MAN_ADDRESS"
+//#define kAcceptMan	            @"ACCEPT_MAN"	//收件人
+//#define kAcceptManPhone         @"ACCEPT_MAN_PHONE" //收件人电话
+//#define kAcceptManAddress  	    @"ACCEPT_MAN_ADDRESS" //收件人地址
+//#define kDestination            @"DESTINATION"  //目的地
+//
+//#define kGoodsName	            @"GOODS_NAME"   //货物名称
+//#define kGoodsPiece		        @"PIECE_NUMBER" //件数
+//#define kCalWeight		        @"SETTLEMENT_WEIGHT" //结算重量
+//#define kExpressType		    @"DISPATCH_MODE" //送货方式
+//#define kSendDate			    @"SEND_DATE" //寄件时间
+//
+//#define kPaiedMoney			    @"TOPAYMENT" //到付款
+//#define kInsureVal			    @"INSURE_VALUE" //保价金额
+//#define kFreight			    @"FREIGHT" //运费
+//#define kPaymentType 			@"PAYMENT_TYPE" //zhi fu fang shi
+//#define kReturnBill 			@"BL_RETURN_BILL" //hui dan biaoshi
+//#define kInstoreage				@"BL_INTO_WAREHOUSE" // jin cang biao shi
 
 
 
@@ -118,7 +121,11 @@ static NSString *const kServiceUUID = @"ff00";
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[Manager close];
+	if(self.printerType == HPRINTER){
+		[[HPrinterHelper sharedInstance] disconnectCurrentPrinter];
+	}else{
+		[Manager close];
+	}
 	NSLog(@"viewWill Disappear....");
 }
 
@@ -163,7 +170,12 @@ static NSString *const kServiceUUID = @"ff00";
 			{
                 [SVProgressHUD showSuccessWithStatus:@"连接成功"];
 				self.printBtn.enabled = YES;
-				NSString *name = Manager.bleConnecter.connPeripheral.name;
+				NSString *name;
+				if (self.printerType == HPRINTER) {
+					name = [HPrinterHelper sharedInstance].currentPrinter.peripheral.name;
+				}else{
+					name = Manager.bleConnecter.connPeripheral.name;
+				}
 				NSString *title = @"连接状态：";
 				title = [title stringByAppendingFormat:@"%@已连接",name];
                 self.connState.text = title;
@@ -192,8 +204,37 @@ static NSString *const kServiceUUID = @"ff00";
 
 #pragma mark - selectors
 - (IBAction)tapToConnectBtn:(id)sender {
+	NSArray *dataAry = @[@"斯普瑞特",@"佳博",@"汉印"];
+	__weak typeof(self) weakSelf = self;
+	[BRStringPickerView showPickerWithTitle:@"选择" dataSourceArr:dataAry selectIndex:0 resultBlock:^(BRResultModel * _Nullable resultModel) {
+		PrinterType type;
+		switch (resultModel.index) {
+			case 0:
+				type = SPRINTER;
+				break;
+			case 1:
+				type = GPRINTER;
+				break;
+			case 2:
+				type = HPRINTER;
+				break;
+			default:
+				type = SPRINTER;
+				break;
+		}
+		[weakSelf showPrinterListViewBy:type];
+	}];
+}
+
+
+/**
+ *gen ju da yin lei xing ji xuan ze
+ */
+- (void)showPrinterListViewBy:(PrinterType)printerType
+{
 	BluetoothListController *listControl = [[BluetoothListController alloc] init];
 	__weak typeof(self) weakSelf = self;
+	listControl.printerType = printerType;
 	listControl.connResultBlock = ^(ConnectState state, PrinterType type) {
 		if (CONNECT_STATE_CONNECTED == state) {
 			UIViewController *control = weakSelf.navigationController.viewControllers.lastObject;
@@ -203,25 +244,9 @@ static NSString *const kServiceUUID = @"ff00";
 		}
 		[self updateConnectState:state printerType:type];
 	};
-	
-//	listControl.connectBlock = ^(ConnectState state) {
-//		if (CONNECT_STATE_CONNECTED == state) {
-//			//			   [weakSelf.navigationController popViewControllerAnimated:YES];
-//		}
-//
-//		[self updateConnectState:state];
-//	};
 	[self.navigationController pushViewController:listControl animated:YES];
-
-
-//	return;
-//    if (self.managerState == CBManagerStatePoweredOn) {
-//        [self startScanConnectPrinter];
-//        [SVProgressHUD showWithStatus:@"连接打印机中..." maskType:SVProgressHUDMaskTypeBlack];
-//    }else{
-//        NSLog(@"打印机当前状态不可用");
-//    }
 }
+
 
 - (IBAction)tapReloadBillsData:(id)sender {
 //    [self reqPrintBillInfo];
@@ -229,10 +254,6 @@ static NSString *const kServiceUUID = @"ff00";
 
 ///start to print bill
 - (IBAction)startToPrint:(id)sender {
-//	[self updateOperBtnsWithDisConnState];
-//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//		[self updateOperBtnsWithConnedState];
-//	});
 	
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
@@ -240,6 +261,8 @@ static NSString *const kServiceUUID = @"ff00";
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[self startPrintCustomerTable];
 		});
+	}else if (self.printerType == HPRINTER) {
+		[[HPrinterHelper sharedInstance] printMasterBillWith:self.billInfo];
 	}else{
 		[Manager write:[self siteLabelCommand]];
 		[Manager write:[self senderLabelCommand]];
@@ -289,6 +312,7 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
+/*
 // ji jian di zhi / shou jian ren dizhi
 - (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
   NSArray* keys;
@@ -434,7 +458,7 @@ static NSString *const kServiceUUID = @"ff00";
     return [NSString stringWithFormat:@"%@",value];
   }
 }
-
+*/
 
 
 #pragma mark- SPrinter
@@ -471,7 +495,7 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
 	
-	NSString *billCode = [self strValueOf:self.billInfo key:kBillCodeKey];
+	NSString *billCode = [HPrinterHelper strValueOf:self.billInfo key:kMBillCodeKey];
 //	NSString *billCode = @"8000056666671";
 	int codeW = typeW;
 	int codeH = 40;
@@ -501,14 +525,14 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//phone
-	NSString *sPhone = [self strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
 	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
+	NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
 	int sAdrW = sPhoneW;
 	int sAdrH = sPhoneH;
 	int sAdrX = sPhoneX;
@@ -526,14 +550,14 @@ static NSString *const kServiceUUID = @"ff00";
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//phone
-	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
 	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
+	NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
 	int rAdrW = rPhoneW - siteTextW;
 	int rAdrH = rPhoneH;
 	int rAdrX = rPhoneX;
@@ -551,7 +575,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//hu wu xin xi
-	NSString *goods = [self sendGoodsInfo:self.billInfo];
+	NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
 	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
@@ -568,7 +592,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int feeTitleH = rowHeight;
 	[SPRTPrint drawText:feeTitleX textY:feeTitleY widthNum:feeTitleW heightNum:feeTitleH textStr:feeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//shou fei xin xi
-	NSString *fee = [self feesTxtBy:self.billInfo];
+	NSString *fee = [HPrinterHelper feesTxtBy:self.billInfo];
 	int feeW = maxX - titleWidth;
 	int feeH = rowHeight;
 	int feeX = titleWidth + deltaX;
@@ -610,7 +634,7 @@ static NSString *const kServiceUUID = @"ff00";
 	[SPRTPrint drawLine:2 startX:col3StartX startY:colo3StartY endX:col3StartX endY:colo3EndY isFullline:false];
 	
 	//目的网点
-	NSString *destination = [self strValueOf:self.billInfo key:kDestination];
+	NSString *destination = [HPrinterHelper strValueOf:self.billInfo key:kMDestination];
 	NSString *siteNameTitle = [@"目的网点:" stringByAppendingFormat:@"%@",destination];
 	int siteW = siteTextW;
 	int siteH = rowHeight;
@@ -677,7 +701,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int typeY = sPrintDateY;
 	[SPRTPrint drawText:typeX textY:typeY widthNum:typeW heightNum:typeH textStr:typeTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	
-	NSString *billCode = [self strValueOf:self.billInfo key:kBillCodeKey];
+	NSString *billCode = [HPrinterHelper strValueOf:self.billInfo key:kMBillCodeKey];
 	int codeW = typeW;
 	int codeH = 40;
 	int codeX = typeX;
@@ -706,14 +730,14 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//phone
-	NSString *sPhone = [self strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
 	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];;
+	NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];;
 	int sAdrW = sPhoneW;
 	int sAdrH = sPhoneH;
 	int sAdrX = sPhoneX;
@@ -729,14 +753,14 @@ static NSString *const kServiceUUID = @"ff00";
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//phone
-	NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+	NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
 	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
-	NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];;
+	NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];;
 	int rAdrW = rPhoneW;
 	int rAdrH = rPhoneH;
 	int rAdrX = rPhoneX;
@@ -752,7 +776,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//huo wu xin xi
-	NSString *goods = [self goodsInfo:self.billInfo];
+	NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
 	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
@@ -768,7 +792,7 @@ static NSString *const kServiceUUID = @"ff00";
 	int payTitleH = rowHeight;
 	[SPRTPrint drawText:payTitleX textY:payTitleY widthNum:payTitleW heightNum:payTitleH textStr:payTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//shou fei xin xi
-	NSString *pay = [self feesTxtBy:self.billInfo];
+	NSString *pay = [HPrinterHelper feesTxtBy:self.billInfo];
 	int payW = maxX - titleWidth;
 	int payH = rowHeight;
 	int payX = titleWidth + deltaX;
@@ -851,7 +875,7 @@ static NSString *const kServiceUUID = @"ff00";
     int barCodeWith = 280;
 	int barCodeX = maxX - barCodeWith - startX;
     int barCodeY = startY;
-	NSString *billCode = [self strValueOf:self.billInfo key:kBillCodeKey];
+	NSString *billCode = [HPrinterHelper strValueOf:self.billInfo key:kMBillCodeKey];
     [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
     
     
@@ -875,14 +899,14 @@ static NSString *const kServiceUUID = @"ff00";
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
     //phone
-    NSString *sPhone = [self strValueOf:self.billInfo key:kSendManPhone];
+    NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
     [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
     
     //address
-    NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
+    NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
 //    NSString *sAdress = @"江苏省无锡市小区";
     int sAdrX = sPhoneX;
     int sAdrY = sPhoneY + (rowHeight / 2);
@@ -898,14 +922,14 @@ static NSString *const kServiceUUID = @"ff00";
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
-     NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+     NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
      [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
     
     //address
-    NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
+    NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
 //    NSString *rAddress = @"江苏省无锡市小区shoufang";
     int rAdrX = rPhoneX;
     int rAdrY = rPhoneY + (rowHeight / 2);
@@ -927,7 +951,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
-    NSString *goods = [self sendGoodsInfo:self.billInfo];
+    NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
 //    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;
@@ -959,7 +983,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
     
     //shou fei xin xi
-    NSString *fee = [self feesTxtBy:self.billInfo];
+    NSString *fee = [HPrinterHelper feesTxtBy:self.billInfo];
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
@@ -1015,7 +1039,7 @@ static NSString *const kServiceUUID = @"ff00";
     int barCodeWith = 280;
     int barCodeX = maxX - barCodeWith - startX;
     int barCodeY = startY;
-	NSString *billCode = [self strValueOf:self.billInfo key:kBillCodeKey];
+	NSString *billCode = [HPrinterHelper strValueOf:self.billInfo key:kMBillCodeKey];
     [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :80 :1 :0 :2 :4 :billCode];
     
     
@@ -1039,14 +1063,14 @@ static NSString *const kServiceUUID = @"ff00";
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
     //phone
-    NSString *sPhone = [self strValueOf:self.billInfo key:kSendManPhone];
+    NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
     [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
     
     //address
-    NSString *sAdress = [self addressDetail:self.billInfo type:@"1"];
+    NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
 //    NSString *sAdress = @"江苏省无锡市小区";
     int sAdrX = sPhoneX;
     int sAdrY = sPhoneY + (rowHeight / 2);
@@ -1062,14 +1086,14 @@ static NSString *const kServiceUUID = @"ff00";
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
      //phone
-     NSString *rPhone = [self strValueOf:self.billInfo key:kAcceptManPhone];
+     NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
      [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
     
     //address
-    NSString *rAddress = [self addressDetail:self.billInfo type:@"0"];
+    NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
 //    NSString *rAddress = @"江苏省无锡市小区shoufang";
     int rAdrX = rPhoneX;
     int rAdrY = rPhoneY + (rowHeight / 2);
@@ -1091,7 +1115,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
-    NSString *goods = [self sendGoodsInfo:self.billInfo];
+    NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;
     int letterMaxLen = 38;
@@ -1123,7 +1147,7 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:feeTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:feeTitle2];
     
     //shou fei xin xi
-    NSString *fee = [self feesTxtBy:self.billInfo];
+    NSString *fee = [HPrinterHelper feesTxtBy:self.billInfo];
 //    NSString *fee = @"现金：现金保价，金额：3000，运费：0";
     int feeX = titleWidth + deltaX;
     int feeY = feeTitleY;
@@ -1149,7 +1173,7 @@ static NSString *const kServiceUUID = @"ff00";
     int siteY = col2Y + deltaY;
      [command addTextwithX:siteX withY:siteY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:siteNameTitle];
     
-    NSString *destination = [self strValueOf:self.billInfo key:kDestination];
+    NSString *destination = [HPrinterHelper strValueOf:self.billInfo key:kMDestination];
 //    NSString *destination = @"目的网点B1";
     int siteInfoX = siteX;
     int siteInfoY = siteY + (rowHeight / 2);

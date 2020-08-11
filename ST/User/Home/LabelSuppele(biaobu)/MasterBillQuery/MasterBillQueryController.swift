@@ -113,6 +113,7 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 	
     ///点击打印按钮
 	@IBAction func toPrinter(_ sender: Any) {
+		#if DEBUG
 		let info: [String : Any] = ["BILL_CODE": "5700165655793",
 		"SEND_DATE": "2020-07-07 06:56:23",
 		"PIECE_NUMBER": 1,
@@ -171,6 +172,8 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
 		"TRANSFER_CENTER": "",
 		"BL_ELECTRON": 1]
 		self.billInfo = info
+		#endif
+		
 		guard self.billInfo != nil else {
 			self.remindUser(msg: "请查询运单")
 			return
