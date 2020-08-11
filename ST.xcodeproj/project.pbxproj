@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58560C5F27F0154BF017FA85 /* Pods_ST.framework */; };
 		8912B0D11DD0BF9E0021B160 /* STListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D01DD0BF9E0021B160 /* STListView.swift */; };
 		8912B0D31DD0C81A0021B160 /* StBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D21DD0C81A0021B160 /* StBottomButton.swift */; };
 		8912B0D61DD0D12A0021B160 /* STListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8912B0D41DD0D12A0021B160 /* STListViewCell.swift */; };
@@ -108,12 +107,11 @@
 		89F61E3D1DCE22900065C9CA /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E3C1DCE22900065C9CA /* Employee.swift */; };
 		89F61E3F1DCE23B80065C9CA /* ProblemItemReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E3E1DCE23B80065C9CA /* ProblemItemReason.swift */; };
 		89F61E411DCE24A70065C9CA /* SiteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F61E401DCE24A70065C9CA /* SiteInfo.swift */; };
+		99F0673F7CF2A819335FC432 /* Pods_ST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58560C5F27F0154BF017FA85 /* Pods_ST.framework */; };
 		BE0718B22094BEE3007A33A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718AF2094BEE3007A33A2 /* SVProgressHUD.m */; };
 		BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */; };
 		BE0718B42094BEE3007A33A2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */; };
 		BE0E02C9242A3C8A000CEA82 /* SendSignReasonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */; };
-		BE0EA7B92466478B0078E9F9 /* MenuRSHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EA7B72466478B0078E9F9 /* MenuRSHeader.swift */; };
-		BE0EA7BA2466478B0078E9F9 /* MenuRSHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0EA7B82466478B0078E9F9 /* MenuRSHeader.xib */; };
 		BE0FC4E922BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */; };
 		BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */; };
 		BE0FC4EB22BF404800271FED /* JXPhotoBrowserPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */; };
@@ -172,10 +170,6 @@
 		BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BCED228C0B770007B6E0 /* PaijianSaomiaoViewController.xib */; };
 		BE38BD2E228C0B770007B6E0 /* FinancialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BCEF228C0B770007B6E0 /* FinancialController.xib */; };
 		BE38BD2F228C0B770007B6E0 /* FinancialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCF0228C0B770007B6E0 /* FinancialController.swift */; };
-		BE38BD30228C0B770007B6E0 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCF3228C0B770007B6E0 /* UIImage+Extension.m */; };
-		BE38BD31228C0B770007B6E0 /* PrinterPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCF4228C0B770007B6E0 /* PrinterPreviewController.m */; };
-		BE38BD32228C0B770007B6E0 /* PrinterPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BCF5228C0B770007B6E0 /* PrinterPreviewController.xib */; };
-		BE38BD33228C0B770007B6E0 /* SPRTPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCF7228C0B770007B6E0 /* SPRTPrint.m */; };
 		BE38BD34228C0B770007B6E0 /* KuaijianChaxunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE38BCFA228C0B770007B6E0 /* KuaijianChaxunViewController.xib */; };
 		BE38BD35228C0B770007B6E0 /* KuaijianChaxunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCFB228C0B770007B6E0 /* KuaijianChaxunViewController.swift */; };
 		BE38BD36228C0B770007B6E0 /* HTAlertViewPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38BCFD228C0B770007B6E0 /* HTAlertViewPrint.swift */; };
@@ -221,16 +215,13 @@
 		BE44322C1F530F1C004069DF /* MaterialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE44322A1F530F1C004069DF /* MaterialViewController.xib */; };
 		BE4874AA1F54484600F4B8B5 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4874A91F54484600F4B8B5 /* UIImageExtension.swift */; };
 		BE4D0FF82373B46B00B7BA17 /* RecViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4D0FF72373B46B00B7BA17 /* RecViewModel.swift */; };
-		BE4F222424B8451B0084F323 /* SimpleTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F222224B8451B0084F323 /* SimpleTicketControl.swift */; };
-		BE4F222524B8451B0084F323 /* HTDashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4F222324B8451B0084F323 /* HTDashView.swift */; };
 		BE57CD6224BCAD5F00386DE2 /* DeliverBillPrinterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE57CD5D24BCAD5F00386DE2 /* DeliverBillPrinterController.xib */; };
 		BE57CD6424BCAD5F00386DE2 /* DeliverBillPrinterController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */; };
+		BE593B9324CAD69500855D20 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE593B9224CAD69500855D20 /* BMKLocationKit.framework */; };
 		BE5ACCC322EC1145003A46BB /* OptRecSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */; };
 		BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */; };
 		BE5ACCC722EC18CC003A46BB /* OptRecMultipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */; };
 		BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5ACCC622EC18CC003A46BB /* OptRecMultipCell.xib */; };
-		BE5EDF9624BF14300005282F /* MasterBillPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */; };
-		BE5EDF9724BF14300005282F /* MasterBillPrinter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */; };
 		BE5FD58423729F79004CF114 /* CenAnnouceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */; };
 		BE5FD58523729F79004CF114 /* CenAnnounceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */; };
 		BE5FD58623729F79004CF114 /* CenAnnouceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */; };
@@ -247,7 +238,6 @@
 		BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */; };
 		BE6A63F222CB553A0053E67F /* DriHeavQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */; };
 		BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */; };
-		BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */; };
 		BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAC232DD6640076DB33 /* UserModel.swift */; };
 		BE6B5CB5232DD6660076DB33 /* PwdResetSuccController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */; };
 		BE6B5CB6232DD6660076DB33 /* PwdResetSuccController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */; };
@@ -258,10 +248,7 @@
 		BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */; };
 		BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBE232DD7FE0076DB33 /* STConst.swift */; };
 		BE723EC52329EFB1005FC86C /* STHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE723EC42329EFB1005FC86C /* STHelper.swift */; };
-		BE80E6B224B8B82B008EE9B4 /* BluetoothListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */; };
-		BE80E6B324B8B82B008EE9B4 /* GSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE80E6A724B8B82B008EE9B4 /* GSDK.a */; };
-		BE80E6B424B8B82B008EE9B4 /* BluetoothListController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */; };
-		BE80E6B524B8B82B008EE9B4 /* ConnecterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */; };
+		BE73DACE24DE8BAD00925B3E /* PrinterSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */; };
 		BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839094229FAC8A0050C9F3 /* VanRecordController.swift */; };
 		BE839097229FAC8A0050C9F3 /* VanRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE839095229FAC8A0050C9F3 /* VanRecordController.xib */; };
 		BE83909B229FB7410050C9F3 /* DriverPersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839099229FB7400050C9F3 /* DriverPersonController.swift */; };
@@ -286,6 +273,8 @@
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
 		BE9DDA1D2428A0E300F04DCF /* DSSignFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */; };
 		BE9DDA1E2428A0E300F04DCF /* DSSignFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */; };
+		BEA1847224DE91B800F0EAB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AA23AB4945002E6828 /* SystemConfiguration.framework */; };
+		BEA1847524DE94C800F0EAB3 /* HPrinterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */; };
 		BEA1B78324B1948600CDD64C /* DeliveryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */; };
 		BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */; };
 		BEA1B78624B1958800CDD64C /* DeliverForeCastControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */; };
@@ -295,21 +284,34 @@
 		BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */; };
 		BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */; };
 		BEA67BAF22DC78FA007D8E4C /* CenHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */; };
-		BEA67F11245D875E00A9099C /* CompleteTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F05245D875E00A9099C /* CompleteTicketControl.swift */; };
-		BEA67F1F245D878700A9099C /* PrintMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67F1B245D878700A9099C /* PrintMenuItem.xib */; };
-		BEA67F20245D878700A9099C /* PrintMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA67F1C245D878700A9099C /* PrintMenuController.xib */; };
-		BEA67F21245D878700A9099C /* PrintMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1D245D878700A9099C /* PrintMenuItem.swift */; };
-		BEA67F22245D878700A9099C /* PrintMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA67F1E245D878700A9099C /* PrintMenuController.swift */; };
-		BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA76E90248DDBB800E341EA /* PrintModels.swift */; };
 		BEAA3BDA22B50260006B0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8968B2C91DBE606E00F0606D /* Assets.xcassets */; };
-		BEAB37BD24BC59B400C09775 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAB37BC24BC59B400C09775 /* NSDate+Category.m */; };
-		BEABEAB72495E42A005CA4CF /* MasterBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */; };
 		BEAD751C1F64112F0045E58C /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */; };
 		BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */; };
 		BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2C242DC58300169C2C /* BaseFooter.swift */; };
 		BEB14E30242DC80B00169C2C /* ExceptionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */; };
 		BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */; };
 		BEB58FCF22E6F49E0014FA5D /* VanRecordDetailControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */; };
+		BEB5AE9D24CA75B700A91E8B /* SubBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE8F24CA75B700A91E8B /* SubBillQueryController.swift */; };
+		BEB5AE9E24CA75B700A91E8B /* MasterBillPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE9124CA75B700A91E8B /* MasterBillPrinter.m */; };
+		BEB5AE9F24CA75B700A91E8B /* MasterBillPrinter.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AE9224CA75B700A91E8B /* MasterBillPrinter.xib */; };
+		BEB5AEA024CA75B700A91E8B /* PrintMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AE9524CA75B700A91E8B /* PrintMenuItem.xib */; };
+		BEB5AEA124CA75B700A91E8B /* PrintMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AE9624CA75B700A91E8B /* PrintMenuController.xib */; };
+		BEB5AEA224CA75B700A91E8B /* MenuRSHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AE9724CA75B700A91E8B /* MenuRSHeader.xib */; };
+		BEB5AEA324CA75B700A91E8B /* PrintMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE9824CA75B700A91E8B /* PrintMenuItem.swift */; };
+		BEB5AEA424CA75B700A91E8B /* PrintMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE9924CA75B700A91E8B /* PrintMenuController.swift */; };
+		BEB5AEA524CA75B700A91E8B /* MenuRSHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE9A24CA75B700A91E8B /* MenuRSHeader.swift */; };
+		BEB5AEA624CA75B700A91E8B /* MasterBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AE9C24CA75B700A91E8B /* MasterBillQueryController.swift */; };
+		BEB5AEB124CA75BE00A91E8B /* CompleteTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEA924CA75BE00A91E8B /* CompleteTicketControl.swift */; };
+		BEB5AEB224CA75BE00A91E8B /* SimpleTicketControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEAB24CA75BE00A91E8B /* SimpleTicketControl.swift */; };
+		BEB5AEB324CA75BE00A91E8B /* HTDashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEAC24CA75BE00A91E8B /* HTDashView.swift */; };
+		BEB5AEC924CA75F600A91E8B /* BluetoothListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5AEB824CA75F600A91E8B /* BluetoothListController.xib */; };
+		BEB5AECA24CA75F600A91E8B /* BluetoothListController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEBA24CA75F600A91E8B /* BluetoothListController.m */; };
+		BEB5AECB24CA75F600A91E8B /* SPRTPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEBD24CA75F600A91E8B /* SPRTPrint.m */; };
+		BEB5AECC24CA75F600A91E8B /* GSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB5AEC024CA75F600A91E8B /* GSDK.a */; };
+		BEB5AECD24CA75F600A91E8B /* ConnecterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AEC824CA75F600A91E8B /* ConnecterManager.m */; };
+		BEB5AED024CA7A0C00A91E8B /* PrintModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AECF24CA7A0C00A91E8B /* PrintModels.swift */; };
+		BEB5AED624CA7A6100A91E8B /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AED224CA7A6100A91E8B /* NSDate+Category.m */; };
+		BEB5AED724CA7A6100A91E8B /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB5AED324CA7A6100A91E8B /* UIImage+Extension.m */; };
 		BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5E6912333678F0087CD0B /* DriverModel.swift */; };
 		BEC8B44122BCF9720095C045 /* TinyConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43B22BCF9720095C045 /* TinyConsole.swift */; };
 		BEC8B44222BCF9720095C045 /* TinyConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC8B43C22BCF9720095C045 /* TinyConsoleViewController.swift */; };
@@ -320,10 +322,11 @@
 		BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA0541237931680053C60F /* CenterAnnoCell.xib */; };
 		BECA054A23793A410053C60F /* CarCountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA054823793A400053C60F /* CarCountHeader.swift */; };
 		BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BECA054923793A410053C60F /* CarCountHeader.xib */; };
-		BECCE82124BB1C8000728034 /* SubBillQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECCE82024BB1C7F00728034 /* SubBillQueryController.swift */; };
 		BED08229232F894800EF69D5 /* VanRecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED08227232F894700EF69D5 /* VanRecCell.xib */; };
 		BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED08228232F894700EF69D5 /* VanRecCell.swift */; };
 		BED8DDBD2438290A00E9FF2C /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8DDBC2438290A00E9FF2C /* BaseController.swift */; };
+		BED9B70F24DF95A8006ED1BC /* TicketPrintPreController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED9B70D24DF95A8006ED1BC /* TicketPrintPreController.xib */; };
+		BED9B71024DF95A8006ED1BC /* TicketPrintPreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED9B70E24DF95A8006ED1BC /* TicketPrintPreController.m */; };
 		BEDA03DF242CEA690072E1F9 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */; };
 		BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746F922C510AD002B241E /* DriHeavyController.swift */; };
 		BEE7471222C5128C002B241E /* DriHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE746FD22C5128B002B241E /* DriHomeController.swift */; };
@@ -353,7 +356,6 @@
 		BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A423AB4905002E6828 /* OpenGLES.framework */; };
 		BEE777A723AB491A002E6828 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A623AB491A002E6828 /* QuartzCore.framework */; };
 		BEE777A923AB4933002E6828 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777A823AB4933002E6828 /* Security.framework */; };
-		BEE777AB23AB4945002E6828 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AA23AB4945002E6828 /* SystemConfiguration.framework */; };
 		BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE777AC23AB49B4002E6828 /* libz.tbd */; };
 		BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF205EC22E994760050E2A7 /* OperationHeader.xib */; };
 		BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF205ED22E994760050E2A7 /* OperationHeader.swift */; };
@@ -488,8 +490,6 @@
 		BE0718B02094BEE3007A33A2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		BE0718B12094BEE3007A33A2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		BE0E02C8242A3C89000CEA82 /* SendSignReasonControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendSignReasonControl.swift; sourceTree = "<group>"; };
-		BE0EA7B72466478B0078E9F9 /* MenuRSHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRSHeader.swift; sourceTree = "<group>"; };
-		BE0EA7B82466478B0078E9F9 /* MenuRSHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuRSHeader.xib; sourceTree = "<group>"; };
 		BE0FC4C822BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserFadeTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4C922BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserZoomTransitioning.swift; sourceTree = "<group>"; };
 		BE0FC4CA22BF404800271FED /* JXPhotoBrowserPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPhotoBrowserPresentationController.swift; sourceTree = "<group>"; };
@@ -550,13 +550,6 @@
 		BE38BCED228C0B770007B6E0 /* PaijianSaomiaoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaijianSaomiaoViewController.xib; sourceTree = "<group>"; };
 		BE38BCEF228C0B770007B6E0 /* FinancialController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinancialController.xib; sourceTree = "<group>"; };
 		BE38BCF0228C0B770007B6E0 /* FinancialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialController.swift; sourceTree = "<group>"; };
-		BE38BCF2228C0B770007B6E0 /* SPRTPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRTPrint.h; sourceTree = "<group>"; };
-		BE38BCF3228C0B770007B6E0 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
-		BE38BCF4228C0B770007B6E0 /* PrinterPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterPreviewController.m; sourceTree = "<group>"; tabWidth = 4; };
-		BE38BCF5228C0B770007B6E0 /* PrinterPreviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrinterPreviewController.xib; sourceTree = "<group>"; };
-		BE38BCF6228C0B770007B6E0 /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
-		BE38BCF7228C0B770007B6E0 /* SPRTPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRTPrint.m; sourceTree = "<group>"; };
-		BE38BCF8228C0B770007B6E0 /* PrinterPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterPreviewController.h; sourceTree = "<group>"; };
 		BE38BCFA228C0B770007B6E0 /* KuaijianChaxunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KuaijianChaxunViewController.xib; sourceTree = "<group>"; };
 		BE38BCFB228C0B770007B6E0 /* KuaijianChaxunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KuaijianChaxunViewController.swift; sourceTree = "<group>"; };
 		BE38BCFD228C0B770007B6E0 /* HTAlertViewPrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTAlertViewPrint.swift; sourceTree = "<group>"; };
@@ -603,18 +596,14 @@
 		BE44322A1F530F1C004069DF /* MaterialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MaterialViewController.xib; sourceTree = "<group>"; };
 		BE4874A91F54484600F4B8B5 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		BE4D0FF72373B46B00B7BA17 /* RecViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecViewModel.swift; sourceTree = "<group>"; };
-		BE4F222224B8451B0084F323 /* SimpleTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTicketControl.swift; sourceTree = "<group>"; };
-		BE4F222324B8451B0084F323 /* HTDashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTDashView.swift; sourceTree = "<group>"; };
 		BE57CD5D24BCAD5F00386DE2 /* DeliverBillPrinterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliverBillPrinterController.xib; sourceTree = "<group>"; };
 		BE57CD5F24BCAD5F00386DE2 /* DeliverBillPrinterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliverBillPrinterController.m; sourceTree = "<group>"; };
 		BE57CD6124BCAD5F00386DE2 /* DeliverBillPrinterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliverBillPrinterController.h; sourceTree = "<group>"; };
+		BE593B9224CAD69500855D20 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BE5ACCC122EC1145003A46BB /* OptRecSingleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecSingleCell.swift; sourceTree = "<group>"; };
 		BE5ACCC222EC1145003A46BB /* OptRecSingleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecSingleCell.xib; sourceTree = "<group>"; };
 		BE5ACCC522EC18CC003A46BB /* OptRecMultipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptRecMultipCell.swift; sourceTree = "<group>"; };
 		BE5ACCC622EC18CC003A46BB /* OptRecMultipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptRecMultipCell.xib; sourceTree = "<group>"; };
-		BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; };
-		BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
-		BE5EDF9524BF142F0005282F /* MasterBillPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterBillPrinter.h; sourceTree = "<group>"; };
 		BE5FD57D23729F79004CF114 /* CenAnnouceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenAnnouceController.swift; sourceTree = "<group>"; };
 		BE5FD57E23729F79004CF114 /* CenAnnounceDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenAnnounceDetailController.swift; sourceTree = "<group>"; };
 		BE5FD57F23729F79004CF114 /* CenAnnouceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenAnnouceController.xib; sourceTree = "<group>"; };
@@ -631,7 +620,6 @@
 		BE6A63EC22CB54560053E67F /* DriHeavQueryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryController.xib; sourceTree = "<group>"; };
 		BE6A63F022CB553A0053E67F /* DriHeavQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriHeavQueryCell.xib; sourceTree = "<group>"; };
 		BE6A63F122CB553A0053E67F /* DriHeavQueryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavQueryCell.swift; sourceTree = "<group>"; };
-		BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		BE6B5CAC232DD6640076DB33 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BE6B5CAE232DD6640076DB33 /* PwdResetSuccController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdResetSuccController.swift; sourceTree = "<group>"; };
 		BE6B5CAF232DD6640076DB33 /* PwdResetSuccController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdResetSuccController.xib; sourceTree = "<group>"; };
@@ -642,18 +630,7 @@
 		BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteCenModel.swift; sourceTree = "<group>"; };
 		BE6B5CBE232DD7FE0076DB33 /* STConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STConst.swift; sourceTree = "<group>"; };
 		BE723EC42329EFB1005FC86C /* STHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHelper.swift; sourceTree = "<group>"; };
-		BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothListController.xib; sourceTree = "<group>"; };
-		BE80E6A624B8B82B008EE9B4 /* ConnecterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterManager.h; sourceTree = "<group>"; };
-		BE80E6A724B8B82B008EE9B4 /* GSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GSDK.a; sourceTree = "<group>"; };
-		BE80E6A824B8B82B008EE9B4 /* BluetoothListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothListController.h; sourceTree = "<group>"; };
-		BE80E6AA24B8B82B008EE9B4 /* EthernetConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetConnecter.h; sourceTree = "<group>"; };
-		BE80E6AB24B8B82B008EE9B4 /* EscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EscCommand.h; sourceTree = "<group>"; };
-		BE80E6AC24B8B82B008EE9B4 /* ConnecterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterBlock.h; sourceTree = "<group>"; };
-		BE80E6AD24B8B82B008EE9B4 /* TscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TscCommand.h; sourceTree = "<group>"; };
-		BE80E6AE24B8B82B008EE9B4 /* BLEConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnecter.h; sourceTree = "<group>"; };
-		BE80E6AF24B8B82B008EE9B4 /* Connecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connecter.h; sourceTree = "<group>"; };
-		BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothListController.m; sourceTree = "<group>"; };
-		BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnecterManager.m; sourceTree = "<group>"; };
+		BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrinterSDK.framework; sourceTree = "<group>"; };
 		BE839094229FAC8A0050C9F3 /* VanRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecordController.swift; sourceTree = "<group>"; };
 		BE839095229FAC8A0050C9F3 /* VanRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecordController.xib; sourceTree = "<group>"; };
 		BE839099229FB7400050C9F3 /* DriverPersonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverPersonController.swift; sourceTree = "<group>"; };
@@ -678,6 +655,8 @@
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
 		BE9DDA1B2428A0E300F04DCF /* DSSignFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSignFooter.swift; sourceTree = "<group>"; };
 		BE9DDA1C2428A0E300F04DCF /* DSSignFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSignFooter.xib; sourceTree = "<group>"; };
+		BEA1847324DE94C800F0EAB3 /* HPrinterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPrinterHelper.h; sourceTree = "<group>"; };
+		BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPrinterHelper.m; sourceTree = "<group>"; };
 		BEA1B78124B1948600CDD64C /* DeliveryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryMenuController.swift; sourceTree = "<group>"; };
 		BEA1B78224B1948600CDD64C /* DeliveryMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryMenuController.xib; sourceTree = "<group>"; };
 		BEA1B78524B1958800CDD64C /* DeliverForeCastControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverForeCastControl.swift; sourceTree = "<group>"; };
@@ -687,21 +666,45 @@
 		BEA5B4C323A48E86000E1F9D /* TruckNumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNumListController.swift; sourceTree = "<group>"; };
 		BEA67BA922DC78FA007D8E4C /* CenHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenHomeController.xib; sourceTree = "<group>"; };
 		BEA67BAA22DC78FA007D8E4C /* CenHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenHomeController.swift; sourceTree = "<group>"; };
-		BEA67F05245D875E00A9099C /* CompleteTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = CompleteTicketControl.swift; sourceTree = "<group>"; tabWidth = 4; };
-		BEA67F1B245D878700A9099C /* PrintMenuItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuItem.xib; sourceTree = "<group>"; };
-		BEA67F1C245D878700A9099C /* PrintMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuController.xib; sourceTree = "<group>"; };
-		BEA67F1D245D878700A9099C /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
-		BEA67F1E245D878700A9099C /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
-		BEA76E90248DDBB800E341EA /* PrintModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
-		BEAB37BB24BC59B400C09775 /* NSDate+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
-		BEAB37BC24BC59B400C09775 /* NSDate+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
-		BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillQueryController.swift; sourceTree = "<group>"; };
 		BEAD751A1F64112F0045E58C /* ProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsTableViewController.xib; sourceTree = "<group>"; };
 		BEB14E2C242DC58300169C2C /* BaseFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFooter.swift; sourceTree = "<group>"; };
 		BEB14E2E242DC80B00169C2C /* ExceptionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHeader.swift; sourceTree = "<group>"; };
 		BEB14E2F242DC80B00169C2C /* ExceptionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExceptionHeader.xib; sourceTree = "<group>"; };
 		BEB58FCE22E6F49E0014FA5D /* VanRecordDetailControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanRecordDetailControl.swift; sourceTree = "<group>"; };
+		BEB5AE8F24CA75B700A91E8B /* SubBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubBillQueryController.swift; sourceTree = "<group>"; };
+		BEB5AE9124CA75B700A91E8B /* MasterBillPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterBillPrinter.m; sourceTree = "<group>"; };
+		BEB5AE9224CA75B700A91E8B /* MasterBillPrinter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBillPrinter.xib; sourceTree = "<group>"; };
+		BEB5AE9324CA75B700A91E8B /* MasterBillPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterBillPrinter.h; sourceTree = "<group>"; };
+		BEB5AE9524CA75B700A91E8B /* PrintMenuItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuItem.xib; sourceTree = "<group>"; };
+		BEB5AE9624CA75B700A91E8B /* PrintMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintMenuController.xib; sourceTree = "<group>"; };
+		BEB5AE9724CA75B700A91E8B /* MenuRSHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuRSHeader.xib; sourceTree = "<group>"; };
+		BEB5AE9824CA75B700A91E8B /* PrintMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuItem.swift; sourceTree = "<group>"; };
+		BEB5AE9924CA75B700A91E8B /* PrintMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintMenuController.swift; sourceTree = "<group>"; };
+		BEB5AE9A24CA75B700A91E8B /* MenuRSHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRSHeader.swift; sourceTree = "<group>"; };
+		BEB5AE9C24CA75B700A91E8B /* MasterBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBillQueryController.swift; sourceTree = "<group>"; };
+		BEB5AEA924CA75BE00A91E8B /* CompleteTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteTicketControl.swift; sourceTree = "<group>"; };
+		BEB5AEAB24CA75BE00A91E8B /* SimpleTicketControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTicketControl.swift; sourceTree = "<group>"; };
+		BEB5AEAC24CA75BE00A91E8B /* HTDashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTDashView.swift; sourceTree = "<group>"; };
+		BEB5AEB824CA75F600A91E8B /* BluetoothListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothListController.xib; sourceTree = "<group>"; };
+		BEB5AEB924CA75F600A91E8B /* BluetoothListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothListController.h; sourceTree = "<group>"; };
+		BEB5AEBA24CA75F600A91E8B /* BluetoothListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothListController.m; sourceTree = "<group>"; };
+		BEB5AEBC24CA75F600A91E8B /* SPRTPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRTPrint.h; sourceTree = "<group>"; };
+		BEB5AEBD24CA75F600A91E8B /* SPRTPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRTPrint.m; sourceTree = "<group>"; };
+		BEB5AEBF24CA75F600A91E8B /* ConnecterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterManager.h; sourceTree = "<group>"; };
+		BEB5AEC024CA75F600A91E8B /* GSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GSDK.a; sourceTree = "<group>"; };
+		BEB5AEC224CA75F600A91E8B /* EthernetConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetConnecter.h; sourceTree = "<group>"; };
+		BEB5AEC324CA75F600A91E8B /* EscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EscCommand.h; sourceTree = "<group>"; };
+		BEB5AEC424CA75F600A91E8B /* ConnecterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterBlock.h; sourceTree = "<group>"; };
+		BEB5AEC524CA75F600A91E8B /* TscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TscCommand.h; sourceTree = "<group>"; };
+		BEB5AEC624CA75F600A91E8B /* BLEConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnecter.h; sourceTree = "<group>"; };
+		BEB5AEC724CA75F600A91E8B /* Connecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connecter.h; sourceTree = "<group>"; };
+		BEB5AEC824CA75F600A91E8B /* ConnecterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnecterManager.m; sourceTree = "<group>"; };
+		BEB5AECF24CA7A0C00A91E8B /* PrintModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintModels.swift; sourceTree = "<group>"; };
+		BEB5AED224CA7A6100A91E8B /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		BEB5AED324CA7A6100A91E8B /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		BEB5AED424CA7A6100A91E8B /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		BEB5AED524CA7A6100A91E8B /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		BEC5E6912333678F0087CD0B /* DriverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		BEC8B43B22BCF9720095C045 /* TinyConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsole.swift; sourceTree = "<group>"; };
 		BEC8B43C22BCF9720095C045 /* TinyConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConsoleViewController.swift; sourceTree = "<group>"; };
@@ -714,10 +717,12 @@
 		BECA0541237931680053C60F /* CenterAnnoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterAnnoCell.xib; sourceTree = "<group>"; };
 		BECA054823793A400053C60F /* CarCountHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarCountHeader.swift; sourceTree = "<group>"; };
 		BECA054923793A410053C60F /* CarCountHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCountHeader.xib; sourceTree = "<group>"; };
-		BECCE82024BB1C7F00728034 /* SubBillQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubBillQueryController.swift; sourceTree = "<group>"; };
 		BED08227232F894700EF69D5 /* VanRecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecCell.xib; sourceTree = "<group>"; };
 		BED08228232F894700EF69D5 /* VanRecCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecCell.swift; sourceTree = "<group>"; };
 		BED8DDBC2438290A00E9FF2C /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
+		BED9B70C24DF95A8006ED1BC /* TicketPrintPreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketPrintPreController.h; sourceTree = "<group>"; };
+		BED9B70D24DF95A8006ED1BC /* TicketPrintPreController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketPrintPreController.xib; sourceTree = "<group>"; };
+		BED9B70E24DF95A8006ED1BC /* TicketPrintPreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketPrintPreController.m; sourceTree = "<group>"; };
 		BEDA03DE242CEA690072E1F9 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		BEE746F922C510AD002B241E /* DriHeavyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHeavyController.swift; sourceTree = "<group>"; };
 		BEE746FD22C5128B002B241E /* DriHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriHomeController.swift; sourceTree = "<group>"; };
@@ -759,13 +764,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA1847224DE91B800F0EAB3 /* SystemConfiguration.framework in Frameworks */,
 				BEE777AD23AB49B4002E6828 /* libz.tbd in Frameworks */,
-				BEE777AB23AB4945002E6828 /* SystemConfiguration.framework in Frameworks */,
 				BEE777A923AB4933002E6828 /* Security.framework in Frameworks */,
 				BEE777A723AB491A002E6828 /* QuartzCore.framework in Frameworks */,
 				BEE777A523AB4905002E6828 /* OpenGLES.framework in Frameworks */,
 				BEE777A323AB48E8002E6828 /* MobileCoreServices.framework in Frameworks */,
 				BEE777A123AB48C7002E6828 /* CoreTelephony.framework in Frameworks */,
+				BE593B9324CAD69500855D20 /* BMKLocationKit.framework in Frameworks */,
 				BEE7779F23AB48A2002E6828 /* CoreMotion.framework in Frameworks */,
 				8968B34F1DBF4F2100F0606D /* libsqlite3.0.tbd in Frameworks */,
 				BEE7778523AB23E3002E6828 /* CoreLocation.framework in Frameworks */,
@@ -773,16 +779,16 @@
 				BEE7778123AB23CA002E6828 /* MediaPlayer.framework in Frameworks */,
 				BEE7777F23AB23C3002E6828 /* UserNotifications.framework in Frameworks */,
 				BEE7777D23AB23BD002E6828 /* libiconv.tbd in Frameworks */,
-				BE80E6B324B8B82B008EE9B4 /* GSDK.a in Frameworks */,
+				BE73DACE24DE8BAD00925B3E /* PrinterSDK.framework in Frameworks */,
+				BEB5AECC24CA75F600A91E8B /* GSDK.a in Frameworks */,
 				BEE7777B23AB23B5002E6828 /* AssetsLibrary.framework in Frameworks */,
 				BEE7777923AB23AF002E6828 /* AdSupport.framework in Frameworks */,
 				BEE7777723AB23A8002E6828 /* CallKit.framework in Frameworks */,
 				BEE7777523AB23A2002E6828 /* Accelerate.framework in Frameworks */,
-				BE6A8E1A246134BF00A489A9 /* BMKLocationKit.framework in Frameworks */,
 				BE140733208EBDAD00F7E53A /* CoreBluetooth.framework in Frameworks */,
 				BE140731208EBDA700F7E53A /* CoreGraphics.framework in Frameworks */,
 				BE2059031F493DB2001AD85D /* GRDB.framework in Frameworks */,
-				4678608C876A1EFD24E1C30F /* Pods_ST.framework in Frameworks */,
+				99F0673F7CF2A819335FC432 /* Pods_ST.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,8 +1055,10 @@
 		899BD3631DC0FB57000C6687 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BEB5AED124CA7A6100A91E8B /* Category */,
+				BEB5AEA724CA75BE00A91E8B /* Tickets(danpiao) */,
+				BEB5AE8D24CA75B700A91E8B /* LabelSuppele(biaobu) */,
 				BEA1B77F24B1948600CDD64C /* Delivery */,
-				BEA67F03245D875E00A9099C /* Print */,
 				BE38BD23228C0B770007B6E0 /* Quyuchaxun */,
 				BE38BD15228C0B770007B6E0 /* ShoujianSaomiao */,
 				BE38BD09228C0B770007B6E0 /* Fajiansaomiao */,
@@ -1240,20 +1248,6 @@
 			path = Financial;
 			sourceTree = "<group>";
 		};
-		BE38BCF1228C0B770007B6E0 /* PrinterHelper */ = {
-			isa = PBXGroup;
-			children = (
-				BE38BCF8228C0B770007B6E0 /* PrinterPreviewController.h */,
-				BE38BCF4228C0B770007B6E0 /* PrinterPreviewController.m */,
-				BE38BCF5228C0B770007B6E0 /* PrinterPreviewController.xib */,
-				BE38BCF2228C0B770007B6E0 /* SPRTPrint.h */,
-				BE38BCF7228C0B770007B6E0 /* SPRTPrint.m */,
-				BE38BCF6228C0B770007B6E0 /* UIImage+Extension.h */,
-				BE38BCF3228C0B770007B6E0 /* UIImage+Extension.m */,
-			);
-			path = PrinterHelper;
-			sourceTree = "<group>";
-		};
 		BE38BCF9228C0B770007B6E0 /* Kuaijianchaxun */ = {
 			isa = PBXGroup;
 			children = (
@@ -1388,13 +1382,12 @@
 		BE38BD61228C0CE20007B6E0 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				BE80E6A424B8B82B008EE9B4 /* GPrinterLib */,
-				BE6A8E19246134BE00A489A9 /* BMKLocationKit.framework */,
+				BE593B9224CAD69500855D20 /* BMKLocationKit.framework */,
+				BEB5AEB624CA75F600A91E8B /* PrinterLibs */,
 				BE0FC4C622BF404800271FED /* JXPhotoBrowser */,
 				BEC8B43A22BCF9720095C045 /* TinyConsole */,
 				893497C61DDACE8800A505AF /* Webview */,
 				BE38BD29228C0B770007B6E0 /* CustomTextView */,
-				BE38BCF1228C0B770007B6E0 /* PrinterHelper */,
 				BE38BD0C228C0B770007B6E0 /* AlertView */,
 				BE38BCFC228C0B770007B6E0 /* AlertViewPrint */,
 				8932BF711DC2578600A18267 /* Tools */,
@@ -1430,15 +1423,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		BE4F222124B8451B0084F323 /* Simple */ = {
-			isa = PBXGroup;
-			children = (
-				BE4F222224B8451B0084F323 /* SimpleTicketControl.swift */,
-				BE4F222324B8451B0084F323 /* HTDashView.swift */,
-			);
-			path = Simple;
-			sourceTree = "<group>";
-		};
 		BE57CD5C24BCAD5F00386DE2 /* Printer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1449,14 +1433,14 @@
 			path = Printer;
 			sourceTree = "<group>";
 		};
-		BE5EDF9224BF142F0005282F /* MasterBillPrinter */ = {
+		BE593B9424CAD78900855D20 /* HPrinterLib */ = {
 			isa = PBXGroup;
 			children = (
-				BE5EDF9524BF142F0005282F /* MasterBillPrinter.h */,
-				BE5EDF9324BF142F0005282F /* MasterBillPrinter.m */,
-				BE5EDF9424BF142F0005282F /* MasterBillPrinter.xib */,
+				BEA1847324DE94C800F0EAB3 /* HPrinterHelper.h */,
+				BEA1847424DE94C800F0EAB3 /* HPrinterHelper.m */,
+				BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */,
 			);
-			path = MasterBillPrinter;
+			path = HPrinterLib;
 			sourceTree = "<group>";
 		};
 		BE5FD57B23729F79004CF114 /* Announce */ = {
@@ -1545,33 +1529,6 @@
 				BE839098229FB7400050C9F3 /* DUser */,
 			);
 			path = Driver;
-			sourceTree = "<group>";
-		};
-		BE80E6A424B8B82B008EE9B4 /* GPrinterLib */ = {
-			isa = PBXGroup;
-			children = (
-				BE80E6A824B8B82B008EE9B4 /* BluetoothListController.h */,
-				BE80E6B024B8B82B008EE9B4 /* BluetoothListController.m */,
-				BE80E6A524B8B82B008EE9B4 /* BluetoothListController.xib */,
-				BE80E6A624B8B82B008EE9B4 /* ConnecterManager.h */,
-				BE80E6B124B8B82B008EE9B4 /* ConnecterManager.m */,
-				BE80E6A924B8B82B008EE9B4 /* GSDK */,
-				BE80E6A724B8B82B008EE9B4 /* GSDK.a */,
-			);
-			path = GPrinterLib;
-			sourceTree = "<group>";
-		};
-		BE80E6A924B8B82B008EE9B4 /* GSDK */ = {
-			isa = PBXGroup;
-			children = (
-				BE80E6AA24B8B82B008EE9B4 /* EthernetConnecter.h */,
-				BE80E6AB24B8B82B008EE9B4 /* EscCommand.h */,
-				BE80E6AC24B8B82B008EE9B4 /* ConnecterBlock.h */,
-				BE80E6AD24B8B82B008EE9B4 /* TscCommand.h */,
-				BE80E6AE24B8B82B008EE9B4 /* BLEConnecter.h */,
-				BE80E6AF24B8B82B008EE9B4 /* Connecter.h */,
-			);
-			path = GSDK;
 			sourceTree = "<group>";
 		};
 		BE839093229FAC8A0050C9F3 /* VanRecord */ = {
@@ -1730,52 +1687,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		BEA67F03245D875E00A9099C /* Print */ = {
-			isa = PBXGroup;
-			children = (
-				BE5EDF9224BF142F0005282F /* MasterBillPrinter */,
-				BECCE81F24BB1C7F00728034 /* SubBillQuery */,
-				BE4F222124B8451B0084F323 /* Simple */,
-				BEABEAB52495E42A005CA4CF /* MasterBill */,
-				BEA76E8F248DDB9E00E341EA /* Model */,
-				BEA67F1A245D878700A9099C /* Menu */,
-				BEA67F04245D875E00A9099C /* Complete */,
-				BEAB37BB24BC59B400C09775 /* NSDate+Category.h */,
-				BEAB37BC24BC59B400C09775 /* NSDate+Category.m */,
-			);
-			path = Print;
-			sourceTree = "<group>";
-		};
-		BEA67F04245D875E00A9099C /* Complete */ = {
-			isa = PBXGroup;
-			children = (
-				BEA67F05245D875E00A9099C /* CompleteTicketControl.swift */,
-			);
-			path = Complete;
-			sourceTree = "<group>";
-		};
-		BEA67F1A245D878700A9099C /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				BE0EA7B72466478B0078E9F9 /* MenuRSHeader.swift */,
-				BE0EA7B82466478B0078E9F9 /* MenuRSHeader.xib */,
-				BEA67F1B245D878700A9099C /* PrintMenuItem.xib */,
-				BEA67F1D245D878700A9099C /* PrintMenuItem.swift */,
-				BEA67F1C245D878700A9099C /* PrintMenuController.xib */,
-				BEA67F1E245D878700A9099C /* PrintMenuController.swift */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
-		BEA76E8F248DDB9E00E341EA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BEA76E90248DDBB800E341EA /* PrintModels.swift */,
-			);
-			name = Model;
-			path = ST/User/Home/Model;
-			sourceTree = SOURCE_ROOT;
-		};
 		BEAA3BB022B4F6A9006B0E1A /* DHome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1788,14 +1699,6 @@
 			path = DHome;
 			sourceTree = "<group>";
 		};
-		BEABEAB52495E42A005CA4CF /* MasterBill */ = {
-			isa = PBXGroup;
-			children = (
-				BEABEAB62495E42A005CA4CF /* MasterBillQueryController.swift */,
-			);
-			path = MasterBill;
-			sourceTree = "<group>";
-		};
 		BEAD75121F6411180045E58C /* ProductPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1803,6 +1706,157 @@
 				BEAD751B1F64112F0045E58C /* ProductsTableViewController.xib */,
 			);
 			path = ProductPicker;
+			sourceTree = "<group>";
+		};
+		BEB5AE8D24CA75B700A91E8B /* LabelSuppele(biaobu) */ = {
+			isa = PBXGroup;
+			children = (
+				BED9B70B24DF95A8006ED1BC /* TickPrinterPre */,
+				BEB5AE8E24CA75B700A91E8B /* SubBillQuery */,
+				BEB5AE9024CA75B700A91E8B /* MasterBillPrinter */,
+				BEB5AE9424CA75B700A91E8B /* Menu */,
+				BEB5AE9B24CA75B700A91E8B /* MasterBillQuery */,
+			);
+			path = "LabelSuppele(biaobu)";
+			sourceTree = "<group>";
+		};
+		BEB5AE8E24CA75B700A91E8B /* SubBillQuery */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AE8F24CA75B700A91E8B /* SubBillQueryController.swift */,
+			);
+			path = SubBillQuery;
+			sourceTree = "<group>";
+		};
+		BEB5AE9024CA75B700A91E8B /* MasterBillPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AE9324CA75B700A91E8B /* MasterBillPrinter.h */,
+				BEB5AE9124CA75B700A91E8B /* MasterBillPrinter.m */,
+				BEB5AE9224CA75B700A91E8B /* MasterBillPrinter.xib */,
+			);
+			path = MasterBillPrinter;
+			sourceTree = "<group>";
+		};
+		BEB5AE9424CA75B700A91E8B /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AE9524CA75B700A91E8B /* PrintMenuItem.xib */,
+				BEB5AE9624CA75B700A91E8B /* PrintMenuController.xib */,
+				BEB5AE9724CA75B700A91E8B /* MenuRSHeader.xib */,
+				BEB5AE9824CA75B700A91E8B /* PrintMenuItem.swift */,
+				BEB5AE9924CA75B700A91E8B /* PrintMenuController.swift */,
+				BEB5AE9A24CA75B700A91E8B /* MenuRSHeader.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		BEB5AE9B24CA75B700A91E8B /* MasterBillQuery */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AE9C24CA75B700A91E8B /* MasterBillQueryController.swift */,
+			);
+			path = MasterBillQuery;
+			sourceTree = "<group>";
+		};
+		BEB5AEA724CA75BE00A91E8B /* Tickets(danpiao) */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AECE24CA7A0C00A91E8B /* Model */,
+				BEB5AEA824CA75BE00A91E8B /* Complete */,
+				BEB5AEAA24CA75BE00A91E8B /* Simple */,
+			);
+			path = "Tickets(danpiao)";
+			sourceTree = "<group>";
+		};
+		BEB5AEA824CA75BE00A91E8B /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEA924CA75BE00A91E8B /* CompleteTicketControl.swift */,
+			);
+			path = Complete;
+			sourceTree = "<group>";
+		};
+		BEB5AEAA24CA75BE00A91E8B /* Simple */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEAB24CA75BE00A91E8B /* SimpleTicketControl.swift */,
+				BEB5AEAC24CA75BE00A91E8B /* HTDashView.swift */,
+			);
+			path = Simple;
+			sourceTree = "<group>";
+		};
+		BEB5AEB624CA75F600A91E8B /* PrinterLibs */ = {
+			isa = PBXGroup;
+			children = (
+				BE593B9424CAD78900855D20 /* HPrinterLib */,
+				BEB5AEB724CA75F600A91E8B /* PrinterHelper */,
+				BEB5AEBB24CA75F600A91E8B /* SPrinterLib */,
+				BEB5AEBE24CA75F600A91E8B /* GPrinterLib */,
+			);
+			path = PrinterLibs;
+			sourceTree = "<group>";
+		};
+		BEB5AEB724CA75F600A91E8B /* PrinterHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEB824CA75F600A91E8B /* BluetoothListController.xib */,
+				BEB5AEB924CA75F600A91E8B /* BluetoothListController.h */,
+				BEB5AEBA24CA75F600A91E8B /* BluetoothListController.m */,
+			);
+			path = PrinterHelper;
+			sourceTree = "<group>";
+		};
+		BEB5AEBB24CA75F600A91E8B /* SPrinterLib */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEBD24CA75F600A91E8B /* SPRTPrint.m */,
+				BEB5AEBC24CA75F600A91E8B /* SPRTPrint.h */,
+			);
+			path = SPrinterLib;
+			sourceTree = "<group>";
+		};
+		BEB5AEBE24CA75F600A91E8B /* GPrinterLib */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEBF24CA75F600A91E8B /* ConnecterManager.h */,
+				BEB5AEC024CA75F600A91E8B /* GSDK.a */,
+				BEB5AEC124CA75F600A91E8B /* GSDK */,
+				BEB5AEC824CA75F600A91E8B /* ConnecterManager.m */,
+			);
+			path = GPrinterLib;
+			sourceTree = "<group>";
+		};
+		BEB5AEC124CA75F600A91E8B /* GSDK */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AEC224CA75F600A91E8B /* EthernetConnecter.h */,
+				BEB5AEC324CA75F600A91E8B /* EscCommand.h */,
+				BEB5AEC424CA75F600A91E8B /* ConnecterBlock.h */,
+				BEB5AEC524CA75F600A91E8B /* TscCommand.h */,
+				BEB5AEC624CA75F600A91E8B /* BLEConnecter.h */,
+				BEB5AEC724CA75F600A91E8B /* Connecter.h */,
+			);
+			path = GSDK;
+			sourceTree = "<group>";
+		};
+		BEB5AECE24CA7A0C00A91E8B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AECF24CA7A0C00A91E8B /* PrintModels.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BEB5AED124CA7A6100A91E8B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				BEB5AED224CA7A6100A91E8B /* NSDate+Category.m */,
+				BEB5AED324CA7A6100A91E8B /* UIImage+Extension.m */,
+				BEB5AED424CA7A6100A91E8B /* NSDate+Category.h */,
+				BEB5AED524CA7A6100A91E8B /* UIImage+Extension.h */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		BEC5E690233367820087CD0B /* Model */ = {
@@ -1833,20 +1887,22 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BECCE81F24BB1C7F00728034 /* SubBillQuery */ = {
-			isa = PBXGroup;
-			children = (
-				BECCE82024BB1C7F00728034 /* SubBillQueryController.swift */,
-			);
-			path = SubBillQuery;
-			sourceTree = "<group>";
-		};
 		BED8DDBB2438283C00E9FF2C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				BED8DDBC2438290A00E9FF2C /* BaseController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		BED9B70B24DF95A8006ED1BC /* TickPrinterPre */ = {
+			isa = PBXGroup;
+			children = (
+				BED9B70C24DF95A8006ED1BC /* TicketPrintPreController.h */,
+				BED9B70E24DF95A8006ED1BC /* TicketPrintPreController.m */,
+				BED9B70D24DF95A8006ED1BC /* TicketPrintPreController.xib */,
+			);
+			path = TickPrinterPre;
 			sourceTree = "<group>";
 		};
 		BEE746F822C510AD002B241E /* Heavy */ = {
@@ -2003,13 +2059,12 @@
 				BE57CD6224BCAD5F00386DE2 /* DeliverBillPrinterController.xib in Resources */,
 				BE5ACCC822EC18CC003A46BB /* OptRecMultipCell.xib in Resources */,
 				BE20A9981F6660EE00D2D753 /* NoticeCell.xib in Resources */,
+				BEB5AEC924CA75F600A91E8B /* BluetoothListController.xib in Resources */,
 				899BD3621DC0FB32000C6687 /* LoginViewController.xib in Resources */,
 				BE860780235ED49F008BB2B2 /* DriHMsgCell.xib in Resources */,
 				8917F2C51DD352DF00421340 /* PickerInputView.xib in Resources */,
 				BE89707423273E9200096C78 /* DriverLoginController.xib in Resources */,
 				BEAD751D1F64112F0045E58C /* ProductsTableViewController.xib in Resources */,
-				BE38BD32228C0B770007B6E0 /* PrinterPreviewController.xib in Resources */,
-				BE0EA7BA2466478B0078E9F9 /* MenuRSHeader.xib in Resources */,
 				BEA5B4C223A48E79000E1F9D /* TruckNumListController.xib in Resources */,
 				BEE7471422C5128C002B241E /* DriMenuController.xib in Resources */,
 				8968B2CD1DBE606E00F0606D /* LaunchScreen.storyboard in Resources */,
@@ -2019,9 +2074,6 @@
 				BE38BD5D228C0BAF0007B6E0 /* WangdianPickerViewController.xib in Resources */,
 				BE38BD42228C0B770007B6E0 /* HTAlertConfirmView.xib in Resources */,
 				BE28977223CADE50009FB9EE /* Localizable.strings in Resources */,
-				BEA67F1F245D878700A9099C /* PrintMenuItem.xib in Resources */,
-				BEA67F20245D878700A9099C /* PrintMenuController.xib in Resources */,
-				BE80E6B224B8B82B008EE9B4 /* BluetoothListController.xib in Resources */,
 				BE38BD54228C0B770007B6E0 /* QuyuChaxunViewController.xib in Resources */,
 				BE20A99E1F66712C00D2D753 /* testDoc.xlsx in Resources */,
 				BE38BD51228C0B770007B6E0 /* SettingViewController.xib in Resources */,
@@ -2029,6 +2081,7 @@
 				BE623AA423BC6163009A1A20 /* VanRecordResController.xib in Resources */,
 				BE8C067922B6119300A9901A /* Driver.storyboard in Resources */,
 				BE6B5CB9232DD6660076DB33 /* PwdBackResetController.xib in Resources */,
+				BEB5AEA024CA75B700A91E8B /* PrintMenuItem.xib in Resources */,
 				BEE7471322C5128C002B241E /* DriHomeController.xib in Resources */,
 				BE623A9B23BC4C1F009A1A20 /* DriHeavQueryResController.xib in Resources */,
 				BEA67BAE22DC78FA007D8E4C /* CenHomeController.xib in Resources */,
@@ -2054,17 +2107,20 @@
 				BEA1B78424B1948600CDD64C /* DeliveryMenuController.xib in Resources */,
 				BE38BD3B228C0B770007B6E0 /* ProfileLineInfoView.xib in Resources */,
 				BE38BD40228C0B770007B6E0 /* FajianSaomiaoViewController.xib in Resources */,
-				BE5EDF9724BF14300005282F /* MasterBillPrinter.xib in Resources */,
 				893497BB1DDACC5D00A505AF /* XiugaimimaViewController.xib in Resources */,
+				BEB5AEA224CA75B700A91E8B /* MenuRSHeader.xib in Resources */,
 				89F100711DD364ED00798405 /* HomeViewController.xib in Resources */,
 				BE5ACCC422EC1145003A46BB /* OptRecSingleCell.xib in Resources */,
 				BEF205EE22E994770050E2A7 /* OperationHeader.xib in Resources */,
 				BECA054B23793A410053C60F /* CarCountHeader.xib in Resources */,
 				BE38BD4B228C0B770007B6E0 /* SystemSettingEntryType2.xib in Resources */,
 				BE5FD58723729F79004CF114 /* CenAnnounceDetailController.xib in Resources */,
+				BEB5AEA124CA75B700A91E8B /* PrintMenuController.xib in Resources */,
 				BE38BD2D228C0B770007B6E0 /* PaijianSaomiaoViewController.xib in Resources */,
 				BEB14E31242DC80B00169C2C /* ExceptionHeader.xib in Resources */,
+				BED9B70F24DF95A8006ED1BC /* TicketPrintPreController.xib in Resources */,
 				BE20A9A21F66CD5200D2D753 /* BaseUI.storyboard in Resources */,
+				BEB5AE9F24CA75B700A91E8B /* MasterBillPrinter.xib in Resources */,
 				BE6A63EE22CB54560053E67F /* DriHeavQueryController.xib in Resources */,
 				BECA0543237931680053C60F /* CenterAnnoCell.xib in Resources */,
 				BE38BD34228C0B770007B6E0 /* KuaijianChaxunViewController.xib in Resources */,
@@ -2160,10 +2216,10 @@
 				892583B71DC8DA9700285DB5 /* ConstraintAttributes.swift in Sources */,
 				892583E71DC8DB0700285DB5 /* Networking.swift in Sources */,
 				BE86077C235ECFFD008BB2B2 /* DriHomeVModel.swift in Sources */,
+				BEB5AE9E24CA75B700A91E8B /* MasterBillPrinter.m in Sources */,
 				BE83909B229FB7410050C9F3 /* DriverPersonController.swift in Sources */,
+				BEB5AEB224CA75BE00A91E8B /* SimpleTicketControl.swift in Sources */,
 				BE5FD58523729F79004CF114 /* CenAnnounceDetailController.swift in Sources */,
-				BE5EDF9624BF14300005282F /* MasterBillPrinter.m in Sources */,
-				BE38BD31228C0B770007B6E0 /* PrinterPreviewController.m in Sources */,
 				892583D41DC8DA9700285DB5 /* LayoutConstraintItem.swift in Sources */,
 				BEE7471E22C5128C002B241E /* STMenuCell.swift in Sources */,
 				89F3ECEB1DC444B000DDA832 /* HomeMenuItemView.swift in Sources */,
@@ -2172,8 +2228,10 @@
 				8932BF731DC257A400A18267 /* UIViewController+setcontentViewController.swift in Sources */,
 				892583CE1DC8DA9700285DB5 /* ConstraintRelation.swift in Sources */,
 				BE2BEA47242466CA007C1F26 /* AnnouceQueryController.swift in Sources */,
+				BEB5AED624CA7A6100A91E8B /* NSDate+Category.m in Sources */,
 				BE38BD49228C0B770007B6E0 /* SettingViewController.swift in Sources */,
 				BE0FC4F322BF404800271FED /* UICollectionView+JX.swift in Sources */,
+				BEB5AEB324CA75BE00A91E8B /* HTDashView.swift in Sources */,
 				BECA0542237931680053C60F /* CenterAnnoCell.swift in Sources */,
 				BE20849522B7CA9E00860F54 /* DriVideoView.swift in Sources */,
 				892583BB1DC8DA9700285DB5 /* ConstraintDSL.swift in Sources */,
@@ -2185,7 +2243,6 @@
 				BE0FC50122BF404800271FED /* JXNumberPageControlDelegate.swift in Sources */,
 				BE6A63F322CB553A0053E67F /* DriHeavQueryCell.swift in Sources */,
 				8912B0DD1DD0E09C0021B160 /* QRCodeReaderViewController.swift in Sources */,
-				BEABEAB72495E42A005CA4CF /* MasterBillQueryController.swift in Sources */,
 				893497C91DDACE9900A505AF /* WebViewController.swift in Sources */,
 				89F61E3B1DCE20C10065C9CA /* Customer.swift in Sources */,
 				899BD3611DC0FB32000C6687 /* LoginViewController.swift in Sources */,
@@ -2198,7 +2255,6 @@
 				8918C9631DD1D07900DBD5C6 /* ViewModels.swift in Sources */,
 				892583C11DC8DA9700285DB5 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				BE38BD56228C0B770007B6E0 /* WentijianCaozuoViewController.swift in Sources */,
-				BEA67F22245D878700A9099C /* PrintMenuController.swift in Sources */,
 				8912B0DF1DD0E29F0021B160 /* QrInterface.swift in Sources */,
 				BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */,
 				892583C81DC8DA9700285DB5 /* ConstraintMakerPriortizable.swift in Sources */,
@@ -2208,7 +2264,6 @@
 				BE0FC4EE22BF404800271FED /* JXPhotoBrowserRawButtonCell.swift in Sources */,
 				BE5FD58823729F79004CF114 /* AnnounceCell.swift in Sources */,
 				BECA054A23793A410053C60F /* CarCountHeader.swift in Sources */,
-				BE4F222424B8451B0084F323 /* SimpleTicketControl.swift in Sources */,
 				89F3ECEF1DC4475C00DDA832 /* NSBundle+Ext.swift in Sources */,
 				BE0FC4FA22BF404800271FED /* JXPhotoBrowserZoomDismissingAnimator.swift in Sources */,
 				BE4D0FF82373B46B00B7BA17 /* RecViewModel.swift in Sources */,
@@ -2217,13 +2272,10 @@
 				893497BA1DDACC5D00A505AF /* XiugaimimaViewController.swift in Sources */,
 				89F61E3D1DCE22900065C9CA /* Employee.swift in Sources */,
 				BE354DDB23A5D117008AE45E /* TruckRouteListController.swift in Sources */,
-				BEAB37BD24BC59B400C09775 /* NSDate+Category.m in Sources */,
 				BE623AA323BC6163009A1A20 /* VanRecordResController.swift in Sources */,
-				BE0EA7B92466478B0078E9F9 /* MenuRSHeader.swift in Sources */,
 				BE20A9971F6660EE00D2D753 /* NoticeCell.swift in Sources */,
 				BE0FC4F822BF404800271FED /* JXPhotoBrowserFadeDismissingAnimator.swift in Sources */,
 				BEA1B78624B1958800CDD64C /* DeliverForeCastControl.swift in Sources */,
-				BEA76E91248DDBB800E341EA /* PrintModels.swift in Sources */,
 				BED0822A232F894800EF69D5 /* VanRecCell.swift in Sources */,
 				BE0718B32094BEE3007A33A2 /* SVIndefiniteAnimatedView.m in Sources */,
 				BE6B5CB7232DD6660076DB33 /* PwdBackCodeController.swift in Sources */,
@@ -2231,6 +2283,7 @@
 				893497D31DDAD57E00A505AF /* WKWebview+Webview.swift in Sources */,
 				BE190AB72369540C0045F6C5 /* HTBrowserLoader.swift in Sources */,
 				BE17CD2A22AFC23E006D9EF0 /* BaseHeader.swift in Sources */,
+				BEB5AECB24CA75F600A91E8B /* SPRTPrint.m in Sources */,
 				BE38BD3F228C0B770007B6E0 /* FajianSaomiaoViewController.swift in Sources */,
 				BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */,
 				BEC5E6922333678F0087CD0B /* DriverModel.swift in Sources */,
@@ -2241,7 +2294,6 @@
 				BE0FC4FE22BF404800271FED /* JXLocalDataSource.swift in Sources */,
 				896674801DE14E4E000C970A /* YuangongPickerViewController.swift in Sources */,
 				BE89706B2327320B00096C78 /* RoleSelectController.swift in Sources */,
-				BECCE82124BB1C8000728034 /* SubBillQueryController.swift in Sources */,
 				8966747B1DE149F9000C970A /* YuangongPicker.swift in Sources */,
 				BE6B5CB8232DD6660076DB33 /* PwdBackResetController.swift in Sources */,
 				89F3ECFF1DC499E500DDA832 /* HightlightableView.swift in Sources */,
@@ -2262,6 +2314,7 @@
 				BE38BD46228C0B770007B6E0 /* QianshouCaozuoViewController.swift in Sources */,
 				892583C01DC8DA9700285DB5 /* ConstraintLayoutGuide.swift in Sources */,
 				8932BF701DC256B200A18267 /* AppMainViewController.swift in Sources */,
+				BEB5AECD24CA75F600A91E8B /* ConnecterManager.m in Sources */,
 				BE99EED922BDC9B500F89305 /* Types.swift in Sources */,
 				BE0FC4F222BF404800271FED /* JXPhotoBrowserNetworkingCell.swift in Sources */,
 				BE8C067C22B6120B00A9901A /* DriDamgeController.swift in Sources */,
@@ -2276,6 +2329,7 @@
 				BE0718B22094BEE3007A33A2 /* SVProgressHUD.m in Sources */,
 				BE5ACCC322EC1145003A46BB /* OptRecSingleCell.swift in Sources */,
 				BE0FC4EB22BF404800271FED /* JXPhotoBrowserPresentationController.swift in Sources */,
+				BEB5AECA24CA75F600A91E8B /* BluetoothListController.m in Sources */,
 				892583D51DC8DA9700285DB5 /* UILayoutSupport+Extensions.swift in Sources */,
 				BECA053E23792FCA0053C60F /* SendCarInfoCell.swift in Sources */,
 				892583C41DC8DA9700285DB5 /* ConstraintMaker.swift in Sources */,
@@ -2288,23 +2342,21 @@
 				BE38BD4D228C0B770007B6E0 /* SettingEntryItemView.swift in Sources */,
 				BE20A98C1F66605100D2D753 /* NoticeDetailController.swift in Sources */,
 				892583CC1DC8DA9700285DB5 /* ConstraintPriorityTarget.swift in Sources */,
+				BEB5AEA424CA75B700A91E8B /* PrintMenuController.swift in Sources */,
 				893BC7851DF593CA00AE33AA /* UIImage+ext.swift in Sources */,
 				BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */,
-				BE80E6B424B8B82B008EE9B4 /* BluetoothListController.m in Sources */,
 				892583E11DC8DB0700285DB5 /* Converter.swift in Sources */,
 				BEC8B44222BCF9720095C045 /* TinyConsoleViewController.swift in Sources */,
 				892583B61DC8DA9700285DB5 /* Constraint.swift in Sources */,
 				BE3DCFD722D6E154003176E3 /* Date+Extension.swift in Sources */,
 				BE0FC4F422BF404800271FED /* UIViewController+JX.swift in Sources */,
-				BE80E6B524B8B82B008EE9B4 /* ConnecterManager.m in Sources */,
-				BEA67F21245D878700A9099C /* PrintMenuItem.swift in Sources */,
 				8918C9621DD1D07900DBD5C6 /* STDb.swift in Sources */,
 				BE0FC4EA22BF404800271FED /* JXPhotoBrowserZoomTransitioning.swift in Sources */,
 				8912B0D31DD0C81A0021B160 /* StBottomButton.swift in Sources */,
+				BEA1847524DE94C800F0EAB3 /* HPrinterHelper.m in Sources */,
 				8912B0DC1DD0E09C0021B160 /* QRCodeReaderView.swift in Sources */,
 				89F3ECCF1DC43DD600DDA832 /* UIView+border.swift in Sources */,
 				892583BA1DC8DA9700285DB5 /* ConstraintDescription.swift in Sources */,
-				BEA67F11245D875E00A9099C /* CompleteTicketControl.swift in Sources */,
 				BEB14E2D242DC58300169C2C /* BaseFooter.swift in Sources */,
 				89F61E371DCE1D850065C9CA /* DataManager.swift in Sources */,
 				BE17CD2722AFBEB6006D9EF0 /* BaseCell.swift in Sources */,
@@ -2319,6 +2371,7 @@
 				892583C21DC8DA9700285DB5 /* ConstraintLayoutSupport.swift in Sources */,
 				892583CA1DC8DA9700285DB5 /* ConstraintMultiplierTarget.swift in Sources */,
 				BE623A9C23BC4C1F009A1A20 /* DriHeavQueryResController.swift in Sources */,
+				BEB5AEA324CA75B700A91E8B /* PrintMenuItem.swift in Sources */,
 				892583D31DC8DA9700285DB5 /* LayoutConstraint.swift in Sources */,
 				8917F2C31DD352BD00421340 /* PickerInputView.swift in Sources */,
 				BE15E08B23289E4900606652 /* ParamsHelper.swift in Sources */,
@@ -2334,15 +2387,18 @@
 				892583BE1DC8DA9700285DB5 /* ConstraintItem.swift in Sources */,
 				BEC8B44422BCF9720095C045 /* TinyConsoleController.swift in Sources */,
 				899BD3661DC0FB66000C6687 /* HomeViewController.swift in Sources */,
+				BEB5AEB124CA75BE00A91E8B /* CompleteTicketControl.swift in Sources */,
 				BE3DCFD522D6E021003176E3 /* String+Extension.swift in Sources */,
+				BED9B71024DF95A8006ED1BC /* TicketPrintPreController.m in Sources */,
 				89F61E2A1DCE0B590065C9CA /* SwiftyUserDefaults.swift in Sources */,
 				BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */,
 				BE0FC4FB22BF404800271FED /* JXPhotoBrowserDelegate.swift in Sources */,
 				BE38BD41228C0B770007B6E0 /* HTAlertConfirmView.swift in Sources */,
+				BEB5AED024CA7A0C00A91E8B /* PrintModels.swift in Sources */,
 				BEB58FCF22E6F49E0014FA5D /* VanRecordDetailControl.swift in Sources */,
 				BE0FC4F522BF404800271FED /* JXNamespace.swift in Sources */,
+				BEB5AED724CA7A6100A91E8B /* UIImage+Extension.m in Sources */,
 				892583D01DC8DA9700285DB5 /* ConstraintView.swift in Sources */,
-				BE4F222524B8451B0084F323 /* HTDashView.swift in Sources */,
 				BE0FC50422BF404800271FED /* JXPhotoBrowser.swift in Sources */,
 				896674841DE1517E000C970A /* YuangongCell.swift in Sources */,
 				892583BD1DC8DA9700285DB5 /* ConstraintInsetTarget.swift in Sources */,
@@ -2356,8 +2412,6 @@
 				BE0FC4EC22BF404800271FED /* JXPhotoBrowserTransitioning.swift in Sources */,
 				8932BF751DC25E9500A18267 /* AppColors.swift in Sources */,
 				892583EA1DC8DC5400285DB5 /* User.swift in Sources */,
-				BE38BD33228C0B770007B6E0 /* SPRTPrint.m in Sources */,
-				BE38BD30228C0B770007B6E0 /* UIImage+Extension.m in Sources */,
 				BE38BD4C228C0B770007B6E0 /* SystemSettingViewController.swift in Sources */,
 				BEE746FA22C510AD002B241E /* DriHeavyController.swift in Sources */,
 				89F61E411DCE24A70065C9CA /* SiteInfo.swift in Sources */,
@@ -2377,11 +2431,14 @@
 				BE6A63ED22CB54560053E67F /* DriHeavQueryController.swift in Sources */,
 				892583C61DC8DA9700285DB5 /* ConstraintMakerExtendable.swift in Sources */,
 				8941C5AC1DFF9EFE0099B233 /* UIAlertView+remind.swift in Sources */,
+				BEB5AEA624CA75B700A91E8B /* MasterBillQueryController.swift in Sources */,
+				BEB5AEA524CA75B700A91E8B /* MenuRSHeader.swift in Sources */,
 				89F085531DD03292009B3E36 /* Tags.swift in Sources */,
 				BE0FC4FF22BF404800271FED /* JXPhotoBrowserBaseDelegate.swift in Sources */,
 				BEE7471522C5128C002B241E /* DriMenuController.swift in Sources */,
 				8918C9691DD1D5E600DBD5C6 /* RemindInterface.swift in Sources */,
 				892583C91DC8DA9700285DB5 /* ConstraintMakerRelatable.swift in Sources */,
+				BEB5AE9D24CA75B700A91E8B /* SubBillQueryController.swift in Sources */,
 				89F085521DD03292009B3E36 /* Hypertext.swift in Sources */,
 				BE38BD44228C0B770007B6E0 /* DaojianSaomiaoViewController.swift in Sources */,
 				BE0FC4E922BF404800271FED /* JXPhotoBrowserFadeTransitioning.swift in Sources */,
@@ -2534,6 +2591,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/HPrinterLib",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2542,8 +2600,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2584,6 +2643,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
+				PRODUCT_MODULE_NAME = ST;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2613,6 +2673,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ST/Libs",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/HPrinterLib",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = ST/Info.plist;
@@ -2621,8 +2682,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
+					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 2.5.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2663,6 +2725,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengyunchou.st;
+				PRODUCT_MODULE_NAME = ST;
 				PRODUCT_NAME = "掌上速通";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ST/ST-Bridging-Header.h";
