@@ -334,6 +334,10 @@ int cjFlag=1;
 ///sprinter printer
 - (void)startSPrintByBillInfo:(NSDictionary*)billData
 {
+	[self sPrintBySubCode:@"" indexStr:@""];
+	return;
+	
+	
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
 	NSArray *subCodesArra = [HPrinterHelper subBillCodesWithBillData:billData];
@@ -355,6 +359,12 @@ int cjFlag=1;
 	}
 }
 
+
+///打印时间
+- (NSString*)currentDateStr
+{
+	return [NSDate currentDateStrBy:nil];
+}
 
 
 #pragma mark - GPRrinter
@@ -486,7 +496,7 @@ int cjFlag=1;
 	}
 	
 	//lu dan ri qi
-	NSString *billDateTxt = [self billDateWithData:self.billInfo];
+	NSString *billDateTxt = [HPrinterHelper billDateWithData:self.billInfo];
 	if (billDateTxt != nil) {
 		int dateX = line2X + deltaX;
 		int dateY = box2Y + deltaY + 5;
@@ -592,6 +602,122 @@ int cjFlag=1;
 
 
 #pragma mark - SPrinter printer
+- (void)sPrintBySubCode:(NSString*)subCode indexStr:(NSString*)indexStr
+{
+	int startX = 0;
+	int maxX = 780;
+    int maxY = 520;
+    int topLogHeight = 160;
+	//mudi fajian wang dian
+	int sitesBoxH = 110;
+	//条形码高
+	int barCodeBoxH = 120;
+	int barCodeW = 320;
+	
+	int lineWeight = 2;
+	
+	
+	[SPRTPrint pageSetup:(maxX+30) pageHeightNum:530];
+	int topLineSX = startX;
+	int topLineSY = topLogHeight;
+	int topLineEX = maxX;
+	int topLineEY = topLineSY;
+	[SPRTPrint drawLine:lineWeight startX:topLineSX startY:topLineSY endX:topLineEX endY:topLineEY isFullline:false];
+	
+	
+	int leftLineSX = startX;
+	int leftLineSY = topLogHeight;
+	int leftLineEX = leftLineSX;
+	int leftLineEY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:leftLineSX startY:leftLineSY endX:leftLineEX endY:leftLineEY isFullline:false];
+	
+	int botLineSX = startX;
+	int botLineSY = maxY;
+	int botLineEX = maxX;
+	int botLineEY = botLineSY;
+	[SPRTPrint drawLine:lineWeight startX:botLineSX startY:botLineSY endX:botLineEX endY:botLineEY isFullline:false];
+	
+	int rightLineSX = maxX;
+	int rightLineSY = topLogHeight;
+	int rightLineEX = rightLineSX;
+	int rightLineEY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:rightLineSX startY:rightLineSY endX:rightLineEX endY:rightLineEY isFullline:false];
+	
+	int line1SX = startX;
+	int line1SY = topLineSY + sitesBoxH;
+	int line1EX= maxX;
+	int line1EY = line1SY;
+	[SPRTPrint drawLine:lineWeight startX:line1SX startY:line1SY endX:line1EX endY:line1EY isFullline:false];
+	
+	int sitesW = (rightLineEX - leftLineEX) / 2;
+	int row1SX = startX + sitesW;
+	int row1SY = topLineSY;
+	int row1EX= row1SX;
+	int row1EY = line1SY;
+	[SPRTPrint drawLine:lineWeight startX:row1SX startY:row1SY endX:row1EX endY:row1EY isFullline:false];
+
+	
+	
+	//yun dan hao mingcheng zhongliang hang de gao
+	int row1H = 60;
+	int line2SX = startX;
+	int line2SY = line1SY + row1H;
+	int line2EX= maxX;
+	int line2EY = line2SY;
+	[SPRTPrint drawLine:lineWeight startX:line2SX startY:line2SY endX:line2EX endY:line2EY isFullline:false];
+
+	
+	int billCodeW = 280;
+	int row2SX = startX + billCodeW;
+	int row2SY = line1SY;
+	int row2EX= row2SX;
+	int row2EY = line2SY;
+	[SPRTPrint drawLine:lineWeight startX:row2SX startY:row2SY endX:row2EX endY:row2EY isFullline:false];
+
+	int weightW = (maxX - billCodeW - startX) / 3;
+	int row3SX = row2SX + weightW;
+	int row3SY = row2SY;
+	int row3EX= row3SX;
+	int row3EY = row2EY;
+	[SPRTPrint drawLine:lineWeight startX:row3SX startY:row3SY endX:row3EX endY:row3EY isFullline:false];
+	
+	int row4SX = row3SX + weightW;
+	int row4SY = row2SY;
+	int row4EX= row4SX;
+	int row4EY = row2EY;
+	[SPRTPrint drawLine:lineWeight startX:row4SX startY:row4SY endX:row4EX endY:row4EY isFullline:false];
+	
+	
+	int adrBoxH = maxY - line2SY - barCodeBoxH;
+	//di zhi hang shang mian de xian -------
+	int line3SX = startX;
+	int line3SY = line2SY + adrBoxH;
+	int line3EX= maxX;
+	int line3EY = line3SY;
+	[SPRTPrint drawLine:lineWeight startX:line3SX startY:line3SY endX:line3EX endY:line3EY isFullline:false];
+
+	int row5SX = maxX - barCodeW;
+	int namePhoneH = barCodeBoxH / 2;
+	
+	int line4SX = startX;
+	int line4SY = line3SY + namePhoneH;
+	int line4EX= row5SX;
+	int line4EY = line4SY;
+	[SPRTPrint drawLine:lineWeight startX:line4SX startY:line4SY endX:line4EX endY:line4EY isFullline:false];
+
+	
+	int row5SY = line3SY;
+	int row5EX= row5SX;
+	int row5EY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:row5SX startY:row5SY endX:row5EX endY:row5EY isFullline:false];
+
+	
+	
+	[SPRTPrint print:0 skipNum:1];
+	
+}
+
+
 - (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
     [SPRTPrint pageSetup:800 pageHeightNum:500];
@@ -807,13 +933,12 @@ int cjFlag=1;
     }
     
    //录单时间
-    NSString *billDateTxt = [self billDateWithData:self.billInfo];
+    NSString *billDateTxt = [HPrinterHelper billDateWithData:self.billInfo];
     if (billDateTxt != nil) {
         int regDateTxtW = maxX - col6x;
         [SPRTPrint drawText:(col6x+15) textY:(line2Y + 20) widthNum:regDateTxtW heightNum:verticalMargin textStr:billDateTxt fontSizeNum:2 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
     }
 
-    
 
     //顶部线框
 //    [SPRTPrint drawLine:2 startX:0 startY:0 endX:maxX endY:0 isFullline:false];
@@ -830,8 +955,11 @@ int cjFlag=1;
     [SPRTPrint print:0 skipNum:1];
 }
 
-//录单时间
-- (NSString*)billDateWithData:(NSDictionary*)data
+/**
+ *录单时间
+ */
+/*
++ (NSString*)billDateWithData:(NSDictionary*)data
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
@@ -842,12 +970,7 @@ int cjFlag=1;
     formatBillDateStr = [NSString stringWithFormat:@"%@",formatBillDateStr];
     return formatBillDateStr;
 }
-
-//打印时间
-- (NSString*)currentDateStr
-{
-	return [NSDate currentDateStrBy:nil];
-}
+*/
 
 
 
@@ -893,6 +1016,7 @@ int cjFlag=1;
 	}
     return [NSString stringWithFormat:@"%@",page];
 }
+
 
 
 #pragma mark - request server
@@ -947,6 +1071,7 @@ int cjFlag=1;
     [dataTask resume];
 }
 
+/*
 #pragma  mark -- CBCentralManagerDelegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
@@ -1148,4 +1273,7 @@ int cjFlag=1;
     [alert show];
 
 }
+ */
+
+
 @end
