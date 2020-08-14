@@ -20,6 +20,7 @@
 #define kSendCodeKey              @"sendCode" //寄件网点编号
 #define kAcceptAdrKey           @"acceptManAddress"
 #define kArriveSiteKey          @"arriveSite"
+#define kPackTypeKey            @"packType" //包装方式
 #define kWeightKey              @"weight"
 #define kPieceNumKey            @"pieceNumber"
 #define kRegisterDateKey        @"registerDate"
@@ -94,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *zidan print with
  */
-- (void)printWithData:(id)data startPage:(NSInteger)startPage endPage:(NSInteger)endPage;
+- (void)printWithData:(id)data startPage:(NSInteger)startPage endPage:(NSInteger)endPage latePrintFlag:(NSString*)flag;
 
 /**
  *录单时间

@@ -85,13 +85,13 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     
     for field in self.qrFields{
       field.addLeftSpaceView(width: 8)
-    }
-		
-		self.setOutTimeField.addLeftSpaceView(width: 8)
-		let nowDate = Date()
-		let nowDateStr = nowDate.dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
-		self.setOutTimeField.text = nowDateStr
-		
+	}
+	
+	self.setOutTimeField.addLeftSpaceView(width: 8)
+	let nowDate = Date()
+	let nowDateStr = nowDate.dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
+	self.setOutTimeField.text = nowDateStr
+	
 		
     for field in self.listFields{
       let typeImg = UIImage(named: "arrow");
@@ -118,7 +118,8 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
           self.showImgAt(idx:idx,imgs: imgDataAry)
         }
       }
-    };
+    }
+	
     
     //删除item刷新tableView
     self.imgsView.updateBlock = {
@@ -567,17 +568,17 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     let backTxt = self.labelBackSideField.text
     if let backDoor = backTxt,backDoor.isEmpty==false{
       params["sendsealScanBackDoor"] = backDoor
-    }
-		
-		let setoutTxt = self.setOutTimeField.text
-		if let scanDate = setoutTxt,scanDate.isEmpty==false{
-			params["scanDate"] = scanDate
-		}
-		
-		if (self.imgesAry?.count ?? 0) <= 1{
-			self.remindUser(msg: "添加装载图片")
-			return nil
-		}
+	}
+	
+//	let setoutTxt = self.setOutTimeField.text
+//	if let scanDate = setoutTxt,scanDate.isEmpty==false{
+//		params["scanDate"] = scanDate
+//	}
+	
+	if (self.imgesAry?.count ?? 0) <= 1{
+		self.remindUser(msg: "添加装载图片")
+		return nil
+	}
 		
     let user = DataManager.shared.loginUser
     params["scanMan"] = user.empName
@@ -639,7 +640,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
       }else if resp.stauts == Status.NetworkTimeout.rawValue{
         self.remindUser(msg: "网络超时，请稍后尝试")
       }else{
-        var msg = resp.msg
+        let msg = resp.msg
         self.remindUser(msg: msg)
       }
     }?.resume()

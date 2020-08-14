@@ -100,6 +100,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
 		"dispatchCenter": "目的网点所属中心",
 		"dispatchCode": "3424",
 		"sendgoodsType": "派送方式",
+		"packType": "箱装",
 		"goodsName": "物品名称",
 		"sendCode": "9527",
 		"acceptManAddress": "南宫市",
@@ -123,6 +124,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
 		
 //        let billCode = self.billNumField.text!
 //        connViewControl.billSN = billCode;
+		connViewControl.printFlag = LatePrintYES
         self.navigationController?.pushViewController(connViewControl, animated: true);
     }
     
