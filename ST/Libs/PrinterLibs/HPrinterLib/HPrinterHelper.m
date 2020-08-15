@@ -100,12 +100,13 @@ static HPrinterHelper *instance;
 {
     NSArray *subCodeAry = [HPrinterHelper subBillCodesWithBillData:data];
     if (subCodeAry.count > 0) {
+		NSNumber *piecesNum = [data objectForKey:kPieceNumKey];
         for(NSInteger startIdx = startPage; startIdx <= endPage; startIdx++){
             if ((startIdx-1) >= subCodeAry.count) {
                 break;
             }else{
                 NSString *subCode = [subCodeAry objectAtIndex:(startIdx-1)];
-                NSString *indexString = [NSString stringWithFormat:@"%ld/%ld",(long)startIdx,(long)endPage];
+                NSString *indexString = [NSString stringWithFormat:@"%ld/%@",(long)startIdx,piecesNum];
 //                [self startPrintBy:data subBillCode:subCode indexStr:indexString];
 				[self printBy:data subBillCode:subCode indexStr:indexString flag:flag];
             }
@@ -129,7 +130,7 @@ static HPrinterHelper *instance;
     NSInteger startY = 10;
     NSInteger deltaY = 5*3;
     NSInteger offsetX = 0;
-    NSInteger maxX = 790;
+    NSInteger maxX = 780;
     NSInteger maxY = 550;
 //    NSInteger maxBoxWidth = pageWidth - startX * 2;
     //    NSInteger maxBoxHeight = pageHeight - startY * 2;
@@ -158,8 +159,6 @@ static HPrinterHelper *instance;
         [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:siteFont fontSize:0 xPos:centerX yPos:centerY center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:dispatchCenter];
     }
     
-	
-    
    //left ji jian wang dian -> right: tiao xing ma --->
     NSInteger box1SX = startX;
     NSInteger box1SY = logoHeight;
@@ -178,10 +177,9 @@ static HPrinterHelper *instance;
 	NSInteger pDateH = 30;
 	NSInteger pDateSX = centerX;
     NSInteger pDateSY = box1SY - pDateH;
-//	NSString *pDateStr = [self currentDateStr];
-//	NSString *latePrintFlag = @"否";
-//	pDateStr = [pDateStr stringByAppendingFormat:@" 是否补打:%@",latePrintFlag];
-//    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pDateSX) y:(pDateSY) safeHeight:pDateH width:centerX lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+	NSString *pDateStr = [NSDate currentDateStrBy:nil];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 是否补打:%@",flag];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pDateSX) y:(pDateSY) safeHeight:pDateH width:centerX lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
     
     NSInteger siteCodeHeight = 40;
     NSInteger siteDeltaY = 10;
@@ -260,7 +258,7 @@ static HPrinterHelper *instance;
 	id  weight = [billInfo objectForKey:kWeightKey];
     NSInteger weightX = box3SX;
     if(weight != nil){
-        NSString *weightStr = [NSString stringWithFormat:@"%@",weight];
+        NSString *weightStr = [NSString stringWithFormat:@"%@KG",weight];
         NSInteger y = billNumY;
         NSInteger safeHeight = billNumH;
         NSInteger width = weightW;
@@ -279,7 +277,7 @@ static HPrinterHelper *instance;
 	NSInteger col2SX = startX + billNumWidth;
     NSInteger col2SY = col1SY + sitesHeight;
     NSInteger col2EX = col2SX;
-    NSInteger col2EY = billNumH + col2SX;
+    NSInteger col2EY = billNumH + col2SY;
     [command cpclLineWithXPos:col2SX yPos:col2SY xEnd:col2EX yEnd:col2EY thickness:lineWeight];
 	//wu ping ming cheng
 	NSString *goodsName = [billInfo objectForKey:kGoodsNameKey];
@@ -293,11 +291,7 @@ static HPrinterHelper *instance;
 	
     
     /*
-    
-    //weight
-    
-    
-    
+
     //lu dan ri qi
     NSString *billDateTxt = [HPrinterHelper billDateWithData:billInfo];
     NSInteger billDateY = box2Y;
@@ -307,9 +301,7 @@ static HPrinterHelper *instance;
         NSInteger width = weightW;
         [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(x) y:(billDateY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:billDateTxt];
     }
-    
-    
-    
+
     */
 	
 	//tiao xing ma qian mian shuxian ||||
@@ -328,13 +320,26 @@ static HPrinterHelper *instance;
 	
 	NSInteger adrBoxH = box2EY - box2SY - billNumH;
 	//dizhi
-	NSString *adrTxt = [billInfo objectForKey:kAcceptAdrKey];
-    if (adrTxt != nil) {
+	//dizhi
+	NSString *adrTxt = [HPrinterHelper strValueOf:billInfo key:kAcceptAdrKey];
+	NSString *packType = [HPrinterHelper strValueOf:billInfo key:kPackTypeKey];
+	NSString *sendGoodsType = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *packSendAdrStr = @"" ;
+	if (packType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",packType];
+	}
+	if (sendGoodsType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",sendGoodsType];
+	}
+	if (adrTxt.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@":%@",adrTxt];
+	}
+    if (packSendAdrStr.length > 0) {
         NSInteger x = line1SX+deltaX;
         NSInteger y = line1SY + deltaY;
         NSInteger safeHeight = adrBoxH;
         NSInteger width = box1EX - box1SX;
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(x) y:(y) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:adrTxt];
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(x) y:(y) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:packSendAdrStr];
     }
 	
 	
@@ -342,9 +347,37 @@ static HPrinterHelper *instance;
 	//name+phone xia main hen xian
 	NSInteger line2SX = startX;
 	NSInteger line2SY = box2EY + nameBoxH;
-	NSInteger line2EX = maxX;
+	NSInteger line2EX = startX + sitesW;
 	NSInteger line2EY = line1SY;
 	[command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+	
+#warning name + phone
+	//name+phone box text
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	name = [NSString stringWithFormat:@"%@ %@",name,phone];
+	NSInteger nameX = line2SX;
+	if (name.length > 0) {
+		NSInteger nameY = box2EY;
+		NSInteger width = line2EX - line2SX;
+		[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(nameX+deltaX) y:(nameY+deltaY) safeHeight:nameBoxH width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:name];
+	}
+	
+	//da yin ri qi
+    NSString *currentDateStr = [NSDate currentDateStrBy:nil];
+    NSInteger bDateX = nameX;
+    NSInteger bDateY = line2SY;
+    NSInteger bDateSafeHeight = nameBoxH;
+    NSInteger bDateWidth = (line2EX - line2SX);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(bDateX+deltaX) y:(bDateY+deltaY) safeHeight:bDateSafeHeight width:bDateWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:currentDateStr];
+	
+	NSInteger hBarCodeX = col3SX;
+    NSInteger hBarCodeY = col3SY + 5;
+    NSInteger hBarCodeHeight = barCodeBoxH - 40;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:hBarCodeHeight x:(hBarCodeX+90) y:hBarCodeY barcode:subCode];
+    [command cpclBarcodeTextOff];
+	
 	
 	/*
     //paisongfangshi、mingchen、geshu hang gao
@@ -398,13 +431,7 @@ static HPrinterHelper *instance;
     [command cpclBoxWithXPos:leftDX yPos:letDY xEnd:leftEX yEnd:leftEY thickness:lineWeight];
    
     
-    //da yin ri qi
-    NSString *currentDateStr = [NSDate currentDateStrBy:nil];
-    NSInteger pDateX = leftDX;
-    NSInteger pDateY = letDY;
-    NSInteger pDateSafeHeight = secRowHeight;
-    NSInteger pDateWidth = (leftEX - leftDX);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateSafeHeight width:pDateWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:currentDateStr];
+    
     
     //you xia jiao bCode box ---------
     NSInteger barCodeSX = leftEX;

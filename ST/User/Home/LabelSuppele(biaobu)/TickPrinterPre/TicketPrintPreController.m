@@ -566,16 +566,19 @@ int cjFlag=1;
 	
 	int nameBoxH = barCodeBoxH / 2;
 	//name+phone xia main hen xian
-	int lin2SX = startX;
+	int line2SX = startX;
 	int line2SY = box2EY + nameBoxH;
 	int line2W = sitesW;
-	[command addBar:lin2SX :line2SY :line2W :lineWeight];
+	[command addBar:line2SX :line2SY :line2W :lineWeight];
 	
 	
 	//name + phone
-	NSString *namePhone = [HPrinterHelper billDateWithData:billInfo];
+#warning name + phone
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *namePhone = [NSString stringWithFormat:@"%@ %@",name,phone];
+	int nameX = line2SX + deltaX;
 	if (namePhone != nil) {
-		int nameX = lin2SX + deltaX;
 		int nameY = box2EY + deltaY;
 		[command addTextwithX:nameX withY:nameY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:namePhone];
 	}
@@ -583,7 +586,7 @@ int cjFlag=1;
 	//lu dan ri qi
 	NSString *billDateTxt = [HPrinterHelper billDateWithData:billInfo];
 	if (billDateTxt != nil) {
-		int dateX = lin2SX + deltaX;
+		int dateX = nameX;
 		int dateY = line2SY + deltaY;
 		[command addTextwithX:dateX withY:dateY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:billDateTxt];
 	}
@@ -1054,16 +1057,15 @@ int cjFlag=1;
 	int line4EY = line4SY;
 	[SPRTPrint drawLine:lineWeight startX:line4SX startY:line4SY endX:line4EX endY:line4EY isFullline:false];
 
+#warning name + phone
 	//name phone
 	int nameW = col5SX - line4SX;
 	int nameX = startX + deltaX;
-	NSString *name = [billInfo objectForKey:kSendgoodsTypeKey];
-	if (adrTxt != nil) {
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	if (name != nil) {
 		//phone
-		NSString *phone = [billInfo objectForKey:kSendgoodsTypeKey];
-		if (phone != nil) {
-			name = [NSString stringWithFormat:@"%@ %@",name,phone];
-		}
+		NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+		name = [NSString stringWithFormat:@"%@ %@",name,phone];
 		int nameY = line3SY + 15;
 		[SPRTPrint drawText:nameX textY:(nameY) widthNum:nameW heightNum:namePhoneH textStr:name fontSizeNum:titleSize rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	}
