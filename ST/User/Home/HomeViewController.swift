@@ -48,6 +48,7 @@ class HomeViewController: UIViewController {
 			(title:"区域查询",icon:"home_menu_9",key:"quyuchaxun",handler:menuItemviewClicked),
 			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
 			(title:"派件打印",icon:"home_menu_10",key:"delivery",handler:menuItemviewClicked),
+			(title:"预付申请",icon:"home_menu_10",key:"charge",handler:menuItemviewClicked),
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]
@@ -114,9 +115,10 @@ class HomeViewController: UIViewController {
 			self.openBillPrintComplete();
 		}else if type == "delivery"{
 			self.openDelivery();
+		}else if type == "charge"{
+			self.openChargeView();
 		}
 	}
-	
 	
 	
 	
@@ -138,13 +140,14 @@ class HomeViewController: UIViewController {
 		self.navigationController?.pushViewController(printerVc, animated: true)
 	}
 	
-	//补打印运单界面
-//	func openLateBillPrintView(){
-//		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
-//		let printerVc = storyboard.instantiateViewController(withIdentifier: "SubBillQueryController");
-//		printerVc.hidesBottomBarWhenPushed = true
-//		self.navigationController?.pushViewController(printerVc, animated: true)
-//	}
+	
+	//预付款充值申请
+	func openChargeView(){
+		let storyboard = UIStoryboard.init(name: "BaseUI", bundle: nil);
+		let vc = storyboard.instantiateViewController(withIdentifier: "ChargeReqController");
+		vc.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(vc, animated: true)
+	}
 	
 	//运单打印菜单选择界面
 	func openPrintMenuView(){
