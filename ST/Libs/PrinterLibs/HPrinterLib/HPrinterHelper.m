@@ -466,7 +466,7 @@ static HPrinterHelper *instance;
     [[PTDispatcher share] sendData:commandData];
 }
 
-
+/*
 - (void)startPrintBy:(id)billInfo subBillCode:(NSString*) subCode indexStr:(NSString*)indexStr
 {
     NSInteger startX = 5;
@@ -737,6 +737,7 @@ static HPrinterHelper *instance;
     
     [[PTDispatcher share] sendData:commandData];
 }
+ */
 
 
 
@@ -965,13 +966,15 @@ static HPrinterHelper *instance;
     NSString *senderTitle = @"寄方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
     
-
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:billInfo key:kMSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
     NSInteger sPhoneX = titleColWidth+startX;
     NSInteger sPhoneY = line1SY;
     NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendInfoTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
@@ -1000,12 +1003,15 @@ static HPrinterHelper *instance;
     NSString *receiverTitle = @"收方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
     
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kMAcceptMan];
     //phone
     NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
     NSInteger rPhoneX = sPhoneX;
     NSInteger rPhoneY = line2SY;
     NSInteger receWidth = phoneW - siteTextW;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receInfoTxt];
     
     //address
     NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
@@ -1174,12 +1180,15 @@ static HPrinterHelper *instance;
     NSString *senderTitle = @"寄方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
 
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:billInfo key:kMSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
     NSInteger sPhoneX = titleColWidth+startX;
     NSInteger sPhoneY = line1SY;
     NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendInfoTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
@@ -1208,11 +1217,14 @@ static HPrinterHelper *instance;
     NSString *receiverTitle = @"收方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
     
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kMAcceptMan];
     //phone
     NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
     NSInteger rPhoneX = sPhoneX;
     NSInteger rPhoneY = line2SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receInfoTxt];
     
     //address
     NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
@@ -1494,12 +1506,16 @@ static HPrinterHelper *instance;
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
     
 
+	
+	//sendMan
+    NSString *sendMan = [HPrinterHelper strValueOf:billInfo key:kSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
     NSInteger sPhoneX = titleColWidth+startX;
     NSInteger sPhoneY = line1SY;
     NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
@@ -1639,9 +1655,9 @@ static HPrinterHelper *instance;
     [[PTDispatcher share] sendData:commandData];
 }
 
-#pragma mark - zhu dan da yin - kehu
+#pragma mark - pai jian da yin - shoujian kehu
 /**
- *jijian kehu cungen lian
+ *pai jian shoujian kehu cun gen lian
  */
 - (void)startPrintPaiReceiverBy:(id)billInfo
 {
@@ -1704,12 +1720,15 @@ static HPrinterHelper *instance;
     NSString *senderTitle = @"寄方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
 
+	//sendMan
+    NSString *sendMan = [HPrinterHelper strValueOf:billInfo key:kSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
     NSInteger sPhoneX = titleColWidth+startX;
     NSInteger sPhoneY = line1SY;
     NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
@@ -1738,9 +1757,10 @@ static HPrinterHelper *instance;
     NSString *receiverTitle = @"收方";
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
     
+	//accept man
+	NSString *rAcceptMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
     //phone
     NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kAcceptManPhone];
-    NSString *rAcceptMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
 	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
     NSInteger rPhoneX = sPhoneX;
     NSInteger rPhoneY = line2SY;

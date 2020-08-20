@@ -43,7 +43,6 @@
 #define kInsureVal			    @"insureValue" //保价金额
 #define kFreight			    @"freight" //运费
 
-
 */
 
 
@@ -448,13 +447,16 @@
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//sendMan
+	NSString *sendMan = [HPrinterHelper strValueOf:self.billInfo key:kSendMan];
 	//phone
 	NSString *sPhone =  [HPrinterHelper strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
-	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sendTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *sAdress =  [HPrinterHelper paiAddressDetail:self.billInfo type:@"1"];
 	int sAdrW = sPhoneW;
@@ -657,13 +659,16 @@
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//sendMan
+	NSString *sendMan = [HPrinterHelper strValueOf:self.billInfo key:kSendMan];
 	//phone
 	NSString *sPhone =  [HPrinterHelper strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
-	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sendTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *sAdress =  [HPrinterHelper paiAddressDetail:self.billInfo type:@"1"];;
 	int sAdrW = sPhoneW;
@@ -831,12 +836,15 @@
     int sTitleY = start1Y + deltaY;
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+	//sendMan
+	NSString *sendMan = [HPrinterHelper strValueOf:self.billInfo key:kSendMan];
     //phone
     NSString *sPhone =  [HPrinterHelper strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendTxt];
     
     //address
     NSString *sAdress =  [HPrinterHelper paiAddressDetail:self.billInfo type:@"1"];
@@ -997,12 +1005,16 @@
     int sTitleY = start1Y + deltaY;
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+	
+	//sendMan
+	NSString *sendMan = [HPrinterHelper strValueOf:self.billInfo key:kSendMan];
     //phone
     NSString *sPhone =  [HPrinterHelper strValueOf:self.billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendTxt];
     
     //address
     NSString *sAdress =  [HPrinterHelper paiAddressDetail:self.billInfo type:@"1"];
