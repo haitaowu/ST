@@ -45,7 +45,7 @@ extension TruckNumListController :UITableViewDataSource,UITableViewDelegate, UIS
 			self.dataAry = self.truckNumAry
 		}else{
 			self.dataAry = self.truckNumAry?.filter{
-				$0.truckName.contains(searchText)
+				$0.truckNum.contains(searchText)
 			}
 		}
 		self.tableView.reloadData()
@@ -75,7 +75,7 @@ extension TruckNumListController :UITableViewDataSource,UITableViewDelegate, UIS
 	
 	//MARK:- UITableView delegate
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let model = self.truckNumAry?[indexPath.row],let block = self.selectNumBlock{
+		if let model = self.dataAry?[indexPath.row],let block = self.selectNumBlock{
 			block(model)
 		}
 	}

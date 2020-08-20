@@ -307,14 +307,16 @@ struct TruckRouteModel:SimpleCodable {
 ///路由信息模型的请求request
 struct TruckRouteMDataReq:STRequest {
 	var siteName:String
+	var truckNum:String
 	var logicUrl: String{
-		return "Emp/findLineInfo.do"
+		return "Emp/findLineInfoTwo.do"
 	}
+//		return "Emp/findLineInfo.do"
 	
-	
+
 	var parameters: [AnyHashable : Any]{
-		let base64str = siteName.base64Str()
-		let signStr = siteName.employeeMdStr()
+		let base64str = truckNum.base64Str()
+		let signStr = truckNum.employeeMdStr()
 		return [
 			"data":base64str,
 			"sign":signStr,

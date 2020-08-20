@@ -45,7 +45,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   ///封签号（后侧）
   @IBOutlet weak var labelBackSideField: UITextField!
   //发车时间
-  @IBOutlet weak var setOutTimeField: UITextField!
+//  @IBOutlet weak var setOutTimeField: UITextField!
   
   @IBOutlet weak var imgsView: DriVideoView!
 	
@@ -64,6 +64,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	///发车信息模型
   var truckInfoModel:SendTruckInfoModel?
   
+	let kCarNumTag = 10
 
 
   //MARK:- overrides
@@ -72,6 +73,9 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
     self.imgesAry = Array.init()
     self.imgesAry?.append(UIImage(named: "plus")!)
 
+	self.carNumField.tag = kCarNumTag
+	self.carNumField.delegate = self
+	
     self.view.addDismissGesture()
     
     for label in self.titleLabels{
@@ -87,10 +91,10 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
       field.addLeftSpaceView(width: 8)
 	}
 	
-	self.setOutTimeField.addLeftSpaceView(width: 8)
-	let nowDate = Date()
-	let nowDateStr = nowDate.dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
-	self.setOutTimeField.text = nowDateStr
+//	self.setOutTimeField.addLeftSpaceView(width: 8)
+//	let nowDate = Date()
+//	let nowDateStr = nowDate.dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
+//	self.setOutTimeField.text = nowDateStr
 	
 		
     for field in self.listFields{
@@ -314,6 +318,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   }
 	
 	//显示选择发车时间的sheet精确到秒
+	/*
 	func showTimerPicker(){
 		let now = Date()
 		ActionSheetDatePicker.show(withTitle: "选择发车时间", datePickerMode: UIDatePicker.Mode.dateAndTime, selectedDate: now, doneBlock: {
@@ -327,6 +332,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 			
 		}, origin: self.view)
 	}
+*/
 	
 	///已经获取发车的数据信息，更新界面。
 	func updateSendCarUI(){
@@ -422,7 +428,10 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 	//MARK:- UITextFieldDelegate
 	func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 		if textField.tag == 9{
-			self.showTimerPicker()
+//			self.showTimerPicker()
+			return false
+		}else if textField.tag == self.carNumField.tag{
+			self.fetchTruckNums()
 			return false
 		}else{
 			return true
@@ -618,40 +627,46 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
   //MARK:- request server
   //车牌查询
   func fetchTruckNums(){
-    self.showLoading(msg: "请求车牌数据..")
-		let siteName = DataManager.shared.loginUser.siteName
-		let req = TruckNumMDataReq(siteName:siteName)
-    STNetworking<[TruckNumModel]>(stRequest: req) {
-      [unowned self] (resp) in
-      self.hideLoading()
-      if resp.stauts == Status.Success.rawValue{
-        let control = TruckNumListController()
-        control.selectNumBlock = {
-          [unowned self] (model) in
-          self.selTruckModel = model
-          self.carNumField.text = model.truckNum
-          self.navigationController?.popViewController(animated: true)
-					self.fetchTrailTruckInfoBy(truckNum: model.truckNum)
-					self.fetchSendCarInfoBy(truckNum: model.truckNum)
-					self.labelBackSideField.text = ""
-        }
-        control.truckNumAry = resp.data
-        self.navigationController?.pushViewController(control, animated: true)
-      }else if resp.stauts == Status.NetworkTimeout.rawValue{
-        self.remindUser(msg: "网络超时，请稍后尝试")
-      }else{
-        let msg = resp.msg
-        self.remindUser(msg: msg)
-      }
-    }?.resume()
-  }
+	self.showLoading(msg: "请求车牌数据..")
+	let siteName = DataManager.shared.loginUser.siteName
+	let req = TruckNumMDataReq(siteName:siteName)
+	STNetworking<[TruckNumModel]>(stRequest: req) {
+		[unowned self] (resp) in
+		self.hideLoading()
+		if resp.stauts == Status.Success.rawValue{
+			let control = TruckNumListController()
+			control.selectNumBlock = {
+				[unowned self] (model) in
+				self.selTruckModel = model
+				self.carNumField.text = model.truckNum
+				self.carTypeField.text = model.truckModels
+				self.navigationController?.popViewController(animated: true)
+				self.fetchTrailTruckInfoBy(truckNum: model.truckNum)
+				self.fetchSendCarInfoBy(truckNum: model.truckNum)
+				self.labelBackSideField.text = ""
+			}
+			control.truckNumAry = resp.data
+			self.navigationController?.pushViewController(control, animated: true)
+		}else if resp.stauts == Status.NetworkTimeout.rawValue{
+			self.remindUser(msg: "网络超时，请稍后尝试")
+		}else{
+			let msg = resp.msg
+			self.remindUser(msg: msg)
+		}
+		}?.resume()
+	}
 	
 	
 	//路由数据
 	func fetchTruckRoutes(){
 		self.showLoading(msg: "请求路由数据..")
 		let siteName = DataManager.shared.loginUser.siteName
-		let req = TruckRouteMDataReq(siteName:siteName)
+		let truckNum = self.carNumField.text!
+		if truckNum.isEmpty{
+			self.remindUser(msg: "选择车牌号先")
+			return;
+		}
+		let req = TruckRouteMDataReq(siteName:siteName, truckNum: truckNum)
 		STNetworking<[TruckRouteModel]>(stRequest: req) {
 			[unowned self] (resp) in
 			self.hideLoading()
@@ -669,7 +684,7 @@ class CenSendSignController: UITableViewController,QrInterface,UIImagePickerCont
 			}else if resp.stauts == Status.NetworkTimeout.rawValue{
 				self.remindUser(msg: "网络超时，请稍后尝试")
 			}else{
-				var msg = resp.msg
+				let msg = resp.msg
 				self.remindUser(msg: msg)
 			}
 			}?.resume()
