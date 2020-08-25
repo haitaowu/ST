@@ -258,7 +258,7 @@ int cjFlag=1;
     [self reqPrintBillInfo];
 }
 
-- (IBAction)buttonPrintPNGorJPG:(id)sender {
+- (IBAction)buttonPrintPNGorJPG:(UIButton*)sender {
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
 		[self startSPrintByBillInfo:self.billInfo];
@@ -274,6 +274,10 @@ int cjFlag=1;
 		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage latePrintFlag:latePrintFlag];
 		NSLog(@"hello HPrinter to print");
 	}
+	sender.enabled = NO;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		sender.enabled = YES;
+	});
 }
 
 
@@ -426,7 +430,8 @@ int cjFlag=1;
 	int pDateSY = box1SY - pDateH;
 	NSString *pDateStr = [self currentDateStr];
 	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
-	pDateStr = [pDateStr stringByAppendingFormat:@" 是否补打:%@",latePrintFlag];
+	NSString *printCount = [HPrinterHelper strValueOf:billInfo key:kBlPrintNum];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@ %@",latePrintFlag,printCount];
 	[command addTextwithX:pDateSX withY:pDateSY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:pDateStr];
 	
 	//ji jian wang dian
@@ -574,8 +579,8 @@ int cjFlag=1;
 	
 	//name + phone
 #warning name + phone
-	NSString *name = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
-	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kAcceptManName];
+	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSubAcptManPhone];
 	NSString *namePhone = [NSString stringWithFormat:@"%@ %@",name,phone];
 	int nameX = line2SX + deltaX;
 	if (namePhone != nil) {
@@ -596,7 +601,7 @@ int cjFlag=1;
 }
 
 
-
+/*
 - (NSData *)GPrinterData:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
 	int maxX = 800 - 10;
@@ -824,7 +829,7 @@ int cjFlag=1;
 	[command addPrint:1 :1];
 	return [command getCommand];
 }
-
+*/
 
 
 #pragma mark - SPrinter printer
@@ -840,10 +845,12 @@ int cjFlag=1;
 	int sitesBoxH = 110;
 	//条形码kuang 高
 	int barCodeBoxH = 120;
-	int barCodeW = 400;
+	int barCodeW = 460;
 	
 	int lineWeight = 2;
 	int titleSize = 3;
+	int dispatchTitleSize = 4;
+	int sitesTitleSize = 4;
 	
 	[SPRTPrint pageSetup:(maxX+30) pageHeightNum:530];
 	int topLineSX = startX;
@@ -895,12 +902,13 @@ int cjFlag=1;
 	int dispatchX = col1SX;
 	 NSString *dispatchCenter = [billInfo objectForKey:kDispatchCenterKey];
 	   if (dispatchCenter != nil) {
-		[SPRTPrint drawText:dispatchX textY:dispatchY widthNum:sitesW heightNum:dispatchH textStr:dispatchCenter fontSizeNum:5 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+		[SPRTPrint drawText:dispatchX textY:dispatchY widthNum:sitesW heightNum:dispatchH textStr:dispatchCenter fontSizeNum:dispatchTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
 	}
 	
 	NSString *pDateStr = [self currentDateStr];
 	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
-	pDateStr = [pDateStr stringByAppendingFormat:@" 是否补打:%@",latePrintFlag];
+	NSString *printCount = [HPrinterHelper strValueOf:billInfo key:kBlPrintNum];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@ %@",latePrintFlag,printCount];
 	int pDateX = dispatchX;
 	int pDateY = dispatchH + 5;
 	[SPRTPrint drawText:pDateX textY:pDateY widthNum:sitesW heightNum:pDateH textStr:pDateStr fontSizeNum:(titleSize-1) rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
@@ -912,11 +920,11 @@ int cjFlag=1;
 	int sendSiteMargin = (sitesW - (int)sendSite.length * aLet4StrBoldWidth)/2;
 	int sendSiteX = startX + sendSiteMargin;
 	if (sendSite != nil) {
-		[SPRTPrint drawText:sendSiteX textY:sendSiteY widthNum:sitesW heightNum:sitesBoxH textStr:sendSite fontSizeNum:4 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+		[SPRTPrint drawText:sendSiteX textY:sendSiteY widthNum:sitesW heightNum:sitesBoxH textStr:sendSite fontSizeNum:sitesTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
 	}
 
 	int siteTxtH = 30;
-	// 寄件网点编号
+	// 寄件网点的编号
 	NSString *sendCode = [billInfo objectForKey:kSendCodeKey];
 	int sendCodeY = line1SY - siteTxtH;
 	if (sendCode != nil) {
@@ -925,15 +933,16 @@ int cjFlag=1;
 		[SPRTPrint drawText:sendCodeX textY:sendCodeY widthNum:sitesW heightNum:sitesBoxH textStr:sendCode fontSizeNum:titleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
 	}
 	
+	// 目的网点
 	NSString *arriveSite = [billInfo objectForKey:kArriveSiteKey];
 	int arrSiteY = sendSiteY;
 	if (arriveSite != nil) {
 		int arrSiteMargin = (sitesW - (int)arriveSite.length * aLet4StrBoldWidth)/2;
 		int arrSiteX = col1SX + arrSiteMargin;
-		[SPRTPrint drawText:arrSiteX textY:arrSiteY widthNum:sitesW heightNum:sitesBoxH textStr:arriveSite fontSizeNum:4 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+		[SPRTPrint drawText:arrSiteX textY:arrSiteY widthNum:sitesW heightNum:sitesBoxH textStr:arriveSite fontSizeNum:sitesTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
 	}
 	
-	// 目的网点编号
+	// 目的网点的编号
 	NSString *dispatchCode = [billInfo objectForKey:kDispatchCodeKey];
 	if (dispatchCode != nil) {
 		int arriveSiteCodeY = sendCodeY;
@@ -1061,10 +1070,10 @@ int cjFlag=1;
 	//name phone
 	int nameW = col5SX - line4SX;
 	int nameX = startX + deltaX;
-	NSString *name = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kAcceptManName];
 	if (name != nil) {
 		//phone
-		NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+		NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSubAcptManPhone];
 		name = [NSString stringWithFormat:@"%@ %@",name,phone];
 		int nameY = line3SY + 15;
 		[SPRTPrint drawText:nameX textY:(nameY) widthNum:nameW heightNum:namePhoneH textStr:name fontSizeNum:titleSize rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
@@ -1086,7 +1095,7 @@ int cjFlag=1;
 	
 	NSString *barCode = subCode;
     int barCodeH = 80;
-    int barCodeX = col5SX + 20;
+    int barCodeX = col5SX + 10;
     int barCodeY = line3SY + 10;
     if (barCode != nil) {
         [SPRTPrint drawBarCode:(barCodeX) startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
@@ -1100,7 +1109,7 @@ int cjFlag=1;
 	[SPRTPrint print:0 skipNum:1];
 }
 
-
+/*
 - (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
     [SPRTPrint pageSetup:800 pageHeightNum:500];
@@ -1337,6 +1346,9 @@ int cjFlag=1;
     
     [SPRTPrint print:0 skipNum:1];
 }
+ 
+ */
+
 
 /**
  *录单时间

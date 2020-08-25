@@ -48,7 +48,7 @@ class HomeViewController: UIViewController {
 			(title:"区域查询",icon:"home_menu_9",key:"quyuchaxun",handler:menuItemviewClicked),
 			(title:"标签补打",icon:"home_menu_1",key:"print",handler:menuItemviewClicked),
 			(title:"派件打印",icon:"home_menu_10",key:"delivery",handler:menuItemviewClicked),
-			(title:"预付申请",icon:"home_menu_10",key:"charge",handler:menuItemviewClicked),
+//			(title:"预付申请",icon:"charge",key:"charge",handler:menuItemviewClicked),
 			//            (title:"结算充值",icon:"",key:"jiesuanchongzhi",handler:menuItemviewClicked),
 			//            (title:"",icon:"",key:"empty",handler:menuItemviewClicked)
 		]

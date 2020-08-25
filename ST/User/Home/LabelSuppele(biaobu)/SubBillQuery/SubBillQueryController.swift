@@ -95,7 +95,7 @@ class SubBillQueryController:UITableViewController,QrInterface {
 		#if DEBUG
 		let info: NSDictionary = [
 			"billCode": "5700165655793",
-			"billCodeSub": "1700165655793;2700165655793;3700165655793",
+			"billCodeSub": "37001656557339003;37001656557339003;37001656557339003",
 		"sendSite": "大牛市",
 		"dispatchCenter": "目的网点所属中心",
 		"dispatchCode": "3424",
@@ -103,6 +103,9 @@ class SubBillQueryController:UITableViewController,QrInterface {
 		"packType": "箱装",
 		"goodsName": "物品名称",
 		"sendCode": "9527",
+		"acceptMan": "测试人",
+		"acceptManPhone": "18061988347",
+		"blPrintNum": "3",
 		"acceptManAddress": "南宫市",
 		"arriveSite": "大南京市",
 		"registerDate": "2020-07-07 06:56:23",

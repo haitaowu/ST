@@ -24,6 +24,9 @@
 #define kWeightKey              @"weight"
 #define kPieceNumKey            @"pieceNumber"
 #define kRegisterDateKey        @"registerDate"
+#define kAcceptManName	        @"acceptMan" //：收件人
+#define kSubAcptManPhone	     @"acceptManPhone" //：收件人号码
+#define kBlPrintNum	     		@"blPrintNum" //：打印次数
 
 //派件
 #define kSendMan            	@"sendMan"

@@ -250,7 +250,7 @@ static NSString *const kServiceUUID = @"ff00";
 
 	if (self.printerType == HPRINTER) {
 		PTPrinter *printer = self.devices[indexPath.row];
-		[SVProgressHUD showSuccessWithStatus:@"连接中"];
+		[SVProgressHUD showWithStatus:@"连接中"];
 		__weak typeof(self) weakSelf = self;
 		[BleManager connectPrinter:printer];
 		[BleManager whenConnectSuccess:^{
