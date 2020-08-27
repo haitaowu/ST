@@ -563,7 +563,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//huo wu xin xi
-	NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+//	NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+	NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
 	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
@@ -744,7 +745,8 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
-    NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+//    NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+    NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
 //    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;

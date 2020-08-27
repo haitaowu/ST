@@ -179,8 +179,8 @@ static HPrinterHelper *instance;
 	NSInteger pDateSX = centerX;
     NSInteger pDateSY = box1SY - pDateH;
 	NSString *pDateStr = [NSDate currentDateStrBy:nil];
-	NSString *printCount = [HPrinterHelper strValueOf:billInfo key:kBlPrintNum];
-	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@ %@",flag,printCount];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",flag];
+	
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pDateSX) y:(pDateSY) safeHeight:pDateH width:centerX lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
     
     NSInteger siteCodeHeight = 40;
@@ -352,12 +352,12 @@ static HPrinterHelper *instance;
 	}
 	
 	//da yin ri qi
-    NSString *currentDateStr = [NSDate currentDateStrBy:nil];
+    NSString *billDateStr = [HPrinterHelper billDateWithData:billInfo];
     NSInteger bDateX = nameX;
     NSInteger bDateY = line2SY;
     NSInteger bDateSafeHeight = nameBoxH;
     NSInteger bDateWidth = (line2EX - line2SX);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(bDateX+deltaX) y:(bDateY+deltaY) safeHeight:bDateSafeHeight width:bDateWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:currentDateStr];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(bDateX+deltaX) y:(bDateY+deltaY) safeHeight:bDateSafeHeight width:bDateWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:billDateStr];
 	//tiao xing ma da yin
 	NSInteger hBarCodeX = col3SX;
     NSInteger hBarCodeY = col3SY + 5;
@@ -401,6 +401,7 @@ static HPrinterHelper *instance;
 }
 
 ///ji jian ke hu huo wu xin xi
+/*
 + (NSString*)goodsInfo:(id)billInfo
 {
   NSString *goods = @"";
@@ -436,55 +437,69 @@ static HPrinterHelper *instance;
 
   return goods;
 }
+ */
 
 
 ///pai jian wang dian huo wu xin xi
 + (NSString*)sendGoodsInfo:(id)billInfo
 {
     NSString *goods = @"";
-    NSString *name = [billInfo objectForKey:kMGoodsName];
-    if (name != nil) {
+//    NSString *name = [billInfo objectForKey:kMGoodsName];
+	NSString *name = [self strValueOf:billInfo key:kMGoodsName];
+    if (name.length > 0) {
         goods = [goods stringByAppendingFormat:@"名称:%@、",name];
     }
-    NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
-    if (pieces != nil) {
+//    NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
+	NSString *pieces = [self strValueOf:billInfo key:kMGoodsPiece];
+    if (pieces.length > 0) {
         goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
     }
-    NSString *weight = [billInfo objectForKey:kMCalWeight];
-    if (weight != nil) {
+//    NSString *weight = [billInfo objectForKey:kMCalWeight];
+	NSString *weight = [self strValueOf:billInfo key:kMCalWeight];
+    if (weight.length > 0) {
         goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
     }
-    NSString *tranType = [billInfo objectForKey:kMExpressType];
-    if (tranType != nil) {
+	
+	//    NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
+	NSString *weightCount = [self strValueOf:billInfo key:@"OVER_WEIGHT_PIECE"];
+	if (weightCount.length > 0) {
+        goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
+    }
+	
+	//    NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
+	NSString *rCode = [self strValueOf:billInfo key:@"R_BILLCODE"];
+    if (rCode.length > 0) {
+        goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
+    }
+	
+//    NSString *tranType = [billInfo objectForKey:kMExpressType];
+	NSString *tranType = [self strValueOf:billInfo key:kMExpressType];
+    if (tranType.length > 0) {
         goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
     }
     
-    NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
-    if (weightCount != nil) {
-        goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
-    }
     
-    NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-    if (overSize != nil) {
+//    NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+	NSString *overSize = [self strValueOf:billInfo key:@"BL_OVER_LONG"];
+    if (overSize.length > 0) {
         goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
     }
     
-    NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
-    if (rCode != nil) {
-        goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
-    }
-    NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
-    if (storageCode != nil) {
+//    NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
+	NSString *storageCode = [self strValueOf:billInfo key:@"STORAGENO"];
+    if (storageCode.length > 0) {
         goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
     }
     
-    NSString *date = [billInfo objectForKey:kMSendDate];
-    if (date != nil) {
+//    NSString *date = [billInfo objectForKey:kMSendDate];
+	NSString *date = [self strValueOf:billInfo key:kMSendDate];
+    if (date.length > 0) {
         goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
     }
     
     return goods;
 }
+
 
 
 ///zhu dan fei yong
@@ -507,11 +522,12 @@ static HPrinterHelper *instance;
         fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
     }
     
-    NSString *pay = [billInfo objectForKey:kMFreight];
-    if (pay != nil) {
-        fees = [fees stringByAppendingFormat:@"运费:%@",pay];
-    }
+//    NSString *pay = [billInfo objectForKey:kMFreight];
+//    if (pay != nil) {
+//        fees = [fees stringByAppendingFormat:@"运费:%@",pay];
+//    }
     return fees;
+
 }
 
 ///string return value
@@ -884,7 +900,8 @@ static HPrinterHelper *instance;
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
     
     //hu wu xin xi
-    NSString *goods = [HPrinterHelper goodsInfo:billInfo];
+//    NSString *goods = [HPrinterHelper goodsInfo:billInfo];
+    NSString *goods = [HPrinterHelper sendGoodsInfo:billInfo];
     NSInteger goodsInfoX = sPhoneX;
     NSInteger goodsInfoY = line3SY;
     int letterMaxLen = 38;
@@ -955,6 +972,7 @@ static HPrinterHelper *instance;
 
 
 ///jian ke hu huo wu xin xi ji
+/*
 + (NSString*)paiGoodsInfo:(id)billInfo
 {
   NSString *goods = @"";
@@ -991,50 +1009,60 @@ static HPrinterHelper *instance;
 
   return goods;
 }
+ */
 
 ///pai jian wang dian huo wu xin xi
 + (NSString*)paiSendGoodsInfo:(id)billInfo
 {
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kGoodsName];
-  if ((name != nil) && (name.length > 0)){
+	NSString *goods = @"";
+//	NSString *name = [billInfo objectForKey:kGoodsName];
+	NSString *name = [self strValueOf:billInfo key:kGoodsName];
+  if (name.length > 0){
     goods = [goods stringByAppendingFormat:@"名称:%@、",name];
   }
-  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
-  if (pieces != nil){
+//  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
+	NSString *pieces = [self strValueOf:billInfo key:kGoodsPiece];
+  if (pieces.length > 0){
     goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
   }
-  NSString *weight = [billInfo objectForKey:kCalWeight];
-  if (weight != nil) {
+//  NSString *weight = [billInfo objectForKey:kCalWeight];
+	NSString *weight = [self strValueOf:billInfo key:kCalWeight];
+  if (weight.length > 0) {
     goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
   }
-  NSString *tranType = [billInfo objectForKey:kExpressType];
-  if ((tranType != nil)  && (tranType.length > 0)){
+//  NSString *tranType = [billInfo objectForKey:kExpressType];
+	NSString *tranType = [self strValueOf:billInfo key:kExpressType];
+  if (tranType.length > 0){
     goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
   }
   
-  NSString *weightCount = [billInfo objectForKey:kOverWeightPiece];
-  if (weightCount != nil){
+//  NSString *weightCount = [billInfo objectForKey:kOverWeightPiece];
+	NSString *weightCount = [self strValueOf:billInfo key:kOverWeightPiece];
+  if (weightCount.length > 0){
     goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
   }
   
-  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-  if (overSize != nil) {
+//  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+	NSString *overSize = [self strValueOf:billInfo key:@"BL_OVER_LONG"];
+  if (overSize.length > 0) {
     goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
   }
   
-  NSString *rCode = [billInfo objectForKey:kRbillCode];
-  if ((rCode != nil) && (rCode.length > 0)){
+//  NSString *rCode = [billInfo objectForKey:kRbillCode];
+	NSString *rCode = [self strValueOf:billInfo key:kRbillCode];
+  if (rCode.length > 0){
     goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
   }
 	
-  NSString *storageCode = [billInfo objectForKey:kStorageno];
-  if ((storageCode != nil) && (storageCode.length > 0) ){
+//  NSString *storageCode = [billInfo objectForKey:kStorageNo];
+	NSString *storageCode = [self strValueOf:billInfo key:kStorageNo];
+  if (storageCode.length > 0){
     goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
   }
   
-  NSString *date = [billInfo objectForKey:kSendDate];
-  if ((date != nil) && (date.length > 0)){
+//  NSString *date = [billInfo objectForKey:kSendDate];
+	NSString *date = [self strValueOf:billInfo key:kSendDate];
+  if (date.length > 0){
     goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
   }
 
@@ -1424,7 +1452,7 @@ static HPrinterHelper *instance;
     [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
     
     //hu wu xin xi
-    NSString *goods = [HPrinterHelper paiGoodsInfo:billInfo];
+    NSString *goods = [HPrinterHelper paiSendGoodsInfo:billInfo];
     NSInteger goodsInfoX = sPhoneX;
     NSInteger goodsInfoY = line3SY;
     int letterMaxLen = 38;

@@ -47,7 +47,7 @@
 #define kOverWeightPiece		@"overWeightPiece" //超重件数
 #define kBlOverLong				@"blOverLong" //超长标识
 #define kRbillCode				@"rbillCode" //回单编号
-#define kStorageno				@"storageno" //进仓编号
+#define kStorageNo				@"storageno" //进仓编号
 
 #define kPaymentType		    @"paymentType" //支付方式
 #define kPaiedMoney			    @"topayment" //到付款
@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType;
 
 ///ji jian ke hu huo wu xin xi
-+ (NSString*)goodsInfo:(id)billInfo;
+//+ (NSString*)goodsInfo:(id)billInfo;
 
 ///pai jian wang dian huo wu xin xi
 + (NSString*)sendGoodsInfo:(id)billInfo;
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)paiAddressDetail:(NSDictionary*)billInfo type:(NSString*)adrType;
 
 ///jian ke hu huo wu xin xi ji
-+ (NSString*)paiGoodsInfo:(id)billInfo;
+//+ (NSString*)paiGoodsInfo:(id)billInfo;
 
 ///pai jian wang dian huo wu xin xi
 + (NSString*)paiSendGoodsInfo:(id)billInfo;

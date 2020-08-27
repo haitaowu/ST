@@ -45,7 +45,7 @@ int cjFlag=1;
 
 @interface TicketPrintPreController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 
-@property(strong,nonatomic)CBCentralManager *centralManager;
+//@property(strong,nonatomic)CBCentralManager *centralManager;
 @property(strong,nonatomic)CBPeripheral *selectedPeripheral;
 @property(nonatomic,strong) NSThread *thread;
 @property(nonatomic,assign) NSInteger managerState;
@@ -88,18 +88,6 @@ int cjFlag=1;
         self.reloadBtn.hidden = YES;
     }
     
-	
-	
-	return;
-   /*
-    self.managerState = CBManagerStateUnknown;
-	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    self.title = @"打印运单";
-    
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-	*/
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -125,7 +113,7 @@ int cjFlag=1;
 	NSLog(@"viewWill Disappear....");
 }
 
-
+#pragma mark- update ui
 - (void)reloadPagePickerView
 {
 	int num = [[self.billInfo objectForKey:@"pieceNumber"] intValue];
@@ -138,30 +126,30 @@ int cjFlag=1;
 	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
 }
 
+//- (void)updatePrintBtnsByState:(BOOL)enabled
+//{
+//		self.printBtn.enabled = enabled;
+//		self.reloadBtn.hidden = enabled;
+//}
+
+//
+//- (void)startScanConnectPrinter{
+//    if (self.centralManager.isScanning == YES) {
+//        return;
+//    }
+//}
+//
+//- (void) stopScanPeripheral
+//{
+//    [self.centralManager stopScan];
+//    NSLog(@"stop scan");
+//}
 
 
-- (void)startScanConnectPrinter{
-    if (self.centralManager.isScanning == YES) {
-        return;
-    }
-	/*
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
-	 */
-}
-
-- (void) stopScanPeripheral
-{
-    [self.centralManager stopScan];
-    NSLog(@"stop scan");
-}
-
-- (void) dismissConnectLoading
-{
-    [SVProgressHUD dismiss];
-}
-
+//- (void) dismissConnectLoading
+//{
+//    [SVProgressHUD dismiss];
+//}
 
 
 - (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
@@ -258,6 +246,7 @@ int cjFlag=1;
     [self reqPrintBillInfo];
 }
 
+
 - (IBAction)buttonPrintPNGorJPG:(UIButton*)sender {
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
@@ -274,6 +263,7 @@ int cjFlag=1;
 		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage latePrintFlag:latePrintFlag];
 		NSLog(@"hello HPrinter to print");
 	}
+//	[self updatePrintBtnsByState: NO];
 	sender.enabled = NO;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		sender.enabled = YES;
@@ -384,7 +374,7 @@ int cjFlag=1;
     int maxY = 535;
 	int logoHeight = 160;
     int lineWeight = 2;
-	int startX = 2;
+	int startX = 10;
 	int startY = 3;
 	int deltaX = 10;
 	int deltaY = 10 + 5;
@@ -430,8 +420,7 @@ int cjFlag=1;
 	int pDateSY = box1SY - pDateH;
 	NSString *pDateStr = [self currentDateStr];
 	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
-	NSString *printCount = [HPrinterHelper strValueOf:billInfo key:kBlPrintNum];
-	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@ %@",latePrintFlag,printCount];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",latePrintFlag];
 	[command addTextwithX:pDateSX withY:pDateSY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:pDateStr];
 	
 	//ji jian wang dian
@@ -907,8 +896,7 @@ int cjFlag=1;
 	
 	NSString *pDateStr = [self currentDateStr];
 	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
-	NSString *printCount = [HPrinterHelper strValueOf:billInfo key:kBlPrintNum];
-	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@ %@",latePrintFlag,printCount];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",latePrintFlag];
 	int pDateX = dispatchX;
 	int pDateY = dispatchH + 5;
 	[SPRTPrint drawText:pDateX textY:pDateY widthNum:sitesW heightNum:pDateH textStr:pDateStr fontSizeNum:(titleSize-1) rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
@@ -1027,8 +1015,7 @@ int cjFlag=1;
 	
 	int deltaX = 15;
 	
-//	NSString *adrTxt = [billInfo objectForKey:kAcceptAdrKey];
-	
+
 	NSString *adrTxt = [HPrinterHelper strValueOf:billInfo key:kAcceptAdrKey];
 	NSString *packType = [HPrinterHelper strValueOf:billInfo key:kPackTypeKey];
 	NSString *sendGoodsType = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
@@ -1456,6 +1443,7 @@ int cjFlag=1;
 						NSLog(@"billInfo = %@",billInfos);
 						//                    self.billCodes = billCodes;
 						weakSelf.billInfo = [billInfos firstObject];
+//						[weakSelf updatePrintBtnsByState: YES];
 						[weakSelf reloadPagePickerView];
 					}
 				}
