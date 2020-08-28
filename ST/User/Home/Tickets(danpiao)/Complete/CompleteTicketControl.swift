@@ -1001,31 +1001,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 	
 
 	
-	
-//
-//    let url = "http://58.215.182.249:8015/SuTongSeperatesInterface/queryAddressDetailByAddress"
-//    Alamofire.request(url, method: .post, parameters: params ).responseJSON {
-//      [unowned self] response in
-//      if let json = response.result.value as? NSDictionary{
-//        if let stauts = json.value(forKey: "success"),let statusNum = stauts as? Int{
-//          if statusNum == 1{
-//            guard let data = json.value(forKey: "data") as? Array<Dictionary<String,Any>> else {
-//              return
-//            }
-//            if let areaName = data.first?["areaName"] as? String{
-//              self.destSiteField.text = areaName
-//            }
-//          }else{
-//          }
-//        }else{
-//
-//        }
-//      }else{
-//
-//      }
-//    }
-//
-    
+
   }
   
 	
