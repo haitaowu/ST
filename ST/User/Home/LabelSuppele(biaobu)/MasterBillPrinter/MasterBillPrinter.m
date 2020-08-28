@@ -24,33 +24,7 @@ static NSString *const kFlowControlCharacteristicUUID = @"ff03";
 static NSString *const kWriteCharacteristicUUID = @"ff02";
 static NSString *const kReadCharacteristicUUID = @"ff01";
 static NSString *const kServiceUUID = @"ff00";
-//
 
-
-
-//
-//
-//#define kBillCodeKey            @"BILL_CODE"
-//#define kSendMan            	@"SEND_MAN"
-//#define kSendManPhone           @"SEND_MAN_PHONE"
-//#define kSendManAddress	        @"SEND_MAN_ADDRESS"
-//#define kAcceptMan	            @"ACCEPT_MAN"	//收件人
-//#define kAcceptManPhone         @"ACCEPT_MAN_PHONE" //收件人电话
-//#define kAcceptManAddress  	    @"ACCEPT_MAN_ADDRESS" //收件人地址
-//#define kDestination            @"DESTINATION"  //目的地
-//
-//#define kGoodsName	            @"GOODS_NAME"   //货物名称
-//#define kGoodsPiece		        @"PIECE_NUMBER" //件数
-//#define kCalWeight		        @"SETTLEMENT_WEIGHT" //结算重量
-//#define kExpressType		    @"DISPATCH_MODE" //送货方式
-//#define kSendDate			    @"SEND_DATE" //寄件时间
-//
-//#define kPaiedMoney			    @"TOPAYMENT" //到付款
-//#define kInsureVal			    @"INSURE_VALUE" //保价金额
-//#define kFreight			    @"FREIGHT" //运费
-//#define kPaymentType 			@"PAYMENT_TYPE" //zhi fu fang shi
-//#define kReturnBill 			@"BL_RETURN_BILL" //hui dan biaoshi
-//#define kInstoreage				@"BL_INTO_WAREHOUSE" // jin cang biao shi
 
 
 
@@ -78,7 +52,6 @@ static NSString *const kServiceUUID = @"ff00";
 @implementation MasterBillPrinter
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -92,31 +65,10 @@ static NSString *const kServiceUUID = @"ff00";
 	cjFlag=1;           // qzfeng 2016/05/10
 	self.reloadBtn.hidden = YES;
 	
-
-//    if (self.billSN != nil) {
-//        self.reloadBtn.hidden = NO;
-//        [self reqPrintBillInfo];
-//    }else{
-//        self.reloadBtn.hidden = YES;
-//    }
-
 	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
 	[self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-	
-	
-	return;
-//    self.managerState = CBManagerStateUnknown;
-//	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
-//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    [self startScanConnectPrinter];
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -129,29 +81,6 @@ static NSString *const kServiceUUID = @"ff00";
 	NSLog(@"viewWill Disappear....");
 }
 
-//- (void)viewDidUnload
-//{
-//    [self setDeviceListTableView:nil];
-//    [super viewDidUnload];
-//}
-
-/*
-- (void)startScanConnectPrinter{
-    if (self.centralManager.isScanning == YES) {
-        return;
-    }
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
-}
-
-- (void) stopScanPeripheral
-{
-    [self.centralManager stopScan];
-    NSLog(@"stop scan");
-}
-
- */
 
 - (void) dismissConnectLoading
 {
@@ -187,8 +116,6 @@ static NSString *const kServiceUUID = @"ff00";
                 break;
             case CONNECT_STATE_DISCONNECT:
 			{
-//				NSString *name = Manager.bleConnecter.connPeripheral.name;
-//				NSString *title = [@"断开连接设备:" stringByAppendingFormat:@"%@",name];
 				NSString *title = @"已断开连接设备";
                 [SVProgressHUD showInfoWithStatus:title];
                 self.connState.text = @"连接状态：断开连接";
@@ -272,8 +199,6 @@ static NSString *const kServiceUUID = @"ff00";
 
 
 
-
-
 #pragma mark - private methods
 //发送秘钥
 - (void)sendKeyChainToPrinter {
@@ -301,7 +226,6 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
 
-
 //当前时间
 - (NSString*)currentDateStr
 {
@@ -311,154 +235,6 @@ static NSString *const kServiceUUID = @"ff00";
     return todayStr;
 }
 
-
-/*
-// ji jian di zhi / shou jian ren dizhi
-- (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
-  NSArray* keys;
-  if ([adrType isEqualToString:@"1"]) {
-    //ji jian di zhi
-    keys = @[@"PROVINCE",@"CITY",@"BOROUGH",kSendManAddress];
-  }else{
-    //shou jian di zhi
-    keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",kAcceptManAddress];
-  }
-  
-  NSString *adr = @"";
-  for (NSString* keyStr in keys) {
-    NSString *valueStr = [billInfo objectForKey:keyStr];
-    if (valueStr != nil) {
-      adr = [adr stringByAppendingFormat:@"%@",valueStr];
-    }
-  }
-  return adr;
-}
-
-///jian ke hu huo wu xin xi ji
-- (NSString*)goodsInfo:(id)billInfo
-{
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kGoodsName];
-  if (name != nil) {
-    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-  }
-  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
-  if (pieces != nil) {
-    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-  }
-  NSString *weight = [billInfo objectForKey:kCalWeight];
-  if (weight != nil) {
-    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-  }
-  NSString *tranType = [billInfo objectForKey:kExpressType];
-  if (tranType != nil) {
-    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-  }
-  NSString *sign = [billInfo objectForKey:kReturnBill];
-  if (sign != nil) {
-    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
-  }
-  NSString *storage = [billInfo objectForKey:kInstoreage];
-  if (storage != nil) {
-    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
-  }
-  
-  NSString *date = [billInfo objectForKey:kSendDate];
-  if (date != nil) {
-    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-  }
-
-  return goods;
-}
-
-///pai jian wang dian huo wu xin xi
-- (NSString*)sendGoodsInfo:(id)billInfo
-{
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kGoodsName];
-  if (name != nil) {
-    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-  }
-  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
-  if (pieces != nil) {
-    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-  }
-  NSString *weight = [billInfo objectForKey:kCalWeight];
-  if (weight != nil) {
-    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-  }
-  NSString *tranType = [billInfo objectForKey:kExpressType];
-  if (tranType != nil) {
-    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-  }
-  
-  NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
-  if (weightCount != nil) {
-    goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
-  }
-  
-  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-  if (overSize != nil) {
-    goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
-  }
-  
-  NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
-  if (rCode != nil) {
-    goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
-  }
-  NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
-  if (storageCode != nil) {
-    goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
-  }
-  
-  NSString *date = [billInfo objectForKey:kSendDate];
-  if (date != nil) {
-    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-  }
-
-  return goods;
-}
-
-
-///fei yong
-- (NSString*)feesTxtBy:(id)billInfo
-{
-	NSString *fees = @"";
-	NSString *payType = [billInfo objectForKey:kPaymentType];
-	if ([payType containsString:@"到付"]) {
-		fees = [fees stringByAppendingFormat:@"%@:",payType];
-		NSString *cash = [billInfo objectForKey:kPaiedMoney];
-		if (cash != nil) {
-			fees = [fees stringByAppendingFormat:@"%@、",cash];
-		}
-	}else{
-		fees = [fees stringByAppendingFormat:@"%@:",payType];
-	}
-	
-  NSString *count = [billInfo objectForKey:kInsureVal];
-  if (count != nil) {
-    fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
-  }
-	
-  NSString *pay = [billInfo objectForKey:kFreight];
-  if (pay != nil) {
-    fees = [fees stringByAppendingFormat:@"运费:%@",pay];
-  }
-  return fees;
-}
-
-
-///string return value
-- (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr
-{
-  id value = [billInfo objectForKey:keyStr];
-  if (value == nil) {
-    return @"";
-  }else{
-    return [NSString stringWithFormat:@"%@",value];
-  }
-}
-*/
 
 
 #pragma mark- SPrinter
@@ -496,7 +272,6 @@ static NSString *const kServiceUUID = @"ff00";
 	
 	
 	NSString *billCode = [HPrinterHelper strValueOf:self.billInfo key:kMBillCodeKey];
-//	NSString *billCode = @"8000056666671";
 	int codeW = typeW;
 	int codeH = 40;
 	int codeX = typeX;
@@ -524,13 +299,16 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:self.billInfo key:kMSendMan];
 	//phone
 	NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
-	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sendInfoTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
 	int sAdrW = sPhoneW;
@@ -549,13 +327,16 @@ static NSString *const kServiceUUID = @"ff00";
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptMan];
 	//phone
 	NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
-	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:receInfoTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
 	int rAdrW = rPhoneW - siteTextW;
@@ -729,13 +510,16 @@ static NSString *const kServiceUUID = @"ff00";
 	int sTitleX = startX + deltaX;
 	int sTitleY = startY + headerHeight + delataY;
 	[SPRTPrint drawText:sTitleX textY:sTitleY widthNum:sTitleWidth heightNum:sTitleHeight textStr:senderTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:self.billInfo key:kMSendMan];
 	//phone
 	NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
 	int sPhoneW = maxX - titleWidth;
 	int sPhoneH = rowHeight / 2;
 	int sPhoneX = titleWidth + deltaX;
 	int sPhoneY = sTitleY;
-	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:sPhoneX textY:sPhoneY widthNum:sPhoneW heightNum:sPhoneH textStr:sendInfoTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];;
 	int sAdrW = sPhoneW;
@@ -752,13 +536,16 @@ static NSString *const kServiceUUID = @"ff00";
 	int rTitleWidth = titleWidth;
 	int rTitleHeight = rowHeight;
 	[SPRTPrint drawText:rTitleX textY:rTitleY widthNum:rTitleWidth heightNum:rTitleHeight textStr:receiverTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptMan];
 	//phone
 	NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
 	int rPhoneW = maxX - titleWidth;
 	int rPhoneH = rowHeight / 2;
 	int rPhoneX = titleWidth + deltaX;
 	int rPhoneY = rTitleY;
-	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:rPhone fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	[SPRTPrint drawText:rPhoneX textY:rPhoneY widthNum:rPhoneW heightNum:rPhoneH textStr:receInfoTxt fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//address
 	NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];;
 	int rAdrW = rPhoneW;
@@ -776,7 +563,8 @@ static NSString *const kServiceUUID = @"ff00";
 	int goodsTitleH = rowHeight;
 	[SPRTPrint drawText:goodsTitleX textY:goodsTitleY widthNum:goodsTitleW heightNum:goodsTitleH textStr:goodsTitle fontSizeNum:2 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
 	//huo wu xin xi
-	NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+//	NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+	NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
 	int goodsW = maxX - titleWidth - 10;
 	int goodsH = rowHeight;
 	int goodsX = titleWidth + deltaX;
@@ -898,12 +686,15 @@ static NSString *const kServiceUUID = @"ff00";
     int sTitleY = start1Y + deltaY;
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:self.billInfo key:kMSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendInfoTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
@@ -921,12 +712,15 @@ static NSString *const kServiceUUID = @"ff00";
      int rTitleX = sTitleX;
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptMan];
      //phone
      NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:receInfoTxt];
     
     //address
     NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
@@ -951,7 +745,8 @@ static NSString *const kServiceUUID = @"ff00";
     [command addTextwithX:goodsTitleX withY:goodsTitle2Y withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsTitle2];
     
     //hu wu xin xi
-    NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+//    NSString *goods = [HPrinterHelper goodsInfo:self.billInfo];
+    NSString *goods = [HPrinterHelper sendGoodsInfo:self.billInfo];
 //    NSString *goods = @"将根据股份奖励计划发行 2664 万股新股份，拟授予不少于 29700 位受奖励人士。以 532.81 港元";
     int goodsX = titleWidth + deltaX;
     int goodsY = goodsTitleY;
@@ -1062,12 +857,15 @@ static NSString *const kServiceUUID = @"ff00";
     int sTitleY = start1Y + deltaY;
     //打印寄方
     [command addTextwithX:sTitleX withY:sTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:senderTitle];
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:self.billInfo key:kMSendMan];
     //phone
     NSString *sPhone = [HPrinterHelper strValueOf:self.billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
 //    NSString *sPhone = @"18028324243";
     int sPhoneX = titleWidth + deltaX;
     int sPhoneY = sTitleY;
-    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sPhone];
+    [command addTextwithX:sPhoneX withY:sPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendInfoTxt];
     
     //address
     NSString *sAdress = [HPrinterHelper addressDetail:self.billInfo type:@"1"];
@@ -1085,12 +883,15 @@ static NSString *const kServiceUUID = @"ff00";
      int rTitleX = sTitleX;
      int rTitleY = start2Y + deltaX;
      [command addTextwithX:rTitleX withY:rTitleY withFont:titleFontStr withRotation:0 withXscal:1 withYscal:1 withText:receiverTitle];
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptMan];
      //phone
      NSString *rPhone = [HPrinterHelper strValueOf:self.billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
 //     NSString *rPhone = @"18028324233";
      int rPhoneX = titleWidth + deltaX;
      int rPhoneY = rTitleY;
-     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:rPhone];
+     [command addTextwithX:rPhoneX withY:rPhoneY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:receInfoTxt];
     
     //address
     NSString *rAddress = [HPrinterHelper addressDetail:self.billInfo type:@"0"];
@@ -1406,6 +1207,166 @@ static NSString *const kServiceUUID = @"ff00";
 }
 
  */
+
+
+
+
+
+/*
+- (void)startScanConnectPrinter{
+    if (self.centralManager.isScanning == YES) {
+        return;
+    }
+    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
+}
+
+- (void) stopScanPeripheral
+{
+    [self.centralManager stopScan];
+    NSLog(@"stop scan");
+}
+
+ */
+
+/*
+// ji jian di zhi / shou jian ren dizhi
+- (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
+  NSArray* keys;
+  if ([adrType isEqualToString:@"1"]) {
+    //ji jian di zhi
+    keys = @[@"PROVINCE",@"CITY",@"BOROUGH",kSendManAddress];
+  }else{
+    //shou jian di zhi
+    keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",kAcceptManAddress];
+  }
+  
+  NSString *adr = @"";
+  for (NSString* keyStr in keys) {
+    NSString *valueStr = [billInfo objectForKey:keyStr];
+    if (valueStr != nil) {
+      adr = [adr stringByAppendingFormat:@"%@",valueStr];
+    }
+  }
+  return adr;
+}
+
+///jian ke hu huo wu xin xi ji
+- (NSString*)goodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:kGoodsName];
+  if (name != nil) {
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
+  if (pieces != nil) {
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:kCalWeight];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:kExpressType];
+  if (tranType != nil) {
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  NSString *sign = [billInfo objectForKey:kReturnBill];
+  if (sign != nil) {
+    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
+  }
+  NSString *storage = [billInfo objectForKey:kInstoreage];
+  if (storage != nil) {
+    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
+  }
+  
+  NSString *date = [billInfo objectForKey:kSendDate];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+
+///pai jian wang dian huo wu xin xi
+- (NSString*)sendGoodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:kGoodsName];
+  if (name != nil) {
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
+  if (pieces != nil) {
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:kCalWeight];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:kExpressType];
+  if (tranType != nil) {
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  
+  NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
+  if (weightCount != nil) {
+    goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
+  }
+  
+  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+  if (overSize != nil) {
+    goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
+  }
+  
+  NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
+  if (rCode != nil) {
+    goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
+  }
+  NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
+  if (storageCode != nil) {
+    goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
+  }
+  
+  NSString *date = [billInfo objectForKey:kSendDate];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+
+
+///fei yong
+- (NSString*)feesTxtBy:(id)billInfo
+{
+	NSString *fees = @"";
+	NSString *payType = [billInfo objectForKey:kPaymentType];
+	if ([payType containsString:@"到付"]) {
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+		NSString *cash = [billInfo objectForKey:kPaiedMoney];
+		if (cash != nil) {
+			fees = [fees stringByAppendingFormat:@"%@、",cash];
+		}
+	}else{
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+	}
+	
+  NSString *count = [billInfo objectForKey:kInsureVal];
+  if (count != nil) {
+    fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
+  }
+	
+  NSString *pay = [billInfo objectForKey:kFreight];
+  if (pay != nil) {
+    fees = [fees stringByAppendingFormat:@"运费:%@",pay];
+  }
+  return fees;
+}
+
+
+*/
 
 
 

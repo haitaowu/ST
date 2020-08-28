@@ -92,34 +92,1417 @@ static HPrinterHelper *instance;
     return array;
 }
 
+#pragma mark- zi dan da yin
 /**
  *print with
  */
-- (void)printWithData:(id)data startPage:(NSInteger)startPage endPage:(NSInteger)endPage
+- (void)printWithData:(id)data startPage:(NSInteger)startPage endPage:(NSInteger)endPage latePrintFlag:(NSString*)flag
 {
     NSArray *subCodeAry = [HPrinterHelper subBillCodesWithBillData:data];
     if (subCodeAry.count > 0) {
+		NSNumber *piecesNum = [data objectForKey:kPieceNumKey];
         for(NSInteger startIdx = startPage; startIdx <= endPage; startIdx++){
             if ((startIdx-1) >= subCodeAry.count) {
                 break;
             }else{
                 NSString *subCode = [subCodeAry objectAtIndex:(startIdx-1)];
-                NSString *indexString = [NSString stringWithFormat:@"%ld/%ld",(long)startIdx,(long)endPage];
-                [self startPrintBy:data subBillCode:subCode indexStr:indexString];
+                NSString *indexString = [NSString stringWithFormat:@"%ld/%@",(long)startIdx,piecesNum];
+//                [self startPrintBy:data subBillCode:subCode indexStr:indexString];
+				[self printBy:data subBillCode:subCode indexStr:indexString flag:flag];
             }
         }
     }else{
         NSString *subCode = [data objectForKey:kBillCodeKey];
-        [self startPrintBy:data subBillCode:subCode indexStr:@"1/1"];
+//        [self startPrintBy:data subBillCode:subCode indexStr:@"1/1"];
+		[self printBy:data subBillCode:subCode indexStr:@"1/1" flag:flag];
     }
 
 }
 
-
-#pragma mark- private print zi dan
+#pragma mark-private zi dan da yin
 /**
- *zidan dayin
+ *zidan dayin new
  */
+- (void)printBy:(id)billInfo subBillCode:(NSString*) subCode indexStr:(NSString*)indexStr flag:(NSString*)flag
+{
+    NSInteger startX = 5;
+    NSInteger deltaX = 5;
+    NSInteger startY = 10;
+    NSInteger deltaY = 5*3;
+    NSInteger offsetX = 0;
+    NSInteger maxX = 780;
+    NSInteger maxY = 550;
+//    NSInteger maxBoxWidth = pageWidth - startX * 2;
+    //    NSInteger maxBoxHeight = pageHeight - startY * 2;
+    int lineWeight = 2;
+    NSInteger logoHeight = 160;
+    //jijian fajian wang dian
+    NSInteger sitesHeight = 110;
+	NSInteger billNumH = 60;
+    
+    PTCPCLTextFontName txtFont = PTCPCLTextFont7;
+    PTCPCLTextFontName siteFont = PTCPCLTextFont4;
+    
+    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
+    
+    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:maxY quantity:1];
+    [command cpclPageWidth:maxX];
+    
+    NSInteger lineSpacing = 1;
+    //mu di wang dian suo shu zhong xin
+    NSString *dispatchCenter = [billInfo objectForKey:kDispatchCenterKey];
+	 NSInteger centerX = maxX / 2;
+    if (dispatchCenter != nil) {
+        NSInteger centerY = startY;
+        NSInteger safeHeight = logoHeight;
+        NSInteger width = centerX;
+		[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:siteFont fontSize:0 x:(centerX) y:(centerY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:dispatchCenter];
+    }
+	
+    
+   //left ji jian wang dian -> right: tiao xing ma --->
+    NSInteger box1SX = startX;
+    NSInteger box1SY = logoHeight;
+    NSInteger box1EX = maxX;
+    NSInteger box1EY = maxY;
+    [command cpclBoxWithXPos:box1SX yPos:box1SY xEnd:box1EX yEnd:box1EY thickness:lineWeight];
+    
+    //寄件/目的网点之间的竖线
+    NSInteger sitesW = (maxX - startX) / 2;
+    NSInteger col1SX = box1SX + sitesW;
+    NSInteger col1SY = box1SY;
+    NSInteger col1EY = col1SY + sitesHeight;
+    NSInteger col1EX = col1SX;
+    [command cpclLineWithXPos:col1SX yPos:col1SY xEnd:col1EX yEnd:col1EY thickness:lineWeight];
+	
+	NSInteger pDateH = 30;
+	NSInteger pDateSX = centerX;
+    NSInteger pDateSY = box1SY - pDateH;
+	NSString *pDateStr = [NSDate currentDateStrBy:nil];
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",flag];
+	
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pDateSX) y:(pDateSY) safeHeight:pDateH width:centerX lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+    
+    NSInteger siteCodeHeight = 40;
+    NSInteger siteDeltaY = 10;
+    NSInteger sendSiteY = box1SY + siteDeltaY;
+   //ji jian wang dian
+    NSString *sendSite = [billInfo objectForKey:kSendSiteKey];
+    if (sendSite != nil) {
+        NSInteger x = box1SX;
+        NSInteger safeHeight = sitesHeight - siteCodeHeight;
+        NSInteger width = sitesW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:siteFont fontSize:0 xPos:x yPos:sendSiteY center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendSite];
+    }
+	
+    //ji jian wang dian bian hao
+	NSInteger sendSiteCodeY = box1SY + sitesHeight - siteCodeHeight;
+    NSString *sendCode = [billInfo objectForKey:kSendCodeKey];
+    if (sendCode != nil) {
+        NSInteger x = box1SX;
+        NSInteger safeHeight = siteCodeHeight;
+        NSInteger width = sitesW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 xPos:x yPos:sendSiteCodeY center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendCode];
+    }
+    
+    
+    //mu di wang dian
+    NSInteger arriSiteX = col1SX + deltaX;
+    NSString *arriveSite = [billInfo objectForKey:kArriveSiteKey];
+    if (arriveSite != nil) {
+        NSInteger y = sendSiteY;
+        NSInteger safeHeight = siteCodeHeight;
+        NSInteger width = sitesW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:siteFont fontSize:0 xPos:arriSiteX yPos:y center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:arriveSite];
+    }
+    
+    //mu di wang dian bian hao
+    NSString *dispatchCode = [billInfo objectForKey:kDispatchCodeKey];
+    if (dispatchCode != nil) {
+        NSInteger x = arriSiteX;
+        NSInteger y = sendSiteCodeY;
+        NSInteger safeHeight = siteCodeHeight;
+        NSInteger width = sitesW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 xPos:x yPos:y center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:dispatchCode];
+    }
+
+	
+    //end <---
+	int barCodeBoxH = 120;
+	int billNumWidth = 320;
+    //left: yun dan hao -> right: dizhi box --->
+    NSInteger box2SX = box1SX;
+    NSInteger box2SY = logoHeight + sitesHeight;
+    NSInteger box2EX = maxX;
+    NSInteger box2EY = maxY - barCodeBoxH;
+    [command cpclBoxWithXPos:box2SX yPos:box2SY xEnd:box2EX yEnd:box2EY thickness:lineWeight];
+	
+	//yun dan hao
+    NSString *billCodeTxt = [billInfo objectForKey:kBillCodeKey];
+	NSInteger billNumY = box2SY;
+    if (billCodeTxt != nil) {
+        NSInteger x = box2SX + deltaX;
+        NSInteger safeHeight = billNumH;
+        NSInteger width = billNumWidth;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(x) y:(billNumY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:billCodeTxt];
+    }
+	
+    
+    //weight box
+    NSInteger weightW = (maxX - startX - billNumWidth) / 3;
+	NSInteger box3SX = startX + billNumWidth + weightW;;
+    NSInteger box3SY = box2SY;
+    NSInteger box3EX = box3SX + weightW;
+    NSInteger box3EY = box3SY + billNumH;
+    [command cpclBoxWithXPos:box3SX yPos:box3SY xEnd:box3EX yEnd:box3EY thickness:lineWeight];
+	
+	//weight
+	id  weight = [billInfo objectForKey:kWeightKey];
+    NSInteger weightX = box3SX;
+    if(weight != nil){
+        NSString *weightStr = [NSString stringWithFormat:@"%@KG",weight];
+        NSInteger y = billNumY;
+        NSInteger safeHeight = billNumH;
+        NSInteger width = weightW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(weightX+deltaX) y:(y+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:weightStr];
+    }
+	
+	//jian shu suo ye ma
+    NSInteger pageX = weightX + weightW;
+    NSInteger pageY = billNumY;
+    NSInteger pageSafeHeight = billNumH;
+    NSInteger pageIdxWidth = (weightW);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(pageX+deltaX) y:(pageY+deltaY) safeHeight:pageSafeHeight width:pageIdxWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:indexStr];
+	
+	
+	//yun dan hao hou mian shu xian ||||||
+	NSInteger col2SX = startX + billNumWidth;
+    NSInteger col2SY = col1SY + sitesHeight;
+    NSInteger col2EX = col2SX;
+    NSInteger col2EY = billNumH + col2SY;
+    [command cpclLineWithXPos:col2SX yPos:col2SY xEnd:col2EX yEnd:col2EY thickness:lineWeight];
+	//wu ping ming cheng
+	NSString *goodsName = [billInfo objectForKey:kGoodsNameKey];
+    if (goodsName != nil) {
+		NSInteger goodsNameX = col2SX + deltaX;
+		NSInteger goodsNameY = billNumY;
+        NSInteger safeHeight = billNumH;
+        NSInteger width = weightW;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsNameX+deltaX) y:(goodsNameY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsName];
+    }
+	
+	
+	//tiao xing ma qian mian shuxian ||||
+	NSInteger col3SX = col1SX;
+	NSInteger col3SY = box2EY;
+	NSInteger col3EX = col3SX;
+	NSInteger col3EY = maxY;
+	[command cpclLineWithXPos:col3SX yPos:col3SY xEnd:col3EX yEnd:col3EY thickness:lineWeight];
+	
+	//yun dan hao ma xia mian de heng xian -------
+	NSInteger line1SX = startX;
+	NSInteger line1SY = box2SY + billNumH;
+	NSInteger line1EX = maxX;
+	NSInteger line1EY = line1SY;
+	[command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
+	
+	NSInteger adrBoxH = box2EY - box2SY - billNumH;
+	//dizhi
+	//dizhi
+	NSString *adrTxt = [HPrinterHelper strValueOf:billInfo key:kAcceptAdrKey];
+	NSString *packType = [HPrinterHelper strValueOf:billInfo key:kPackTypeKey];
+	NSString *sendGoodsType = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *packSendAdrStr = @"" ;
+	if (packType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",packType];
+	}
+	if (sendGoodsType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",sendGoodsType];
+	}
+	if (adrTxt.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@":%@",adrTxt];
+	}
+    if (packSendAdrStr.length > 0) {
+        NSInteger x = line1SX+deltaX;
+        NSInteger y = line1SY + deltaY;
+        NSInteger safeHeight = adrBoxH;
+        NSInteger width = box1EX - box1SX;
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(x) y:(y) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:packSendAdrStr];
+    }
+	
+	
+	NSInteger nameBoxH = barCodeBoxH / 2;
+	//name+phone xia main hen xian
+	NSInteger line2SX = startX;
+	NSInteger line2SY = box2EY + nameBoxH;
+	NSInteger line2EX = startX + sitesW;
+	NSInteger line2EY = line1SY;
+	[command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+	
+	#warning name + phone
+	//name+phone box text
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kAcceptManName];
+	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSubAcptManPhone];
+	name = [NSString stringWithFormat:@"%@ %@",name,phone];
+	NSInteger nameX = line2SX;
+	if (name.length > 0) {
+		NSInteger nameY = box2EY;
+		NSInteger width = line2EX - line2SX;
+		[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(nameX+deltaX) y:(nameY+deltaY) safeHeight:nameBoxH width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:name];
+	}
+	
+	//da yin ri qi
+    NSString *billDateStr = [HPrinterHelper billDateWithData:billInfo];
+    NSInteger bDateX = nameX;
+    NSInteger bDateY = line2SY;
+    NSInteger bDateSafeHeight = nameBoxH;
+    NSInteger bDateWidth = (line2EX - line2SX);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(bDateX+deltaX) y:(bDateY+deltaY) safeHeight:bDateSafeHeight width:bDateWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:billDateStr];
+	//tiao xing ma da yin
+	NSInteger hBarCodeX = col3SX;
+    NSInteger hBarCodeY = col3SY + 5;
+    NSInteger hBarCodeHeight = barCodeBoxH - 40;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:hBarCodeHeight x:(hBarCodeX+45) y:hBarCodeY barcode:subCode];
+    [command cpclBarcodeTextOff];
+	
+
+    NSData *commandData = [command cmdData];
+    
+    [command cpclForm];
+    [command cpclPrint];
+    
+    [[PTDispatcher share] sendData:commandData];
+}
+
+
+
+#pragma mark - zhu dan da yin
+
+// ji jian di zhi / shou jian ren dizhi
++ (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
+    NSArray* keys;
+    if ([adrType isEqualToString:@"1"]) {
+        //ji jian di zhi
+        keys = @[@"PROVINCE",@"CITY",@"BOROUGH",kMSendManAddress];
+    }else{
+        //shou jian di zhi
+        keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",kMAcceptManAddress];
+    }
+    
+    NSString *adr = @"";
+    for (NSString* keyStr in keys) {
+        NSString *valueStr = [billInfo objectForKey:keyStr];
+        if (valueStr != nil) {
+            adr = [adr stringByAppendingFormat:@"%@",valueStr];
+        }
+    }
+    return adr;
+}
+
+///ji jian ke hu huo wu xin xi
+/*
++ (NSString*)goodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:kMGoodsName];
+  if (name != nil) {
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
+  if (pieces != nil) {
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:kMCalWeight];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:kMExpressType];
+  if (tranType != nil) {
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  NSString *sign = [billInfo objectForKey:kMReturnBill];
+  if (sign != nil) {
+    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
+  }
+  NSString *storage = [billInfo objectForKey:kMInstoreage];
+  if (storage != nil) {
+    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
+  }
+  
+  NSString *date = [billInfo objectForKey:kMSendDate];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+ */
+
+
+///pai jian wang dian huo wu xin xi
++ (NSString*)sendGoodsInfo:(id)billInfo
+{
+    NSString *goods = @"";
+//    NSString *name = [billInfo objectForKey:kMGoodsName];
+	NSString *name = [self strValueOf:billInfo key:kMGoodsName];
+    if (name.length > 0) {
+        goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+    }
+//    NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
+	NSString *pieces = [self strValueOf:billInfo key:kMGoodsPiece];
+    if (pieces.length > 0) {
+        goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+    }
+//    NSString *weight = [billInfo objectForKey:kMCalWeight];
+	NSString *weight = [self strValueOf:billInfo key:kMCalWeight];
+    if (weight.length > 0) {
+        goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+    }
+	
+	//    NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
+	NSString *weightCount = [self strValueOf:billInfo key:@"OVER_WEIGHT_PIECE"];
+	if (weightCount.length > 0) {
+        goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
+    }
+	
+	//    NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
+	NSString *rCode = [self strValueOf:billInfo key:@"R_BILLCODE"];
+    if (rCode.length > 0) {
+        goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
+    }
+	
+//    NSString *tranType = [billInfo objectForKey:kMExpressType];
+	NSString *tranType = [self strValueOf:billInfo key:kMExpressType];
+    if (tranType.length > 0) {
+        goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+    }
+    
+    
+//    NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+	NSString *overSize = [self strValueOf:billInfo key:@"BL_OVER_LONG"];
+    if (overSize.length > 0) {
+        goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
+    }
+    
+//    NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
+	NSString *storageCode = [self strValueOf:billInfo key:@"STORAGENO"];
+    if (storageCode.length > 0) {
+        goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
+    }
+    
+//    NSString *date = [billInfo objectForKey:kMSendDate];
+	NSString *date = [self strValueOf:billInfo key:kMSendDate];
+    if (date.length > 0) {
+        goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+    }
+    
+    return goods;
+}
+
+
+
+///zhu dan fei yong
++ (NSString*)feesTxtBy:(id)billInfo
+{
+    NSString *fees = @"";
+    NSString *payType = [billInfo objectForKey:kMPaymentType];
+    if ([payType containsString:@"到付"]) {
+        fees = [fees stringByAppendingFormat:@"%@:",payType];
+        NSString *cash = [billInfo objectForKey:kMPaiedMoney];
+        if (cash != nil) {
+            fees = [fees stringByAppendingFormat:@"%@、",cash];
+        }
+    }else{
+        fees = [fees stringByAppendingFormat:@"%@:",payType];
+    }
+    
+    NSString *count = [billInfo objectForKey:kMInsureVal];
+    if (count != nil) {
+        fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
+    }
+    
+//    NSString *pay = [billInfo objectForKey:kMFreight];
+//    if (pay != nil) {
+//        fees = [fees stringByAppendingFormat:@"运费:%@",pay];
+//    }
+    return fees;
+
+}
+
+///string return value
++ (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr
+{
+    id value = [billInfo objectForKey:keyStr];
+    if (value == nil) {
+        return @"";
+    }else{
+        return [NSString stringWithFormat:@"%@",value];
+    }
+}
+
+/**
+ *fa jian wang dian jijian kehu
+ */
+- (void)printMasterBillWith:(id)data
+{
+    [self startPrintSendSiteBy:data];
+    [self startPrintCustomerBy:data];
+}
+
+
+#pragma mark - zhu dan da yin - wang dian
+/**
+ *fajian wangdian cungen lian
+ */
+- (void)startPrintSendSiteBy:(id)billInfo
+{
+    NSInteger startX = 0;
+    NSInteger deltaX = 5;
+    NSInteger deltaY = 5*3;
+    NSInteger startY = 10;
+    NSInteger offsetX = 0;
+    NSInteger pageWidth = 780;
+    NSInteger pageHeight = 550;
+    int lineWeight = 2;
+    NSInteger logoHeight = 200;
+    NSInteger titleColWidth = 80;
+    //jijian fajian wang dian
+    NSInteger rowHeight = (pageHeight - logoHeight) / 4;
+    NSInteger lineSpacing = 2;
+    NSInteger siteTextW = 160;
+    
+    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
+    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
+    
+    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
+    
+    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
+    [command cpclPageWidth:pageWidth];
+    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
+    
+    // 第一条横线--------------------------------
+    NSInteger line1SX = startX;
+    NSInteger line1SY = logoHeight;
+    NSInteger line1EX = pageWidth;
+    NSInteger line1EY = line1SY;
+    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
+    
+    //dayin shijian
+    NSInteger pDateH = 40;
+    NSInteger pDateX = startX;
+    NSInteger pDateY = line1SY - pDateH;
+//    使用PTCPCLTextFont28 字体打印（汉字+数字）组合只显示汉字部分
+    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+    
+    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kMBillCodeKey];
+    NSInteger codeW = 290;
+    NSInteger codeH = 80;
+    NSInteger codeX = pageWidth - codeW;
+    NSInteger codeY = startY + deltaY;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
+    [command cpclBarcodeTextOff];
+    
+    //title ji fang
+    NSInteger sendCopyX = codeX;
+    NSInteger sendCopyY = pDateY;
+    NSString *copyTitle = @"发件网点存根联：";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
+    
+    //title ji fang
+    NSInteger sendTitlteX = startX;
+    NSInteger sendTitlteY = line1SY;
+    NSInteger sendTitleWidth = titleColWidth;
+    NSString *senderTitle = @"寄方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
+    
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:billInfo key:kMSendMan];
+    //phone
+    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
+    NSInteger sPhoneX = titleColWidth+startX;
+    NSInteger sPhoneY = line1SY;
+    NSInteger phoneW = pageWidth - titleColWidth;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendInfoTxt];
+    
+    //address
+    NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
+    NSInteger sAdrX = sPhoneX;
+    NSInteger sAdrY = sPhoneY + (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine1SX = titleColWidth;
+    NSInteger vLine1SY = logoHeight;
+    NSInteger vLine1EX = vLine1SX;
+    NSInteger vLine1EY = pageHeight;
+    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
+    
+    
+    // 第二条横线--------------------------------
+    NSInteger line2SX = line1SX;
+    NSInteger line2SY = line1SY + rowHeight;
+    NSInteger line2EX = line1EX;
+    NSInteger line2EY = line2SY;
+    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+    //title shou fang
+    NSInteger receTitlteX = line2SX;
+    NSInteger receTitlteY = line2SY;
+    NSString *receiverTitle = @"收方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
+    
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kMAcceptMan];
+    //phone
+    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
+    NSInteger rPhoneX = sPhoneX;
+    NSInteger rPhoneY = line2SY;
+    NSInteger receWidth = phoneW - siteTextW;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receInfoTxt];
+    
+    //address
+    NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
+    NSInteger rAdrX = rPhoneX;
+    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
+    
+    
+    // 第三条横线--------------------------------
+    NSInteger line3SX = line1SX;
+    NSInteger line3SY = line2SY + rowHeight;
+    NSInteger line3EX = line1EX;
+    NSInteger line3EY = line3SY;
+    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
+    
+    
+    //title shou fang
+    NSInteger goodsTitlteX = line3SX;
+    NSInteger goodsTitlteY = line3SY;
+    NSString *goodsTitle = @"货物信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
+    
+    //hu wu xin xi
+    NSString *goods = [HPrinterHelper sendGoodsInfo:billInfo];
+    NSInteger goodsInfoX = sPhoneX;
+    NSInteger goodsInfoY = line3SY;
+    int letterMaxLen = 38;
+    if (goods.length > letterMaxLen) {
+        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
+        
+        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
+        NSInteger line2Y = goodsInfoY + (rowHeight/2);
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
+    }else{
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
+    }
+    
+    
+    //第二条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine2SX = pageWidth - siteTextW;
+    NSInteger vLine2SY = line2SY;
+    NSInteger vLine2EX = vLine2SX;
+    NSInteger vLine2EY = line3SY;
+    [command cpclLineWithXPos:vLine2SX yPos:vLine2SY xEnd:vLine2EX yEnd:vLine2EY thickness:lineWeight];
+    
+    NSString *siteTile = @"目的网点";
+    NSInteger siteTitleX = vLine2SX;
+    NSInteger siteTitleY = line2SY;
+    NSInteger safeHeight = rowHeight / 2;
+    NSInteger width = siteTextW;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(siteTitleX+deltaX) y:(siteTitleY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:siteTile];
+    
+	NSString *destination = [HPrinterHelper strValueOf:billInfo key:kMDestination];
+	NSInteger desX = vLine2SX;
+	NSInteger desY = siteTitleY + rowHeight / 2;
+	
+	[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(desX+deltaX) y:(desY) safeHeight:(safeHeight) width:siteTextW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:destination];
+	
+    // 第四条横线--------------------------------
+    NSInteger line4SX = line1SX;
+    NSInteger line4SY = line3SY + rowHeight;
+    NSInteger line4EX = line1EX;
+    NSInteger line4EY = line4SY;
+    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
+    
+	 
+	
+    //title shou fang
+    NSInteger feeTitlteX = line4SX;
+    NSInteger feeTitlteY = line4SY;
+    NSString *feeTitle = @"收费信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
+    
+    //shou fei xin xi
+    NSString *fee = [HPrinterHelper feesTxtBy:billInfo];
+    NSInteger feeX = sPhoneX;
+    NSInteger feeY = line4SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
+    
+    
+    //第三条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine3SX = vLine2SX;
+    NSInteger vLine3SY = line4SY;
+    NSInteger vLine3EX = vLine3SX;
+    NSInteger vLine3EY = pageHeight;
+    [command cpclLineWithXPos:vLine3SX yPos:vLine3SY xEnd:vLine3EX yEnd:vLine3EY thickness:lineWeight];
+    
+    NSString *signTile = @"寄件客户签字";
+    NSInteger signTitleX = vLine3SX;
+    NSInteger signTitleY = line4SY;
+    NSInteger signSafeH = rowHeight / 2;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(signTitleX+deltaX) y:(signTitleY+deltaY) safeHeight:signSafeH width:(width+40) lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:signTile];
+    
+    
+    NSData *commandData = [command cmdData];
+    
+    [command cpclForm];
+    [command cpclPrint];
+    
+    [[PTDispatcher share] sendData:commandData];
+}
+
+#pragma mark - zhu dan da yin - kehu
+/**
+ *jijian kehu cungen lian
+ */
+- (void)startPrintCustomerBy:(id)billInfo
+{
+    NSInteger startX = 0;
+    NSInteger deltaX = 5;
+    NSInteger deltaY = 5*3;
+    NSInteger startY = 10;
+    NSInteger offsetX = 0;
+    NSInteger pageWidth = 780;
+    NSInteger pageHeight = 550;
+    int lineWeight = 2;
+    NSInteger logoHeight = 200;
+    NSInteger titleColWidth = 80;
+    //jijian fajian wang dian
+    NSInteger rowHeight = (pageHeight - logoHeight) / 4;
+    NSInteger lineSpacing = 2;
+
+    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
+    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
+    
+    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
+    
+    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
+    [command cpclPageWidth:pageWidth];
+    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
+    
+    // 第一条横线--------------------------------
+    NSInteger line1SX = startX;
+    NSInteger line1SY = logoHeight;
+    NSInteger line1EX = pageWidth;
+    NSInteger line1EY = line1SY;
+    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
+    
+    //dayin shijian
+    NSInteger pDateH = 40;
+    NSInteger pDateX = startX;
+    NSInteger pDateY = line1SY - pDateH;
+    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+    
+    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kMBillCodeKey];
+    NSInteger codeW = 290;
+    NSInteger codeH = 80;
+    NSInteger codeX = pageWidth - codeW;
+    NSInteger codeY = startY + deltaY;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
+    [command cpclBarcodeTextOff];
+    
+    //title ji fang
+    NSInteger sendCopyX = codeX;
+    NSInteger sendCopyY = pDateY;
+    NSString *copyTitle = @"寄件客户存根联：";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
+    
+    //title ji fang
+    NSInteger sendTitlteX = startX;
+    NSInteger sendTitlteY = line1SY;
+    NSInteger sendTitleWidth = titleColWidth;
+    NSString *senderTitle = @"寄方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
+
+	//send man
+	NSString *sMan = [HPrinterHelper strValueOf:billInfo key:kMSendMan];
+    //phone
+    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
+	NSString *sendInfoTxt = [NSString stringWithFormat:@"%@ %@",sMan,sPhone];
+    NSInteger sPhoneX = titleColWidth+startX;
+    NSInteger sPhoneY = line1SY;
+    NSInteger phoneW = pageWidth - titleColWidth;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendInfoTxt];
+    
+    //address
+    NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
+    NSInteger sAdrX = sPhoneX;
+    NSInteger sAdrY = sPhoneY + (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine1SX = titleColWidth;
+    NSInteger vLine1SY = logoHeight;
+    NSInteger vLine1EX = vLine1SX;
+    NSInteger vLine1EY = pageHeight;
+    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
+    
+    
+    // 第二条横线--------------------------------
+    NSInteger line2SX = line1SX;
+    NSInteger line2SY = line1SY + rowHeight;
+    NSInteger line2EX = line1EX;
+    NSInteger line2EY = line2SY;
+    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+    //title shou fang
+    NSInteger receTitlteX = line2SX;
+    NSInteger receTitlteY = line2SY;
+    NSString *receiverTitle = @"收方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
+    
+	//accept man
+	NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kMAcceptMan];
+    //phone
+    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
+	NSString *receInfoTxt = [NSString stringWithFormat:@"%@ %@",rMan,rPhone];
+    NSInteger rPhoneX = sPhoneX;
+    NSInteger rPhoneY = line2SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receInfoTxt];
+    
+    //address
+    NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
+    NSInteger rAdrX = rPhoneX;
+    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
+    
+    
+    // 第三条横线--------------------------------
+    NSInteger line3SX = line1SX;
+    NSInteger line3SY = line2SY + rowHeight;
+    NSInteger line3EX = line1EX;
+    NSInteger line3EY = line3SY;
+    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
+    
+    
+    //title shou fang
+    NSInteger goodsTitlteX = line3SX;
+    NSInteger goodsTitlteY = line3SY;
+    NSString *goodsTitle = @"货物信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
+    
+    //hu wu xin xi
+//    NSString *goods = [HPrinterHelper goodsInfo:billInfo];
+    NSString *goods = [HPrinterHelper sendGoodsInfo:billInfo];
+    NSInteger goodsInfoX = sPhoneX;
+    NSInteger goodsInfoY = line3SY;
+    int letterMaxLen = 38;
+    if (goods.length > letterMaxLen) {
+        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
+        
+        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
+        NSInteger line2Y = goodsInfoY + (rowHeight/2);
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
+    }else{
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
+    }
+    
+    
+   
+    // 第四条横线--------------------------------
+    NSInteger line4SX = line1SX;
+    NSInteger line4SY = line3SY + rowHeight;
+    NSInteger line4EX = line1EX;
+    NSInteger line4EY = line4SY;
+    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
+    
+    //title shou fang
+    NSInteger feeTitlteX = line4SX;
+    NSInteger feeTitlteY = line4SY;
+    NSString *feeTitle = @"收费信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
+    
+    //shou fei xin xi
+    NSString *fee = [HPrinterHelper feesTxtBy:billInfo];
+    NSInteger feeX = sPhoneX;
+    NSInteger feeY = line4SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
+    
+    
+    NSData *commandData = [command cmdData];
+    
+    [command cpclForm];
+    [command cpclPrint];
+    
+    [[PTDispatcher share] sendData:commandData];
+}
+
+
+#pragma mark - pai jian
+// paijian di zhi / shou jian ren dizhi
++ (NSString*)paiAddressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
+  NSArray* keys;
+  if ([adrType isEqualToString:@"1"]) {
+    //paijian di zhi
+	  keys = @[kSendManAddress];
+  }else{
+    //shou jian di zhi
+	  keys = @[kAcceptManAddress];
+  }
+
+  NSString *adr = @"";
+  for (NSString* keyStr in keys) {
+    NSString *valueStr = [billInfo objectForKey:keyStr];
+    if (valueStr != nil) {
+      adr = [adr stringByAppendingFormat:@"%@",valueStr];
+    }
+  }
+  return adr;
+}
+
+
+
+///jian ke hu huo wu xin xi ji
+/*
++ (NSString*)paiGoodsInfo:(id)billInfo
+{
+  NSString *goods = @"";
+  NSString *name = [billInfo objectForKey:kGoodsName];
+  if ((name != nil) && (name.length > 0)){
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
+  if (pieces != nil){
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+  NSString *weight = [billInfo objectForKey:kCalWeight];
+  if (weight != nil) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+  NSString *tranType = [billInfo objectForKey:kExpressType];
+	if ((tranType != nil) && (tranType.length > 0)){
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  NSString *sign = [billInfo objectForKey:kBlReturnBill];
+  if (sign != nil){
+    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
+  }
+	
+  NSString *storage = [billInfo objectForKey:kInStorage];
+  if (storage != nil){
+    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
+  }
+  
+  NSString *date = [billInfo objectForKey:kSendDate];
+  if (date != nil) {
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+ */
+
+///pai jian wang dian huo wu xin xi
++ (NSString*)paiSendGoodsInfo:(id)billInfo
+{
+	NSString *goods = @"";
+//	NSString *name = [billInfo objectForKey:kGoodsName];
+	NSString *name = [self strValueOf:billInfo key:kGoodsName];
+  if (name.length > 0){
+    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
+  }
+//  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
+	NSString *pieces = [self strValueOf:billInfo key:kGoodsPiece];
+  if (pieces.length > 0){
+    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
+  }
+//  NSString *weight = [billInfo objectForKey:kCalWeight];
+	NSString *weight = [self strValueOf:billInfo key:kCalWeight];
+  if (weight.length > 0) {
+    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
+  }
+//  NSString *tranType = [billInfo objectForKey:kExpressType];
+	NSString *tranType = [self strValueOf:billInfo key:kExpressType];
+  if (tranType.length > 0){
+    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
+  }
+  
+//  NSString *weightCount = [billInfo objectForKey:kOverWeightPiece];
+	NSString *weightCount = [self strValueOf:billInfo key:kOverWeightPiece];
+  if (weightCount.length > 0){
+    goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
+  }
+  
+//  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
+	NSString *overSize = [self strValueOf:billInfo key:@"BL_OVER_LONG"];
+  if (overSize.length > 0) {
+    goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
+  }
+  
+//  NSString *rCode = [billInfo objectForKey:kRbillCode];
+	NSString *rCode = [self strValueOf:billInfo key:kRbillCode];
+  if (rCode.length > 0){
+    goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
+  }
+	
+//  NSString *storageCode = [billInfo objectForKey:kStorageNo];
+	NSString *storageCode = [self strValueOf:billInfo key:kStorageNo];
+  if (storageCode.length > 0){
+    goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
+  }
+  
+//  NSString *date = [billInfo objectForKey:kSendDate];
+	NSString *date = [self strValueOf:billInfo key:kSendDate];
+  if (date.length > 0){
+    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
+  }
+
+  return goods;
+}
+
+
+///fei yong
++ (NSString*)paiFeesTxtBy:(id)billInfo
+{
+	NSString *fees = @"";
+	NSString *payType = [billInfo objectForKey:kPaymentType];
+	
+	if ([payType containsString:@"到付"]) {
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+		NSString *cash = [billInfo objectForKey:kPaiedMoney];
+		if (cash != nil) {
+			fees = [fees stringByAppendingFormat:@"%@、",cash];
+		}
+	}else{
+		fees = [fees stringByAppendingFormat:@"%@:",payType];
+	}
+	
+	NSString *count = [billInfo objectForKey:kInsureVal];
+	if (count != nil) {
+		fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
+	}
+	return fees;
+}
+
+/**
+ *pai jian wang dian jijian shoujian ren
+ */
+- (void)printPaiBillWith:(id)data
+{
+    [self startPrintPaiSiteBy:data];
+    [self startPrintPaiReceiverBy:data];
+}
+
+#pragma mark - pai jian da yin - pai jian wang dian
+/**
+ *pai jian wang dian
+ */
+- (void)startPrintPaiSiteBy:(id)billInfo
+{
+    NSInteger startX = 0;
+    NSInteger deltaX = 5;
+    NSInteger deltaY = 5*3;
+    NSInteger startY = 10;
+    NSInteger offsetX = 0;
+    NSInteger pageWidth = 780;
+    NSInteger pageHeight = 550;
+    int lineWeight = 2;
+    NSInteger logoHeight = 200;
+    NSInteger titleColWidth = 80;
+    //jijian fajian wang dian
+    NSInteger rowHeight = (pageHeight - logoHeight) / 4;
+    NSInteger lineSpacing = 2;
+    NSInteger siteTextW = 160;
+    
+    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
+    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
+    
+    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
+    
+    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
+    [command cpclPageWidth:pageWidth];
+    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
+    
+    // 第一条横线--------------------------------
+    NSInteger line1SX = startX;
+    NSInteger line1SY = logoHeight;
+    NSInteger line1EX = pageWidth;
+    NSInteger line1EY = line1SY;
+    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
+    
+    //dayin shijian
+    NSInteger pDateH = 40;
+    NSInteger pDateX = startX;
+    NSInteger pDateY = line1SY - pDateH;
+//    使用PTCPCLTextFont28 字体打印（汉字+数字）组合只显示汉字部分
+    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+    
+    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kBillCodeKey];
+    NSInteger codeW = 290;
+    NSInteger codeH = 80;
+    NSInteger codeX = pageWidth - codeW;
+    NSInteger codeY = startY + deltaY;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
+    [command cpclBarcodeTextOff];
+    
+    //title ji fang
+    NSInteger sendCopyX = codeX;
+    NSInteger sendCopyY = pDateY;
+    NSString *copyTitle = @"派件网点存根联：";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
+    
+    //title ji fang
+    NSInteger sendTitlteX = startX;
+    NSInteger sendTitlteY = line1SY;
+    NSInteger sendTitleWidth = titleColWidth;
+    NSString *senderTitle = @"寄方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
+    
+
+	
+	//sendMan
+    NSString *sendMan = [HPrinterHelper strValueOf:billInfo key:kSendMan];
+    //phone
+    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
+    NSInteger sPhoneX = titleColWidth+startX;
+    NSInteger sPhoneY = line1SY;
+    NSInteger phoneW = pageWidth - titleColWidth;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendTxt];
+    
+    //address
+    NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
+    NSInteger sAdrX = sPhoneX;
+    NSInteger sAdrY = sPhoneY + (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine1SX = titleColWidth;
+    NSInteger vLine1SY = logoHeight;
+    NSInteger vLine1EX = vLine1SX;
+    NSInteger vLine1EY = pageHeight;
+    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
+    
+    
+    // 第二条横线--------------------------------
+    NSInteger line2SX = line1SX;
+    NSInteger line2SY = line1SY + rowHeight;
+    NSInteger line2EX = line1EX;
+    NSInteger line2EY = line2SY;
+    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+    //title shou fang
+    NSInteger receTitlteX = line2SX;
+    NSInteger receTitlteY = line2SY;
+    NSString *receiverTitle = @"收方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
+    
+    //phone
+    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kAcceptManPhone];
+    NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
+	NSString *rTxt = [rMan stringByAppendingFormat:@" %@",rPhone];
+    NSInteger rPhoneX = sPhoneX;
+    NSInteger rPhoneY = line2SY;
+    NSInteger receWidth = phoneW - siteTextW;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rTxt];
+    
+    //address
+    NSString *rAddress = [HPrinterHelper paiAddressDetail:billInfo type:@"0"];
+    NSInteger rAdrX = rPhoneX;
+    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
+    
+    
+    // 第三条横线--------------------------------
+    NSInteger line3SX = line1SX;
+    NSInteger line3SY = line2SY + rowHeight;
+    NSInteger line3EX = line1EX;
+    NSInteger line3EY = line3SY;
+    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
+    
+    
+    //title shou fang
+    NSInteger goodsTitlteX = line3SX;
+    NSInteger goodsTitlteY = line3SY;
+    NSString *goodsTitle = @"货物信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
+    
+    //hu wu xin xi
+    NSString *goods = [HPrinterHelper paiSendGoodsInfo:billInfo];
+    NSInteger goodsInfoX = sPhoneX;
+    NSInteger goodsInfoY = line3SY;
+    int letterMaxLen = 38;
+    if (goods.length > letterMaxLen) {
+        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
+        
+        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
+        NSInteger line2Y = goodsInfoY + (rowHeight/2);
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
+    }else{
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
+    }
+    
+    
+    //第二条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine2SX = pageWidth - siteTextW;
+    NSInteger vLine2SY = line2SY;
+    NSInteger vLine2EX = vLine2SX;
+    NSInteger vLine2EY = line3SY;
+    [command cpclLineWithXPos:vLine2SX yPos:vLine2SY xEnd:vLine2EX yEnd:vLine2EY thickness:lineWeight];
+    
+    NSString *siteTile = @"寄件网点";
+    NSInteger siteTitleX = vLine2SX;
+    NSInteger siteTitleY = line2SY;
+    NSInteger safeHeight = rowHeight / 2;
+    NSInteger width = siteTextW;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(siteTitleX+deltaX) y:(siteTitleY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:siteTile];
+    
+	NSString *destination = [HPrinterHelper strValueOf:billInfo key:kDestination];
+	NSInteger desX = vLine2SX;
+	NSInteger desY = siteTitleY + rowHeight / 2;
+	
+	[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(desX+deltaX) y:(desY) safeHeight:(safeHeight) width:siteTextW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:destination];
+	
+    // 第四条横线--------------------------------
+    NSInteger line4SX = line1SX;
+    NSInteger line4SY = line3SY + rowHeight;
+    NSInteger line4EX = line1EX;
+    NSInteger line4EY = line4SY;
+    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
+    
+	 
+	
+    //title shou fang
+    NSInteger feeTitlteX = line4SX;
+    NSInteger feeTitlteY = line4SY;
+    NSString *feeTitle = @"收费信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
+    
+    //shou fei xin xi
+    NSString *fee = [HPrinterHelper paiFeesTxtBy:billInfo];
+    NSInteger feeX = sPhoneX;
+    NSInteger feeY = line4SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
+    
+    
+    //第三条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine3SX = vLine2SX;
+    NSInteger vLine3SY = line4SY;
+    NSInteger vLine3EX = vLine3SX;
+    NSInteger vLine3EY = pageHeight;
+    [command cpclLineWithXPos:vLine3SX yPos:vLine3SY xEnd:vLine3EX yEnd:vLine3EY thickness:lineWeight];
+    
+    NSString *signTile = @"收件客户签字:";
+    NSInteger signTitleX = vLine3SX;
+    NSInteger signTitleY = line4SY;
+    NSInteger signSafeH = rowHeight / 2;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(signTitleX+deltaX) y:(signTitleY+deltaY) safeHeight:signSafeH width:(width+40) lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:signTile];
+    
+    
+    NSData *commandData = [command cmdData];
+    
+    [command cpclForm];
+    [command cpclPrint];
+    
+    [[PTDispatcher share] sendData:commandData];
+}
+
+#pragma mark - pai jian da yin - shoujian kehu
+/**
+ *pai jian shoujian kehu cun gen lian
+ */
+- (void)startPrintPaiReceiverBy:(id)billInfo
+{
+    NSInteger startX = 0;
+    NSInteger deltaX = 5;
+    NSInteger deltaY = 5*3;
+    NSInteger startY = 10;
+    NSInteger offsetX = 0;
+    NSInteger pageWidth = 780;
+    NSInteger pageHeight = 550;
+    int lineWeight = 2;
+    NSInteger logoHeight = 200;
+    NSInteger titleColWidth = 80;
+    //jijian fajian wang dian
+    NSInteger rowHeight = (pageHeight - logoHeight) / 4;
+    NSInteger lineSpacing = 2;
+
+    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
+    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
+    
+    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
+    
+    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
+    [command cpclPageWidth:pageWidth];
+    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
+    
+    // 第一条横线--------------------------------
+    NSInteger line1SX = startX;
+    NSInteger line1SY = logoHeight;
+    NSInteger line1EX = pageWidth;
+    NSInteger line1EY = line1SY;
+    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
+    
+    //dayin shijian
+    NSInteger pDateH = 40;
+    NSInteger pDateX = startX;
+    NSInteger pDateY = line1SY - pDateH;
+    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
+    
+    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kBillCodeKey];
+    NSInteger codeW = 290;
+    NSInteger codeH = 80;
+    NSInteger codeX = pageWidth - codeW;
+    NSInteger codeY = startY + deltaY;
+    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
+    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
+    [command cpclBarcodeTextOff];
+    
+    //title ji fang
+    NSInteger sendCopyX = codeX;
+    NSInteger sendCopyY = pDateY;
+    NSString *copyTitle = @"收件客户存根联：";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
+    
+    //title ji fang
+    NSInteger sendTitlteX = startX;
+    NSInteger sendTitlteY = line1SY;
+    NSInteger sendTitleWidth = titleColWidth;
+    NSString *senderTitle = @"寄方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
+
+	//sendMan
+    NSString *sendMan = [HPrinterHelper strValueOf:billInfo key:kSendMan];
+    //phone
+    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
+	NSString *sendTxt = [NSString stringWithFormat:@"%@ %@",sendMan,sPhone];
+    NSInteger sPhoneX = titleColWidth+startX;
+    NSInteger sPhoneY = line1SY;
+    NSInteger phoneW = pageWidth - titleColWidth;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sendTxt];
+    
+    //address
+    NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
+    NSInteger sAdrX = sPhoneX;
+    NSInteger sAdrY = sPhoneY + (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
+    
+    
+    //第一条竖线|||||||||||||||||||||||||||||
+    NSInteger vLine1SX = titleColWidth;
+    NSInteger vLine1SY = logoHeight;
+    NSInteger vLine1EX = vLine1SX;
+    NSInteger vLine1EY = pageHeight;
+    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
+    
+    
+    // 第二条横线--------------------------------
+    NSInteger line2SX = line1SX;
+    NSInteger line2SY = line1SY + rowHeight;
+    NSInteger line2EX = line1EX;
+    NSInteger line2EY = line2SY;
+    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
+    //title shou fang
+    NSInteger receTitlteX = line2SX;
+    NSInteger receTitlteY = line2SY;
+    NSString *receiverTitle = @"收方";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
+    
+	//accept man
+	NSString *rAcceptMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
+    //phone
+    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kAcceptManPhone];
+	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
+    NSInteger rPhoneX = sPhoneX;
+    NSInteger rPhoneY = line2SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rTxt];
+    
+    //address
+    NSString *rAddress = [HPrinterHelper paiAddressDetail:billInfo type:@"0"];
+    NSInteger rAdrX = rPhoneX;
+    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
+    
+    
+    // 第三条横线--------------------------------
+    NSInteger line3SX = line1SX;
+    NSInteger line3SY = line2SY + rowHeight;
+    NSInteger line3EX = line1EX;
+    NSInteger line3EY = line3SY;
+    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
+    
+    
+    //title shou fang
+    NSInteger goodsTitlteX = line3SX;
+    NSInteger goodsTitlteY = line3SY;
+    NSString *goodsTitle = @"货物信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
+    
+    //hu wu xin xi
+    NSString *goods = [HPrinterHelper paiSendGoodsInfo:billInfo];
+    NSInteger goodsInfoX = sPhoneX;
+    NSInteger goodsInfoY = line3SY;
+    int letterMaxLen = 38;
+    if (goods.length > letterMaxLen) {
+        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
+        
+        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
+        NSInteger line2Y = goodsInfoY + (rowHeight/2);
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
+    }else{
+        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
+    }
+    
+    
+   
+    // 第四条横线--------------------------------
+    NSInteger line4SX = line1SX;
+    NSInteger line4SY = line3SY + rowHeight;
+    NSInteger line4EX = line1EX;
+    NSInteger line4EY = line4SY;
+    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
+    
+    //title shou fang
+    NSInteger feeTitlteX = line4SX;
+    NSInteger feeTitlteY = line4SY;
+    NSString *feeTitle = @"收费信息";
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
+    
+    //shou fei xin xi
+    NSString *fee = [HPrinterHelper paiFeesTxtBy:billInfo];
+    NSInteger feeX = sPhoneX;
+    NSInteger feeY = line4SY;
+    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
+    
+    
+    NSData *commandData = [command cmdData];
+    
+    [command cpclForm];
+    [command cpclPrint];
+    
+    [[PTDispatcher share] sendData:commandData];
+}
+
+
+@end
+
+
+
+/*
 - (void)startPrintBy:(id)billInfo subBillCode:(NSString*) subCode indexStr:(NSString*)indexStr
 {
     NSInteger startX = 5;
@@ -132,7 +1515,7 @@ static HPrinterHelper *instance;
     NSInteger maxBoxWidth = pageWidth - startX * 2;
     //    NSInteger maxBoxHeight = pageHeight - startY * 2;
     int lineWeight = 2;
-    NSInteger topLogHeight = 160;
+    NSInteger logoHeight = 160;
     NSInteger vBarCodeWidth = 90;
     NSInteger col1X = vBarCodeWidth + startX;
     //jijian fajian wang dian
@@ -153,7 +1536,7 @@ static HPrinterHelper *instance;
     if (dispatchCenter != nil) {
         NSInteger centerX = pageWidth / 2;
         NSInteger centerY = startY;
-        NSInteger safeHeight = topLogHeight;
+        NSInteger safeHeight = logoHeight;
         NSInteger width = centerX;
         [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:siteFont fontSize:0 xPos:centerX yPos:centerY center:YES safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:dispatchCenter];
     }
@@ -161,7 +1544,7 @@ static HPrinterHelper *instance;
     
     // 左上角寄件网点 到 右下角地址的框☐ --->
     NSInteger box1SX = col1X;
-    NSInteger box1SY = topLogHeight;
+    NSInteger box1SY = logoHeight;
     NSInteger box1EX = maxBoxWidth + startX;
     NSInteger box1EY = box1SY + sitesHeight + rowHeight * 2;
     [command cpclBoxWithXPos:box1SX yPos:box1SY xEnd:box1EX yEnd:box1EY thickness:lineWeight];
@@ -220,7 +1603,6 @@ static HPrinterHelper *instance;
     //end <---
     
 
-    
     // 左上角运单号 到 右下角YYY-MM-dd的框 --->
     NSInteger box2X = col1X;
     NSInteger box2Y = box1SY + sitesHeight;
@@ -391,1081 +1773,5 @@ static HPrinterHelper *instance;
     
     [[PTDispatcher share] sendData:commandData];
 }
-
-
-
-#pragma mark - zhu dan da yin
-
-// ji jian di zhi / shou jian ren dizhi
-+ (NSString*)addressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
-    NSArray* keys;
-    if ([adrType isEqualToString:@"1"]) {
-        //ji jian di zhi
-        keys = @[@"PROVINCE",@"CITY",@"BOROUGH",kMSendManAddress];
-    }else{
-        //shou jian di zhi
-        keys = @[@"PROVINCE_NAME",@"CITY_NAME",@"COUNTY_NAME",kMAcceptManAddress];
-    }
-    
-    NSString *adr = @"";
-    for (NSString* keyStr in keys) {
-        NSString *valueStr = [billInfo objectForKey:keyStr];
-        if (valueStr != nil) {
-            adr = [adr stringByAppendingFormat:@"%@",valueStr];
-        }
-    }
-    return adr;
-}
-
-///ji jian ke hu huo wu xin xi
-+ (NSString*)goodsInfo:(id)billInfo
-{
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kMGoodsName];
-  if (name != nil) {
-    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-  }
-  NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
-  if (pieces != nil) {
-    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-  }
-  NSString *weight = [billInfo objectForKey:kMCalWeight];
-  if (weight != nil) {
-    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-  }
-  NSString *tranType = [billInfo objectForKey:kMExpressType];
-  if (tranType != nil) {
-    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-  }
-  NSString *sign = [billInfo objectForKey:kMReturnBill];
-  if (sign != nil) {
-    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
-  }
-  NSString *storage = [billInfo objectForKey:kMInstoreage];
-  if (storage != nil) {
-    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
-  }
-  
-  NSString *date = [billInfo objectForKey:kMSendDate];
-  if (date != nil) {
-    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-  }
-
-  return goods;
-}
-
-
-///pai jian wang dian huo wu xin xi
-+ (NSString*)sendGoodsInfo:(id)billInfo
-{
-    NSString *goods = @"";
-    NSString *name = [billInfo objectForKey:kMGoodsName];
-    if (name != nil) {
-        goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-    }
-    NSString *pieces = [billInfo objectForKey:kMGoodsPiece];
-    if (pieces != nil) {
-        goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-    }
-    NSString *weight = [billInfo objectForKey:kMCalWeight];
-    if (weight != nil) {
-        goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-    }
-    NSString *tranType = [billInfo objectForKey:kMExpressType];
-    if (tranType != nil) {
-        goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-    }
-    
-    NSString *weightCount = [billInfo objectForKey:@"OVER_WEIGHT_PIECE"];
-    if (weightCount != nil) {
-        goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
-    }
-    
-    NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-    if (overSize != nil) {
-        goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
-    }
-    
-    NSString *rCode = [billInfo objectForKey:@"R_BILLCODE"];
-    if (rCode != nil) {
-        goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
-    }
-    NSString *storageCode = [billInfo objectForKey:@"STORAGENO"];
-    if (storageCode != nil) {
-        goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
-    }
-    
-    NSString *date = [billInfo objectForKey:kMSendDate];
-    if (date != nil) {
-        goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-    }
-    
-    return goods;
-}
-
-
-///zhu dan fei yong
-+ (NSString*)feesTxtBy:(id)billInfo
-{
-    NSString *fees = @"";
-    NSString *payType = [billInfo objectForKey:kMPaymentType];
-    if ([payType containsString:@"到付"]) {
-        fees = [fees stringByAppendingFormat:@"%@:",payType];
-        NSString *cash = [billInfo objectForKey:kMPaiedMoney];
-        if (cash != nil) {
-            fees = [fees stringByAppendingFormat:@"%@、",cash];
-        }
-    }else{
-        fees = [fees stringByAppendingFormat:@"%@:",payType];
-    }
-    
-    NSString *count = [billInfo objectForKey:kMInsureVal];
-    if (count != nil) {
-        fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
-    }
-    
-    NSString *pay = [billInfo objectForKey:kMFreight];
-    if (pay != nil) {
-        fees = [fees stringByAppendingFormat:@"运费:%@",pay];
-    }
-    return fees;
-}
-
-///string return value
-+ (NSString*)strValueOf:(NSDictionary*)billInfo key:(NSString*)keyStr
-{
-    id value = [billInfo objectForKey:keyStr];
-    if (value == nil) {
-        return @"";
-    }else{
-        return [NSString stringWithFormat:@"%@",value];
-    }
-}
-
-/**
- *fa jian wang dian jijian kehu
  */
-- (void)printMasterBillWith:(id)data
-{
-    [self startPrintSendSiteBy:data];
-    [self startPrintCustomerBy:data];
-}
 
-
-#pragma mark - zhu dan da yin - wang dian
-/**
- *fajian wangdian cungen lian
- */
-- (void)startPrintSendSiteBy:(id)billInfo
-{
-    NSInteger startX = 0;
-    NSInteger deltaX = 5;
-    NSInteger deltaY = 5*3;
-    NSInteger startY = 10;
-    NSInteger offsetX = 0;
-    NSInteger pageWidth = 780;
-    NSInteger pageHeight = 550;
-    int lineWeight = 2;
-    NSInteger topLogHeight = 200;
-    NSInteger titleColWidth = 80;
-    //jijian fajian wang dian
-    NSInteger rowHeight = (pageHeight - topLogHeight) / 4;
-    NSInteger lineSpacing = 2;
-    NSInteger siteTextW = 160;
-    
-    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
-    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
-    
-    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
-    
-    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
-    [command cpclPageWidth:pageWidth];
-    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
-    
-    // 第一条横线--------------------------------
-    NSInteger line1SX = startX;
-    NSInteger line1SY = topLogHeight;
-    NSInteger line1EX = pageWidth;
-    NSInteger line1EY = line1SY;
-    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
-    
-    //dayin shijian
-    NSInteger pDateH = 40;
-    NSInteger pDateX = startX;
-    NSInteger pDateY = line1SY - pDateH;
-//    使用PTCPCLTextFont28 字体打印（汉字+数字）组合只显示汉字部分
-    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
-    
-    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kMBillCodeKey];
-    NSInteger codeW = 290;
-    NSInteger codeH = 80;
-    NSInteger codeX = pageWidth - codeW;
-    NSInteger codeY = startY + deltaY;
-    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
-    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
-    [command cpclBarcodeTextOff];
-    
-    //title ji fang
-    NSInteger sendCopyX = codeX;
-    NSInteger sendCopyY = pDateY;
-    NSString *copyTitle = @"发件网点存根联：";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
-    
-    //title ji fang
-    NSInteger sendTitlteX = startX;
-    NSInteger sendTitlteY = line1SY;
-    NSInteger sendTitleWidth = titleColWidth;
-    NSString *senderTitle = @"寄方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
-    
-
-    //phone
-    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
-    NSInteger sPhoneX = titleColWidth+startX;
-    NSInteger sPhoneY = line1SY;
-    NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
-    
-    //address
-    NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
-    NSInteger sAdrX = sPhoneX;
-    NSInteger sAdrY = sPhoneY + (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
-    
-    
-    //第一条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine1SX = titleColWidth;
-    NSInteger vLine1SY = topLogHeight;
-    NSInteger vLine1EX = vLine1SX;
-    NSInteger vLine1EY = pageHeight;
-    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
-    
-    
-    // 第二条横线--------------------------------
-    NSInteger line2SX = line1SX;
-    NSInteger line2SY = line1SY + rowHeight;
-    NSInteger line2EX = line1EX;
-    NSInteger line2EY = line2SY;
-    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
-    //title shou fang
-    NSInteger receTitlteX = line2SX;
-    NSInteger receTitlteY = line2SY;
-    NSString *receiverTitle = @"收方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
-    
-    //phone
-    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
-    NSInteger rPhoneX = sPhoneX;
-    NSInteger rPhoneY = line2SY;
-    NSInteger receWidth = phoneW - siteTextW;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rPhone];
-    
-    //address
-    NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
-    NSInteger rAdrX = rPhoneX;
-    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
-    
-    
-    // 第三条横线--------------------------------
-    NSInteger line3SX = line1SX;
-    NSInteger line3SY = line2SY + rowHeight;
-    NSInteger line3EX = line1EX;
-    NSInteger line3EY = line3SY;
-    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
-    
-    
-    //title shou fang
-    NSInteger goodsTitlteX = line3SX;
-    NSInteger goodsTitlteY = line3SY;
-    NSString *goodsTitle = @"货物信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
-    
-    //hu wu xin xi
-    NSString *goods = [HPrinterHelper sendGoodsInfo:billInfo];
-    NSInteger goodsInfoX = sPhoneX;
-    NSInteger goodsInfoY = line3SY;
-    int letterMaxLen = 38;
-    if (goods.length > letterMaxLen) {
-        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
-        
-        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
-        NSInteger line2Y = goodsInfoY + (rowHeight/2);
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
-    }else{
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
-    }
-    
-    
-    //第二条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine2SX = pageWidth - siteTextW;
-    NSInteger vLine2SY = line2SY;
-    NSInteger vLine2EX = vLine2SX;
-    NSInteger vLine2EY = line3SY;
-    [command cpclLineWithXPos:vLine2SX yPos:vLine2SY xEnd:vLine2EX yEnd:vLine2EY thickness:lineWeight];
-    
-    NSString *siteTile = @"目的网点";
-    NSInteger siteTitleX = vLine2SX;
-    NSInteger siteTitleY = line2SY;
-    NSInteger safeHeight = rowHeight / 2;
-    NSInteger width = siteTextW;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(siteTitleX+deltaX) y:(siteTitleY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:siteTile];
-    
-	NSString *destination = [HPrinterHelper strValueOf:billInfo key:kMDestination];
-	NSInteger desX = vLine2SX;
-	NSInteger desY = siteTitleY + rowHeight / 2;
-	
-	[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(desX+deltaX) y:(desY) safeHeight:(safeHeight) width:siteTextW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:destination];
-	
-    // 第四条横线--------------------------------
-    NSInteger line4SX = line1SX;
-    NSInteger line4SY = line3SY + rowHeight;
-    NSInteger line4EX = line1EX;
-    NSInteger line4EY = line4SY;
-    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
-    
-	 
-	
-    //title shou fang
-    NSInteger feeTitlteX = line4SX;
-    NSInteger feeTitlteY = line4SY;
-    NSString *feeTitle = @"收费信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
-    
-    //shou fei xin xi
-    NSString *fee = [HPrinterHelper feesTxtBy:billInfo];
-    NSInteger feeX = sPhoneX;
-    NSInteger feeY = line4SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
-    
-    
-    //第三条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine3SX = vLine2SX;
-    NSInteger vLine3SY = line4SY;
-    NSInteger vLine3EX = vLine3SX;
-    NSInteger vLine3EY = pageHeight;
-    [command cpclLineWithXPos:vLine3SX yPos:vLine3SY xEnd:vLine3EX yEnd:vLine3EY thickness:lineWeight];
-    
-    NSString *signTile = @"寄件客户签字";
-    NSInteger signTitleX = vLine3SX;
-    NSInteger signTitleY = line4SY;
-    NSInteger signSafeH = rowHeight / 2;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(signTitleX+deltaX) y:(signTitleY+deltaY) safeHeight:signSafeH width:(width+40) lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:signTile];
-    
-    
-    NSData *commandData = [command cmdData];
-    
-    [command cpclForm];
-    [command cpclPrint];
-    
-    [[PTDispatcher share] sendData:commandData];
-}
-
-#pragma mark - zhu dan da yin - kehu
-/**
- *jijian kehu cungen lian
- */
-- (void)startPrintCustomerBy:(id)billInfo
-{
-    NSInteger startX = 0;
-    NSInteger deltaX = 5;
-    NSInteger deltaY = 5*3;
-    NSInteger startY = 10;
-    NSInteger offsetX = 0;
-    NSInteger pageWidth = 780;
-    NSInteger pageHeight = 550;
-    int lineWeight = 2;
-    NSInteger topLogHeight = 200;
-    NSInteger titleColWidth = 80;
-    //jijian fajian wang dian
-    NSInteger rowHeight = (pageHeight - topLogHeight) / 4;
-    NSInteger lineSpacing = 2;
-
-    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
-    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
-    
-    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
-    
-    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
-    [command cpclPageWidth:pageWidth];
-    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
-    
-    // 第一条横线--------------------------------
-    NSInteger line1SX = startX;
-    NSInteger line1SY = topLogHeight;
-    NSInteger line1EX = pageWidth;
-    NSInteger line1EY = line1SY;
-    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
-    
-    //dayin shijian
-    NSInteger pDateH = 40;
-    NSInteger pDateX = startX;
-    NSInteger pDateY = line1SY - pDateH;
-    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
-    
-    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kMBillCodeKey];
-    NSInteger codeW = 290;
-    NSInteger codeH = 80;
-    NSInteger codeX = pageWidth - codeW;
-    NSInteger codeY = startY + deltaY;
-    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
-    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
-    [command cpclBarcodeTextOff];
-    
-    //title ji fang
-    NSInteger sendCopyX = codeX;
-    NSInteger sendCopyY = pDateY;
-    NSString *copyTitle = @"寄件客户存根联：";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
-    
-    //title ji fang
-    NSInteger sendTitlteX = startX;
-    NSInteger sendTitlteY = line1SY;
-    NSInteger sendTitleWidth = titleColWidth;
-    NSString *senderTitle = @"寄方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
-
-    //phone
-    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kMSendManPhone];
-    NSInteger sPhoneX = titleColWidth+startX;
-    NSInteger sPhoneY = line1SY;
-    NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
-    
-    //address
-    NSString *sAdress = [HPrinterHelper addressDetail:billInfo type:@"1"];
-    NSInteger sAdrX = sPhoneX;
-    NSInteger sAdrY = sPhoneY + (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
-    
-    
-    //第一条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine1SX = titleColWidth;
-    NSInteger vLine1SY = topLogHeight;
-    NSInteger vLine1EX = vLine1SX;
-    NSInteger vLine1EY = pageHeight;
-    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
-    
-    
-    // 第二条横线--------------------------------
-    NSInteger line2SX = line1SX;
-    NSInteger line2SY = line1SY + rowHeight;
-    NSInteger line2EX = line1EX;
-    NSInteger line2EY = line2SY;
-    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
-    //title shou fang
-    NSInteger receTitlteX = line2SX;
-    NSInteger receTitlteY = line2SY;
-    NSString *receiverTitle = @"收方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
-    
-    //phone
-    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kMAcceptManPhone];
-    NSInteger rPhoneX = sPhoneX;
-    NSInteger rPhoneY = line2SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rPhone];
-    
-    //address
-    NSString *rAddress = [HPrinterHelper addressDetail:billInfo type:@"0"];
-    NSInteger rAdrX = rPhoneX;
-    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
-    
-    
-    // 第三条横线--------------------------------
-    NSInteger line3SX = line1SX;
-    NSInteger line3SY = line2SY + rowHeight;
-    NSInteger line3EX = line1EX;
-    NSInteger line3EY = line3SY;
-    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
-    
-    
-    //title shou fang
-    NSInteger goodsTitlteX = line3SX;
-    NSInteger goodsTitlteY = line3SY;
-    NSString *goodsTitle = @"货物信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
-    
-    //hu wu xin xi
-    NSString *goods = [HPrinterHelper goodsInfo:billInfo];
-    NSInteger goodsInfoX = sPhoneX;
-    NSInteger goodsInfoY = line3SY;
-    int letterMaxLen = 38;
-    if (goods.length > letterMaxLen) {
-        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
-        
-        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
-        NSInteger line2Y = goodsInfoY + (rowHeight/2);
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
-    }else{
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
-    }
-    
-    
-   
-    // 第四条横线--------------------------------
-    NSInteger line4SX = line1SX;
-    NSInteger line4SY = line3SY + rowHeight;
-    NSInteger line4EX = line1EX;
-    NSInteger line4EY = line4SY;
-    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
-    
-    //title shou fang
-    NSInteger feeTitlteX = line4SX;
-    NSInteger feeTitlteY = line4SY;
-    NSString *feeTitle = @"收费信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
-    
-    //shou fei xin xi
-    NSString *fee = [HPrinterHelper feesTxtBy:billInfo];
-    NSInteger feeX = sPhoneX;
-    NSInteger feeY = line4SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
-    
-    
-    NSData *commandData = [command cmdData];
-    
-    [command cpclForm];
-    [command cpclPrint];
-    
-    [[PTDispatcher share] sendData:commandData];
-}
-
-
-#pragma mark - pai jian
-// paijian di zhi / shou jian ren dizhi
-+ (NSString*)paiAddressDetail:(NSDictionary*)billInfo type:(NSString*)adrType{
-  NSArray* keys;
-  if ([adrType isEqualToString:@"1"]) {
-    //paijian di zhi
-	  keys = @[kSendManAddress];
-  }else{
-    //shou jian di zhi
-	  keys = @[kAcceptManAddress];
-  }
-
-  NSString *adr = @"";
-  for (NSString* keyStr in keys) {
-    NSString *valueStr = [billInfo objectForKey:keyStr];
-    if (valueStr != nil) {
-      adr = [adr stringByAppendingFormat:@"%@",valueStr];
-    }
-  }
-  return adr;
-}
-
-
-
-///jian ke hu huo wu xin xi ji
-+ (NSString*)paiGoodsInfo:(id)billInfo
-{
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kGoodsName];
-  if ((name != nil) && (name.length > 0)){
-    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-  }
-  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
-  if (pieces != nil){
-    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-  }
-  NSString *weight = [billInfo objectForKey:kCalWeight];
-  if (weight != nil) {
-    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-  }
-  NSString *tranType = [billInfo objectForKey:kExpressType];
-	if ((tranType != nil) && (tranType.length > 0)){
-    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-  }
-  NSString *sign = [billInfo objectForKey:kBlReturnBill];
-  if (sign != nil){
-    goods = [goods stringByAppendingFormat:@"签回单标识:%@、",sign];
-  }
-	
-  NSString *storage = [billInfo objectForKey:kInStorage];
-  if (storage != nil){
-    goods = [goods stringByAppendingFormat:@"进仓标识:%@、",storage];
-  }
-  
-  NSString *date = [billInfo objectForKey:kSendDate];
-  if (date != nil) {
-    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-  }
-
-  return goods;
-}
-
-///pai jian wang dian huo wu xin xi
-+ (NSString*)paiSendGoodsInfo:(id)billInfo
-{
-  NSString *goods = @"";
-  NSString *name = [billInfo objectForKey:kGoodsName];
-  if ((name != nil) && (name.length > 0)){
-    goods = [goods stringByAppendingFormat:@"名称:%@、",name];
-  }
-  NSString *pieces = [billInfo objectForKey:kGoodsPiece];
-  if (pieces != nil){
-    goods = [goods stringByAppendingFormat:@"件数:%@、",pieces];
-  }
-  NSString *weight = [billInfo objectForKey:kCalWeight];
-  if (weight != nil) {
-    goods = [goods stringByAppendingFormat:@"重量:%@、",weight];
-  }
-  NSString *tranType = [billInfo objectForKey:kExpressType];
-  if ((tranType != nil)  && (tranType.length > 0)){
-    goods = [goods stringByAppendingFormat:@"送货方式:%@、",tranType];
-  }
-  
-  NSString *weightCount = [billInfo objectForKey:kOverWeightPiece];
-  if (weightCount != nil){
-    goods = [goods stringByAppendingFormat:@"超重件数:%@、",weightCount];
-  }
-  
-  NSString *overSize = [billInfo objectForKey:@"BL_OVER_LONG"];
-  if (overSize != nil) {
-    goods = [goods stringByAppendingFormat:@"超长标识:%@、",overSize];
-  }
-  
-  NSString *rCode = [billInfo objectForKey:kRbillCode];
-  if ((rCode != nil) && (rCode.length > 0)){
-    goods = [goods stringByAppendingFormat:@"回单编号:%@、",rCode];
-  }
-	
-  NSString *storageCode = [billInfo objectForKey:kStorageno];
-  if ((storageCode != nil) && (storageCode.length > 0) ){
-    goods = [goods stringByAppendingFormat:@"进仓编号:%@、",storageCode];
-  }
-  
-  NSString *date = [billInfo objectForKey:kSendDate];
-  if ((date != nil) && (date.length > 0)){
-    goods = [goods stringByAppendingFormat:@"寄件日期:%@",date];
-  }
-
-  return goods;
-}
-
-
-///fei yong
-+ (NSString*)paiFeesTxtBy:(id)billInfo
-{
-	NSString *fees = @"";
-	NSString *payType = [billInfo objectForKey:kPaymentType];
-	
-	if ([payType containsString:@"到付"]) {
-		fees = [fees stringByAppendingFormat:@"%@:",payType];
-		NSString *cash = [billInfo objectForKey:kPaiedMoney];
-		if (cash != nil) {
-			fees = [fees stringByAppendingFormat:@"%@、",cash];
-		}
-	}else{
-		fees = [fees stringByAppendingFormat:@"%@:",payType];
-	}
-	
-	NSString *count = [billInfo objectForKey:kInsureVal];
-	if (count != nil) {
-		fees = [fees stringByAppendingFormat:@"保价金额:%@、",count];
-	}
-	return fees;
-}
-
-/**
- *pai jian wang dian jijian shoujian ren
- */
-- (void)printPaiBillWith:(id)data
-{
-    [self startPrintPaiSiteBy:data];
-    [self startPrintPaiReceiverBy:data];
-}
-
-#pragma mark - pai jian da yin - pai jian wang dian
-/**
- *pai jian wang dian
- */
-- (void)startPrintPaiSiteBy:(id)billInfo
-{
-    NSInteger startX = 0;
-    NSInteger deltaX = 5;
-    NSInteger deltaY = 5*3;
-    NSInteger startY = 10;
-    NSInteger offsetX = 0;
-    NSInteger pageWidth = 780;
-    NSInteger pageHeight = 550;
-    int lineWeight = 2;
-    NSInteger topLogHeight = 200;
-    NSInteger titleColWidth = 80;
-    //jijian fajian wang dian
-    NSInteger rowHeight = (pageHeight - topLogHeight) / 4;
-    NSInteger lineSpacing = 2;
-    NSInteger siteTextW = 160;
-    
-    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
-    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
-    
-    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
-    
-    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
-    [command cpclPageWidth:pageWidth];
-    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
-    
-    // 第一条横线--------------------------------
-    NSInteger line1SX = startX;
-    NSInteger line1SY = topLogHeight;
-    NSInteger line1EX = pageWidth;
-    NSInteger line1EY = line1SY;
-    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
-    
-    //dayin shijian
-    NSInteger pDateH = 40;
-    NSInteger pDateX = startX;
-    NSInteger pDateY = line1SY - pDateH;
-//    使用PTCPCLTextFont28 字体打印（汉字+数字）组合只显示汉字部分
-    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
-    
-    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kBillCodeKey];
-    NSInteger codeW = 290;
-    NSInteger codeH = 80;
-    NSInteger codeX = pageWidth - codeW;
-    NSInteger codeY = startY + deltaY;
-    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
-    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
-    [command cpclBarcodeTextOff];
-    
-    //title ji fang
-    NSInteger sendCopyX = codeX;
-    NSInteger sendCopyY = pDateY;
-    NSString *copyTitle = @"派件网点存根联：";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
-    
-    //title ji fang
-    NSInteger sendTitlteX = startX;
-    NSInteger sendTitlteY = line1SY;
-    NSInteger sendTitleWidth = titleColWidth;
-    NSString *senderTitle = @"寄方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
-    
-
-    //phone
-    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
-    NSInteger sPhoneX = titleColWidth+startX;
-    NSInteger sPhoneY = line1SY;
-    NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
-    
-    //address
-    NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
-    NSInteger sAdrX = sPhoneX;
-    NSInteger sAdrY = sPhoneY + (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
-    
-    
-    //第一条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine1SX = titleColWidth;
-    NSInteger vLine1SY = topLogHeight;
-    NSInteger vLine1EX = vLine1SX;
-    NSInteger vLine1EY = pageHeight;
-    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
-    
-    
-    // 第二条横线--------------------------------
-    NSInteger line2SX = line1SX;
-    NSInteger line2SY = line1SY + rowHeight;
-    NSInteger line2EX = line1EX;
-    NSInteger line2EY = line2SY;
-    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
-    //title shou fang
-    NSInteger receTitlteX = line2SX;
-    NSInteger receTitlteY = line2SY;
-    NSString *receiverTitle = @"收方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
-    
-    //phone
-    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kAcceptManPhone];
-    NSString *rMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
-	NSString *rTxt = [rMan stringByAppendingFormat:@" %@",rPhone];
-    NSInteger rPhoneX = sPhoneX;
-    NSInteger rPhoneY = line2SY;
-    NSInteger receWidth = phoneW - siteTextW;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rTxt];
-    
-    //address
-    NSString *rAddress = [HPrinterHelper paiAddressDetail:billInfo type:@"0"];
-    NSInteger rAdrX = rPhoneX;
-    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
-    
-    
-    // 第三条横线--------------------------------
-    NSInteger line3SX = line1SX;
-    NSInteger line3SY = line2SY + rowHeight;
-    NSInteger line3EX = line1EX;
-    NSInteger line3EY = line3SY;
-    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
-    
-    
-    //title shou fang
-    NSInteger goodsTitlteX = line3SX;
-    NSInteger goodsTitlteY = line3SY;
-    NSString *goodsTitle = @"货物信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
-    
-    //hu wu xin xi
-    NSString *goods = [HPrinterHelper paiSendGoodsInfo:billInfo];
-    NSInteger goodsInfoX = sPhoneX;
-    NSInteger goodsInfoY = line3SY;
-    int letterMaxLen = 38;
-    if (goods.length > letterMaxLen) {
-        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
-        
-        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
-        NSInteger line2Y = goodsInfoY + (rowHeight/2);
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
-    }else{
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
-    }
-    
-    
-    //第二条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine2SX = pageWidth - siteTextW;
-    NSInteger vLine2SY = line2SY;
-    NSInteger vLine2EX = vLine2SX;
-    NSInteger vLine2EY = line3SY;
-    [command cpclLineWithXPos:vLine2SX yPos:vLine2SY xEnd:vLine2EX yEnd:vLine2EY thickness:lineWeight];
-    
-    NSString *siteTile = @"寄件网点";
-    NSInteger siteTitleX = vLine2SX;
-    NSInteger siteTitleY = line2SY;
-    NSInteger safeHeight = rowHeight / 2;
-    NSInteger width = siteTextW;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(siteTitleX+deltaX) y:(siteTitleY+deltaY) safeHeight:safeHeight width:width lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:siteTile];
-    
-	NSString *destination = [HPrinterHelper strValueOf:billInfo key:kDestination];
-	NSInteger desX = vLine2SX;
-	NSInteger desY = siteTitleY + rowHeight / 2;
-	
-	[command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(desX+deltaX) y:(desY) safeHeight:(safeHeight) width:siteTextW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:destination];
-	
-    // 第四条横线--------------------------------
-    NSInteger line4SX = line1SX;
-    NSInteger line4SY = line3SY + rowHeight;
-    NSInteger line4EX = line1EX;
-    NSInteger line4EY = line4SY;
-    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
-    
-	 
-	
-    //title shou fang
-    NSInteger feeTitlteX = line4SX;
-    NSInteger feeTitlteY = line4SY;
-    NSString *feeTitle = @"收费信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
-    
-    //shou fei xin xi
-    NSString *fee = [HPrinterHelper paiFeesTxtBy:billInfo];
-    NSInteger feeX = sPhoneX;
-    NSInteger feeY = line4SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:receWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
-    
-    
-    //第三条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine3SX = vLine2SX;
-    NSInteger vLine3SY = line4SY;
-    NSInteger vLine3EX = vLine3SX;
-    NSInteger vLine3EY = pageHeight;
-    [command cpclLineWithXPos:vLine3SX yPos:vLine3SY xEnd:vLine3EX yEnd:vLine3EY thickness:lineWeight];
-    
-    NSString *signTile = @"收件客户签字:";
-    NSInteger signTitleX = vLine3SX;
-    NSInteger signTitleY = line4SY;
-    NSInteger signSafeH = rowHeight / 2;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(signTitleX+deltaX) y:(signTitleY+deltaY) safeHeight:signSafeH width:(width+40) lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:signTile];
-    
-    
-    NSData *commandData = [command cmdData];
-    
-    [command cpclForm];
-    [command cpclPrint];
-    
-    [[PTDispatcher share] sendData:commandData];
-}
-
-#pragma mark - zhu dan da yin - kehu
-/**
- *jijian kehu cungen lian
- */
-- (void)startPrintPaiReceiverBy:(id)billInfo
-{
-    NSInteger startX = 0;
-    NSInteger deltaX = 5;
-    NSInteger deltaY = 5*3;
-    NSInteger startY = 10;
-    NSInteger offsetX = 0;
-    NSInteger pageWidth = 780;
-    NSInteger pageHeight = 550;
-    int lineWeight = 2;
-    NSInteger topLogHeight = 200;
-    NSInteger titleColWidth = 80;
-    //jijian fajian wang dian
-    NSInteger rowHeight = (pageHeight - topLogHeight) / 4;
-    NSInteger lineSpacing = 2;
-
-    PTCPCLTextFontName titleFont = PTCPCLTextFont28;
-    PTCPCLTextFontName txtFont = PTCPCLTextFont3;
-    
-    PTCommandCPCL *command = [[PTCommandCPCL alloc] init];
-    
-    [command cpclLabelWithOffset:offsetX hRes:PTCPCLLabelResolution100 vRes:PTCPCLLabelResolution100 height:pageHeight quantity:1];
-    [command cpclPageWidth:pageWidth];
-    [command cpclBoxWithXPos:startX yPos:startY xEnd:pageWidth yEnd:pageHeight thickness:lineWeight];
-    
-    // 第一条横线--------------------------------
-    NSInteger line1SX = startX;
-    NSInteger line1SY = topLogHeight;
-    NSInteger line1EX = pageWidth;
-    NSInteger line1EY = line1SY;
-    [command cpclLineWithXPos:line1SX yPos:line1SY xEnd:line1EX yEnd:line1EY thickness:lineWeight];
-    
-    //dayin shijian
-    NSInteger pDateH = 40;
-    NSInteger pDateX = startX;
-    NSInteger pDateY = line1SY - pDateH;
-    NSString *pDateStr = [@"打印时间：" stringByAppendingString:[NSDate currentDateStrBy:nil]];
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:PTCPCLTextFont7 fontSize:0 x:(pDateX+deltaX) y:(pDateY+deltaY) safeHeight:pDateH width:400 lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:pDateStr];
-    
-    NSString *barCode = [HPrinterHelper strValueOf:billInfo key:kBillCodeKey];
-    NSInteger codeW = 290;
-    NSInteger codeH = 80;
-    NSInteger codeX = pageWidth - codeW;
-    NSInteger codeY = startY + deltaY;
-    [command cpclBarcodeTextWithFont:PTCPCLTextFont8 fontSize:0 offset:5];
-    [command cpclBarcode:PTCPCLBarcodeStyleCode128 width:1 ratio:PTCPCLBarcodeBarRatio0 height:codeH x:(codeX) y:codeY barcode:barCode];
-    [command cpclBarcodeTextOff];
-    
-    //title ji fang
-    NSInteger sendCopyX = codeX;
-    NSInteger sendCopyY = pDateY;
-    NSString *copyTitle = @"收件客户存根联：";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 x:(sendCopyX) y:(sendCopyY+deltaY) safeHeight:pDateH width:codeW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:copyTitle];
-    
-    //title ji fang
-    NSInteger sendTitlteX = startX;
-    NSInteger sendTitlteY = line1SY;
-    NSInteger sendTitleWidth = titleColWidth;
-    NSString *senderTitle = @"寄方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:sendTitlteX yPos:(sendTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:senderTitle];
-
-    //phone
-    NSString *sPhone = [HPrinterHelper strValueOf:billInfo key:kSendManPhone];
-    NSInteger sPhoneX = titleColWidth+startX;
-    NSInteger sPhoneY = line1SY;
-    NSInteger phoneW = pageWidth - titleColWidth;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sPhoneX+deltaX) y:(sPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sPhone];
-    
-    //address
-    NSString *sAdress = [HPrinterHelper paiAddressDetail:billInfo type:@"1"];
-    NSInteger sAdrX = sPhoneX;
-    NSInteger sAdrY = sPhoneY + (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(sAdrX+deltaX) y:(sAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:sAdress];
-    
-    
-    //第一条竖线|||||||||||||||||||||||||||||
-    NSInteger vLine1SX = titleColWidth;
-    NSInteger vLine1SY = topLogHeight;
-    NSInteger vLine1EX = vLine1SX;
-    NSInteger vLine1EY = pageHeight;
-    [command cpclLineWithXPos:vLine1SX yPos:vLine1SY xEnd:vLine1EX yEnd:vLine1EY thickness:lineWeight];
-    
-    
-    // 第二条横线--------------------------------
-    NSInteger line2SX = line1SX;
-    NSInteger line2SY = line1SY + rowHeight;
-    NSInteger line2EX = line1EX;
-    NSInteger line2EY = line2SY;
-    [command cpclLineWithXPos:line2SX yPos:line2SY xEnd:line2EX yEnd:line2EY thickness:lineWeight];
-    //title shou fang
-    NSInteger receTitlteX = line2SX;
-    NSInteger receTitlteY = line2SY;
-    NSString *receiverTitle = @"收方";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:receTitlteX yPos:(receTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:receiverTitle];
-    
-    //phone
-    NSString *rPhone = [HPrinterHelper strValueOf:billInfo key:kAcceptManPhone];
-    NSString *rAcceptMan = [HPrinterHelper strValueOf:billInfo key:kAcceptMan];
-	NSString *rTxt = [rAcceptMan stringByAppendingFormat:@" %@",rPhone];
-    NSInteger rPhoneX = sPhoneX;
-    NSInteger rPhoneY = line2SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rPhoneX+deltaX) y:(rPhoneY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rTxt];
-    
-    //address
-    NSString *rAddress = [HPrinterHelper paiAddressDetail:billInfo type:@"0"];
-    NSInteger rAdrX = rPhoneX;
-    NSInteger rAdrY = rPhoneY+ (rowHeight/2);
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(rAdrX+deltaX) y:(rAdrY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:rAddress];
-    
-    
-    // 第三条横线--------------------------------
-    NSInteger line3SX = line1SX;
-    NSInteger line3SY = line2SY + rowHeight;
-    NSInteger line3EX = line1EX;
-    NSInteger line3EY = line3SY;
-    [command cpclLineWithXPos:line3SX yPos:line3SY xEnd:line3EX yEnd:line3EY thickness:lineWeight];
-    
-    
-    //title shou fang
-    NSInteger goodsTitlteX = line3SX;
-    NSInteger goodsTitlteY = line3SY;
-    NSString *goodsTitle = @"货物信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:goodsTitlteX yPos:(goodsTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:goodsTitle];
-    
-    //hu wu xin xi
-    NSString *goods = [HPrinterHelper paiGoodsInfo:billInfo];
-    NSInteger goodsInfoX = sPhoneX;
-    NSInteger goodsInfoY = line3SY;
-    int letterMaxLen = 38;
-    if (goods.length > letterMaxLen) {
-        NSString *line1Txt = [goods substringToIndex:letterMaxLen];
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line1Txt];
-        
-        NSString *line2Txt = [goods substringFromIndex:letterMaxLen];
-        NSInteger line2Y = goodsInfoY + (rowHeight/2);
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(line2Y) safeHeight:(rowHeight/2) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:line2Txt];
-    }else{
-        [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(goodsInfoX+deltaX) y:(goodsInfoY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:5 fontScale:PTCPCLFontScale_1 text:goods];
-    }
-    
-    
-   
-    // 第四条横线--------------------------------
-    NSInteger line4SX = line1SX;
-    NSInteger line4SY = line3SY + rowHeight;
-    NSInteger line4EX = line1EX;
-    NSInteger line4EY = line4SY;
-    [command cpclLineWithXPos:line4SX yPos:line4SY xEnd:line4EX yEnd:line4EY thickness:lineWeight];
-    
-    //title shou fang
-    NSInteger feeTitlteX = line4SX;
-    NSInteger feeTitlteY = line4SY;
-    NSString *feeTitle = @"收费信息";
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:titleFont fontSize:0 xPos:feeTitlteX yPos:(feeTitlteY+deltaY) center:YES safeHeight:rowHeight width:sendTitleWidth lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:feeTitle];
-    
-    //shou fei xin xi
-    NSString *fee = [HPrinterHelper paiFeesTxtBy:billInfo];
-    NSInteger feeX = sPhoneX;
-    NSInteger feeY = line4SY;
-    [command cpclAutoTextWithRotate:PTCPCLStyleRotation0 font:txtFont fontSize:0 x:(feeX+deltaX) y:(feeY+deltaY) safeHeight:(rowHeight) width:phoneW lineSpacing:lineSpacing fontScale:PTCPCLFontScale_1 text:fee];
-    
-    
-    NSData *commandData = [command cmdData];
-    
-    [command cpclForm];
-    [command cpclPrint];
-    
-    [[PTDispatcher share] sendData:commandData];
-}
-
-
-@end

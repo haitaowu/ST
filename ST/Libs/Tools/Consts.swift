@@ -31,6 +31,7 @@ struct Consts {
 	static var UploadServer = "http://58.215.182.252:8610/SuTongAppInterface/File/uploadFile.do"
 	///3.图片下载地址测试
 	static var ImgServer = "http://58.215.182.252:8070/download/"
+
 	
 	
 	#else
@@ -43,6 +44,7 @@ struct Consts {
 	static var ImgServer = "http://58.215.182.251:8070/download/"
 	///3.正式：图片上传地址
 	static var UploadServer = "http://58.215.182.251:5889/SuTongAppInterface/File/uploadFile.do"
+
 	
 	
 	#endif

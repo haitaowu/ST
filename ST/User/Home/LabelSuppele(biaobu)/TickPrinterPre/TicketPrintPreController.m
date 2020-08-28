@@ -45,7 +45,7 @@ int cjFlag=1;
 
 @interface TicketPrintPreController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 
-@property(strong,nonatomic)CBCentralManager *centralManager;
+//@property(strong,nonatomic)CBCentralManager *centralManager;
 @property(strong,nonatomic)CBPeripheral *selectedPeripheral;
 @property(nonatomic,strong) NSThread *thread;
 @property(nonatomic,assign) NSInteger managerState;
@@ -88,18 +88,6 @@ int cjFlag=1;
         self.reloadBtn.hidden = YES;
     }
     
-	
-	
-	return;
-   /*
-    self.managerState = CBManagerStateUnknown;
-	  //初始化后会调用代理CBCentralManagerDelegate 的 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    self.title = @"打印运单";
-    
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor greenColor]] forState:UIControlStateNormal];
-    [self.printBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-	*/
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -125,7 +113,7 @@ int cjFlag=1;
 	NSLog(@"viewWill Disappear....");
 }
 
-
+#pragma mark- update ui
 - (void)reloadPagePickerView
 {
 	int num = [[self.billInfo objectForKey:@"pieceNumber"] intValue];
@@ -138,30 +126,30 @@ int cjFlag=1;
 	[self.pagePicker selectRow:(num-1) inComponent:1 animated:NO];
 }
 
+//- (void)updatePrintBtnsByState:(BOOL)enabled
+//{
+//		self.printBtn.enabled = enabled;
+//		self.reloadBtn.hidden = enabled;
+//}
+
+//
+//- (void)startScanConnectPrinter{
+//    if (self.centralManager.isScanning == YES) {
+//        return;
+//    }
+//}
+//
+//- (void) stopScanPeripheral
+//{
+//    [self.centralManager stopScan];
+//    NSLog(@"stop scan");
+//}
 
 
-- (void)startScanConnectPrinter{
-    if (self.centralManager.isScanning == YES) {
-        return;
-    }
-	/*
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopScanPeripheral) userInfo:nil repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(dismissConnectLoading) userInfo:nil repeats:NO];
-	 */
-}
-
-- (void) stopScanPeripheral
-{
-    [self.centralManager stopScan];
-    NSLog(@"stop scan");
-}
-
-- (void) dismissConnectLoading
-{
-    [SVProgressHUD dismiss];
-}
-
+//- (void) dismissConnectLoading
+//{
+//    [SVProgressHUD dismiss];
+//}
 
 
 - (void)updateConnectState:(ConnectState)state printerType:(PrinterType)type{
@@ -258,7 +246,8 @@ int cjFlag=1;
     [self reqPrintBillInfo];
 }
 
-- (IBAction)buttonPrintPNGorJPG:(id)sender {
+
+- (IBAction)buttonPrintPNGorJPG:(UIButton*)sender {
 	if (self.printerType == SPRINTER) {
 		[self sendKeyChainToPrinter];
 		[self startSPrintByBillInfo:self.billInfo];
@@ -269,9 +258,16 @@ int cjFlag=1;
 		NSInteger startPage = [self.pagesAry[startIdx] integerValue];
 		NSInteger endIdx = [self.pagePicker selectedRowInComponent:1];
 		NSInteger ednPage = [self.endPagesAry[endIdx] integerValue];
-		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage];
+//		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage];
+		NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
+		[[HPrinterHelper sharedInstance] printWithData:self.billInfo startPage:startPage endPage:ednPage latePrintFlag:latePrintFlag];
 		NSLog(@"hello HPrinter to print");
 	}
+//	[self updatePrintBtnsByState: NO];
+	sender.enabled = NO;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		sender.enabled = YES;
+	});
 }
 
 
@@ -318,22 +314,25 @@ int cjFlag=1;
 		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
 			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",(long)idx,piecesNum];
-			NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+//			NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+			NSData *printData = [self gPrinterCmdDataBy:billData billCode:billCodeStr subCode:subCode indexStr:indexStr];
 			[Manager write:printData];
 		}
 	}else{
 		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
 		NSString *subCode = @"";
-		NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+//		NSData *printData = [self GPrinterData:billCodeStr subCode:subCode indexStr:indexStr];
+		NSData *printData = [self gPrinterCmdDataBy:billData billCode:billCodeStr subCode:subCode indexStr:indexStr];
 		[Manager write:printData];
 	}
 }
 
 
-
 ///sprinter printer
 - (void)startSPrintByBillInfo:(NSDictionary*)billData
 {
+//	[self sPrintBySubCode:@"1700165655793" indexStr:@"1/1"];
+//	return;
     NSString *billCodeStr = [billData objectForKey:kBillCodeKey];
     NSNumber *piecesNum = [billData objectForKey:kPieceNumKey];
 	NSArray *subCodesArra = [HPrinterHelper subBillCodesWithBillData:billData];
@@ -346,18 +345,252 @@ int cjFlag=1;
 		for (NSInteger idx = startNum; idx <= ednNum; idx++) {
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
 			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",(long)idx,piecesNum];
-			[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+			//			[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+			[self sPrintBy:billData subCode:subCode indexStr:indexStr];
 		}
 	}else{
 		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
 		NSString *subCode = @"";
-		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//		[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
+//		[self sPrintBySubCode:subCode indexStr:indexStr];
+		[self sPrintBy:billData subCode:subCode indexStr:indexStr];
 	}
 }
 
 
+///打印时间
+- (NSString*)currentDateStr
+{
+	return [NSDate currentDateStrBy:nil];
+}
+
 
 #pragma mark - GPRrinter
+//new
+- (NSData *)gPrinterCmdDataBy:(id)billInfo billCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
+{
+	//line前缀表示横线
+	int maxX = 800 - 10;
+    int maxY = 535;
+	int logoHeight = 160;
+    int lineWeight = 2;
+	int startX = 10;
+	int startY = 3;
+	int deltaX = 10;
+	int deltaY = 10 + 5;
+	int sitesHeight = 110;
+	int billNumH = 60;
+	int barCodeBoxH = 120;
+	
+	NSString *titleFontStr = @"TSS32.BF2";
+    NSString *txtFontStr = @"TSS24.BF2";
+    
+    TscCommand *command = [[TscCommand alloc] init];
+    [command addSize:maxX :maxY];
+	[command addGapWithM:2 withN:0];
+	[command addReference:0 :0];
+	[command addTear:@"ON"];
+	[command addQueryPrinterStatus:ON];
+	[command addCls];
+	
+	//mu di wang dian suo shu zhong xin
+	NSString *dispatchCenter = [billInfo objectForKey:kDispatchCenterKey];
+	int centerSX = (maxX / 2)-40;
+    if (dispatchCenter != nil) {
+		int centerSY = startY+deltaY;
+		[command addTextwithX:centerSX withY:centerSY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:dispatchCenter];
+    }
+
+	//left ji jian wang dian -> right: tiao xing ma
+	int box1SX = startX;
+	int box1SY = logoHeight;
+	int box1EX = maxX;
+	int box1EY = maxY;
+	[command addBox:box1SX :box1SY :box1EX :box1EY :lineWeight];
+	
+	//寄件/目的网点之间的竖线||||||
+	int sitesW = (maxX - startX) / 2;
+	int col1SX = startX + sitesW;
+	int col1SY = logoHeight;
+	[command addBar:col1SX :col1SY :lineWeight :sitesHeight];
+	
+	
+	int pDateH = 30;
+	int pDateSX = centerSX;
+	int pDateSY = box1SY - pDateH;
+	NSString *pDateStr = [self currentDateStr];
+	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",latePrintFlag];
+	[command addTextwithX:pDateSX withY:pDateSY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:pDateStr];
+	
+	//ji jian wang dian
+	NSString *sendSite = [billInfo objectForKey:kSendSiteKey];
+	int sendSiteSX = box1SX + deltaX;
+	int sendSiteSY = box1SY + deltaY;
+	if (sendSite != nil) {
+		[command addTextwithX:sendSiteSX withY:sendSiteSY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:sendSite];
+	}
+	
+	//ji jian wang dian Code
+	NSString *sendCode = [billInfo objectForKey:kSendCodeKey];
+	int sCodeSX = box1SX + deltaX + 10;
+	int sCodeSY = box1SY + (sitesHeight / 2) + 25;
+    if (sendCode != nil) {
+		[command addTextwithX:sCodeSX withY:sCodeSY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:sendCode];
+	}
+	
+	//mu di wang dian
+	NSString *arriveSite = [billInfo objectForKey:kArriveSiteKey];
+	int arrSiteNameSX = col1SX + deltaX ;
+	int arrSiteNameSY = sendSiteSY;
+    if (arriveSite != nil) {
+		[command addTextwithX:arrSiteNameSX withY:arrSiteNameSY withFont:titleFontStr withRotation:0 withXscal:2 withYscal:2 withText:arriveSite];
+	}
+	
+	//mu di wang dian Code
+	NSString *dispatchCode = [billInfo objectForKey:kDispatchCodeKey];
+	int aCodeSX = arrSiteNameSX + 10;
+	int aCodeSY = sCodeSY;
+    if (dispatchCode != nil) {
+		[command addTextwithX:aCodeSX withY:aCodeSY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:dispatchCode];
+	}
+	
+	
+	int billNumWidth = 320;
+	//left: yun dan hao -> right: dizhi box
+	int box2SX = box1SX;
+	int box2SY = logoHeight + sitesHeight;
+	int box2EX = maxX;
+	int box2EY = maxY - barCodeBoxH;
+	[command addBox:box2SX :box2SY :box2EX :box2EY :lineWeight];
+	
+	//yun dan hao
+	NSString *billCodeTxt = billCode;
+	int billNumY = box2SY;
+	if (billCodeTxt != nil) {
+		int billX = box2SX + deltaX;
+		[command addTextwithX:billX withY:(billNumY+deltaY) withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:billCodeTxt];
+	}
+	
+	int adrBoxH = box2EY - box2SY - billNumH;
+	
+	int weightW = (maxX - startX - billNumWidth) / 3;
+	//weight box
+	int box3SX = startX + billNumWidth + weightW;
+	int box3SY = box2SY;
+	int box3EX = box3SX + weightW;
+	int box3EY = box3SY + billNumH;
+	[command addBox:box3SX :box3SY :box3EX :box3EY :lineWeight];
+
+	//weight
+	id  weight = [billInfo objectForKey:kWeightKey];
+	int weightX = box3SX;
+	if(weight != nil){
+		int weightY = billNumY;
+		NSString *weightTxt = [NSString stringWithFormat:@"%@KG",weight];
+		[command addTextwithX:(weightX+ deltaX) withY:(weightY+deltaY) withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:weightTxt];
+	}
+
+	//jian shu
+	int indexX = weightX + weightW;
+	int indexY = billNumY;
+	[command addTextwithX:(indexX + deltaX) withY:(indexY + deltaY) withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:indexStr];
+	
+	//yun dan hao hou mian shu xian ||||||
+	int col2SX = startX + billNumWidth;
+	int col2SY = col1SY + sitesHeight;
+	[command addBar:col2SX :col2SY :lineWeight :billNumH];
+	
+	//wu ping ming cheng
+	NSString *goodsName = [billInfo objectForKey:kGoodsNameKey];
+	if (goodsName != nil) {
+		int nameX = col2SX + deltaX;
+		int nameY = billNumY;
+		[command addTextwithX:nameX withY:(nameY+deltaY) withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:goodsName];
+	}
+	
+	//tiao xing ma qian mian shuxian ||||
+	int col3SX = col1SX;
+	int col3SY = box2EY;
+	int barCodeWidth = 240;
+	int barCodeNumWidth = 140;
+	int barCodeHeight = 80;
+	int barBoxWidth = sitesW;
+	[command addBar:col3SX :col3SY :lineWeight :barCodeBoxH];
+	
+	NSString *barCode = subCode;
+	//you xia jiao tiao xing ma
+	int barLeftSpace = (barBoxWidth - barCodeWidth) / 2;
+	int barCodeX = col3SX + barLeftSpace;
+    int barCodeY = col3SY + 10;
+    [command add1DBarcode:barCodeX :barCodeY :@"CODE128" :barCodeHeight :0 :0 :2 :4 :barCode];
+	
+	
+	int barNumLeftSpace = (barBoxWidth - barCodeNumWidth) / 2;
+	int barNumCodeX = col3SX + barNumLeftSpace;
+	int barNumCodeY = barCodeY + barCodeHeight + 3;
+	[command addTextwithX:barNumCodeX withY:barNumCodeY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:barCode];
+	
+	//yun dan hao ma xia mian de heng xian -------
+	int line1SX = startX;
+	int line1SY = box2SY + billNumH;
+	int line1W = box2EX - box2SX;
+	[command addBar:line1SX :line1SY :line1W :lineWeight];
+	
+	//dizhi 
+	NSString *adrTxt = [HPrinterHelper strValueOf:billInfo key:kAcceptAdrKey];
+	NSString *packType = [HPrinterHelper strValueOf:billInfo key:kPackTypeKey];
+	NSString *sendGoodsType = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *packSendAdrStr = @"" ;
+	if (packType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",packType];
+	}
+	if (sendGoodsType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",sendGoodsType];
+	}
+	if (adrTxt.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@":%@",adrTxt];
+	}
+	
+	if (packSendAdrStr.length > 0) {
+		int adrX = line1SX;
+		int adrY = line1SY + deltaY;
+       [command addTextwithX:(adrX+deltaX) withY:adrY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:packSendAdrStr];
+    }
+	
+	int nameBoxH = barCodeBoxH / 2;
+	//name+phone xia main hen xian
+	int line2SX = startX;
+	int line2SY = box2EY + nameBoxH;
+	int line2W = sitesW;
+	[command addBar:line2SX :line2SY :line2W :lineWeight];
+	
+	
+	//name + phone
+#warning name + phone
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kAcceptManName];
+	NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSubAcptManPhone];
+	NSString *namePhone = [NSString stringWithFormat:@"%@ %@",name,phone];
+	int nameX = line2SX + deltaX;
+	if (namePhone != nil) {
+		int nameY = box2EY + deltaY;
+		[command addTextwithX:nameX withY:nameY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:namePhone];
+	}
+	
+	//lu dan ri qi
+	NSString *billDateTxt = [HPrinterHelper billDateWithData:billInfo];
+	if (billDateTxt != nil) {
+		int dateX = nameX;
+		int dateY = line2SY + deltaY;
+		[command addTextwithX:dateX withY:dateY withFont:txtFontStr withRotation:0 withXscal:1 withYscal:1 withText:billDateTxt];
+	}
+	
+	[command addPrint:1 :1];
+	return [command getCommand];
+}
+
+
+/*
 - (NSData *)GPrinterData:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
 	int maxX = 800 - 10;
@@ -372,12 +605,9 @@ int cjFlag=1;
 	int deltaY = 10 + 5;
 	int sitesHeight = 110;
 	int rowHeight = 60;
-	
-	
-	
+
     NSString *titleFontStr = @"TSS32.BF2";
     NSString *txtFontStr = @"TSS24.BF2";
-    
     
     TscCommand *command = [[TscCommand alloc] init];
     [command addSize:maxX :maxY];
@@ -486,7 +716,7 @@ int cjFlag=1;
 	}
 	
 	//lu dan ri qi
-	NSString *billDateTxt = [self billDateWithData:self.billInfo];
+	NSString *billDateTxt = [HPrinterHelper billDateWithData:self.billInfo];
 	if (billDateTxt != nil) {
 		int dateX = line2X + deltaX;
 		int dateY = box2Y + deltaY + 5;
@@ -588,10 +818,285 @@ int cjFlag=1;
 	[command addPrint:1 :1];
 	return [command getCommand];
 }
-
+*/
 
 
 #pragma mark - SPrinter printer
+- (void)sPrintBy:(id)billInfo subCode:(NSString*)subCode indexStr:(NSString*)indexStr
+{
+//line: 横线前缀
+	int startX = 0;
+	int startY = 5;
+	int maxX = 780;
+    int maxY = 520;
+    int topLogHeight = 160;
+	//mudi fajian wang dian
+	int sitesBoxH = 110;
+	//条形码kuang 高
+	int barCodeBoxH = 120;
+	int barCodeW = 460;
+	
+	int lineWeight = 2;
+	int titleSize = 3;
+	int dispatchTitleSize = 4;
+	int sitesTitleSize = 4;
+	
+	[SPRTPrint pageSetup:(maxX+30) pageHeightNum:530];
+	int topLineSX = startX;
+	int topLineSY = topLogHeight;
+	int topLineEX = maxX;
+	int topLineEY = topLineSY;
+	[SPRTPrint drawLine:lineWeight startX:topLineSX startY:topLineSY endX:topLineEX endY:topLineEY isFullline:false];
+	
+	
+	int leftLineSX = startX;
+	int leftLineSY = topLogHeight;
+	int leftLineEX = leftLineSX;
+	int leftLineEY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:leftLineSX startY:leftLineSY endX:leftLineEX endY:leftLineEY isFullline:false];
+	
+	int botLineSX = startX;
+	int botLineSY = maxY;
+	int botLineEX = maxX;
+	int botLineEY = botLineSY;
+	[SPRTPrint drawLine:lineWeight startX:botLineSX startY:botLineSY endX:botLineEX endY:botLineEY isFullline:false];
+	
+	int rightLineSX = maxX;
+	int rightLineSY = topLogHeight;
+	int rightLineEX = rightLineSX;
+	int rightLineEY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:rightLineSX startY:rightLineSY endX:rightLineEX endY:rightLineEY isFullline:false];
+	
+	int line1SX = startX;
+	int line1SY = topLineSY + sitesBoxH;
+	int line1EX= maxX;
+	int line1EY = line1SY;
+	[SPRTPrint drawLine:lineWeight startX:line1SX startY:line1SY endX:line1EX endY:line1EY isFullline:false];
+	
+	int sitesW = (rightLineEX - leftLineEX) / 2;
+	int col1SX = startX + sitesW;
+	int col1SY = topLineSY;
+	int col1EX= col1SX;
+	int col1EY = line1SY;
+	[SPRTPrint drawLine:lineWeight startX:col1SX startY:col1SY endX:col1EX endY:col1EY isFullline:false];
+
+	int aLet3StrWidth = ((maxX - 60) / 2) / 11 ;
+    int aLet4StrBoldWidth = ((maxX - 60) / 2) / 7;
+    int aLet5StrBoldWidth = ((maxX - 60) / 2) / 6;
+    int aLet3NumWidth = ((maxX - 60) / 2) / 22 ;
+	
+	int pDateH = 30;
+	int dispatchH = topLogHeight - pDateH;
+	int dispatchY = startY;
+	int dispatchX = col1SX;
+	 NSString *dispatchCenter = [billInfo objectForKey:kDispatchCenterKey];
+	   if (dispatchCenter != nil) {
+		[SPRTPrint drawText:dispatchX textY:dispatchY widthNum:sitesW heightNum:dispatchH textStr:dispatchCenter fontSizeNum:dispatchTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	}
+	
+	NSString *pDateStr = [self currentDateStr];
+	NSString *latePrintFlag = (self.printFlag == LatePrintYES)? @"是" : @"否";
+	pDateStr = [pDateStr stringByAppendingFormat:@" 补打:%@",latePrintFlag];
+	int pDateX = dispatchX;
+	int pDateY = dispatchH + 5;
+	[SPRTPrint drawText:pDateX textY:pDateY widthNum:sitesW heightNum:pDateH textStr:pDateStr fontSizeNum:(titleSize-1) rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	
+
+	// 寄件网点；
+	NSString *sendSite = [billInfo objectForKey:kSendSiteKey];
+	int sendSiteY = (topLineSY+25);
+	int sendSiteMargin = (sitesW - (int)sendSite.length * aLet4StrBoldWidth)/2;
+	int sendSiteX = startX + sendSiteMargin;
+	if (sendSite != nil) {
+		[SPRTPrint drawText:sendSiteX textY:sendSiteY widthNum:sitesW heightNum:sitesBoxH textStr:sendSite fontSizeNum:sitesTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	}
+
+	int siteTxtH = 30;
+	// 寄件网点的编号
+	NSString *sendCode = [billInfo objectForKey:kSendCodeKey];
+	int sendCodeY = line1SY - siteTxtH;
+	if (sendCode != nil) {
+		int sendCodeMargin = (sitesW - (int)sendCode.length * aLet3NumWidth)/2;
+		int sendCodeX = startX + sendCodeMargin;
+		[SPRTPrint drawText:sendCodeX textY:sendCodeY widthNum:sitesW heightNum:sitesBoxH textStr:sendCode fontSizeNum:titleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	}
+	
+	// 目的网点
+	NSString *arriveSite = [billInfo objectForKey:kArriveSiteKey];
+	int arrSiteY = sendSiteY;
+	if (arriveSite != nil) {
+		int arrSiteMargin = (sitesW - (int)arriveSite.length * aLet4StrBoldWidth)/2;
+		int arrSiteX = col1SX + arrSiteMargin;
+		[SPRTPrint drawText:arrSiteX textY:arrSiteY widthNum:sitesW heightNum:sitesBoxH textStr:arriveSite fontSizeNum:sitesTitleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	}
+	
+	// 目的网点的编号
+	NSString *dispatchCode = [billInfo objectForKey:kDispatchCodeKey];
+	if (dispatchCode != nil) {
+		int arriveSiteCodeY = sendCodeY;
+		int arriveSiteCodeMargin = (sitesW - (int)dispatchCode.length * aLet3NumWidth)/2;
+		int arriveSiteCodeX = col1SX + arriveSiteCodeMargin;
+		[SPRTPrint drawText:arriveSiteCodeX textY:arriveSiteCodeY widthNum:sitesW heightNum:sitesBoxH textStr:dispatchCode fontSizeNum:titleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+	}
+	
+	//yun dan hao mingcheng zhongliang hang de gao
+	int billNumH = 60;
+	int line2SX = startX;
+	int line2SY = line1SY + billNumH;
+	int line2EX= maxX;
+	int line2EY = line2SY;
+	[SPRTPrint drawLine:lineWeight startX:line2SX startY:line2SY endX:line2EX endY:line2EY isFullline:false];
+
+	int billCodeW = 280;
+	int col2SX = startX + billCodeW;
+	int col2SY = line1SY;
+	int col2EX= col2SX;
+	int col2EY = line2SY;
+	[SPRTPrint drawLine:lineWeight startX:col2SX startY:col2SY endX:col2EX endY:col2EY isFullline:false];
+
+	//运单号
+	int billNumHeight = line2SY - line1SY;
+	NSString *billCodeTxt = [billInfo objectForKey:kBillCodeKey];
+	int billNumSY = (line1SY + 20);
+	if (billCodeTxt != nil) {
+		int billCodeMargin = (billCodeW - (int)billCodeTxt.length * aLet3NumWidth)/2;
+		int billCodeTxtX = startX + billCodeMargin;
+		[SPRTPrint drawText:billCodeTxtX textY:billNumSY widthNum:billCodeW heightNum:billNumHeight textStr:billCodeTxt fontSizeNum:titleSize rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	}
+	
+
+	int weightW = (maxX - billCodeW - startX) / 3;
+	int col3SX = col2SX + weightW;
+	int col3SY = col2SY;
+	int col3EX= col3SX;
+	int col3EY = col2EY;
+	[SPRTPrint drawLine:lineWeight startX:col3SX startY:col3SY endX:col3EX endY:col3EY isFullline:false];
+	
+	//物品名称
+    NSString *goodsName = [billInfo objectForKey:kGoodsNameKey];
+    if (goodsName != nil) {
+        int width = weightW;
+        int margin = (width - (int)goodsName.length * aLet3StrWidth)/2;
+        int x =  margin + col2SX;
+        [SPRTPrint drawText:x textY:billNumSY widthNum:width heightNum:billNumHeight textStr:goodsName fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+    }
+	
+	
+	//重量
+    id  weight = [billInfo objectForKey:kWeightKey];
+    NSString *weightTxt = [NSString stringWithFormat:@"%@KG",weight];
+    if(weightTxt != nil){
+        int weightMargin = (weightW - (int)weightTxt.length * aLet3NumWidth)/2;
+        int weightX = col3SX + weightMargin;
+        [SPRTPrint drawText:weightX textY:billNumSY widthNum:weightW heightNum:billNumHeight textStr:weightTxt fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+    }
+	
+	
+	int col4SX = col3SX + weightW;
+	int col4SY = col2SY;
+	int col4EX= col4SX;
+	int col4EY = col2EY;
+	[SPRTPrint drawLine:lineWeight startX:col4SX startY:col4SY endX:col4EX endY:col4EY isFullline:false];
+	
+	
+	//分件数/总件数:
+    int margin = (weightW - (int)indexStr.length * aLet3StrWidth)/2;
+    int indexSX =  margin + col4SX;
+    [SPRTPrint drawText:indexSX textY:(billNumSY) widthNum:weightW heightNum:billNumHeight textStr:indexStr fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	
+	int adrBoxH = maxY - line2SY - barCodeBoxH;
+	//di zhi hang shang mian de xian -------
+	int line3SX = startX;
+	int line3SY = line2SY + adrBoxH;
+	int line3EX= maxX;
+	int line3EY = line3SY;
+	[SPRTPrint drawLine:lineWeight startX:line3SX startY:line3SY endX:line3EX endY:line3EY isFullline:false];
+	
+	int deltaX = 15;
+	
+
+	NSString *adrTxt = [HPrinterHelper strValueOf:billInfo key:kAcceptAdrKey];
+	NSString *packType = [HPrinterHelper strValueOf:billInfo key:kPackTypeKey];
+	NSString *sendGoodsType = [HPrinterHelper strValueOf:billInfo key:kSendgoodsTypeKey];
+	NSString *packSendAdrStr = @"" ;
+	if (packType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",packType];
+	}
+	if (sendGoodsType.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@"[%@]",sendGoodsType];
+	}
+	if (adrTxt.length > 0) {
+		packSendAdrStr = [packSendAdrStr stringByAppendingFormat:@":%@",adrTxt];
+	}
+	
+	if (packSendAdrStr.length > 0){
+		//派送方式
+		NSString *sendgoodsType = [billInfo objectForKey:kSendgoodsTypeKey];
+		if (sendgoodsType != nil) {
+			adrTxt = [NSString stringWithFormat:@"%@:%@",sendgoodsType,adrTxt];
+		}
+		int adrTxtW = maxX - startX;
+//		int margin = (adrTxtW - (int)adrTxt.length * aLet3StrWidth)/2;
+		int x = startX + deltaX;
+		[SPRTPrint drawText:x textY:(line2SY + 15) widthNum:adrTxtW heightNum:adrBoxH textStr:packSendAdrStr fontSizeNum:titleSize rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	}
+	
+	
+	
+	int col5SX = maxX - barCodeW;
+	int namePhoneH = barCodeBoxH / 2;
+	
+	int line4SX = startX;
+	int line4SY = line3SY + namePhoneH;
+	int line4EX= col5SX;
+	int line4EY = line4SY;
+	[SPRTPrint drawLine:lineWeight startX:line4SX startY:line4SY endX:line4EX endY:line4EY isFullline:false];
+
+#warning name + phone
+	//name phone
+	int nameW = col5SX - line4SX;
+	int nameX = startX + deltaX;
+	NSString *name = [HPrinterHelper strValueOf:billInfo key:kAcceptManName];
+	if (name != nil) {
+		//phone
+		NSString *phone = [HPrinterHelper strValueOf:billInfo key:kSubAcptManPhone];
+		name = [NSString stringWithFormat:@"%@ %@",name,phone];
+		int nameY = line3SY + 15;
+		[SPRTPrint drawText:nameX textY:(nameY) widthNum:nameW heightNum:namePhoneH textStr:name fontSizeNum:titleSize rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	}
+	
+	//录单时间
+    NSString *billDateTxt = [HPrinterHelper billDateWithData:billInfo];
+    if (billDateTxt != nil) {
+        int regDateTxtW = nameW;
+		int dateY = line4SY + 20;
+        [SPRTPrint drawText:nameX textY:(dateY) widthNum:regDateTxtW heightNum:namePhoneH textStr:billDateTxt fontSizeNum:titleSize rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
+    }
+	
+	int col5SY = line3SY;
+	int col5EX= col5SX;
+	int col5EY = maxY;
+	[SPRTPrint drawLine:lineWeight startX:col5SX startY:col5SY endX:col5EX endY:col5EY isFullline:false];
+
+	
+	NSString *barCode = subCode;
+    int barCodeH = 80;
+    int barCodeX = col5SX + 10;
+    int barCodeY = line3SY + 10;
+    if (barCode != nil) {
+        [SPRTPrint drawBarCode:(barCodeX) startY:barCodeY textStr:barCode typeNum:1 roateNum:0 lineWidthNum:3 heightNum:barCodeH];
+    }
+    
+    //横着的条码数字字符串
+    int barNumY = barCodeY + 80;
+    int barNumX = barCodeX + 85;
+     [SPRTPrint drawText:(barNumX) textY:(barNumY) textStr:barCode fontSizeNum:3 rotateNum:0 isBold:0 isUnderLine:false isReverse:false];
+	
+	[SPRTPrint print:0 skipNum:1];
+}
+
+/*
 - (void)printWithBillCode:(NSString*)billCode subCode:(NSString*)subCode indexStr:(NSString*)indexStr
 {
     [SPRTPrint pageSetup:800 pageHeightNum:500];
@@ -641,7 +1146,7 @@ int cjFlag=1;
     //第一条竖线
     [SPRTPrint drawLine:2 startX:col1x startY:line1Y endX:col1x endY:line6Y isFullline:false];
     
-    int aLet3StrWidth = ((maxX - 60) / 2) / 11 ;
+   int aLet3StrWidth = ((maxX - 60) / 2) / 11 ;
     int aLet4StrBoldWidth = ((maxX - 60) / 2) / 7;
     int aLet5StrBoldWidth = ((maxX - 60) / 2) / 6;
     int aLet3NumWidth = ((maxX - 60) / 2) / 22 ;
@@ -807,13 +1312,12 @@ int cjFlag=1;
     }
     
    //录单时间
-    NSString *billDateTxt = [self billDateWithData:self.billInfo];
+    NSString *billDateTxt = [HPrinterHelper billDateWithData:self.billInfo];
     if (billDateTxt != nil) {
         int regDateTxtW = maxX - col6x;
         [SPRTPrint drawText:(col6x+15) textY:(line2Y + 20) widthNum:regDateTxtW heightNum:verticalMargin textStr:billDateTxt fontSizeNum:2 rotateNum:0 isBold:1 isUnderLine:false isReverse:false];
     }
 
-    
 
     //顶部线框
 //    [SPRTPrint drawLine:2 startX:0 startY:0 endX:maxX endY:0 isFullline:false];
@@ -829,9 +1333,15 @@ int cjFlag=1;
     
     [SPRTPrint print:0 skipNum:1];
 }
+ 
+ */
 
-//录单时间
-- (NSString*)billDateWithData:(NSDictionary*)data
+
+/**
+ *录单时间
+ */
+/*
++ (NSString*)billDateWithData:(NSDictionary*)data
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
@@ -842,12 +1352,7 @@ int cjFlag=1;
     formatBillDateStr = [NSString stringWithFormat:@"%@",formatBillDateStr];
     return formatBillDateStr;
 }
-
-//打印时间
-- (NSString*)currentDateStr
-{
-	return [NSDate currentDateStrBy:nil];
-}
+*/
 
 
 
@@ -895,6 +1400,7 @@ int cjFlag=1;
 }
 
 
+
 #pragma mark - request server
 - (void)reqPrintBillInfo
 {
@@ -937,6 +1443,7 @@ int cjFlag=1;
 						NSLog(@"billInfo = %@",billInfos);
 						//                    self.billCodes = billCodes;
 						weakSelf.billInfo = [billInfos firstObject];
+//						[weakSelf updatePrintBtnsByState: YES];
 						[weakSelf reloadPagePickerView];
 					}
 				}
@@ -947,6 +1454,7 @@ int cjFlag=1;
     [dataTask resume];
 }
 
+/*
 #pragma  mark -- CBCentralManagerDelegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
@@ -1148,4 +1656,7 @@ int cjFlag=1;
     [alert show];
 
 }
+ */
+
+
 @end

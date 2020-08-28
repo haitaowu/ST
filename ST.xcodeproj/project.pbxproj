@@ -268,6 +268,7 @@
 		BE8C067C22B6120B00A9901A /* DriDamgeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C067B22B6120B00A9901A /* DriDamgeController.swift */; };
 		BE8FC47022F2D4C800426865 /* CentInfoTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FC46E22F2D4C800426865 /* CentInfoTableController.swift */; };
 		BE8FC47122F2D4C800426865 /* CentPersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FC46F22F2D4C800426865 /* CentPersonController.swift */; };
+		BE95DF5224E8E3F400B01974 /* ChargeReqController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE95DF5124E8E3F400B01974 /* ChargeReqController.swift */; };
 		BE99EED922BDC9B500F89305 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99EED822BDC9B500F89305 /* Types.swift */; };
 		BE9BFF1F22D6D96000C6BAAE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */; };
 		BE9CCE4022F17C3400B5E4CB /* CenArriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */; };
@@ -650,6 +651,7 @@
 		BE8C067B22B6120B00A9901A /* DriDamgeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriDamgeController.swift; sourceTree = "<group>"; };
 		BE8FC46E22F2D4C800426865 /* CentInfoTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentInfoTableController.swift; sourceTree = "<group>"; };
 		BE8FC46F22F2D4C800426865 /* CentPersonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentPersonController.swift; sourceTree = "<group>"; };
+		BE95DF5124E8E3F400B01974 /* ChargeReqController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeReqController.swift; sourceTree = "<group>"; };
 		BE99EED822BDC9B500F89305 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		BE9BFF1E22D6D95F00C6BAAE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BE9CCE3F22F17C3300B5E4CB /* CenArriSignController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenArriSignController.swift; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 		899BD3631DC0FB57000C6687 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BE95DF5024E8E3E300B01974 /* ChareReq */,
 				BEB5AED124CA7A6100A91E8B /* Category */,
 				BEB5AEA724CA75BE00A91E8B /* Tickets(danpiao) */,
 				BEB5AE8D24CA75B700A91E8B /* LabelSuppele(biaobu) */,
@@ -1598,6 +1601,14 @@
 				BE8FC46E22F2D4C800426865 /* CentInfoTableController.swift */,
 			);
 			path = CPerson;
+			sourceTree = "<group>";
+		};
+		BE95DF5024E8E3E300B01974 /* ChareReq */ = {
+			isa = PBXGroup;
+			children = (
+				BE95DF5124E8E3F400B01974 /* ChargeReqController.swift */,
+			);
+			path = ChareReq;
 			sourceTree = "<group>";
 		};
 		BE9BFF1D22D6D8A700C6BAAE /* Category */ = {
@@ -2376,6 +2387,7 @@
 				8917F2C31DD352BD00421340 /* PickerInputView.swift in Sources */,
 				BE15E08B23289E4900606652 /* ParamsHelper.swift in Sources */,
 				89E29A9A1DF0767400FC206E /* Async.swift in Sources */,
+				BE95DF5224E8E3F400B01974 /* ChargeReqController.swift in Sources */,
 				892583C71DC8DA9700285DB5 /* ConstraintMakerFinalizable.swift in Sources */,
 				BE0FC4ED22BF404800271FED /* JXPhotoBrowserProgressView.swift in Sources */,
 				892583CF1DC8DA9700285DB5 /* ConstraintView+Extensions.swift in Sources */,
@@ -2602,7 +2614,7 @@
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.3;
+				MARKETING_VERSION = 2.5.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",
@@ -2684,7 +2696,7 @@
 					"$(PROJECT_DIR)/ST/Libs/GPrinterLib",
 					"$(PROJECT_DIR)/ST/Libs/PrinterLibs/GPrinterLib",
 				);
-				MARKETING_VERSION = 2.5.3;
+				MARKETING_VERSION = 2.5.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"sqlite3\"",

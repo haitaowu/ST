@@ -1028,9 +1028,12 @@
 {
     int brX=bottom_right_x;
     int lw=0;
-    if((bottom_right_x+lineWidth)>576)
+	int maxWidth = 770;
+    if((bottom_right_x+lineWidth)>maxWidth)
+//    if((bottom_right_x+lineWidth)>576)
     {
-        brX=576-lineWidth;
+//        brX=576-lineWidth;
+        brX=maxWidth-lineWidth;
     }
     if(lineWidth > 5)	//线条宽度太大，打印机会烧坏;
     {

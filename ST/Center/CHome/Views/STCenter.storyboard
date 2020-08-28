@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--发车登记-->
         <scene sceneID="qLw-Hy-OIg">
             <objects>
-                <tableViewController storyboardIdentifier="CenSendSignController" title="发车登记" id="kmH-LU-weR" customClass="CenSendSignController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CenSendSignController" title="发车登记" id="kmH-LU-weR" customClass="CenSendSignController" customModule="ST" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="qma-8L-LYA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -353,45 +353,8 @@
                                             <constraint firstItem="LjO-Ax-1F2" firstAttribute="centerY" secondItem="ry3-BV-9a2" secondAttribute="centerY" id="hhI-HI-Lby"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qiv-pt-Mz9">
-                                        <rect key="frame" x="0.0" y="414" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qiv-pt-Mz9" id="Sbr-4j-0Ew">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发车时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mh-Tj-3Ly">
-                                                    <rect key="frame" x="16" y="13" width="80" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="3Dy-TR-BNX"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="默认为当前时间" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SHB-Bk-NjZ">
-                                                    <rect key="frame" x="104" y="5.5" width="302" height="33"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="33" id="Hu0-Y3-qFC"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="kmH-LU-weR" id="HA3-L9-6kp"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="SHB-Bk-NjZ" secondAttribute="trailing" constant="8" id="7LG-N6-TWp"/>
-                                                <constraint firstItem="9Mh-Tj-3Ly" firstAttribute="centerY" secondItem="Sbr-4j-0Ew" secondAttribute="centerY" id="BS7-m3-LOj"/>
-                                                <constraint firstItem="9Mh-Tj-3Ly" firstAttribute="leading" secondItem="Sbr-4j-0Ew" secondAttribute="leading" constant="16" id="Uaz-BD-Now"/>
-                                                <constraint firstItem="SHB-Bk-NjZ" firstAttribute="centerY" secondItem="Sbr-4j-0Ew" secondAttribute="centerY" id="Xdv-OC-4ne"/>
-                                                <constraint firstItem="SHB-Bk-NjZ" firstAttribute="leading" secondItem="9Mh-Tj-3Ly" secondAttribute="trailing" constant="8" id="qVN-s7-l8i"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Uwm-gt-axe">
-                                        <rect key="frame" x="0.0" y="458" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="414" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uwm-gt-axe" id="bDT-fB-ap6">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -403,7 +366,7 @@
                             <tableViewSection id="i1k-v9-Oc6">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rpk-tq-X4j">
-                                        <rect key="frame" x="0.0" y="538" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="494" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rpk-tq-X4j" id="xkI-HQ-i7g">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -448,7 +411,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="CLJ-rA-lnI">
-                                        <rect key="frame" x="0.0" y="582" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="538" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CLJ-rA-lnI" id="PaF-aW-pjO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -459,7 +422,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="plus"/>
                                                 </button>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHi-Vd-RPY" customClass="DriVideoView" customModule="掌上速通" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHi-Vd-RPY" customClass="DriVideoView" customModule="ST" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -468,7 +431,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Tx0-gw-yDS">
-                                        <rect key="frame" x="0.0" y="662" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="618" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tx0-gw-yDS" id="gnE-Zq-rwX">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -500,7 +463,6 @@
                         <outlet property="labelFrontSideField" destination="KeK-Ej-Z3S" id="1bT-EE-J0N"/>
                         <outlet property="nextStationField" destination="I8c-7e-ho7" id="hiV-x1-oYC"/>
                         <outlet property="routeField" destination="ltE-Ia-vaI" id="4sI-Jn-ye3"/>
-                        <outlet property="setOutTimeField" destination="SHB-Bk-NjZ" id="hKP-qS-71d"/>
                         <outlet property="tmpBtn" destination="Cag-p5-7f6" id="Ect-7e-Kti"/>
                         <outletCollection property="qrFields" destination="wSR-cq-XzP" collectionClass="NSMutableArray" id="WJQ-ac-KvI"/>
                         <outletCollection property="qrFields" destination="KeK-Ej-Z3S" collectionClass="NSMutableArray" id="K0r-gU-4gC"/>
@@ -542,7 +504,7 @@
         <!--到车登记-->
         <scene sceneID="9Vc-an-hTH">
             <objects>
-                <tableViewController storyboardIdentifier="CenArriSignController" title="到车登记" id="uWk-UM-2td" customClass="CenArriSignController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CenArriSignController" title="到车登记" id="uWk-UM-2td" customClass="CenArriSignController" customModule="ST" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ppJ-5g-Rdo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1035,7 +997,7 @@
         <!--用户-->
         <scene sceneID="FsJ-gV-yOC">
             <objects>
-                <tableViewController storyboardIdentifier="CentPersonController" id="O17-td-W4Z" customClass="CentPersonController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CentPersonController" id="O17-td-W4Z" customClass="CentPersonController" customModule="ST" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZT8-qo-9Nc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1155,7 +1117,7 @@
         <!--基础资料修改-->
         <scene sceneID="tJ7-Ab-OkX">
             <objects>
-                <tableViewController storyboardIdentifier="CentInfoTableController" hidesBottomBarWhenPushed="YES" id="hKA-Lc-Ho9" customClass="CentInfoTableController" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CentInfoTableController" hidesBottomBarWhenPushed="YES" id="hKA-Lc-Ho9" customClass="CentInfoTableController" customModule="ST" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sCu-Ig-Yh2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1325,7 +1287,7 @@
         <!--补充说明-->
         <scene sceneID="H4r-sm-VJa">
             <objects>
-                <tableViewController storyboardIdentifier="SendSignReasonControl" title="补充说明" id="fND-xc-pyR" customClass="SendSignReasonControl" customModule="掌上速通" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SendSignReasonControl" title="补充说明" id="fND-xc-pyR" customClass="SendSignReasonControl" customModule="ST" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tdQ-n7-SoM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

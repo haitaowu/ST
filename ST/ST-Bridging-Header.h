@@ -19,6 +19,10 @@
 #import <Foundation/Foundation.h>
 #import <BMKLocationkit/BMKLocationComponent.h>
 #import "ConnecterManager.h"
+#import "HPrinterHelper.h"
+
+
+
 
 
 
