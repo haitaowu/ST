@@ -661,7 +661,6 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 			return nil
 		}
 		
-		
 		//寄件地址--？？
 		if let sendManAddress = self.sendAdrDetail.text,!sendManAddress.isEmpty {
 			params["sendManAddress"] = sendManAddress

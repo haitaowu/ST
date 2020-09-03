@@ -193,10 +193,9 @@ class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewData
     let startStr = self.startDateField.text!
     let endStr = self.endDateField.text!
     if ((startStr.isEmpty == false) && (endStr.isEmpty == false)){
-			startDateTime = startStr + "00:00:00"
+			startDateTime = startStr + " 00:00:00"
 			endDateTime = endStr + " 23:59:59"
 		}else{
-		//			startDateTime  =  "2020-07-01 00:00:00"
 			let todayStr = Date().dateStringFrom()
 			startDateTime  = todayStr + " 00:00:00"
 			endDateTime = todayStr + " 23:59:59"
