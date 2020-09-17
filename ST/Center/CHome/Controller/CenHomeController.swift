@@ -271,6 +271,9 @@ class CenHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 			return cell
 		}else{
 			let cell = tableView.dequeueReusableCell(withIdentifier: SendCarInfoCell.cellID()) as!SendCarInfoCell
+			if let ary = self.carInfoModel?.homeInfo,let model = ary[indexPath.row] as? EmpSendCarModel{
+				cell.updateUIBy(model: model)
+			}
 			return cell
 		}
 	}
