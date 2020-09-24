@@ -1,5 +1,5 @@
 //
-//  STHelper.swift
+//  NetworkHelper.swift
 //  ST
 //
 //  Created by taotao on 2019/9/12.
@@ -15,11 +15,11 @@ enum ReqStateType:Int {
 
 typealias ReqResBlock = (_ state:ReqStateType, _ data: Any) ->()
 
-class STHelper: NSObject {
+class NetworkHelper: NSObject {
 	//单例的两种写法
-//	static let shareInstance = STHelper()
-	static let shareInstance: STHelper = {
-		let instance = STHelper()
+//	static let shareInstance = NetworkHelper()
+	static let shareInstance: NetworkHelper = {
+		let instance = NetworkHelper()
 		return instance
 	}()
 	
@@ -84,8 +84,38 @@ class STHelper: NSObject {
 			block(.reqFail,"没有查询到结果")
 		  }
 		}
+	}
+	
+	
+	///si ji fa che deng shang chuan tupian
+	static func uploadDriSignImgs(to urlStr: String, imgs: Array<UIImage>,block: @escaping ReqResBlock){
+		let url = URL.init(string: Consts.UploadServer)
+		guard let uploadUrl = url else{return}
+		Alamofire.upload(multipartFormData: { (formData) in
+			for (idx, img) in imgs.enumerated(){
+				if let imgData = img.jpegData(compressionQuality: 0.5){
+					let prefixName = Date().dateStringFrom(dateFormat: "yyyyMMddHHmmss")
+					let imgName = "\(prefixName)_\(idx).jpeg"
+					formData.append(imgData, withName: imgName, mimeType: "image/png")
+				}
+			}
+		}, to: uploadUrl) { (encodingResult) in
+			
+			switch encodingResult{
+			case .success(let upload,_,_):do{
+				upload.responseJSON{
+					response in
+				}
+				}
+			case .failure(let error):do{
+				}
+			default:print("default")
+			}
+		}
 		
 	}
+	
+	
 	
 }
 

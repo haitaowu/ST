@@ -197,7 +197,7 @@ class MasterBillQueryController:UITableViewController,QrInterface,WangdianPicker
       //billCode
       self.showLoading(msg: "查询中运单信息...")
       let reqUrl = Consts.Server + Consts.BaseUrl + "m8/getbillData.do"
-      STHelper.POST(url: reqUrl, params: params) {
+      NetworkHelper.POST(url: reqUrl, params: params) {
         [unowned self](result, data) in
         self.hideLoading()
         if (result == .reqSucc) {

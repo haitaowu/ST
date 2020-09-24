@@ -90,25 +90,51 @@ class DriHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 		}
 		self.annTable.es.startPullToRefresh()
     
+		
+		self.carTable.es.addPullToRefresh {
+			[unowned self] in
+			self.fetchUnFinishedDatas()
+		}
     
-    self.carTable.es.addPullToRefresh {
-      [unowned self] in
-      self.fetchUnFinishedDatas()
-    }
-    
-    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-      self.carTable.es.startPullToRefresh()
-    }
+		DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+			self.carTable.es.startPullToRefresh()
+		}
 	}
 	
 	
-	//MARK:- 司机菜单栏
+	//MARK:- 司机菜单栏 update view
 	@objc func clickDriMenu() -> Void {
 		let menuControl = DriMenuController.init(nibName: "DriMenuController", bundle: nil)
 		menuControl.hidesBottomBarWhenPushed = true
 		menuControl.carInfo = self.carInfoModel
 		self.navigationController?.pushViewController(menuControl, animated: true)
 	}
+	
+	///显示司机发车登记界面
+	func showSignView(){
+		let dateStr = Date.init().dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
+		var params:[String:String] = [:]
+		params["sendCode"] = self.carInfoModel?.sendCode
+		params["deiverScanDate"] = dateStr
+		
+		let storyboard = UIStoryboard.init(name: "Driver", bundle: nil)
+		let driSignControl = storyboard.instantiateViewController(withIdentifier:"DriSignController") as! DriSignController
+		driSignControl.params = params
+		driSignControl.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(driSignControl, animated: true)
+		driSignControl.doneBlock = {
+			[unowned self] (isSigned) in
+			if isSigned {
+				self.carInfoModel?.deiverStatus = "1"
+			}else{
+				self.carInfoModel?.deiverStatus = "0"
+			}
+			self.carTable.reloadData()
+		}
+		
+		
+	}
+	
 	
 	//MARK:- tableView datasource
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -410,6 +436,8 @@ class DriHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 	
 	//请求发车登记
 	func reqSendSign()->Void{
+		self.showSignView()
+		return;
 		let dateStr = Date.init().dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
 		var params:[String:String] = [:]
 		params["sendCode"] = self.carInfoModel?.sendCode

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KuaijianChaxunViewController" customModule="ST" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="bEX-7P-6hr" id="tBb-Q6-R0c"/>
                 <outlet property="topContainer" destination="Nmb-gE-1v1" id="Tiw-15-4lS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="yFh-Ku-JfE" id="qGd-m2-Dw3"/>
@@ -23,20 +23,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-gE-1v1">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wpm-0o-1aX">
                             <rect key="frame" x="8" y="10" width="359" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运单号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeV-rG-KXQ">
-                                    <rect key="frame" x="6" y="10" width="57" height="21"/>
+                                    <rect key="frame" x="6" y="10" width="57" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入运单号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZbS-GO-Drh">
-                                    <rect key="frame" x="69" y="5" width="238" height="30"/>
-                                    <nil key="textColor"/>
+                                    <rect key="frame" x="69" y="3" width="238" height="34"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
@@ -60,14 +59,14 @@
                                 <constraint firstItem="VeV-rG-KXQ" firstAttribute="centerY" secondItem="Wpm-0o-1aX" secondAttribute="centerY" id="rbP-XY-y5e"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXf-ZM-2kO">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXf-ZM-2kO">
                             <rect key="frame" x="267" y="58" width="88" height="33"/>
                             <color key="backgroundColor" red="0.1137254902" green="0.72941176470000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="sgi-wA-6Ya"/>
                                 <constraint firstAttribute="width" constant="88" id="ziK-vi-Wka"/>
                             </constraints>
-                            <state key="normal" title="查询">
+                            <state key="normal" title="问题件查询">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -79,19 +78,64 @@
                                 <action selector="chaxunBtnClicked:" destination="-1" eventType="touchUpInside" id="3Bg-j2-XrF"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZ1-Kr-jRg" userLabel="infoView">
+                            <rect key="frame" x="0.0" y="99" width="367" height="201"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="bEX-7P-6hr">
+                                    <rect key="frame" x="0.0" y="0.0" width="367" height="201"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="2ph-cu-Q48"/>
+                                        <outlet property="delegate" destination="-1" id="TB0-Uq-KAR"/>
+                                    </connections>
+                                </tableView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="bEX-7P-6hr" firstAttribute="top" secondItem="tZ1-Kr-jRg" secondAttribute="top" id="XLg-Vm-Kb9"/>
+                                <constraint firstItem="bEX-7P-6hr" firstAttribute="leading" secondItem="tZ1-Kr-jRg" secondAttribute="leading" id="Ypl-pU-OHM"/>
+                                <constraint firstAttribute="bottom" secondItem="bEX-7P-6hr" secondAttribute="bottom" id="lZU-5M-ecz"/>
+                                <constraint firstAttribute="trailing" secondItem="bEX-7P-6hr" secondAttribute="trailing" id="zjf-7X-vHb"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3O4-Pe-SL0">
+                            <rect key="frame" x="16" y="58" width="100" height="33"/>
+                            <color key="backgroundColor" red="0.1137254902" green="0.72941176470000002" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="vVh-dk-Aqq"/>
+                                <constraint firstAttribute="width" constant="100" id="x9f-La-hT7"/>
+                            </constraints>
+                            <state key="normal" title="跟踪记录查询">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickFollowBtn:" destination="-1" eventType="touchUpInside" id="Mxr-dt-JI6"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Wpm-0o-1aX" firstAttribute="top" secondItem="Nmb-gE-1v1" secondAttribute="top" constant="10" id="0ii-Sv-cNo"/>
+                        <constraint firstAttribute="trailing" secondItem="tZ1-Kr-jRg" secondAttribute="trailing" constant="8" id="4mJ-tV-i2a"/>
                         <constraint firstItem="Wpm-0o-1aX" firstAttribute="leading" secondItem="Nmb-gE-1v1" secondAttribute="leading" constant="8" id="9nF-yS-qjf"/>
-                        <constraint firstAttribute="height" constant="110" id="IN2-oL-L71"/>
+                        <constraint firstAttribute="bottom" secondItem="tZ1-Kr-jRg" secondAttribute="bottom" id="ABw-c0-kPJ"/>
+                        <constraint firstItem="tZ1-Kr-jRg" firstAttribute="top" secondItem="3O4-Pe-SL0" secondAttribute="bottom" constant="8" id="AFP-bi-bPf"/>
+                        <constraint firstItem="3O4-Pe-SL0" firstAttribute="top" secondItem="Wpm-0o-1aX" secondAttribute="bottom" constant="8" symbolic="YES" id="D3l-Lj-nOy"/>
+                        <constraint firstAttribute="height" constant="300" id="IN2-oL-L71"/>
                         <constraint firstAttribute="trailing" secondItem="xXf-ZM-2kO" secondAttribute="trailing" constant="20" id="UNe-7s-9Ad"/>
+                        <constraint firstItem="tZ1-Kr-jRg" firstAttribute="leading" secondItem="Nmb-gE-1v1" secondAttribute="leading" id="hvK-xb-jIH"/>
                         <constraint firstItem="xXf-ZM-2kO" firstAttribute="top" secondItem="Wpm-0o-1aX" secondAttribute="bottom" constant="8" id="olM-vt-HKg"/>
                         <constraint firstAttribute="trailing" secondItem="Wpm-0o-1aX" secondAttribute="trailing" constant="8" id="vFz-tt-ams"/>
+                        <constraint firstItem="3O4-Pe-SL0" firstAttribute="leading" secondItem="Wpm-0o-1aX" secondAttribute="leading" constant="8" id="xoX-Mf-9Xu"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFh-Ku-JfE" customClass="WebView" customModule="ST" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                    <rect key="frame" x="0.0" y="300" width="375" height="367"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -110,5 +154,8 @@
     </objects>
     <resources>
         <image name="sao_yi_sao_icon" width="32" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

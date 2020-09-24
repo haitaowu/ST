@@ -38,7 +38,10 @@ class DSSignFooter: UITableViewHeaderFooterView {
 	
 	//MARK:- public 
 	func updateUI(model:UnFinishedModel?,signBlock: SignSendBlock?){
+		self.enableSignBtn()
 		self.signBlock = signBlock
+		return;
+		
 		if let carInfo = model{
 			self.carInfo = carInfo
 			if carInfo.deiverStatus == "0" {
@@ -47,10 +50,10 @@ class DSSignFooter: UITableViewHeaderFooterView {
 				self.disableSignBtn()
 			}
 		}else{
-				self.disableSignBtn()
+			self.disableSignBtn()
 		}
-
-  }
+		
+	}
 	
   //MARK:- selectors
   @IBAction func clickSignBtn(_ sender: Any) {

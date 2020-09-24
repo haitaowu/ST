@@ -987,7 +987,7 @@ class CompleteTicketControl:UITableViewController,QrInterface,WangdianPickerInte
 	///shou jidan di zhi
   func fetchSJAddress(params: Parameters?){
     self.showLoading(msg: "匹配地址信息...")
-	STHelper.FetchAddress(params: params) {
+	NetworkHelper.FetchAddress(params: params) {
 		[unowned self] (result, dataAry) in
 		self.hideLoading()
 		if(result == .reqSucc){

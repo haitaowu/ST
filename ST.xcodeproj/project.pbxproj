@@ -247,7 +247,8 @@
 		BE6B5CBA232DD6660076DB33 /* PwdBackCodeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6B5CB3232DD6640076DB33 /* PwdBackCodeController.xib */; };
 		BE6B5CBD232DD6BD0076DB33 /* SiteCenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */; };
 		BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B5CBE232DD7FE0076DB33 /* STConst.swift */; };
-		BE723EC52329EFB1005FC86C /* STHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE723EC42329EFB1005FC86C /* STHelper.swift */; };
+		BE71DCE525145018004B10DD /* DriSignController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71DCE425145018004B10DD /* DriSignController.swift */; };
+		BE723EC52329EFB1005FC86C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE723EC42329EFB1005FC86C /* NetworkHelper.swift */; };
 		BE73DACE24DE8BAD00925B3E /* PrinterSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */; };
 		BE839096229FAC8A0050C9F3 /* VanRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE839094229FAC8A0050C9F3 /* VanRecordController.swift */; };
 		BE839097229FAC8A0050C9F3 /* VanRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE839095229FAC8A0050C9F3 /* VanRecordController.xib */; };
@@ -630,7 +631,8 @@
 		BE6B5CB3232DD6640076DB33 /* PwdBackCodeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PwdBackCodeController.xib; sourceTree = "<group>"; };
 		BE6B5CBC232DD6BD0076DB33 /* SiteCenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteCenModel.swift; sourceTree = "<group>"; };
 		BE6B5CBE232DD7FE0076DB33 /* STConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STConst.swift; sourceTree = "<group>"; };
-		BE723EC42329EFB1005FC86C /* STHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHelper.swift; sourceTree = "<group>"; };
+		BE71DCE425145018004B10DD /* DriSignController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriSignController.swift; sourceTree = "<group>"; };
+		BE723EC42329EFB1005FC86C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BE73DACD24DE8BAD00925B3E /* PrinterSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrinterSDK.framework; sourceTree = "<group>"; };
 		BE839094229FAC8A0050C9F3 /* VanRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VanRecordController.swift; sourceTree = "<group>"; };
 		BE839095229FAC8A0050C9F3 /* VanRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VanRecordController.xib; sourceTree = "<group>"; };
@@ -1518,7 +1520,7 @@
 		BE723EC32329EFA7005FC86C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				BE723EC42329EFB1005FC86C /* STHelper.swift */,
+				BE723EC42329EFB1005FC86C /* NetworkHelper.swift */,
 				BE6B5CBE232DD7FE0076DB33 /* STConst.swift */,
 			);
 			path = Helper;
@@ -1940,6 +1942,7 @@
 				BEE746FE22C5128B002B241E /* DriHomeController.xib */,
 				BEE7470022C5128B002B241E /* DriMenuController.swift */,
 				BEE746FF22C5128B002B241E /* DriMenuController.xib */,
+				BE71DCE425145018004B10DD /* DriSignController.swift */,
 			);
 			path = Contrrollers;
 			sourceTree = "<group>";
@@ -2269,6 +2272,7 @@
 				8912B0DF1DD0E29F0021B160 /* QrInterface.swift in Sources */,
 				BEF205EF22E994770050E2A7 /* OperationHeader.swift in Sources */,
 				892583C81DC8DA9700285DB5 /* ConstraintMakerPriortizable.swift in Sources */,
+				BE71DCE525145018004B10DD /* DriSignController.swift in Sources */,
 				BE57CD6424BCAD5F00386DE2 /* DeliverBillPrinterController.m in Sources */,
 				893497D11DDAD27F00A505AF /* Webview.swift in Sources */,
 				BE6B5CB4232DD6660076DB33 /* UserModel.swift in Sources */,
@@ -2416,7 +2420,7 @@
 				892583BD1DC8DA9700285DB5 /* ConstraintInsetTarget.swift in Sources */,
 				BE38BD57228C0B770007B6E0 /* CustomTextView.m in Sources */,
 				BEA5B4C423A48E86000E1F9D /* TruckNumListController.swift in Sources */,
-				BE723EC52329EFB1005FC86C /* STHelper.swift in Sources */,
+				BE723EC52329EFB1005FC86C /* NetworkHelper.swift in Sources */,
 				892583B91DC8DA9700285DB5 /* ConstraintConstantTarget.swift in Sources */,
 				BE6B5CBF232DD7FE0076DB33 /* STConst.swift in Sources */,
 				BE44322B1F530F1C004069DF /* MaterialViewController.swift in Sources */,

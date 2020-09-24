@@ -32,7 +32,7 @@ struct Consts {
 	///3.图片下载地址测试
 	static var ImgServer = "http://58.215.182.252:8070/download/"
 
-	
+		
 	
 	#else
 	//生产环境的接口

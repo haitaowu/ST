@@ -210,7 +210,7 @@ class DeliverForeCastControl: BaseController,UITableViewDelegate,UITableViewData
 	//pai jian
 	func fetchBillDetailInfo(params: [String: Any]){
 		let reqUrl = Consts.Server + Consts.BaseUrl + "m8/dispPredictionBill.do"
-		STHelper.POST(url: reqUrl, params: params) {
+		NetworkHelper.POST(url: reqUrl, params: params) {
 			[unowned self](result, data) in
 			self.tableView.es.stopPullToRefresh()
 			if (result == .reqSucc) {
