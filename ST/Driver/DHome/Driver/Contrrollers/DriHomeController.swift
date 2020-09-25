@@ -436,8 +436,8 @@ class DriHomeController: BaseController,UITableViewDataSource,UITableViewDelegat
 	
 	//请求发车登记
 	func reqSendSign()->Void{
-		self.showSignView()
-		return;
+//		self.showSignView()
+//		return;
 		let dateStr = Date.init().dateStringFrom(dateFormat: "yyyy-MM-dd HH:mm:ss")
 		var params:[String:String] = [:]
 		params["sendCode"] = self.carInfoModel?.sendCode

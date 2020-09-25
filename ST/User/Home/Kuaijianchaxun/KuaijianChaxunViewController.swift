@@ -31,10 +31,10 @@ class KuaijianChaxunViewController: UIViewController,QrInterface {
         self.topContainer.bottomBorderWidth = 0.5
         self.title = "快件查询"
         #if DEBUG
-            self.yundanhaoField.text = "8000056666670"
+            self.yundanhaoField.text = "8000017719202"
         #endif
         
-        self.billInfoKeys = ["billCode,录单时间","sendSite,寄件几点","dispSite,目的网点","number,件数","weight,重量","weight,超长标识","weight,超重标识","weight,回单号"]
+        self.billInfoKeys = ["registerDate,录单时间","sendSite,寄件几点","dispSite,目的网点","goodsName,物品名称","number,件数","weight,重量","blOverLong,超长标识","blOverWeight,超重标识","rbillCode,回单号"]
         
         //1.录单时间：2.寄件网点 3.目的网点 4.货物名称 5.件数 6.重量
         // Do any additional setup after loading the view.
@@ -147,7 +147,10 @@ extension KuaijianChaxunViewController: UITableViewDataSource,UITableViewDelegat
             let keyAry = billKeys.split(separator: ",")
             let key = keyAry[0]
             let title = keyAry[1]
-            if let valStr = self.billInfo?["\(key)"]{
+            if var valStr = self.billInfo?["\(key)"]{
+				if (key == "blOverWeight") || (key == "blOverLong"){
+					valStr = (valStr as! String) == "1" ? "是" : "否"
+				}
                 let infoStr = "\(title):\(valStr)"
                 cell?.textLabel?.text = infoStr
             }
