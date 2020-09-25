@@ -47,19 +47,39 @@ class KuaijianChaxunViewController: UIViewController,QrInterface {
     
 	private func makeHtml(type: queryType) -> String{
         let header = "<header><meta name=\"viewport\" content=\"width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><meta charset=\"utf-8\"/></header>"
-		let contents = self.record.scan.map{
-			var content = ""
-			if type == .problem{
-				if $0.content.contains("问题件"){
-					content = "\($0.content)"
-				}
-			}else{
-				if !$0.content.contains("问题件"){
-					content = "\($0.content)"
+		var scanAry:[YundanChaxunScan] = []
+		if type == .problem {
+			for scan in self.record.scan{
+				if scan.content.contains("问题件"){
+					scanAry.append(scan)
 				}
 			}
+		}else{
+			for scan in self.record.scan{
+				if !scan.content.contains("问题件"){
+					scanAry.append(scan)
+				}
+			}
+		}
+		
+//		let contents = self.record.scan.map{
+//			if $0.content.isEmpty{
+//				return ""
+//			}
+//
+//			var content = ""
+//			if type == .problem{
+//				if $0.content.contains("问题件"){
+//					content = "\($0.content)"
+//				}
+//			}else{
+//				if !$0.content.contains("问题件"){
+//					content = "\($0.content)"
+//				}
+//			}
 			
-			return "<div class='day' style='margin-bottom: 8px;'>\($0.day)</div><div class='scan' style=' border-left-color: rgba(0, 0, 0, 0.62); border-left-style: solid; border-left-width: 1px; padding-left: 6px; margin-left: 6px; color: rgba(0, 0, 0, 0.62); font-size: 14px;'><div class='time'>\($0.time)</div><div class='content'>\(content)</div></div>" }.joined(separator: "")
+		let contents = scanAry.map{
+			 "<div class='day' style='margin-bottom: 8px;'>\($0.day)</div><div class='scan' style=' border-left-color: rgba(0, 0, 0, 0.62); border-left-style: solid; border-left-width: 1px; padding-left: 6px; margin-left: 6px; color: rgba(0, 0, 0, 0.62); font-size: 14px;'><div class='time'>\($0.time)</div><div class='content'>\($0.content)</div></div>" }.joined(separator: "")
         let body = "<body>\(contents)</body>"
         return "<!DOCTYPE html><html>\(header)\(body)</html>"
     }
@@ -158,6 +178,10 @@ extension KuaijianChaxunViewController: UITableViewDataSource,UITableViewDelegat
         
         return cell!
     }
+	
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 0.001
+	}
     
     
         
