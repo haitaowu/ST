@@ -346,7 +346,16 @@ int cjFlag=1;
 			NSString *subCode = [subCodesArra objectAtIndex:(idx-1)];
 			NSString *indexStr = [NSString stringWithFormat:@"%ld/%@",(long)idx,piecesNum];
 			//			[self printWithBillCode:billCodeStr subCode:subCode indexStr:indexStr];
-			[self sPrintBy:billData subCode:subCode indexStr:indexStr];
+//			[self sPrintBy:billData subCode:subCode indexStr:indexStr];
+			
+			if (idx == startNum) {
+				[self sPrintBy:billData subCode:subCode indexStr:indexStr];
+			}else{
+				int interval = idx;
+				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+					[self sPrintBy:billData subCode:subCode indexStr:indexStr];
+				});
+			}
 		}
 	}else{
 		NSString *indexStr = [NSString stringWithFormat:@"1/%@",piecesNum];
